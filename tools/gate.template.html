@@ -78,7 +78,6 @@ input[type=password]:focus{outline:none;border-color:var(--blue);background:#fff
   border:1px solid #F5C7C3;border-radius:11px;padding:10px 13px;display:none;
 }
 .err.on{display:block}
-.hint{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-3);line-height:1.55}
 
 /* ── каталог після розблокування ── */
 #vault{display:none}
@@ -145,7 +144,6 @@ footer a:hover{color:#fff}
       <button class="go-btn" type="submit" id="btn">Відкрити</button>
     </form>
     <div class="err" id="err"></div>
-    <p class="hint">Вміст цієї сторінки зашифровано AES-256-GCM. Ключ виводиться з пароля просто у вашому браузері — пароль нікуди не надсилається.</p>
   </div>
 </div>
 
@@ -177,7 +175,7 @@ footer a:hover{color:#fff}
 
   async function unlock(pass, silent){
     if (!window.crypto || !window.crypto.subtle) {
-      return fail('Браузер не дає доступу до криптографії. Сторінку треба відкривати через https://, а не як локальний файл.');
+      return fail('Сторінку треба відкривати за адресою https://, а не як локальний файл.');
     }
     btn.disabled = true;
     btn.textContent = 'Розшифровуємо…';
