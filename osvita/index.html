@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Освітня вертикаль — Портал послуг «Київ Цифровий»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Onest:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --grey:#F2F5FA;
+  --grey-2:#E6EBF4;
+  --white:#FFFFFF;
+  --ink:#16181D;
+  --ink-2:#4B5566;
+  --ink-3:#828C9C;
+  --line:#E3E8F0;
+  --line-2:#CFD8E6;
+  --blue:#2B63F0;
+  --blue-deep:#2456DC;
+  --blue-ink:#1A46C0;
+  --blue-soft:#E7EEFF;
+  --ok:#0E7A55;
+  --ok-soft:#DFF1E9;
+  --warn:#8E6200;
+  --warn-soft:#F7EEDA;
+  --crit:#C0392B;
+  --crit-soft:#FBE6E3;
+  --shadow:0 1px 2px rgba(22,24,29,.04), 0 12px 30px -20px rgba(22,24,29,.3);
+  --shadow-lg:0 2px 4px rgba(22,24,29,.05), 0 30px 60px -30px rgba(22,24,29,.35);
+  --f:"Onest","Helvetica Neue",Arial,system-ui,sans-serif;
+  --fm:"Manrope","Onest",Arial,system-ui,sans-serif;
+  --r:16px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;background:var(--grey);color:var(--ink);
+  font-family:var(--f);font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;overflow:hidden;
+}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:6px}
+
+/* ---------- progress ---------- */
+.progress{position:fixed;inset:0 0 auto 0;height:3px;background:var(--grey-2);z-index:60}
+.progress .bar{height:100%;width:0;background:var(--blue);transition:width .35s cubic-bezier(.4,0,.2,1)}
+
+/* ---------- deck ---------- */
+.deck{height:100%;display:flex;align-items:center;justify-content:center;padding:44px 20px 84px}
+.slide{display:none;width:100%;max-width:1080px;max-height:100%;overflow-y:auto;overscroll-behavior:contain}
+.slide.active{display:block;animation:in .32s cubic-bezier(.2,.7,.3,1) both}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:clamp(22px,3.4vw,44px)}
+.card.hero{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 20px 50px -30px rgba(43,99,240,.9)}
+.card.hero .eyebrow{color:rgba(255,255,255,.72)}
+.card.hero .eyebrow .dim{color:rgba(255,255,255,.55)}
+.card.hero .lead{color:rgba(255,255,255,.88)}
+.card.hero .stat{border-top-color:rgba(255,255,255,.24)}
+.card.hero .stat span{color:rgba(255,255,255,.68)}
+.card.hero .hint{color:rgba(255,255,255,.72)}
+.card.hero kbd{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.3);color:#fff}
+.eyebrow{font-family:var(--fm);font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin:0 0 16px;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.eyebrow .dim{color:var(--ink-3)}
+h1,h2,h3{font-family:var(--fm)}
+h1{font-size:clamp(34px,5.8vw,64px);line-height:1.02;letter-spacing:-.035em;font-weight:800;margin:0 0 .4em;text-wrap:balance}
+h2{font-size:clamp(25px,3.7vw,42px);line-height:1.1;letter-spacing:-.03em;font-weight:800;margin:0 0 .35em;text-wrap:balance}
+h3{font-size:15.5px;font-weight:700;letter-spacing:-.01em;margin:0 0 8px}
+.lead{font-size:clamp(16px,1.8vw,20px);line-height:1.5;color:var(--ink-2);margin:0 0 4px;max-width:62ch}
+p{margin:0 0 1em;max-width:66ch}
+p:last-child{margin-bottom:0}
+.muted{color:var(--ink-2)}
+.small{font-size:14px}
+
+/* ---------- chips ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chip{font-family:var(--fm);font-size:11.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:6px 12px;border-radius:999px;white-space:nowrap}
+.chip.b{background:var(--blue-soft);color:var(--blue-ink)}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.chip.crit{background:var(--crit-soft);color:var(--crit)}
+.chip.plain{background:var(--grey);color:var(--ink-2)}
+
+/* ---------- title slide ---------- */
+.title-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:clamp(20px,3vw,44px);align-items:end}
+@media (max-width:820px){.title-grid{grid-template-columns:1fr}}
+.stat{display:flex;flex-direction:column;gap:2px;padding:14px 0;border-top:1px solid var(--line)}
+.stat b{font-family:var(--fm);font-size:30px;font-weight:800;letter-spacing:-.03em}
+.stat span{font-size:13px;color:var(--ink-3)}
+.hint{margin-top:26px;font-size:13px;color:var(--ink-3);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+kbd{font-family:var(--fm);font-size:11px;font-weight:600;background:var(--grey);border:1px solid var(--line-2);border-bottom-width:2px;border-radius:6px;padding:2px 7px;color:var(--ink-2)}
+
+/* ---------- axis ---------- */
+.axis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:26px 0 18px}
+@media (max-width:860px){.axis{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.axis{grid-template-columns:1fr}}
+.stage{
+  text-align:left;background:var(--grey);border:1px solid transparent;border-radius:12px;
+  padding:14px 14px 16px;display:flex;flex-direction:column;gap:5px;transition:.18s;
+}
+.stage:hover{background:var(--white);border-color:var(--line-2)}
+.stage[aria-pressed="true"]{background:var(--blue-soft);border-color:var(--blue)}
+.stage .age{font-family:var(--fm);font-size:11.5px;font-weight:600;color:var(--blue);letter-spacing:.04em}
+.stage .nm{font-weight:600;font-size:14.5px;letter-spacing:-.01em}
+.stage .dt{font-size:12.5px;color:var(--ink-3);line-height:1.4}
+.axis-out{background:var(--blue-soft);border-radius:12px;padding:16px 18px;min-height:76px;font-size:14.5px;color:var(--ink-2)}
+.axis-out b{color:var(--ink)}
+
+/* ---------- block slide ---------- */
+.block-head{display:flex;gap:18px;align-items:flex-start}
+.bignum{
+  flex:none;width:56px;height:56px;border-radius:50%;background:var(--blue);color:#fff;
+  display:grid;place-items:center;font-family:var(--fm);font-weight:800;font-size:21px;
+  letter-spacing:-.02em;margin-top:4px;
+}
+@media (max-width:640px){.bignum{width:44px;height:44px;font-size:17px}}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.6vw,34px);margin-top:24px}
+@media (max-width:820px){.cols2{grid-template-columns:1fr}}
+ul.list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+ul.list li{position:relative;padding-left:20px;font-size:15px;color:var(--ink-2);line-height:1.45}
+ul.list li::before{content:"";position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:2px;background:var(--blue)}
+ul.list li b{color:var(--ink);font-weight:600}
+ol.list{margin:0;padding-left:1.25em;display:flex;flex-direction:column;gap:8px}
+ol.list li{font-size:14.5px;color:var(--ink-2);line-height:1.45}
+ol.list li b{color:var(--ink)}
+.metric{margin-top:22px;background:var(--grey);border-radius:12px;padding:14px 18px;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.metric .lb{font-family:var(--fm);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);flex:none}
+.metric .vl{font-size:15px;font-weight:500}
+
+/* ---------- disclosure ---------- */
+.more{margin-top:20px}
+.more-btn{
+  background:var(--white);border:1px solid var(--line-2);border-radius:999px;padding:8px 16px;
+  font-size:13.5px;font-weight:500;display:inline-flex;align-items:center;gap:8px;transition:.16s;
+}
+.more-btn:hover{border-color:var(--blue);color:var(--blue-ink)}
+.more-btn .ar{flex:none;transition:transform .2s}
+.more-btn[aria-expanded="true"] .ar{transform:rotate(90deg)}
+.more-body{margin-top:16px;border-top:1px solid var(--line);padding-top:18px}
+.more-body[hidden]{display:none}
+
+/* ---------- waves ---------- */
+.wavebar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.wbtn{background:var(--white);border:1px solid var(--line-2);border-radius:999px;padding:7px 16px;font-size:13.5px;transition:.16s}
+.wbtn:hover{border-color:var(--blue)}
+.wbtn[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:860px){.wgrid{grid-template-columns:1fr}}
+.wcard{background:var(--grey);border-radius:14px;padding:20px;border:1px solid transparent;transition:.2s}
+.wcard.on{background:var(--white);border-color:var(--blue);box-shadow:var(--shadow)}
+.wcard.off{opacity:.42}
+.wcard .tag{font-family:var(--fm);font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:6px}
+.wcard h3{font-size:18px;margin-bottom:8px}
+.wcard p{font-size:13.5px;color:var(--ink-2);margin:0 0 12px}
+.wlist{display:flex;flex-wrap:wrap;gap:6px}
+.wlist span{font-size:12px;background:var(--white);border:1px solid var(--line);border-radius:6px;padding:3px 8px;color:var(--ink-2)}
+.wcard.on .wlist span{background:var(--blue-soft);border-color:transparent;color:var(--blue-ink)}
+
+/* ---------- risk grid ---------- */
+.rgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:8px}
+@media (max-width:820px){.rgrid{grid-template-columns:1fr}}
+.risk{background:var(--grey);border-radius:14px;padding:18px 20px}
+.risk h3{margin-bottom:4px}
+.risk p{font-size:13.5px;color:var(--ink-2);margin:0}
+.qlist{counter-reset:q;list-style:none;margin:22px 0 0;padding:0}
+.qlist li{counter-increment:q;position:relative;padding:12px 0 12px 38px;border-top:1px solid var(--line);font-size:15px}
+.qlist li::before{
+  content:counter(q);position:absolute;left:0;top:13px;width:22px;height:22px;border-radius:50%;
+  background:var(--blue-soft);color:var(--blue-ink);font-family:var(--fm);font-size:11.5px;font-weight:700;
+  display:grid;place-items:center;
+}
+
+/* ---------- steps (final) ---------- */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+@media (max-width:820px){.steps{grid-template-columns:1fr}}
+.step{background:var(--grey);border-radius:14px;padding:20px}
+.step .n{font-family:var(--fm);font-size:11.5px;font-weight:600;color:var(--blue);letter-spacing:.1em;display:block;margin-bottom:8px}
+.step h3{font-size:16px}
+.step p{font-size:13.5px;color:var(--ink-2);margin:0}
+.doclink{
+  display:inline-flex;align-items:center;gap:8px;margin-top:26px;
+  background:var(--blue);color:#fff;text-decoration:none;
+  font-size:14px;font-weight:600;font-family:var(--fm);
+  padding:11px 20px;border-radius:999px;transition:.16s;
+}
+.doclink:hover{background:var(--blue-deep)}
+
+/* ---------- controls ---------- */
+.controls{
+  position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:50;
+  display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.92);
+  backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:999px;
+  padding:6px;box-shadow:var(--shadow);
+}
+.ctl{width:34px;height:34px;border:0;background:transparent;border-radius:999px;display:grid;place-items:center;color:var(--ink-2);transition:.15s}
+.ctl:hover:not(:disabled){background:var(--grey);color:var(--ink)}
+.ctl:disabled{opacity:.3;cursor:default}
+.ctl svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.counter{font-family:var(--fm);font-size:12.5px;font-weight:600;color:var(--ink-2);padding:0 8px;min-width:58px;text-align:center;font-variant-numeric:tabular-nums}
+.sep{width:1px;height:20px;background:var(--line);margin:0 2px}
+.ctl.wide{width:auto;padding:0 14px;font-size:12px;font-family:var(--fm);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.ctl.wide:hover{background:var(--blue-soft);color:var(--blue-ink)}
+
+/* ---------- dots ---------- */
+.dots{position:fixed;left:0;right:0;bottom:0;height:4px;display:flex;gap:2px;padding:0 10px 4px;z-index:40;pointer-events:none}
+
+/* ---------- overview ---------- */
+.overview{position:fixed;inset:0;background:rgba(242,245,250,.97);z-index:70;overflow-y:auto;padding:28px 20px 40px}
+.overview[hidden]{display:none}
+.ov-head{max-width:1180px;margin:0 auto 20px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.ov-head h2{font-size:20px;margin:0}
+.ov-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.ov-card{
+  background:var(--white);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:left;
+  display:flex;flex-direction:column;gap:6px;min-height:106px;transition:.16s;
+}
+.ov-card:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:var(--shadow)}
+.ov-card.current{border-color:var(--blue);background:var(--blue-soft)}
+.ov-card .i{font-family:var(--fm);font-size:11.5px;font-weight:700;color:var(--blue)}
+.ov-card .t{font-weight:600;font-size:14.5px;line-height:1.3;letter-spacing:-.01em}
+.ov-card .k{font-size:12px;color:var(--ink-3);margin-top:auto}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:640px){
+  .deck{padding:34px 12px 78px}
+  .card{border-radius:12px}
+  .block-head{gap:12px}
+}
+</style>
+</head>
+<body>
+
+<div class="progress"><div class="bar" id="bar"></div></div>
+
+<main class="deck" id="deck">
+
+<!-- 0 -->
+<section class="slide" data-nav="Титул" data-kicker="Концепт">
+  <div class="card hero">
+    <p class="eyebrow">Портал послуг «Київ Цифровий» <span class="dim">концепт освітньої вертикалі</span></p>
+    <div class="title-grid">
+      <div>
+        <h1>Освітня вертикаль</h1>
+        <p class="lead">Від розрізнених послуг — до одного шляху родини. Вісім блоків, зібраних навколо профілю дитини: садок, школа, гуртки, VR-екскурсії, портфоліо, табори, самоврядування, стипендії.</p>
+        <div class="hint">
+          <span>Гортати:</span><kbd>→</kbd><kbd>←</kbd><span>· усі сторінки</span><kbd>O</kbd><span>· на весь екран</span><kbd>F</kbd>
+        </div>
+      </div>
+      <div>
+        <div class="stat"><b>8</b><span>блоків послуг</span></div>
+        <div class="stat"><b>3</b><span>хвилі впровадження</span></div>
+        <div class="stat"><b>3–17</b><span>вік дитини, який покриває вертикаль</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 1 -->
+<section class="slide" data-nav="Проблема" data-kicker="Контекст">
+  <div class="card">
+    <p class="eyebrow">Контекст</p>
+    <h2>Родина щоразу починає спочатку</h2>
+    <p class="lead">Освітні послуги міста існують як окремі, не пов'язані точки контакту. Родина щоразу шукає наново, куди йти і що нести. Місто при цьому не бачить цілісної картини попиту.</p>
+    <div class="cols2">
+      <ul class="list">
+        <li><b>Щеплення</b> — черга в поліклініці по паперову довідку, хоча дані вже є в ЕСОЗ</li>
+        <li><b>Зарахування</b> — сайт школи, батьківські чати, дзвінки в приймальню</li>
+        <li><b>Гурток</b> — телефонний дзвінок керівнику й оплата переказом на картку</li>
+      </ul>
+      <ul class="list">
+        <li><b>Екскурсія</b> — чат батьківського комітету і місяць логістики</li>
+        <li><b>Путівка в табір</b> — паперова черга в соцзахисті, про право знають не всі</li>
+        <li><b>Стипендія</b> — наказ на сайті департаменту, який ніхто не читає</li>
+      </ul>
+    </div>
+    <div class="metric">
+      <span class="lb">Наслідок</span>
+      <span class="vl">Місто фінансує позашкілля, але не бачить траєкторії жодної дитини</span>
+    </div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-nav="Життєвий шлях" data-kicker="Ідея">
+  <div class="card">
+    <p class="eyebrow">Ідея</p>
+    <h2>Портал веде родину, а не пропонує каталог</h2>
+    <p class="lead">Каркас — вік дитини, а не структура департаментів. Натисніть етап, щоб побачити, які блоки на ньому працюють.</p>
+    <div class="axis" id="axis">
+      <button class="stage" type="button" aria-pressed="false" data-out="Черга в садок, карта закладів із вільними місцями. Тут родина вперше заходить у вертикаль — і заводить профіль дитини, який працюватиме наступні 14 років. <b>Блок 2</b>">
+        <span class="age">3–6 років</span><span class="nm">Садок</span><span class="dt">Черга, карта, вільні місця</span>
+      </button>
+      <button class="stage" type="button" aria-pressed="false" data-out="Приписна школа за адресою, заява на зарахування і цифрова ознака про щеплення замість паперової довідки. <b>Блоки 1, 2</b>">
+        <span class="age">6–7 років</span><span class="nm">Вступ до школи</span><span class="dt">Щеплення, приписна школа, заява</span>
+      </button>
+      <button class="stage" type="button" aria-pressed="false" data-out="Каталог гуртків із записом і оплатою, літні табори на тому ж рушії, VR-тури на уроках. Найдовший і найчастіший контакт із порталом. <b>Блоки 4, 5, 7</b>">
+        <span class="age">6–17 років</span><span class="nm">Гуртки, табори, VR-тури</span><span class="dt">Каталог, запис, оплата, розклад</span>
+      </button>
+      <button class="stage" type="button" aria-pressed="false" data-out="Усе, що дитина зробила, накопичується саме і відкриває доступ до міських стипендій і грантів. <b>Блоки 6, 8</b>">
+        <span class="age">7–17 років</span><span class="nm">Портфоліо і підтримка</span><span class="dt">Досягнення, стипендії, гранти</span>
+      </button>
+      <button class="stage" type="button" aria-pressed="false" data-out="Вибори президента школи, шкільний бюджет участі, ініціативи — на тих самих механіках, що вже працюють у місті. <b>Блок 3</b>">
+        <span class="age">14–17 років</span><span class="nm">Самоврядування</span><span class="dt">Вибори, бюджет участі, ініціативи</span>
+      </button>
+    </div>
+    <div class="axis-out" id="axisOut">Профіль дитини заповнюється один раз і переноситься між етапами. Блоки живлять один одного: гуртки й табори наповнюють портфоліо, портфоліо відкриває стипендії.</div>
+  </div>
+</section>
+
+<!-- 3 · Блок 1 -->
+<section class="slide" data-nav="Блок 1 · Щеплення" data-kicker="Хвиля 2">
+  <div class="card">
+    <p class="eyebrow">Блок 1 <span class="dim">· Хвиля 2</span></p>
+    <div class="block-head">
+      <span class="bignum">01</span>
+      <div>
+        <h2>Щеплення для вступу</h2>
+        <p class="lead">Щоб віддати дитину до садка чи першого класу, батьки їдуть до лікаря по форму 086-1/о та виписку 063-о. Ці дані вже існують в електронному вигляді в ЕСОЗ.</p>
+      </div>
+    </div>
+    <div class="cols2">
+      <div>
+        <h3>Що робимо</h3>
+        <ul class="list">
+          <li><b>Ознака</b> «щеплення відповідають календарю» — передається закладу без діагнозів і складу щеплень</li>
+          <li><b>Довідка</b> з QR у гаманці документів, коли потрібен саме документ</li>
+          <li><b>Тригер, а не пошук</b> — картка з'являється сама після подачі заяви на зарахування</li>
+          <li><b>Фолбек</b> через ЦНАП для дітей, яких немає в ЕСОЗ</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Чого не робимо</h3>
+        <ul class="list">
+          <li>Не блокуємо заяву при неповній вакцинації — рішення про допуск ухвалює лікарсько-консультативна комісія, а не портал</li>
+          <li>Не показуємо закладу медичні дані — тільки ознаку</li>
+          <li>Не оцінюємо відмову від вакцинації, лише фіксуємо факт</li>
+        </ul>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip crit">Складність висока — правова</span>
+      <span class="chip plain">Залежить від ЕСОЗ / НСЗУ</span>
+    </div>
+    <div class="metric"><span class="lb">Метрика</span><span class="vl">Частка заяв, де дані про щеплення підтягнуті з реєстру, а не принесені на папері</span></div>
+    <div class="more">
+      <button class="more-btn" type="button" aria-expanded="false"><svg class="ar" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg> Деталі: що потрібно до старту</button>
+      <div class="more-body" hidden>
+        <ol class="list">
+          <li><b>Угода з розпорядником ЕСОЗ</b> і регламент обміну — найдовший трек, стартує першим</li>
+          <li><b>Юридична модель згоди батьків</b> на разове отримання даних про дитину</li>
+          <li><b>Оцінка впливу на захист даних</b> — до початку розробки, а не після</li>
+          <li><b>Кабінет закладу</b>, який прийме ознаку замість паперу</li>
+        </ol>
+        <p class="small muted" style="margin-top:14px">Технічно блок нескладний. Уся складність — правова й організаційна.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · Блок 2 -->
+<section class="slide" data-nav="Блок 2 · Карта закладів" data-kicker="Хвиля 1">
+  <div class="card">
+    <p class="eyebrow">Блок 2 <span class="dim">· Хвиля 1 · перший реліз</span></p>
+    <div class="block-head">
+      <span class="bignum">02</span>
+      <div>
+        <h2>Садки і школи на карті</h2>
+        <p class="lead">«Яка школа за нашою адресою», «чи є місця», «чи є укриття», «скільки йти пішки» — жодне з цих питань не має сьогодні одного джерела відповіді.</p>
+      </div>
+    </div>
+    <div class="cols2">
+      <div>
+        <h3>Що показує картка закладу</h3>
+        <ul class="list">
+          <li><b>Приписна територія за адресою</b> — найчастіше питання і найсильніша функція блоку</li>
+          <li><b>Місткість і вільні місця</b> в наборі</li>
+          <li><b>Укриття</b> — наявність і місткість</li>
+          <li><b>Інклюзія, мова навчання, профільні класи</b></li>
+          <li><b>Маршрут від дому</b> — пішки або транспортом</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Чому це перший реліз</h3>
+        <ul class="list">
+          <li>Дані переважно вже належать місту</li>
+          <li>Картографія в порталі вже є</li>
+          <li>Чутливих персональних даних немає</li>
+          <li>Ефект видно за перший навчальний рік</li>
+        </ul>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip ok">Складність низька-середня</span>
+      <span class="chip plain">ІСУО · відкриті дані КМДА</span>
+    </div>
+    <div class="metric"><span class="lb">Метрика</span><span class="vl">Частка користувачів, що дійшли від карти до поданої заяви</span></div>
+    <div class="more">
+      <button class="more-btn" type="button" aria-expanded="false"><svg class="ar" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg> Деталі: головний ризик блоку</button>
+      <div class="more-body" hidden>
+        <p>Ризик не технічний, а операційний: <b>хто і як часто оновлює наповненість</b>. Карта з неправдивою кількістю вільних місць шкодить довірі сильніше, ніж відсутність сервісу.</p>
+        <p class="small muted">Побічний ефект для міста: частка родин, які подали заяву не в приписну школу, — це пряма аналітика реального попиту й основа для планування мережі закладів.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · Блок 3 -->
+<section class="slide" data-nav="Блок 3 · Самоврядування" data-kicker="Хвиля 3">
+  <div class="card">
+    <p class="eyebrow">Блок 3 <span class="dim">· Хвиля 3 · пілот раніше</span></p>
+    <div class="block-head">
+      <span class="bignum">03</span>
+      <div>
+        <h2>Шкільне самоврядування</h2>
+        <p class="lead">Вибори президента школи — це папірці в коробці, підрахунок у вчительській і нуль довіри до результату. Ідеї учнів не мають каналу, окрім розмови з директором.</p>
+      </div>
+    </div>
+    <div class="cols2">
+      <div>
+        <h3>Ті самі механіки, але в межах школи</h3>
+        <ul class="list">
+          <li><b>Вибори</b> президента школи та учнівської ради з прозорим підрахунком</li>
+          <li><b>Опитування</b> — меню їдальні, факультативи, формат випускного</li>
+          <li><b>Ініціативи</b> учнів з обов'язковою відповіддю адміністрації при досягненні порогу</li>
+          <li><b>Шкільний бюджет участі</b> — повний цикл громадського бюджету на реальних грошах</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Навіщо це місту</h3>
+        <p>Учень, який у 15 років проголосував за проєкт шкільного двору в застосунку, у 18 не питатиме, як брати участь у бюджеті участі міста — він уже вміє.</p>
+        <p class="small muted">Місто вирощує свого дорослого користувача і отримує зворотний зв'язок від вікової групи, яку зараз майже не чує.</p>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip crit">Складність висока — нормативна</span>
+      <span class="chip ok">Технічно найдешевший блок</span>
+    </div>
+    <div class="metric"><span class="lb">Метрика</span><span class="vl">Явка на шкільних виборах проти паперового формату; ініціативи, що отримали відповідь</span></div>
+    <div class="more">
+      <button class="more-btn" type="button" aria-expanded="false"><svg class="ar" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg> Деталі: що вирішити до розробки</button>
+      <div class="more-body" hidden>
+        <ul class="list">
+          <li><b>Ідентифікація неповнолітнього</b> — головне питання. Потрібне рішення, що не вимагає від дитини повного BankID</li>
+          <li><b>Роль адміністрації</b> — модерація потрібна, але якщо директор може зняти будь-яку ініціативу, інструмент помирає. Потрібні прозорі правила і видима причина зняття</li>
+          <li><b>Статус результату</b> — офіційний для школи чи дорадчий</li>
+        </ul>
+        <p class="small muted" style="margin-top:14px">Механіки голосувань і петицій у Київ Цифровому вже є — їх треба масштабувати до рівня закладу. Правильний вхід — пілот на 5–10 школах.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · Блок 4 -->
+<section class="slide" data-nav="Блок 4 · Гуртки" data-kicker="Хвиля 1">
+  <div class="card">
+    <p class="eyebrow">Блок 4 <span class="dim">· Хвиля 1</span></p>
+    <div class="block-head">
+      <span class="bignum">04</span>
+      <div>
+        <h2>Гуртки та позашкілля</h2>
+        <p class="lead">Єдиного місця, де видно всі гуртки Києва, не існує. Комунальні палаци дітей, спортивні й музичні школи мають величезну пропозицію, про яку більшість батьків не знає.</p>
+      </div>
+    </div>
+    <div class="cols2">
+      <div>
+        <h3>Що робимо</h3>
+        <ul class="list">
+          <li><b>Каталог із фільтрами</b> — вік, район, напрям, безкоштовно чи платно, вільні місця</li>
+          <li><b>Запис і оплата</b> онлайн з профілю дитини</li>
+          <li><b>Розклад у сімейному календарі</b> зі сповіщеннями</li>
+          <li><b>Маркетплейс</b> — комунальні заклади плюс приватні студії з модерацією</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Чому блок важливіший, ніж здається</h3>
+        <p>Тут будується рушій <b>«каталог → запис → оплата»</b>, який потім безкоштовно дістається блоку 7 (табори), а дані про заняття наповнюють блок 6 (портфоліо).</p>
+        <p class="small muted">Один блок першої хвилі здешевлює два блоки другої.</p>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip warn">Складність середня — операційна</span>
+      <span class="chip plain">Три департаменти · Картка киянина</span>
+    </div>
+    <div class="metric"><span class="lb">Метрика</span><span class="vl">Завантаженість комунальних гуртків до і після запуску — прямий показник ефективності бюджетних витрат</span></div>
+    <div class="more">
+      <button class="more-btn" type="button" aria-expanded="false"><svg class="ar" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg> Деталі: стратегія входу</button>
+      <div class="more-body" hidden>
+        <p>Головна складність не в коді, а в тому, щоб зібрати й підтримувати актуальні розклади сотень закладів, дані про які розпорошені по трьох департаментах.</p>
+        <ol class="list">
+          <li>Пілот на комунальних закладах одного департаменту</li>
+          <li>Розширення на решту комунальних</li>
+          <li>Відкриття кабінету провайдера для приватних студій</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · Блок 5 -->
+<section class="slide" data-nav="Блок 5 · VR-екскурсії" data-kicker="Хвиля 2">
+  <div class="card">
+    <p class="eyebrow">Блок 5 <span class="dim">· Хвиля 2</span></p>
+    <div class="block-head">
+      <span class="bignum">05</span>
+      <div>
+        <h2>VR-екскурсії Києвом і не тільки</h2>
+        <p class="lead">Фізична екскурсія — це транспорт, гроші, згоди, супровід і повітряна тривога. Але навіть коли все складається, ціла категорія об'єктів недоступна фізично взагалі.</p>
+      </div>
+    </div>
+    <div class="cols2">
+      <div>
+        <h3>Що показуємо</h3>
+        <ul class="list">
+          <li><b>Втрачене</b> — Десятинна церква, довоєнний Хрещатик, знищені обстрілами будівлі</li>
+          <li><b>Закрите</b> — підземелля, промислові об'єкти, інженерна інфраструктура міста</li>
+          <li><b>Далеке</b> — інші міста України та світу, зокрема через міста-побратими</li>
+          <li><b>360°-тури Києвом</b> — Софія, Лавра, музеї, метро: знімається раз, доступне всім школам одночасно</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Три рівні входу за технікою</h3>
+        <ol class="list">
+          <li><b>Браузер</b> на телефоні чи ноутбуці, 360° без окулярів — база, доступна всім</li>
+          <li><b>Картонні окуляри</b> плюс смартфон — дешево, підходить для класу</li>
+          <li><b>VR-шоломи</b> у шкільних VR-класах і міських хабах — там, де обладнання є</li>
+        </ol>
+        <p class="small muted" style="margin-top:14px">Урок, а не атракціон: тури прив'язані до програми, з методичкою і квізом. Результат іде в портфоліо.</p>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip crit">Складність висока — продакшн</span>
+      <span class="chip plain">Потребує окремого бюджету або грантів</span>
+    </div>
+    <div class="metric"><span class="lb">Метрика</span><span class="vl">Охоплення дітей, які фізично не могли б відвідати об'єкт: маломобільні, дистанційники, ВПО, діти за кордоном</span></div>
+    <div class="more">
+      <button class="more-btn" type="button" aria-expanded="false"><svg class="ar" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg> Деталі: ризики і старт</button>
+      <div class="more-body" hidden>
+        <ul class="list">
+          <li><b>Не робити ставку на шоломи</b> — обладнання дороге, його мало, воно ламається. База — 360° у браузері</li>
+          <li><b>Вік</b> — виробники окулярів не рекомендують їх дітям до 12–13 років. Для молодшої школи тільки екран</li>
+          <li><b>Портал не виробник, а вітрина</b> — 3D-реконструкція однієї втраченої будівлі це місяці роботи й окремий бюджет</li>
+        </ul>
+        <p class="small muted" style="margin-top:14px">Розумний старт: 5–7 турів, з них одна-дві реконструкції як флагман, під які можна заходити з грантами й партнерами.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · Блок 6 -->
+<section class="slide" data-nav="Блок 6 · Портфоліо" data-kicker="Хвиля 2">
+  <div class="card">
+    <p class="eyebrow">Блок 6 <span class="dim">· Хвиля 2</span></p>
+    <div class="block-head">
+      <span class="bignum">06</span>
+      <div>
+        <h2>Цифрове портфоліо дитини</h2>
+        <p class="lead">Грамоти лежать у шафі, гуртки не зафіксовані ніде. При кожній комісії — вступ до ліцею, конкурс, стипендія — батьки збирають папір заново і згадують, у якому році що було.</p>
+      </div>
+    </div>
+    <div class="cols2">
+      <div>
+        <h3>Заповнюється переважно саме</h3>
+        <ul class="list">
+          <li><b>Автоматично</b> — гуртки, VR-тури і квізи, зміни в таборах, шкільні ініціативи</li>
+          <li><b>Верифіковано закладом</b> — олімпіади, конкурси, спортивні розряди</li>
+          <li><b>Самостійно</b> — проєкти й волонтерство, з чесною позначкою «не верифіковано»</li>
+          <li><b>Шеринг посиланням</b> для комісії чи стипендійної програми — з вибором, що показувати</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Три принципи, без яких блок шкідливий</h3>
+        <ol class="list">
+          <li><b>Належить родині, а не школі</b> — школа може додати підтверджений запис, але не володіє портфоліо</li>
+          <li><b>Не рейтинг</b> — жодних балів, порівнянь і публічних топів. Тільки факти</li>
+          <li><b>Приватне за замовчуванням</b> — після 18 років власність переходить самому користувачу</li>
+        </ol>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip warn">Складність середня</span>
+      <span class="chip ok">Агрегує дані, які вертикаль уже збирає</span>
+    </div>
+    <div class="metric"><span class="lb">Метрика</span><span class="vl">Частка записів, що з'явилися автоматично, а не вручну; кількість шерингів портфоліо</span></div>
+    <div class="more">
+      <button class="more-btn" type="button" aria-expanded="false"><svg class="ar" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg> Деталі: головний ризик</button>
+      <div class="more-body" hidden>
+        <p>Ризик не технічний, а продуктовий: накопичувальний профіль дитини <b>дуже легко перетворюється на рейтинг</b> — і стає інструментом тиску на дітей та змагання батьків.</p>
+        <p>Рішення «без балів, без рейтингів, без публічних топів» треба зафіксувати як принцип на старті. Потім його продавлять.</p>
+        <p class="small muted">Блок дешевіє тим більше, чим більше блоків запущено до нього: без блоку 4 портфоліо порожнє, без кабінету закладу — не верифіковане.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 · Блок 7 -->
+<section class="slide" data-nav="Блок 7 · Табори" data-kicker="Хвиля 2">
+  <div class="card">
+    <p class="eyebrow">Блок 7 <span class="dim">· Хвиля 2</span></p>
+    <div class="block-head">
+      <span class="bignum">07</span>
+      <div>
+        <h2>Літні табори</h2>
+        <p class="lead">Щороку в квітні кожна родина шукає, куди подіти дитину на канікулах. Місця розбирають за дні, а пільгові путівки йдуть паперовою чергою через соцзахист — і про право на них багато родин просто не знає.</p>
+      </div>
+    </div>
+    <div class="cols2">
+      <div>
+        <h3>Що робимо</h3>
+        <ul class="list">
+          <li><b>Каталог таборів</b> — тип, зміни й дати, вік, вартість, умови, укриття, медсупровід</li>
+          <li><b>Запис і оплата</b> онлайн, лист очікування при відсутності місць</li>
+          <li><b>Пільгові путівки онлайн</b> — перевірка права за реєстрами, видимий статус розгляду замість походів у соцзахист</li>
+          <li><b>Квітневий тригер</b> — портал сам нагадує, поки місця ще є</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Чому це дешево</h3>
+        <p>Каталог, запис і оплата вже будуть готові з блоку 4. Тому табори йдуть одразу після гуртків — це <b>перевикористання, а не нова розробка</b>.</p>
+        <p class="small muted">Нове тут лише одне: міжвідомча взаємодія з соцполітикою щодо пільгових путівок.</p>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip ok">Складність низька — після блоку 4</span>
+      <span class="chip crit">Жорстка сезонність</span>
+    </div>
+    <div class="metric"><span class="lb">Метрика</span><span class="vl">Частка пільгових путівок, розподілених через портал, а не в паперовій черзі</span></div>
+    <div class="more">
+      <button class="more-btn" type="button" aria-expanded="false"><svg class="ar" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg> Деталі: дедлайн, який не можна пропустити</button>
+      <div class="more-body" hidden>
+        <p>Блок має жорстке вікно: <b>не готовий до квітня — втрачений рік</b>. Це треба закладати в план релізів, а не з'ясовувати по ходу.</p>
+        <p class="small muted">Найцінніша метрика тут неочевидна: кількість родин, які дізналися про своє право на безкоштовну путівку саме з порталу. Сьогодні про це не знає ніхто, крім тих, кому пощастило спитати.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 · Блок 8 -->
+<section class="slide" data-nav="Блок 8 · Стипендії" data-kicker="Хвиля 3">
+  <div class="card">
+    <p class="eyebrow">Блок 8 <span class="dim">· Хвиля 3</span></p>
+    <div class="block-head">
+      <span class="bignum">08</span>
+      <div>
+        <h2>Стипендії та гранти для школярів</h2>
+        <p class="lead">Міські стипендії, іменні відзнаки й гранти існують. Але інформація лежить у наказах на сайтах департаментів, подача паперова, критерії незрозумілі. Підтримка доходить не до тих, кому належить, а до тих, хто про неї знав.</p>
+      </div>
+    </div>
+    <div class="cols2">
+      <div>
+        <h3>Що робимо</h3>
+        <ul class="list">
+          <li><b>Персональний підбір</b> — портал сам показує програми, під які дитина підходить, за віком, гуртками і портфоліо</li>
+          <li><b>Каталог програм</b> з критеріями, сумами і дедлайнами замість PDF-наказів</li>
+          <li><b>Подача онлайн</b> з автозаповненням із портфоліо</li>
+          <li><b>Прозорі результати</b> — з критеріями оцінювання, а не лише списком прізвищ</li>
+          <li><b>Гранти на учнівські проєкти</b> — продовження шкільного бюджету участі на рівень міста</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Головна зміна</h3>
+        <p>Сервіс не чекає, поки родина знайде програму — <b>він знаходить родину</b>. Це можливо лише тому, що портал уже знає гуртки й досягнення дитини.</p>
+        <p class="small muted">Без блоку 6 автозаповнення не працює, і залишається звичайна форма.</p>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip crit">Складність висока — нормативна й бюджетна</span>
+      <span class="chip plain">Залежить від блоку 6</span>
+    </div>
+    <div class="metric"><span class="lb">Метрика</span><span class="vl">Географія заявок по районах — чи дійшла підтримка до дітей поза центром і сильними ліцеями</span></div>
+    <div class="more">
+      <button class="more-btn" type="button" aria-expanded="false"><svg class="ar" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg> Деталі: що доведеться змінити</button>
+      <div class="more-body" hidden>
+        <ul class="list">
+          <li><b>Порядок призначення стипендій</b> затверджується нормативно — перехід на електронну подачу потребує рішення</li>
+          <li><b>Виплати</b> — на рахунок або через Картку киянина, з видимою історією</li>
+          <li><b>Публічність критеріїв і результатів</b> — потрібна воля це зробити, інакше блок втрачає головний сенс</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-nav="Хвилі впровадження" data-kicker="План">
+  <div class="card">
+    <p class="eyebrow">План</p>
+    <h2>Три хвилі</h2>
+    <p class="lead">Черговість визначає не цінність, а залежності: чим менше блок залежить від зовнішніх реєстрів і нормативки, тим раніше він виходить.</p>
+    <div class="wavebar" id="wavebar">
+      <button class="wbtn" type="button" data-w="all" aria-pressed="true">Усі хвилі</button>
+      <button class="wbtn" type="button" data-w="1" aria-pressed="false">Хвиля 1</button>
+      <button class="wbtn" type="button" data-w="2" aria-pressed="false">Хвиля 2</button>
+      <button class="wbtn" type="button" data-w="3" aria-pressed="false">Хвиля 3</button>
+    </div>
+    <div class="wgrid" id="wgrid">
+      <div class="wcard" data-w="1">
+        <span class="tag">Хвиля 1 · Знайти</span>
+        <h3>Карта і каталог</h3>
+        <p>Родина отримує відповідь на два найчастіші питання: куди піде дитина вчитися і куди на гурток. Паралельно будується профіль родини і рушій «каталог → запис → оплата».</p>
+        <div class="wlist"><span>2 · Садки і школи на карті</span><span>4 · Гуртки</span></div>
+      </div>
+      <div class="wcard" data-w="2">
+        <span class="tag">Хвиля 2 · Отримати</span>
+        <h3>Від інформування до результату</h3>
+        <p>Табори йдуть першими — вони перевикористовують блок 4 і мають дедлайн сезону. Правова робота з ЕСОЗ і виробництво VR-контенту стартують заздалегідь: вони довші за код.</p>
+        <div class="wlist"><span>7 · Табори</span><span>1 · Щеплення</span><span>6 · Портфоліо</span><span>5 · VR-екскурсії</span></div>
+      </div>
+      <div class="wcard" data-w="3">
+        <span class="tag">Хвиля 3 · Брати участь</span>
+        <h3>Нормативка і партнери</h3>
+        <p>Обидва блоки спираються на попередні хвилі: стипендії на портфоліо, самоврядування на кабінет закладу. Пілот самоврядування на 5–10 школах варто запустити раніше.</p>
+        <div class="wlist"><span>8 · Стипендії</span><span>3 · Самоврядування</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-nav="Ризики" data-kicker="Чесно">
+  <div class="card">
+    <p class="eyebrow">Чесно</p>
+    <h2>Що може зламати вертикаль</h2>
+    <div class="rgrid">
+      <div class="risk">
+        <h3>Персональні дані дітей</h3>
+        <p>Наскрізний ризик, найгостріший у блоках 1, 3 і 6. Модель згоди, мінімізація даних і оцінка впливу потрібні до початку розробки, а не після.</p>
+      </div>
+      <div class="risk">
+        <h3>Залежність від власників даних</h3>
+        <p>Місто не володіє ЕСОЗ та ІСУО, пільгові категорії лежать у соцполітиці. Кожен такий блок — спершу переговори й регламенти, і лише потім код.</p>
+      </div>
+      <div class="risk">
+        <h3>Актуальність даних</h3>
+        <p>Карта з неправдивою кількістю місць або каталог таборів із торішніми змінами шкодять довірі сильніше, ніж відсутність сервісу.</p>
+      </div>
+      <div class="risk">
+        <h3>Цифрова нерівність</h3>
+        <p>Частина родин не користується застосунком — і це часто саме ті, кому найбільше потрібні пільгові путівки й стипендії. Офлайн-фолбек обов'язковий.</p>
+      </div>
+    </div>
+    <h3 style="margin:26px 0 0">Питання, на які потрібні відповіді до старту</h3>
+    <ol class="qlist">
+      <li>Чи є перспектива домовленості з НСЗУ щодо доступу до даних вакцинації дітей?</li>
+      <li>Хто в КМДА володіє даними про наповненість закладів і чи готовий оновлювати їх регулярно?</li>
+      <li>Яка модель ідентифікації неповнолітнього прийнятна юридично?</li>
+      <li>Чи готова соцполітика перевести розподіл пільгових путівок в онлайн?</li>
+      <li>Чи є бюджет або гранти на виробництво VR-контенту і хто замовник?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="slide" data-nav="Наступні кроки" data-kicker="Далі">
+  <div class="card">
+    <p class="eyebrow">Далі</p>
+    <h2>Три кроки, які можна зробити зараз</h2>
+    <p class="lead">Найдовші треки — не розробка, а доступи й домовленості. Вони мають початися першими, паралельно з першою хвилею.</p>
+    <div class="steps">
+      <div class="step">
+        <span class="n">КРОК 1</span>
+        <h3>Відкрити треки доступу</h3>
+        <p>Стартувати переговори щодо ЕСОЗ, ІСУО та реєстрів соцполітики. Це місяці, а не тижні — і вони не залежать від коду.</p>
+      </div>
+      <div class="step">
+        <span class="n">КРОК 2</span>
+        <h3>Зафіксувати принципи</h3>
+        <p>Мінімізація даних, портфоліо без рейтингів, офлайн-фолбек у кожній послузі. Записати до розробки, поки їх легко записати.</p>
+      </div>
+      <div class="step">
+        <span class="n">КРОК 3</span>
+        <h3>Запустити першу хвилю</h3>
+        <p>Карта закладів і каталог гуртків. Найменше залежностей, найшвидший видимий ефект — і фундамент для решти шести блоків.</p>
+      </div>
+    </div>
+    <a class="doclink" href="https://claude.ai/code/artifact/bce45743-70b2-4017-a2a1-cb730b009adc" target="_blank" rel="noopener">Повний документ із деталями по кожному блоку →</a>
+  </div>
+</section>
+
+</main>
+
+<nav class="controls" aria-label="Навігація презентацією">
+  <button class="ctl" id="prev" type="button" aria-label="Попередня сторінка">
+    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <span class="counter" id="counter">1 / 14</span>
+  <button class="ctl" id="next" type="button" aria-label="Наступна сторінка">
+    <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <span class="sep"></span>
+  <button class="ctl wide" id="ovBtn" type="button" aria-label="Усі сторінки">Усі</button>
+  <button class="ctl" id="fsBtn" type="button" aria-label="На весь екран">
+    <svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+  </button>
+</nav>
+
+<div class="overview" id="overview" hidden>
+  <div class="ov-head">
+    <h2>Усі сторінки</h2>
+    <button class="more-btn" id="ovClose" type="button">Закрити <kbd>Esc</kbd></button>
+  </div>
+  <div class="ov-grid" id="ovGrid"></div>
+</div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var total = slides.length;
+  var i = 0;
+  var bar = document.getElementById('bar');
+  var counter = document.getElementById('counter');
+  var prev = document.getElementById('prev');
+  var next = document.getElementById('next');
+  var overview = document.getElementById('overview');
+  var ovGrid = document.getElementById('ovGrid');
+
+  function render(){
+    slides.forEach(function(s, n){ s.classList.toggle('active', n === i); });
+    counter.textContent = (i + 1) + ' / ' + total;
+    bar.style.width = ((i) / (total - 1) * 100) + '%';
+    prev.disabled = i === 0;
+    next.disabled = i === total - 1;
+    var active = slides[i];
+    if (active) active.scrollTop = 0;
+    Array.prototype.forEach.call(ovGrid.children, function(c, n){
+      c.classList.toggle('current', n === i);
+    });
+    if (history.replaceState) history.replaceState(null, '', '#' + (i + 1));
+  }
+
+  function go(n){
+    i = Math.max(0, Math.min(total - 1, n));
+    render();
+  }
+
+  prev.addEventListener('click', function(){ go(i - 1); });
+  next.addEventListener('click', function(){ go(i + 1); });
+
+  // overview
+  slides.forEach(function(s, n){
+    var b = document.createElement('button');
+    b.className = 'ov-card';
+    b.type = 'button';
+    b.innerHTML = '<span class="i">' + String(n + 1).padStart(2, '0') + '</span>' +
+                  '<span class="t"></span><span class="k"></span>';
+    b.querySelector('.t').textContent = s.getAttribute('data-nav') || ('Сторінка ' + (n + 1));
+    b.querySelector('.k').textContent = s.getAttribute('data-kicker') || '';
+    b.addEventListener('click', function(){ closeOv(); go(n); });
+    ovGrid.appendChild(b);
+  });
+
+  function openOv(){ overview.hidden = false; }
+  function closeOv(){ overview.hidden = true; }
+  function toggleOv(){ overview.hidden ? openOv() : closeOv(); }
+  document.getElementById('ovBtn').addEventListener('click', toggleOv);
+  document.getElementById('ovClose').addEventListener('click', closeOv);
+
+  // fullscreen
+  document.getElementById('fsBtn').addEventListener('click', function(){
+    if (!document.fullscreenElement) {
+      if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  });
+
+  // disclosures
+  document.querySelectorAll('.more-btn[aria-expanded]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      var body = btn.parentNode.querySelector('.more-body');
+      if (body) body.hidden = open;
+    });
+  });
+
+  // axis
+  var axis = document.getElementById('axis');
+  var axisOut = document.getElementById('axisOut');
+  var axisDefault = axisOut.innerHTML;
+  if (axis) {
+    axis.querySelectorAll('.stage').forEach(function(st){
+      st.addEventListener('click', function(){
+        var on = st.getAttribute('aria-pressed') === 'true';
+        axis.querySelectorAll('.stage').forEach(function(o){ o.setAttribute('aria-pressed', 'false'); });
+        if (on) { axisOut.innerHTML = axisDefault; }
+        else { st.setAttribute('aria-pressed', 'true'); axisOut.innerHTML = st.getAttribute('data-out'); }
+      });
+    });
+  }
+
+  // waves
+  var wavebar = document.getElementById('wavebar');
+  if (wavebar) {
+    var wcards = document.querySelectorAll('#wgrid .wcard');
+    wavebar.querySelectorAll('.wbtn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var w = btn.getAttribute('data-w');
+        wavebar.querySelectorAll('.wbtn').forEach(function(b){ b.setAttribute('aria-pressed', String(b === btn)); });
+        wcards.forEach(function(c){
+          var match = w === 'all' || c.getAttribute('data-w') === w;
+          c.classList.toggle('on', match && w !== 'all');
+          c.classList.toggle('off', !match);
+        });
+      });
+    });
+  }
+
+  // keyboard
+  document.addEventListener('keydown', function(e){
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var k = e.key;
+    if (k === 'Escape') { closeOv(); return; }
+    if (k === 'o' || k === 'O' || k === 'щ' || k === 'Щ') { e.preventDefault(); toggleOv(); return; }
+    if (k === 'f' || k === 'F' || k === 'а' || k === 'А') { e.preventDefault(); document.getElementById('fsBtn').click(); return; }
+    if (!overview.hidden) return;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ') { e.preventDefault(); go(i + 1); }
+    else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); go(i - 1); }
+    else if (k === 'Home') { e.preventDefault(); go(0); }
+    else if (k === 'End') { e.preventDefault(); go(total - 1); }
+  });
+
+  // touch
+  var x0 = null, y0 = null;
+  document.addEventListener('touchstart', function(e){
+    x0 = e.changedTouches[0].clientX; y0 = e.changedTouches[0].clientY;
+  }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    var dy = e.changedTouches[0].clientY - y0;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.6) go(dx < 0 ? i + 1 : i - 1);
+    x0 = null; y0 = null;
+  }, {passive:true});
+
+  // restore from hash
+  var start = parseInt((location.hash || '').replace('#', ''), 10);
+  if (!isNaN(start) && start >= 1 && start <= total) i = start - 1;
+  render();
+})();
+</script>
+</body>
+</html>

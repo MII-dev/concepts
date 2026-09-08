@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Концепти</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --bg:#FFFFFF; --panel:#FFFFFF; --panel-2:#F7F7F9;
+  --line:#E5E5EA; --line-2:#CECECE;
+  --ink:#1D1D1F; --ink-2:#5C5A5A; --ink-3:#878383;
+  --blue:#0069FF; --blue-2:#0057D6; --blue-soft:#F1F7FF; --blue-line:#C7DEFF;
+  --red:#D0342C;
+  --sh:0 1px 2px rgba(29,29,31,.04), 0 10px 26px -18px rgba(29,29,31,.22);
+  --d:"Unbounded","Onest",system-ui,sans-serif;
+  --f:"Onest","Helvetica Neue",Arial,system-ui,sans-serif;
+  --m:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--ink);font-family:var(--f);
+  font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(900px 520px at 84% -12%, rgba(0,105,255,.08), transparent 62%),
+    radial-gradient(700px 460px at 0% 0%, rgba(0,105,255,.04), transparent 60%);
+  background-attachment:fixed;min-height:100vh;display:flex;flex-direction:column;
+}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:8px}
+::selection{background:var(--blue);color:#fff}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px;width:100%}
+@media(max-width:640px){.wrap{padding:0 16px}}
+h1,h2,h3,h4{font-family:var(--d);letter-spacing:-.03em;margin:0;font-weight:800;line-height:1.05}
+h1{font-size:clamp(32px,5.6vw,60px);text-wrap:balance}
+p{margin:0 0 1em}
+p:last-child{margin-bottom:0}
+.kicker{
+  font-family:var(--m);font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--blue);display:flex;align-items:center;gap:10px;margin:0 0 20px;
+}
+.kicker::before{content:"";width:26px;height:2px;background:var(--blue);border-radius:2px;flex:none}
+.lead{font-size:clamp(16.5px,1.9vw,20px);color:var(--ink-2);max-width:62ch;margin-top:20px}
+
+/* ── замок ── */
+.gate{flex:1;display:grid;place-items:center;padding:40px 24px}
+.gate-card{
+  width:100%;max-width:430px;background:var(--panel);border:1px solid var(--line);
+  border-radius:22px;padding:clamp(28px,5vw,40px);box-shadow:var(--sh);
+}
+.lock{
+  width:52px;height:52px;border-radius:16px;background:var(--blue-soft);border:1px solid var(--blue-line);
+  display:grid;place-items:center;margin-bottom:22px;
+}
+.lock svg{width:23px;height:23px;fill:none;stroke:var(--blue);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.gate-card h1{font-size:27px;margin-bottom:8px}
+.gate-card .sub{font-size:14.5px;color:var(--ink-2);margin-bottom:24px}
+.field{display:flex;flex-direction:column;gap:9px}
+.field label{font-family:var(--m);font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+input[type=password]{
+  font:inherit;font-size:16px;padding:13px 16px;border-radius:13px;
+  border:1px solid var(--line-2);background:var(--panel-2);color:var(--ink);width:100%;
+  transition:.16s;
+}
+input[type=password]:focus{outline:none;border-color:var(--blue);background:#fff;box-shadow:0 0 0 3px var(--blue-soft)}
+.go-btn{
+  margin-top:16px;width:100%;font:inherit;font-weight:600;font-size:15px;color:#fff;
+  background:var(--blue);border:0;border-radius:999px;padding:14px 20px;cursor:pointer;transition:.18s;
+}
+.go-btn:hover:not(:disabled){background:var(--blue-2)}
+.go-btn:disabled{opacity:.55;cursor:default}
+.err{
+  margin-top:14px;font-size:13.5px;color:var(--red);background:#FDECEA;
+  border:1px solid #F5C7C3;border-radius:11px;padding:10px 13px;display:none;
+}
+.err.on{display:block}
+.hint{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-3);line-height:1.55}
+
+/* ── каталог після розблокування ── */
+#vault{display:none}
+#vault.on{display:block;animation:in .35s cubic-bezier(.2,.8,.3,1) both}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+header{padding:clamp(56px,8vw,96px) 0 clamp(30px,4vw,46px)}
+main{flex:1;padding-bottom:clamp(48px,7vw,88px)}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:860px){.cards{grid-template-columns:1fr}}
+.deck{
+  display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);
+  border-radius:20px;padding:28px;box-shadow:var(--sh);transition:.2s;text-decoration:none;
+}
+.deck:hover{border-color:var(--blue-line);transform:translateY(-3px);box-shadow:0 4px 10px rgba(29,29,31,.05),0 26px 50px -26px rgba(0,105,255,.4)}
+.deck .tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
+.deck .tag{
+  font-family:var(--m);font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 11px;border-radius:999px;background:var(--panel-2);border:1px solid var(--line);color:var(--ink-3);
+}
+.deck .tag.b{background:var(--blue-soft);border-color:var(--blue-line);color:var(--blue)}
+.deck h2{font-size:clamp(21px,2.4vw,27px);font-weight:600;margin-bottom:10px}
+.deck .sub{font-size:14.5px;color:var(--ink-2);margin-bottom:18px;line-height:1.55}
+.deck ul{margin:0 0 22px;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.deck li{position:relative;padding-left:20px;font-size:13.5px;color:var(--ink-3);line-height:1.45}
+.deck li::before{content:"";position:absolute;left:2px;top:8px;width:5px;height:5px;border-radius:2px;background:var(--blue)}
+.deck .go{
+  margin-top:auto;display:inline-flex;align-items:center;gap:9px;font-family:var(--d);
+  font-weight:600;font-size:14.5px;letter-spacing:-.01em;color:var(--blue);
+}
+.deck:hover .go svg{transform:translateX(3px)}
+.deck .go svg{transition:.2s}
+.sidelinks{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:22px}
+.sidelinks a{font-size:13.5px;color:var(--ink-3);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:1px;transition:.16s}
+.sidelinks a:hover{color:var(--blue);border-color:var(--blue)}
+.note{margin-top:28px;background:var(--panel-2);border:1px solid var(--line);border-radius:16px;padding:20px 24px;font-size:14px;color:var(--ink-2);line-height:1.6}
+.note b{color:var(--ink)}
+footer{background:#1D1D1F;color:rgba(255,255,255,.55);padding:34px 0;font-size:13px}
+footer .row{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:center}
+footer a{color:rgba(255,255,255,.72);text-decoration:none}
+footer a:hover{color:#fff}
+.lockout{
+  display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-3);
+  background:none;border:1px solid var(--line-2);border-radius:999px;padding:6px 13px;
+  cursor:pointer;font-family:inherit;transition:.16s;margin-top:22px;
+}
+.lockout:hover{color:var(--blue);border-color:var(--blue)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <div class="lock">
+      <svg viewBox="0 0 24 24"><rect x="4" y="10.5" width="16" height="10.5" rx="2.4"/><path d="M8 10.5V7a4 4 0 018 0v3.5"/></svg>
+    </div>
+    <h1>Концепти</h1>
+    <p class="sub">Сторінка захищена паролем. Самі концепти відкриваються за прямим посиланням без пароля.</p>
+    <form id="form" autocomplete="off">
+      <div class="field">
+        <label for="pw">Пароль</label>
+        <input type="password" id="pw" name="pw" autocomplete="current-password" autofocus>
+      </div>
+      <button class="go-btn" type="submit" id="btn">Відкрити</button>
+    </form>
+    <div class="err" id="err"></div>
+    <p class="hint">Вміст цієї сторінки зашифровано AES-256-GCM. Ключ виводиться з пароля просто у вашому браузері — пароль нікуди не надсилається.</p>
+  </div>
+</div>
+
+<div id="vault"></div>
+
+<script>
+(function(){
+  var SALT = "__SALT__", IV = "__IV__", DATA = "__DATA__", ITER = __ITER__;
+  var gate = document.getElementById('gate'),
+      vault = document.getElementById('vault'),
+      form = document.getElementById('form'),
+      pw = document.getElementById('pw'),
+      btn = document.getElementById('btn'),
+      err = document.getElementById('err');
+
+  function b64(s){
+    var bin = atob(s), a = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) a[i] = bin.charCodeAt(i);
+    return a;
+  }
+
+  function fail(msg){
+    err.textContent = msg;
+    err.classList.add('on');
+    btn.disabled = false;
+    btn.textContent = 'Відкрити';
+    pw.select();
+  }
+
+  async function unlock(pass, silent){
+    if (!window.crypto || !window.crypto.subtle) {
+      return fail('Браузер не дає доступу до криптографії. Сторінку треба відкривати через https://, а не як локальний файл.');
+    }
+    btn.disabled = true;
+    btn.textContent = 'Розшифровуємо…';
+    err.classList.remove('on');
+    try {
+      var enc = new TextEncoder();
+      var km = await crypto.subtle.importKey('raw', enc.encode(pass), 'PBKDF2', false, ['deriveKey']);
+      var key = await crypto.subtle.deriveKey(
+        { name:'PBKDF2', salt:b64(SALT), iterations:ITER, hash:'SHA-256' },
+        km, { name:'AES-GCM', length:256 }, false, ['decrypt']);
+      var plain = await crypto.subtle.decrypt({ name:'AES-GCM', iv:b64(IV) }, key, b64(DATA));
+      show(new TextDecoder().decode(plain), pass);
+    } catch (e) {
+      try { sessionStorage.removeItem('ck'); } catch (_) {}
+      if (silent) { btn.disabled = false; btn.textContent = 'Відкрити'; return; }
+      fail('Невірний пароль');
+    }
+  }
+
+  function show(html, pass){
+    vault.innerHTML = html;
+    gate.style.display = 'none';
+    vault.classList.add('on');
+    document.title = 'Концепти для Порталу послуг Києва';
+    try { sessionStorage.setItem('ck', pass); } catch (_) {}
+    var out = document.getElementById('lockout');
+    if (out) out.addEventListener('click', function(){
+      try { sessionStorage.removeItem('ck'); } catch (_) {}
+      location.reload();
+    });
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (pw.value) unlock(pw.value, false);
+  });
+
+  // якщо пароль уже вводили в цій вкладці — не питаємо вдруге
+  try {
+    var saved = sessionStorage.getItem('ck');
+    if (saved) unlock(saved, true);
+  } catch (_) {}
+})();
+</script>
+</body>
+</html>
