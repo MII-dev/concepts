@@ -270,11 +270,11 @@ td:first-child{color:var(--ink);font-weight:500}
 /* ============ math box ============ */
 .math{margin-top:28px;background:var(--panel-2);border:1px solid var(--line);border-radius:18px;padding:26px}
 .math h4{margin-bottom:16px}
-.mrow{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px dashed var(--line-2);font-size:14.5px}
+.mrow{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 16px;padding:9px 0;border-bottom:1px dashed var(--line-2);font-size:14.5px}
 .mrow:last-of-type{border-bottom:0}
 .mrow span{color:var(--ink-2)}
 .mrow b{font-family:var(--m);white-space:nowrap;font-weight:700}
-.mtot{display:flex;justify-content:space-between;gap:16px;margin-top:14px;padding-top:16px;border-top:1px solid var(--line-2);font-family:var(--d);font-weight:600;font-size:17px;letter-spacing:-.02em}
+.mtot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 16px;margin-top:14px;padding-top:16px;border-top:1px solid var(--line-2);font-family:var(--d);font-weight:600;font-size:17px;letter-spacing:-.02em}
 .mtot b{color:var(--blue)}
 .mnote{margin-top:16px;font-size:13.5px;color:var(--ink-3);line-height:1.5}
 
@@ -486,9 +486,10 @@ td:first-child{color:var(--ink);font-weight:500}
 .blk{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column;height:100%;box-shadow:var(--sh)}
 .blk .bn{
   font-family:var(--m);font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--blue);
-  margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:14px;display:flex;justify-content:space-between;align-items:baseline;gap:14px;
 }
-.blk .bn em{font-style:normal;color:var(--ink-3);font-size:10px}
+.blk .bn span{flex:none}
+.blk .bn em{font-style:normal;color:var(--ink-3);font-size:10px;text-align:right;line-height:1.35}
 .blk h3{font-size:22px;margin-bottom:10px}
 .blk .one{font-size:14.5px;color:var(--ink-2);margin-bottom:16px}
 .blk .ex{
@@ -666,7 +667,7 @@ footer code{font-family:var(--m);font-size:12px;background:rgba(255,255,255,.09)
       <a href="#scope" data-s="scope">Межа зі школою</a>
       <a href="#scales" data-s="scales">Як рахуються бали</a>
       <a href="#tasks" data-s="tasks">За що бали</a>
-      <a href="#shop" data-s="shop">На що витратити</a>
+      <a href="#shop" data-s="shop">Вітрина</a>
       <a href="#demo" data-s="demo">Прототип</a>
       <a href="#blocks" data-s="blocks">Сім блоків</a>
       <a href="#entry" data-s="entry">Як завести на портал</a>
@@ -945,7 +946,7 @@ footer code{font-family:var(--m);font-size:12px;background:rgba(255,255,255,.09)
   <h2>Що робить дитина, щоб заробити Внесок</h2>
   <p class="lead" style="max-width:70ch;margin:18px 0 38px">Правило одне: заробити, не виходячи з дому, неможливо. Жодного бала за кліки в порталі, перегляди чи заповнений профіль. Категорії далі йдуть від найлегшої до найдорожчої.</p>
 
-  <div class="grid g3">
+  <div class="grid g2">
 
     <div class="blk">
       <div class="bn"><span>01</span><em>працює для більшості</em></div>
