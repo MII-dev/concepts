@@ -1,0 +1,2170 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Місто як гра — гейміфікація для молоді Києва · v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Onest:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* ═══ Палітра Порталу послуг Києва ═══
+   Витягнута з portal.kyiv.digital/_nuxt/*.css:
+   #0069ff синій · #f1f7ff підложка · #1d1d1f текст
+   #878383 вторинний · #e5e5ea, #cecece лінії · #fff тло       */
+:root{
+  color-scheme: light;
+  --bg:#FFFFFF;
+  --bg-2:#FFFFFF;
+  --panel:#FFFFFF;
+  --panel-2:#F7F7F9;
+  --panel-3:#EFEFF2;
+  --line:#E5E5EA;
+  --line-2:#CECECE;
+  --ink:#1D1D1F;
+  --ink-2:#5C5A5A;
+  --ink-3:#878383;
+  --blue:#0069FF;
+  --blue-2:#0057D6;
+  --blue-soft:#F1F7FF;
+  --blue-line:#C7DEFF;
+  /* другий акцент — графіт із тієї ж палітри; ним позначаємо шкалу «Внесок» */
+  --gr:#1D1D1F;
+  --gr-soft:#F0F0F2;
+  /* аліаси: у розмітці й прототипі лишились назви з попередньої версії */
+  --lime:#0069FF;
+  --lime-soft:#F1F7FF;
+  --red:#D0342C;
+  --red-soft:#FDECEA;
+  --red-line:#F5C7C3;
+  --sh:0 1px 2px rgba(29,29,31,.04), 0 10px 26px -18px rgba(29,29,31,.22);
+  --sh-lg:0 2px 6px rgba(29,29,31,.05), 0 30px 60px -32px rgba(29,29,31,.3);
+  --d:"Unbounded","Onest",system-ui,sans-serif;
+  --f:"Onest","Helvetica Neue",Arial,system-ui,sans-serif;
+  --m:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --r:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:78px}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--f);font-size:16.5px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(880px 500px at 82% -10%, rgba(0,105,255,.07), transparent 62%),
+    radial-gradient(680px 440px at 2% 2%, rgba(0,105,255,.035), transparent 60%);
+  background-attachment:fixed;
+}
+img,svg{max-width:100%}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:8px}
+::selection{background:var(--blue);color:#fff}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+@media(max-width:640px){.wrap{padding:0 16px}}
+
+/* ============ nav ============ */
+.nav{
+  position:sticky;top:0;z-index:80;backdrop-filter:blur(16px);
+  background:rgba(255,255,255,.86);border-bottom:1px solid var(--line);
+}
+.nav-in{max-width:1180px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;gap:26px}
+.brand{font-family:var(--d);font-weight:800;font-size:14px;letter-spacing:-.02em;white-space:nowrap;display:flex;align-items:center;gap:9px}
+.brand i{width:9px;height:9px;border-radius:50%;background:var(--blue);display:block;flex:none}
+.nav-links{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{
+  font-size:13px;color:var(--ink-3);text-decoration:none;padding:7px 11px;border-radius:9px;
+  white-space:nowrap;transition:.16s;font-weight:500;
+}
+.nav-links a:hover{color:var(--ink);background:var(--panel-2)}
+.nav-links a.on{color:var(--blue);background:var(--blue-soft)}
+@media(max-width:900px){.brand span{display:none}}
+@media(max-width:640px){.nav-in{padding:0 14px;gap:12px;height:54px}.nav-links a{font-size:12px;padding:6px 8px}}
+
+/* ============ type ============ */
+h1,h2,h3,h4{font-family:var(--d);letter-spacing:-.03em;margin:0;font-weight:800;line-height:1.04}
+h1{font-size:clamp(38px,7.2vw,88px)}
+h2{font-size:clamp(28px,4.6vw,52px);line-height:1.06}
+h3{font-size:clamp(19px,2.3vw,26px);line-height:1.15;font-weight:600}
+h4{font-size:16px;font-weight:600;letter-spacing:-.01em;line-height:1.3}
+p{margin:0 0 1.05em}
+p:last-child{margin-bottom:0}
+.lead{font-size:clamp(17px,2vw,21px);line-height:1.55;color:var(--ink-2)}
+.mut{color:var(--ink-2)}
+.dim{color:var(--ink-3)}
+.sm{font-size:14.5px}
+.xs{font-size:13px}
+b,strong{color:var(--ink);font-weight:600}
+.kicker{
+  font-family:var(--m);font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--blue);display:flex;align-items:center;gap:10px;margin:0 0 18px;
+}
+.kicker::before{content:"";width:26px;height:2px;background:var(--blue);border-radius:2px;flex:none}
+.kicker.lime{color:var(--blue)}.kicker.lime::before{background:var(--blue)}
+.kicker.red{color:var(--red)}.kicker.red::before{background:var(--red)}
+
+section{padding:clamp(64px,9vw,118px) 0;position:relative}
+section+section{border-top:1px solid var(--line)}
+
+/* ============ hero ============ */
+.hero{padding:clamp(60px,10vw,120px) 0 clamp(50px,7vw,86px);border:0}
+.hero h1{margin-bottom:26px;text-wrap:balance}
+.hero h1 em{font-style:normal;color:var(--blue)}
+.hero .lead{max-width:60ch}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
+.tagx{
+  font-family:var(--m);font-size:11.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+  border:1px solid var(--line-2);border-radius:999px;padding:7px 14px;color:var(--ink-2);
+}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:999px;
+  font-weight:600;font-size:14.5px;text-decoration:none;transition:.18s;border:1px solid transparent;
+}
+.btn.pri{background:var(--blue);color:#fff}
+.btn.pri:hover{background:var(--blue-2);transform:translateY(-2px);box-shadow:0 12px 28px -14px rgba(0,105,255,.8)}
+.btn.sec{border-color:var(--line-2);color:var(--ink)}
+.btn.sec:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-soft)}
+.numbers{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:52px}
+@media(max-width:760px){.numbers{grid-template-columns:1fr 1fr}}
+.num{border-top:1px solid var(--line-2);padding-top:14px}
+.num b{display:block;font-family:var(--d);font-size:clamp(26px,3.4vw,38px);font-weight:800;letter-spacing:-.04em;line-height:1}
+.num span{display:block;font-size:12.5px;color:var(--ink-3);margin-top:7px;line-height:1.35}
+
+/* ============ generic cards ============ */
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:980px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:720px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:26px}
+.card.soft{background:var(--panel-2)}
+.card h4{margin-bottom:9px}
+.card p{font-size:14.5px;color:var(--ink-2)}
+.card .idx{font-family:var(--m);font-size:11.5px;font-weight:700;color:var(--blue);display:block;margin-bottom:14px;letter-spacing:.1em}
+
+/* ============ tldr ============ */
+.tldr{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:38px}
+@media(max-width:1000px){.tldr{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.tldr{grid-template-columns:1fr}}
+.tl{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;box-shadow:var(--sh)}
+.tl .n{font-family:var(--d);font-size:30px;font-weight:800;color:var(--line-2);line-height:1;margin-bottom:16px}
+.tl h4{margin-bottom:8px;font-size:15px}
+.tl p{font-size:13.8px;color:var(--ink-2);margin:0;line-height:1.5}
+.tl:nth-child(3){background:var(--blue-soft);border-color:var(--blue-line)}
+.tl:nth-child(3) .n{color:var(--blue)}
+
+/* ============ personas ============ */
+.persona{
+  background:var(--panel);border:1px solid var(--line);border-radius:20px;overflow:hidden;
+  display:grid;grid-template-columns:236px 1fr;box-shadow:var(--sh);
+}
+@media(max-width:860px){.persona{grid-template-columns:1fr}}
+.persona+.persona{margin-top:18px}
+.p-side{padding:26px;background:var(--panel-2);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+@media(max-width:860px){.p-side{border-right:0;border-bottom:1px solid var(--line)}}
+.p-ava{
+  width:52px;height:52px;border-radius:16px;display:grid;place-items:center;
+  font-family:var(--d);font-weight:800;font-size:20px;color:#fff;margin-bottom:12px;
+  background:var(--blue);
+}
+.p-side .nm{font-family:var(--d);font-weight:600;font-size:19px;letter-spacing:-.02em}
+.p-side .meta{font-size:13px;color:var(--ink-3);line-height:1.45}
+.p-side .track{margin-top:auto;padding-top:16px;font-family:var(--m);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.p-body{padding:26px;display:grid;grid-template-columns:1fr 1fr;gap:26px}
+@media(max-width:1000px){.p-body{grid-template-columns:1fr;gap:20px}}
+.p-col h5{
+  font-family:var(--m);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  margin:0 0 12px;color:var(--ink-3);display:flex;align-items:center;gap:8px;
+}
+.p-col h5 i{width:7px;height:7px;border-radius:2px;background:var(--ink-3);display:block}
+.p-col.now h5 i{background:var(--red)}
+.p-col.after h5 i{background:var(--blue)}
+.p-col p{font-size:14.5px;color:var(--ink-2);margin-bottom:.7em}
+.p-city{
+  grid-column:1/-1;border-top:1px solid var(--line);padding-top:16px;margin-top:2px;
+  font-size:14px;color:var(--ink-2);display:flex;gap:12px;align-items:flex-start;
+}
+.p-city b{color:var(--blue);font-weight:700;font-family:var(--m);font-size:11px;letter-spacing:.12em;text-transform:uppercase;flex:none;padding-top:3px}
+
+/* ============ wall diagram ============ */
+.wall{display:grid;grid-template-columns:1fr 78px 1fr;gap:0;margin-top:40px;align-items:stretch}
+@media(max-width:820px){.wall{grid-template-columns:1fr;gap:14px}}
+.wall-side{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:28px}
+.wall-side.l{border-right-width:0;border-radius:20px 0 0 20px;background:var(--panel-2)}
+.wall-side.r{border-left-width:0;border-radius:0 20px 20px 0;background:var(--blue-soft);border-color:var(--blue-line)}
+@media(max-width:820px){.wall-side.l,.wall-side.r{border-width:1px;border-radius:20px}}
+.wall-side .who{font-family:var(--d);font-weight:800;font-size:22px;letter-spacing:-.03em;margin-bottom:4px}
+.wall-side.r .who{color:var(--blue)}
+.wall-side .sub{font-size:13px;color:var(--ink-3);margin-bottom:18px}
+.wall-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:8px 0}
+@media(max-width:820px){.wall-mid{flex-direction:row;padding:0}}
+.wall-mid .bar{width:3px;flex:1;background:repeating-linear-gradient(180deg,var(--line-2) 0 10px,transparent 10px 18px);border-radius:3px}
+@media(max-width:820px){.wall-mid .bar{width:auto;height:3px;background:repeating-linear-gradient(90deg,var(--line-2) 0 10px,transparent 10px 18px)}}
+.wall-mid .lbl{
+  font-family:var(--m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);
+  writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;
+}
+@media(max-width:820px){.wall-mid .lbl{writing-mode:horizontal-tb;transform:none}}
+ul.tick{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+ul.tick li{position:relative;padding-left:26px;font-size:14.5px;color:var(--ink-2);line-height:1.45}
+ul.tick li::before{
+  content:"";position:absolute;left:0;top:7px;width:14px;height:14px;border-radius:5px;
+  background:#fff;border:1px solid var(--line-2);
+}
+ul.tick.yes li::before{background:var(--blue);border-color:var(--blue)}
+ul.tick.no li::before{background:var(--red-soft);border-color:var(--red)}
+ul.tick.blue li::before{background:var(--panel-3);border-color:var(--line-2)}
+ul.tick li b{color:var(--ink)}
+
+/* ============ pull ============ */
+.pull{
+  margin:44px 0 0;padding:34px 38px;border-radius:22px;
+  background:var(--blue-soft);border:1px solid var(--blue-line);
+}
+.pull q{
+  font-family:var(--d);font-size:clamp(20px,3vw,32px);font-weight:600;letter-spacing:-.03em;
+  line-height:1.2;display:block;quotes:none;text-wrap:balance;
+}
+.pull q b{color:var(--blue);font-weight:600}
+.pull .src{margin-top:16px;font-size:14.5px;color:var(--ink-2)}
+@media(max-width:640px){.pull{padding:24px 22px}}
+
+/* ============ scales ============ */
+.scales{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:38px}
+@media(max-width:820px){.scales{grid-template-columns:1fr}}
+.scale{border-radius:20px;padding:28px;border:1px solid var(--line);background:var(--panel);position:relative;overflow:hidden;box-shadow:var(--sh)}
+.scale.a{border-color:var(--blue-line);background:var(--blue-soft)}
+.scale.b{border-color:var(--line-2);background:var(--panel-2)}
+.scale .tag{font-family:var(--m);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;display:block}
+.scale.a .tag{color:var(--blue)}
+.scale.b .tag{color:var(--ink-3)}
+.scale.a h3{color:var(--blue)}
+.scale h3{margin-bottom:12px}
+.scale p{font-size:14.5px;color:var(--ink-2)}
+.scale .q{font-family:var(--d);font-size:17px;font-weight:600;letter-spacing:-.02em;margin:16px 0 6px;color:var(--ink)}
+
+/* ============ table ============ */
+.tw{margin-top:32px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel);box-shadow:var(--sh)}
+.tw .scrl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:600px;font-size:14.5px}
+th,td{text-align:left;padding:13px 18px;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{
+  font-family:var(--m);font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);background:var(--panel-2);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--blue-soft)}
+td{color:var(--ink-2)}
+td:first-child{color:var(--ink);font-weight:500}
+.pts{font-family:var(--m);font-weight:700;white-space:nowrap}
+.pts.a{color:var(--blue)}
+.pts.b{color:var(--ink)}
+.pts.z{color:var(--ink-3)}
+.pts.no{color:var(--red)}
+
+/* ============ math box ============ */
+.math{margin-top:28px;background:var(--panel-2);border:1px solid var(--line);border-radius:18px;padding:26px}
+.math h4{margin-bottom:16px}
+.mrow{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px dashed var(--line-2);font-size:14.5px}
+.mrow:last-of-type{border-bottom:0}
+.mrow span{color:var(--ink-2)}
+.mrow b{font-family:var(--m);white-space:nowrap;font-weight:700}
+.mtot{display:flex;justify-content:space-between;gap:16px;margin-top:14px;padding-top:16px;border-top:1px solid var(--line-2);font-family:var(--d);font-weight:600;font-size:17px;letter-spacing:-.02em}
+.mtot b{color:var(--blue)}
+.mnote{margin-top:16px;font-size:13.5px;color:var(--ink-3);line-height:1.5}
+
+/* ============ demo ============ */
+.demo-wrap{display:grid;grid-template-columns:1fr 400px;gap:44px;align-items:start;margin-top:40px}
+@media(max-width:1000px){.demo-wrap{grid-template-columns:1fr;gap:30px}}
+.demo-steps{display:flex;flex-direction:column;gap:12px}
+.dstep{
+  background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:16px 18px;
+  display:grid;grid-template-columns:26px 1fr;gap:14px;align-items:start;transition:.2s;
+}
+.dstep.on{border-color:var(--blue);background:var(--blue-soft)}
+.dstep .k{
+  width:26px;height:26px;border-radius:9px;background:var(--panel-3);color:var(--ink-3);
+  display:grid;place-items:center;font-family:var(--m);font-size:11.5px;font-weight:700;
+}
+.dstep.on .k{background:var(--blue);color:#fff}
+.dstep h4{font-size:14.5px;margin-bottom:3px}
+.dstep p{font-size:13.5px;color:var(--ink-2);margin:0;line-height:1.45}
+
+.stage{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px}
+.phone{
+  width:376px;max-width:100%;height:748px;background:#1D1D1F;border-radius:44px;
+  border:1px solid #000;padding:11px;position:relative;flex:none;
+  box-shadow:0 40px 70px -40px rgba(29,29,31,.55), 0 0 0 1px rgba(255,255,255,.06) inset;
+}
+@media(max-width:440px){.phone{height:680px;border-radius:36px}}
+.screenbox{
+  width:100%;height:100%;background:#FFFFFF;border-radius:34px;overflow:hidden;position:relative;
+  display:flex;flex-direction:column;
+}
+.notch{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);width:104px;height:24px;
+  background:#1D1D1F;border-radius:0 0 14px 14px;z-index:20;
+}
+.statusbar{
+  height:44px;flex:none;display:flex;align-items:center;justify-content:space-between;
+  padding:0 22px;font-family:var(--m);font-size:11px;color:var(--ink-3);z-index:21;
+}
+.scr{flex:1;overflow-y:auto;overscroll-behavior:contain;display:none;padding:4px 18px 18px;scrollbar-width:none}
+.scr::-webkit-scrollbar{display:none}
+.scr.on{display:block;animation:sIn .26s cubic-bezier(.2,.8,.3,1) both}
+@keyframes sIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+
+.tabbar{
+  flex:none;height:64px;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);
+  background:rgba(255,255,255,.94);backdrop-filter:blur(10px);
+}
+.tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--ink-3);transition:.16s;padding:0}
+.tab svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tab span{font-size:10px;font-weight:500}
+.tab.on{color:var(--blue)}
+
+/* phone content bits */
+.ph-h{font-family:var(--d);font-weight:600;font-size:21px;letter-spacing:-.03em;margin:8px 0 4px}
+.ph-sub{font-size:12.5px;color:var(--ink-3);margin-bottom:16px;line-height:1.4}
+.ph-back{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--blue);margin:6px 0 10px;padding:0}
+.ph-back svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+.hcard{
+  background:var(--blue);color:#fff;
+  border:1px solid var(--blue);border-radius:18px;padding:16px 17px;margin-bottom:14px;
+}
+.hcard .lvl{font-family:var(--m);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72);margin-bottom:6px}
+.hcard .nm{font-family:var(--d);font-weight:600;font-size:19px;letter-spacing:-.02em;margin-bottom:12px}
+.bar{height:7px;border-radius:6px;background:rgba(255,255,255,.28);overflow:hidden;margin-bottom:7px}
+.bar i{display:block;height:100%;border-radius:6px;background:#fff;transition:width .7s cubic-bezier(.2,.8,.3,1)}
+.hcard .to{font-size:11.5px;color:rgba(255,255,255,.86)}
+.hcard.light{background:var(--blue-soft);border-color:var(--blue-line);color:var(--ink)}
+.hcard.light .lvl{color:var(--blue)}
+.hcard.light .to{color:var(--ink-2)}
+.hcard.light .bar{background:#fff}
+.hcard.light .bar i{background:var(--blue)}
+.hcard.locked{background:var(--panel-2);border-color:var(--line);color:var(--ink)}
+.hcard.locked .lvl{color:var(--ink-3)}
+.hcard.locked .to{color:var(--ink-2)}
+.qcard.scanBtn{text-align:center;border-color:var(--blue);background:var(--blue);box-shadow:0 10px 24px -12px rgba(0,105,255,.8)}
+.qcard.scanBtn .qt{color:#fff}
+.qcard.scanBtn .qd{color:rgba(255,255,255,.8);margin:4px 0 0}
+.qcard.scanBtn:hover{background:var(--blue-2);border-color:var(--blue-2)}
+
+.wallets{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px}
+.wal{background:var(--panel-2);border:1px solid var(--line);border-radius:14px;padding:12px 13px}
+.wal .t{font-family:var(--m);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:5px}
+.wal .v{font-family:var(--d);font-weight:800;font-size:24px;letter-spacing:-.03em;line-height:1}
+.wal.a{background:var(--blue-soft);border-color:var(--blue-line)}
+.wal.a .v{color:var(--blue)}
+.wal.b .v{color:var(--ink)}
+.wal .d{font-size:10.5px;color:var(--ink-3);margin-top:4px}
+.wal .bar{background:var(--line);margin-top:10px}
+.wal .bar i{background:var(--blue)}
+
+.sect-t{font-family:var(--m);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:18px 0 9px}
+.qcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:15px 16px;width:100%;text-align:left;display:block;transition:.16s;box-shadow:var(--sh)}
+.qcard:hover{border-color:var(--blue-line)}
+.qcard .qt{font-weight:600;font-size:14.5px;margin-bottom:4px}
+.qcard .qd{font-size:12px;color:var(--ink-3);margin-bottom:11px;line-height:1.4}
+.qcard .bar{background:var(--line)}
+.qcard .bar i{background:var(--blue)}
+.qcard .qp{display:flex;justify-content:space-between;font-size:11px;color:var(--ink-2);margin-top:7px;font-family:var(--m)}
+
+.plist{display:flex;flex-direction:column;gap:8px}
+.pitem{
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 14px;
+  display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:center;text-align:left;width:100%;transition:.16s;
+}
+.pitem:hover{border-color:var(--blue-line);background:var(--blue-soft)}
+.pitem .ic{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;font-size:16px;background:var(--panel-2);border:1px solid var(--line)}
+.pitem.done .ic{background:var(--blue-soft);border-color:var(--blue-line)}
+.pitem .tt{font-size:13.5px;font-weight:500;line-height:1.25}
+.pitem .dd{font-size:11px;color:var(--ink-3);margin-top:2px}
+.pitem .rr{font-family:var(--m);font-size:11px;color:var(--ink-3);white-space:nowrap}
+.pitem.done .rr{color:var(--blue)}
+
+.mapbox{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:14px;position:relative}
+.mapbox svg{display:block;width:100%;height:auto}
+.pin{cursor:pointer;transition:.2s}
+.pin:hover{transform:scale(1.14)}
+.pin circle.o{fill:#FFFFFF;stroke:var(--line-2)}
+.pin.done circle.o{fill:var(--blue);stroke:var(--blue)}
+.pin text{font-size:9px;font-family:var(--m);fill:var(--ink-3);text-anchor:middle}
+.pin.done text{fill:#fff}
+
+.scanbox{
+  height:270px;border-radius:20px;border:1px solid var(--line-2);background:#1D1D1F;position:relative;overflow:hidden;
+  display:grid;place-items:center;margin-bottom:16px;
+}
+.scanbox .frame{width:170px;height:170px;position:relative}
+.scanbox .frame span{position:absolute;width:34px;height:34px;border:2.5px solid #fff;border-radius:5px}
+.scanbox .frame span:nth-child(1){top:0;left:0;border-right:0;border-bottom:0}
+.scanbox .frame span:nth-child(2){top:0;right:0;border-left:0;border-bottom:0}
+.scanbox .frame span:nth-child(3){bottom:0;left:0;border-right:0;border-top:0}
+.scanbox .frame span:nth-child(4){bottom:0;right:0;border-left:0;border-top:0}
+.scanline{position:absolute;left:8%;right:8%;height:2px;background:#4D96FF;box-shadow:0 0 18px #0069FF;animation:sweep 1.9s ease-in-out infinite;border-radius:2px}
+@keyframes sweep{0%,100%{top:16%}50%{top:82%}}
+
+.ok-hero{text-align:center;padding:26px 0 8px}
+.ok-ring{
+  width:88px;height:88px;border-radius:50%;margin:0 auto 18px;display:grid;place-items:center;
+  background:var(--blue);animation:pop .45s cubic-bezier(.2,1.5,.4,1) both;
+}
+@keyframes pop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.ok-ring svg{width:40px;height:40px;fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.ok-hero .t{font-family:var(--d);font-weight:600;font-size:21px;letter-spacing:-.03em;margin-bottom:5px}
+.ok-hero .s{font-size:13px;color:var(--ink-3)}
+.gain{display:flex;justify-content:center;gap:10px;margin:20px 0 6px;flex-wrap:wrap}
+.gain span{
+  font-family:var(--m);font-size:12.5px;font-weight:700;padding:8px 14px;border-radius:999px;
+  background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue-line);
+}
+.gain span.b{background:var(--panel-2);color:var(--ink);border-color:var(--line-2)}
+.factbox{background:var(--panel-2);border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin-top:16px;font-size:12.5px;color:var(--ink-2);line-height:1.5}
+.factbox b{color:var(--ink)}
+
+.step-row{display:grid;grid-template-columns:22px 1fr;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);align-items:start}
+.step-row:last-child{border-bottom:0}
+.step-row .cb{width:22px;height:22px;border-radius:8px;border:1.6px solid var(--line-2);display:grid;place-items:center}
+.step-row.done .cb{background:var(--blue);border-color:var(--blue)}
+.step-row.done .cb svg{width:12px;height:12px;stroke:#fff;stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.step-row .st{font-size:13.5px;line-height:1.35}
+.step-row.done .st{color:var(--ink-3);text-decoration:line-through}
+
+.rung{display:grid;grid-template-columns:1fr;gap:4px;padding:14px 15px;border-radius:14px;background:var(--panel);border:1px solid var(--line);margin-bottom:8px}
+.rung.cur{border-color:var(--blue);background:var(--blue-soft)}
+.rung.locked{opacity:.55}
+.rung .rt{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.rung .rn{font-family:var(--d);font-weight:600;font-size:15px;letter-spacing:-.02em}
+.rung .rq{font-family:var(--m);font-size:10.5px;color:var(--ink-3)}
+.rung.cur .rq{color:var(--blue)}
+.rung .rd{font-size:12px;color:var(--ink-2);line-height:1.42}
+
+.shop-i{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 14px;margin-bottom:8px}
+.shop-i .si-t{font-size:13.5px;font-weight:500;line-height:1.3}
+.shop-i .si-d{font-size:11px;color:var(--ink-3);margin-top:3px}
+.buy{font-family:var(--m);font-size:11.5px;font-weight:700;padding:8px 12px;border-radius:999px;background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue-line);white-space:nowrap;transition:.16s}
+.buy:hover:not(:disabled){background:var(--blue);color:#fff}
+.buy:disabled{opacity:.4;cursor:default}
+.buy.owned{background:var(--blue);color:#fff;border-color:var(--blue);opacity:1}
+
+.proj{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:14px 15px;margin-bottom:9px}
+.proj .pt{font-size:13.5px;font-weight:600;margin-bottom:3px;line-height:1.3}
+.proj .pd{font-size:11.5px;color:var(--ink-3);margin-bottom:10px;line-height:1.4}
+.proj .pb{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.vbtn{font-family:var(--m);font-size:11px;font-weight:700;padding:7px 14px;border-radius:999px;border:1px solid var(--line-2);color:var(--ink-2);transition:.16s}
+.vbtn:hover:not(:disabled){border-color:var(--blue);color:var(--blue);background:var(--blue-soft)}
+.vbtn.voted{background:var(--blue);color:#fff;border-color:var(--blue)}
+.vbtn:disabled{opacity:.45;cursor:default}
+.votes{font-family:var(--m);font-size:11px;color:var(--ink-3)}
+
+.toast{
+  position:absolute;left:16px;right:16px;bottom:78px;background:#fff;border:1px solid var(--line-2);
+  border-radius:14px;padding:13px 15px;font-size:13px;z-index:40;
+  box-shadow:0 18px 40px -18px rgba(29,29,31,.4);
+  transform:translateY(16px);opacity:0;pointer-events:none;transition:.3s cubic-bezier(.2,.8,.3,1);
+}
+.toast.show{transform:none;opacity:1}
+.toast.lime{border-color:var(--blue);background:var(--blue-soft)}
+.toast b{display:block;margin-bottom:2px;font-family:var(--d);font-weight:600;font-size:14px;letter-spacing:-.02em;color:var(--blue)}
+.toast span{color:var(--ink-2);font-size:12.5px;line-height:1.4}
+
+.stage-ctl{display:flex;gap:9px;flex-wrap:wrap;justify-content:center}
+.sbtn{font-size:12.5px;color:var(--ink-3);border:1px solid var(--line);border-radius:999px;padding:7px 14px;transition:.16s;background:#fff}
+.sbtn:hover{color:var(--blue);border-color:var(--blue)}
+
+/* fullscreen demo */
+.stage.full{position:fixed;inset:0;z-index:200;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);padding:20px;justify-content:center;overflow:auto}
+
+/* ============ blocks ============ */
+.blk{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column;height:100%;box-shadow:var(--sh)}
+.blk .bn{
+  font-family:var(--m);font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--blue);
+  margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;
+}
+.blk .bn em{font-style:normal;color:var(--ink-3);font-size:10px}
+.blk h3{font-size:22px;margin-bottom:10px}
+.blk .one{font-size:14.5px;color:var(--ink-2);margin-bottom:16px}
+.blk .ex{
+  background:var(--blue-soft);border-left:3px solid var(--blue);border-radius:0 12px 12px 0;
+  padding:13px 15px;font-size:13.5px;color:var(--ink-2);line-height:1.5;margin-bottom:14px;
+}
+.blk .ex b{color:var(--blue);font-family:var(--m);font-size:10px;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:5px}
+.blk .city{margin-top:auto;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-3);line-height:1.5}
+.blk .city b{color:var(--ink-2)}
+
+/* ============ red lines ============ */
+.redzone{background:linear-gradient(180deg,var(--red-soft),transparent 55%)}
+.rl{display:grid;grid-template-columns:38px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid var(--line);align-items:start}
+.rl:last-child{border-bottom:0}
+.rl .rn{
+  width:38px;height:38px;border-radius:12px;background:#fff;border:1px solid var(--red-line);
+  display:grid;place-items:center;font-family:var(--m);font-size:13px;font-weight:700;color:var(--red);
+}
+.rl h4{margin-bottom:6px;font-size:16.5px}
+.rl p{font-size:14.5px;color:var(--ink-2);margin:0}
+.rl .conseq{margin-top:10px;font-size:13.5px;color:var(--ink-3);display:flex;gap:9px;align-items:flex-start;line-height:1.5}
+.rl .conseq b{color:var(--red);font-family:var(--m);font-size:10px;letter-spacing:.1em;text-transform:uppercase;flex:none;padding-top:3px}
+
+/* ============ timeline ============ */
+.tl-wave{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:40px}
+@media(max-width:900px){.tl-wave{grid-template-columns:1fr;gap:16px}}
+.wv{padding:0 22px;border-left:1px solid var(--line);position:relative}
+@media(max-width:900px){.wv{border-left:2px solid var(--line);padding:0 0 0 22px}}
+.wv:first-child{padding-left:0;border-left:0}
+@media(max-width:900px){.wv:first-child{padding-left:22px;border-left:2px solid var(--blue)}}
+.wv .dot{width:11px;height:11px;border-radius:50%;background:var(--line-2);margin-bottom:16px}
+.wv.now .dot{background:var(--blue);box-shadow:0 0 0 5px var(--blue-soft)}
+.wv .wt{font-family:var(--m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px}
+.wv.now .wt{color:var(--blue)}
+.wv h4{margin-bottom:8px;font-size:17px}
+.wv p{font-size:13.5px;color:var(--ink-2);margin-bottom:12px;line-height:1.5}
+.wv .chips{display:flex;flex-wrap:wrap;gap:6px}
+.wv .chips span{font-family:var(--m);font-size:10.5px;padding:4px 9px;border-radius:7px;background:var(--panel-2);border:1px solid var(--line);color:var(--ink-3)}
+
+/* ============ faq ============ */
+.faq{border-top:1px solid var(--line);margin-top:34px}
+.qa{border-bottom:1px solid var(--line)}
+.qa button{
+  width:100%;text-align:left;padding:20px 44px 20px 0;position:relative;
+  font-family:var(--d);font-weight:600;font-size:17px;letter-spacing:-.02em;line-height:1.3;
+}
+.qa button::after{
+  content:"";position:absolute;right:8px;top:50%;width:11px;height:11px;
+  border-right:2px solid var(--ink-3);border-bottom:2px solid var(--ink-3);
+  transform:translateY(-70%) rotate(45deg);transition:.24s;
+}
+.qa button[aria-expanded="true"]::after{transform:translateY(-30%) rotate(225deg);border-color:var(--blue)}
+.qa button:hover{color:var(--blue)}
+.qa .ans{padding:0 0 22px;max-width:74ch}
+.qa .ans p{font-size:15px;color:var(--ink-2)}
+.qa .ans[hidden]{display:none}
+
+/* ============ final ============ */
+.final{background:linear-gradient(180deg,transparent,var(--blue-soft))}
+.steps5{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:38px}
+@media(max-width:1000px){.steps5{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.steps5{grid-template-columns:1fr}}
+.st5{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--sh)}
+.st5 .n{font-family:var(--m);font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.12em;display:block;margin-bottom:12px}
+.st5 h4{font-size:15px;margin-bottom:7px}
+.st5 p{font-size:13px;color:var(--ink-2);margin:0;line-height:1.45}
+
+/* ============ footer ============ */
+footer{
+  background:#1D1D1F;color:rgba(255,255,255,.66);
+  padding:clamp(48px,6vw,72px) 0 32px;margin-top:0;font-size:14px;
+}
+footer h4,footer h5{color:#fff}
+footer a{color:rgba(255,255,255,.72);text-decoration:none;transition:.16s}
+footer a:hover{color:#fff}
+footer code{font-family:var(--m);font-size:12px;background:rgba(255,255,255,.09);border-radius:5px;padding:2px 6px;color:rgba(255,255,255,.85)}
+
+.f-top{display:grid;grid-template-columns:1.15fr 1.35fr;gap:clamp(28px,5vw,72px);align-items:start}
+@media(max-width:900px){.f-top{grid-template-columns:1fr;gap:34px}}
+.f-mark{
+  font-family:var(--d);font-weight:800;font-size:20px;letter-spacing:-.03em;color:#fff;
+  display:flex;align-items:center;gap:10px;margin-bottom:14px;
+}
+.f-mark i{width:10px;height:10px;border-radius:50%;background:var(--blue);display:block;flex:none;box-shadow:0 0 0 4px rgba(0,105,255,.22)}
+.f-brand p{font-size:14.5px;line-height:1.55;max-width:46ch;margin:0 0 18px}
+.f-chips{display:flex;flex-wrap:wrap;gap:8px}
+.f-chip{
+  font-family:var(--m);font-size:10.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:6px 12px;color:rgba(255,255,255,.6);
+}
+.f-chip.warn{border-color:rgba(255,255,255,.14);color:rgba(255,255,255,.42)}
+
+.f-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:560px){.f-nav{grid-template-columns:1fr 1fr}}
+.f-nav h5{
+  font-family:var(--m);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  margin:0 0 14px;color:rgba(255,255,255,.4);
+}
+.f-nav a{display:block;padding:5px 0;font-size:14px}
+
+.f-cta{
+  margin-top:clamp(36px,5vw,54px);padding:24px 28px;border-radius:18px;
+  background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1);
+  display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;
+}
+.f-cta h4{font-family:var(--d);font-size:18px;font-weight:600;letter-spacing:-.02em;margin-bottom:6px}
+.f-cta p{font-size:13.5px;margin:0;max-width:60ch;line-height:1.5}
+.f-cta .btn.pri{flex:none}
+.f-cta .btn.pri:hover{box-shadow:0 12px 28px -14px rgba(0,105,255,.9)}
+
+.f-src{margin-top:clamp(36px,5vw,54px);padding-top:32px;border-top:1px solid rgba(255,255,255,.1)}
+.f-src h5{
+  font-family:var(--m);font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  margin:0 0 16px;color:rgba(255,255,255,.4);
+}
+.f-src-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:980px){.f-src-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.f-src-grid{grid-template-columns:1fr}}
+.src-card{
+  display:flex;flex-direction:column;gap:4px;padding:14px 16px;border-radius:13px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);transition:.18s;
+}
+.src-card:hover{background:rgba(0,105,255,.16);border-color:rgba(0,105,255,.5);transform:translateY(-2px)}
+.src-card .t{font-size:13.5px;font-weight:500;color:rgba(255,255,255,.9);line-height:1.3}
+.src-card .d{font-family:var(--m);font-size:10.5px;color:rgba(255,255,255,.38);letter-spacing:.02em}
+.src-card:hover .d{color:rgba(255,255,255,.62)}
+.f-note{margin-top:20px;font-size:12.5px;line-height:1.6;color:rgba(255,255,255,.4);max-width:88ch}
+
+.f-bot{
+  margin-top:34px;padding-top:22px;border-top:1px solid rgba(255,255,255,.1);
+  display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;
+  font-size:12.5px;color:rgba(255,255,255,.38);
+}
+.f-up{display:inline-flex;align-items:center;gap:7px;font-size:12.5px}
+
+/* ============ doors / flow ============ */
+.doors{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:26px}
+@media(max-width:1050px){.doors{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:660px){.doors{grid-template-columns:1fr}}
+.door{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:var(--sh);display:flex;flex-direction:column}
+.door .dn{font-family:var(--m);font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--blue);display:block;margin-bottom:14px}
+.door h4{font-size:19px;font-family:var(--d);font-weight:600;letter-spacing:-.02em;margin-bottom:4px}
+.door .who{font-family:var(--m);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+.door p{font-size:14px;color:var(--ink-2);line-height:1.5}
+.door .note{margin-top:auto;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-3)}
+
+.flow{display:grid;grid-template-columns:1fr 44px 1fr 44px 1fr;align-items:stretch;margin-top:26px}
+@media(max-width:900px){.flow{grid-template-columns:1fr;gap:12px}}
+.fstage{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;box-shadow:var(--sh)}
+.fstage.on{background:var(--blue-soft);border-color:var(--blue-line)}
+.fstage .fn{font-family:var(--m);font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);display:block;margin-bottom:10px}
+.fstage.on .fn{color:var(--blue)}
+.fstage h4{font-family:var(--d);font-weight:600;font-size:18px;letter-spacing:-.02em;margin-bottom:8px}
+.fstage p{font-size:13.5px;color:var(--ink-2);margin:0;line-height:1.5}
+.farrow{position:relative}
+.farrow::before{content:"";position:absolute;top:50%;left:12px;right:12px;height:1.5px;background:var(--line-2)}
+.farrow::after{content:"";position:absolute;top:50%;right:12px;width:8px;height:8px;border-top:1.5px solid var(--line-2);border-right:1.5px solid var(--line-2);transform:translateY(-50%) rotate(45deg)}
+@media(max-width:900px){
+  .farrow{height:22px}
+  .farrow::before{top:0;bottom:0;left:50%;right:auto;width:1.5px;height:100%}
+  .farrow::after{top:auto;bottom:0;right:auto;left:50%;transform:translateX(-50%) rotate(135deg)}
+}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <div class="brand"><i></i>Місто як гра <span class="dim" style="font-weight:400">· Київ · v2</span></div>
+    <div class="nav-links" id="navlinks">
+      <a href="#tldr" data-s="tldr">За 90 секунд</a>
+      <a href="#histor" data-s="histor">Три історії</a>
+      <a href="#scope" data-s="scope">Межа зі школою</a>
+      <a href="#scales" data-s="scales">Як рахуються бали</a>
+      <a href="#tasks" data-s="tasks">За що бали</a>
+      <a href="#shop" data-s="shop">На що витратити</a>
+      <a href="#demo" data-s="demo">Прототип</a>
+      <a href="#blocks" data-s="blocks">Сім блоків</a>
+      <a href="#entry" data-s="entry">Як завести на портал</a>
+      <a href="#red" data-s="red">Червоні лінії</a>
+      <a href="#waves" data-s="waves">Хвилі</a>
+      <a href="#faq" data-s="faq">Питання</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<header class="hero wrap" id="top">
+  <p class="kicker lime">Портал послуг «Київ Цифровий» · концепт для молоді 10–22</p>
+  <h1>Місто як гра,<br>у якій виграє <em>місто</em></h1>
+  <p class="lead">Київ утримує сотні бібліотек, музеїв, палаців дітей і спортшкіл — і не має способу розповісти про них 15-річному з Виноградаря. Цей концепт про те, як перетворити реальні дії молодої людини в місті на систему, де вона отримує доступ, а місто вперше отримує цифри.</p>
+  <div class="hero-cta">
+    <a class="btn pri" href="#demo">Спробувати прототип
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+    <a class="btn sec" href="#tldr">Спочатку коротко</a>
+  </div>
+  <div class="numbers">
+    <div class="num"><b>10–22</b><span>вік, який покриває концепт — двома окремими треками</span></div>
+    <div class="num"><b>2</b><span>шкали замість однієї валюти: «Шлях» і «Внесок»</span></div>
+    <div class="num"><b>7</b><span>блоків системи, від чек-інів до бюджету участі</span></div>
+    <div class="num"><b>0 ₴</b><span>міських грошей на призи — місто платить доступом</span></div>
+  </div>
+</header>
+
+<!-- ══════════ 90 СЕКУНД ══════════ -->
+<section id="tldr" class="wrap">
+  <p class="kicker">За 90 секунд</p>
+  <h2>П'ять речень, які пояснюють усе</h2>
+  <p class="lead" style="max-width:66ch;margin-top:18px">Якщо далі не читати нічого — прочитайте це.</p>
+  <div class="tldr">
+    <div class="tl">
+      <span class="n">01</span>
+      <h4>Проблема</h4>
+      <p>Молодь 10–22 не заходить на Портал послуг, бо там немає нічого для неї. Усе на порталі — це послуги для дорослого: довідка, компенсація, дозвіл.</p>
+    </div>
+    <div class="tl">
+      <span class="n">02</span>
+      <h4>Чого місто не робить</h4>
+      <p>Не гейміфікує навчання. Оцінки, домашні завдання й олімпіади лишаються поза системою: це територія школи, а бали за навчання вбивають інтерес до нього.</p>
+    </div>
+    <div class="tl">
+      <span class="n">03</span>
+      <h4>Що робить Київ</h4>
+      <p>Дає бали не за навчання і не за кліки в порталі, а за реальні дії в місті: прийшов у бібліотеку, пройшов маршрут, відпрацював волонтерську зміну, подав ідею.</p>
+    </div>
+    <div class="tl">
+      <span class="n">04</span>
+      <h4>Чим платить місто</h4>
+      <p>Не грошима. Доступом, якого не купиш: право голосу в молодіжному бюджеті, екскурсія в депо метро, стажування в КМДА, безкоштовний вхід у заклади.</p>
+    </div>
+    <div class="tl">
+      <span class="n">05</span>
+      <h4>Що з цього має місто</h4>
+      <p>Уперше — цифри, скільки молоді реально ходить у кожен комунальний заклад. І покоління, яке вміє користуватись механіками участі ще до 18 років.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ТРИ ІСТОРІЇ ══════════ -->
+<section id="histor" class="wrap">
+  <p class="kicker">Три історії</p>
+  <h2>Як це виглядає для конкретної людини</h2>
+  <p class="lead" style="max-width:68ch;margin:18px 0 38px">«Молодь 10–22» — це не один сегмент, а три різні людини з різними потребами. Ось що змінюється для кожної.</p>
+
+  <article class="persona">
+    <div class="p-side">
+      <div class="p-ava" style="background:#0069FF">С</div>
+      <div class="nm">Соломія</div>
+      <div class="meta">11 років · Оболонь<br>5 клас, смартфон мамин</div>
+      <div class="track">Трек 10–17 · «Мій Київ»</div>
+    </div>
+    <div class="p-body">
+      <div class="p-col now">
+        <h5><i></i>Як зараз</h5>
+        <p>Маршрут життя — школа і додому. За дві зупинки від дому в Палаці дітей та юнацтва є безкоштовна студія анімації, набір відкритий, місця є.</p>
+        <p>Мама про неї не знає. Дізналася б випадково — з оголошення в ліфті або від сусідки. Найімовірніше не дізнається взагалі.</p>
+      </div>
+      <div class="p-col after">
+        <h5><i></i>Як буде</h5>
+        <p>Мама заводить дитячий профіль у своєму кабінеті на порталі. У п'ятницю приходить сповіщення: <b>«У вашому районі 6 місць, куди можна піти безкоштовно цими вихідними»</b> — з адресами, годинами і тим, що там роблять діти 10–13.</p>
+        <p>У суботу йдуть у бібліотеку №14. На вході Соломія сканує код — місце «зібране», у колекції «Бібліотеки Оболоні» тепер 1 з 5. Через місяць у неї 4 з 5, і тепер вона тягне маму за п'яту.</p>
+      </div>
+      <div class="p-city"><b>Місту</b><span>Бібліотека №14 вперше має цифру, а не звіт: 37 нових відвідувачів віком 10–13 за місяць. Ця цифра захищає її бюджет краще за будь-яку пояснювальну записку.</span></div>
+    </div>
+  </article>
+
+  <article class="persona">
+    <div class="p-side">
+      <div class="p-ava" style="background:#4D96FF">Д</div>
+      <div class="nm">Денис</div>
+      <div class="meta">15 років · Виноградар<br>9 клас, свій телефон</div>
+      <div class="track">Трек 10–17 · ключова група</div>
+    </div>
+    <div class="p-body">
+      <div class="p-col now">
+        <h5><i></i>Як зараз</h5>
+        <p>«У місті нема чого робити». Про шкільне самоврядування знає, що це «для відмінниць». Його думки про район ніхто ніколи не питав — і не спитає.</p>
+        <p>Скейт-майданчик біля дому заливає дощем половину сезону. Усі про це знають, ніхто нічого не робить, бо незрозуміло, куди про це говорити.</p>
+      </div>
+      <div class="p-col after">
+        <h5><i></i>Як буде</h5>
+        <p><b>Вересень.</b> Друг показує квест «Спробуй п'ять» — п'ять пробних занять у різних напрямах позашкілля. Денис іде на робототехніку, бо найближче. Лишається.</p>
+        <p><b>Жовтень.</b> Квест пройдено, рівень «Киянин». Відкривається безкоштовний вхід у Музей науки і ранній запис на міські події.</p>
+        <p><b>Листопад.</b> Бачить: у районі збирають проєкти молодіжного бюджету участі. Подає ідею — накриття над скейт-майданчиком. За неї голосують 400 підлітків району.</p>
+        <p><b>Травень.</b> Накриття збудували. Денис знає, що це зробив він.</p>
+      </div>
+      <div class="p-city"><b>Місту</b><span>15-річний, який у 18 років піде на загальноміський громадський бюджет без жодних пояснень — він уже вміє. Жоден урок громадянської освіти цього не дає.</span></div>
+    </div>
+  </article>
+
+  <article class="persona">
+    <div class="p-side">
+      <div class="p-ava" style="background:#1D1D1F">М</div>
+      <div class="nm">Марта</div>
+      <div class="meta">19 років · студентка КПІ<br>підробіток, орендує кімнату</div>
+      <div class="track">Трек 18–22 · «Кияни»</div>
+    </div>
+    <div class="p-body">
+      <div class="p-col now">
+        <h5><i></i>Як зараз</h5>
+        <p>Рік волонтерить у притулку для тварин щосуботи. У резюме написати нічого: довідки немає, підтвердити нічим, «вірте на слово».</p>
+        <p>Місто про неї не знає нічого. Вона про можливості міста — теж. Думає про Варшаву після диплома.</p>
+      </div>
+      <div class="p-col after">
+        <h5><i></i>Як буде</h5>
+        <p>Записується на зміни через портал, координатор притулку підтверджує відпрацьовані години в своєму кабінеті. За рік — <b>156 верифікованих годин</b> і цифрова довідка з QR-кодом від міста.</p>
+        <p>Подається на стажування в Департамент екології. Заявка вже містить її години — нічого доводити не треба. Проходить.</p>
+      </div>
+      <div class="p-city"><b>Місту</b><span>Людина, у якої тут з'явився кар'єрний слід, а не тільки диплом. Плюс 156 годин реальної роботи, які місто інакше не отримало б.</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ══════════ МЕЖА ЗІ ШКОЛОЮ ══════════ -->
+<section id="scope" class="wrap">
+  <p class="kicker">Ключове обмеження</p>
+  <h2>Місто не гейміфікує навчання</h2>
+  <p class="lead" style="max-width:72ch;margin-top:18px">Найпростіше рішення для будь-якої міської системи балів — почати нараховувати за оцінки, домашні завдання й олімпіади. Дані є, дія зрозуміла, ефект швидкий. І це рішення неправильне з трьох причин.</p>
+
+  <div class="grid g3" style="margin-top:30px">
+    <div class="card">
+      <span class="idx">Причина 01</span>
+      <h4>Це не компетенція міста</h4>
+      <p>Навчальний процес, оцінювання й мотивація до навчання — територія школи. Місто, яке починає доплачувати балами за домашні завдання, втручається в чужу роботу й бере відповідальність, яку не може нести.</p>
+    </div>
+    <div class="card">
+      <span class="idx">Причина 02</span>
+      <h4>Бали за навчання вбивають навчання</h4>
+      <p>Ефект надвиправдання: зовнішня винагорода за дію, яка була цікавою сама по собі, витісняє внутрішній інтерес. Дитина, яка вчиться за бали, перестає вчитись, коли бали приберуть.</p>
+    </div>
+    <div class="card">
+      <span class="idx">Причина 03</span>
+      <h4>Це б'є по тих самих дітях двічі</h4>
+      <p>Учень, у якого не виходить із навчанням, у шкільному рейтингу вже внизу. Міська система, що додає йому ще одне місце внизу таблиці, не мотивує, а закріплює.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:56px">Де проходить межа</h3>
+  <div class="wall">
+    <div class="wall-side l">
+      <div class="who">Школа</div>
+      <div class="sub">Те, що всередині уроку</div>
+      <ul class="tick blue">
+        <li>Уроки і розклад</li>
+        <li>Домашні завдання</li>
+        <li>Оцінки й академічні результати</li>
+        <li>Олімпіади та предметні конкурси</li>
+        <li>Мотивація вчитись</li>
+      </ul>
+    </div>
+    <div class="wall-mid">
+      <span class="bar"></span>
+      <span class="lbl">Стіна школи</span>
+      <span class="bar"></span>
+    </div>
+    <div class="wall-side r">
+      <div class="who">Місто</div>
+      <div class="sub">Те, що починається після дзвінка</div>
+      <ul class="tick yes">
+        <li>Гуртки, секції, палаци дітей</li>
+        <li>Музеї, бібліотеки, парки</li>
+        <li>Волонтерство і міські події</li>
+        <li>Участь у рішеннях і розподілі коштів громади</li>
+        <li>Вік 18–22, коли школа вже закінчилась</li>
+      </ul>
+    </div>
+  </div>
+  <p class="mut sm" style="margin-top:20px;max-width:74ch">Останній рядок важливий окремо: усе, що прив'язане до школи, закінчується разом зі школою. Міський контур продовжується до 22 років і далі — волонтерство, бюджет участі й кар'єра нікуди не діваються після випускного.</p>
+
+  <div class="pull">
+    <q>Школа питає <b>«що ти вивчив»</b>. Місто має питати <b>«що ти зробив у місті і для міста»</b>.</q>
+    <p class="src">У міста є те, чого немає у школи: <b>реальні активи у фізичному просторі</b>. Школа може поставити оцінку й похвалити на лінійці. Місто може дати те, що не купується й не ставиться в журнал: вплив на рішення, доступ у закриті процеси, публічне визнання, стажування, перший рядок у резюме. Це сильніша валюта — і вона не потребує бюджету на призи.</p>
+  </div>
+</section>
+
+<!-- ══════════ ДВІ ШКАЛИ ══════════ -->
+<section id="scales" class="wrap">
+  <p class="kicker">Механіка</p>
+  <h2>Як саме рахуються бали</h2>
+  <p class="lead" style="max-width:70ch;margin-top:18px">Тут ламається більшість гейміфікацій: роблять одну валюту, і все стає порівнюваним. Право голосу опиняється на одній полиці з квитком у кіно — і підліток обирає кіно. Тому шкали дві, і між ними немає обміну.</p>
+  <p class="lead" style="max-width:70ch;margin-top:14px">Але розділення проходить не по тому, «за що дають», а по тому, <b>що можна купити</b>: купується доступ і дрібні зручності, не купуються права участі.</p>
+
+  <div class="scales">
+    <div class="scale a">
+      <span class="tag">Не витрачається · ніколи не зникає</span>
+      <h3>Шлях</h3>
+      <p>Це «пробіг» людини в місті. Схоже на кілометри, які ви пройшли: витратити їх не можна, обміняти теж, але вони назавжди ваші й показують, де ви були.</p>
+      <p class="q">Відповідає на питання «ким я став»</p>
+      <p class="sm">Відкриває рівні, а рівні відкривають права. Не згорає за неактивність. У 18 років переходить у власність самої людини разом із портфоліо.</p>
+    </div>
+    <div class="scale b">
+      <span class="tag">Витрачається · це гаманець</span>
+      <h3>Внесок</h3>
+      <p>Нараховується майже за все, що зроблено у фізичному місті: перший чек-ін, пробне заняття, пройдений квест, мікровнесок у міські дані, волонтерська зміна. Корисне іншим оплачується дорожче — але воно не єдине джерело.</p>
+      <p class="q">Відповідає на питання «що я можу взяти»</p>
+      <p class="sm">Сама назва пояснює механіку дитині: коли вона проголосувала, прибрала парк або дійшла до бібліотеки, слово «Внесок» каже, чому місто це зарахувало. Вихід у місто — теж внесок, бо саме цього місто й хоче.</p>
+    </div>
+  </div>
+
+  <div class="math" style="margin-top:26px">
+    <h4>Чому квест теж має платити в гаманець</h4>
+    <p class="mnote" style="margin-top:12px">У першій версії концепту квест давав тільки «Шлях». Для активного підлітка це працює: він копить на рівень і права. Для решти — ні. Людина проходить п'ять точок району і не може за це взяти навіть м'яч напрокат у суботу.</p>
+    <p class="mnote" style="margin-top:12px">Тому витратна шкала поповнюється майже з усього, що робиться ногами. <b>Ціною цього не є нічого важливого</b> — бо захищати треба одну-єдину річ, і вона захищена окремо.</p>
+  </div>
+
+  <div class="rzone" style="margin-top:22px;border:1px solid var(--red-line);background:var(--red-soft);border-radius:var(--r);padding:22px 24px">
+    <h4 style="color:var(--red)">Що не купується взагалі</h4>
+    <p class="sm" style="margin-top:10px">Жодна кількість Внеску не дає права участі: голосу в молодіжному бюджеті, місця в молодіжній раді, стажування в КМДА. Це відкривається <b>тільки Шляхом</b>, який не витрачається, не передається й не обмінюється.</p>
+    <p class="sm">Щойно голос можна купити — виграє той, у кого більше вільного часу й кращий смартфон, а місто отримує звинувачення, що роздає дітям вплив за бали.</p>
+  </div>
+
+  <h3 style="margin-top:52px">За що нараховують і за що ні</h3>
+  <p class="mut sm" style="margin-top:10px">Числа умовні — потрібні, щоб було видно пропорцію. Головне тут не суми, а останні три рядки.</p>
+  <div class="tw">
+    <div class="scrl">
+      <table>
+        <thead><tr><th>Дія</th><th>Шлях</th><th>Внесок</th><th>Чому саме так</th></tr></thead>
+        <tbody>
+          <tr><td>Перший чек-ін у новому закладі</td><td class="pts a">+25</td><td class="pts b">+10</td><td>Мета — щоб людина дізналась, що заклад існує</td></tr>
+          <tr><td>Повторний візит туди ж</td><td class="pts z">0</td><td class="pts z">0</td><td>Цінність лише в першому разі. Заодно знімає сенс накручувати</td></tr>
+          <tr><td>Перше пробне заняття в секції</td><td class="pts a">+40</td><td class="pts b">+20</td><td>Найдорожчий крок для дитини — переступити поріг уперше</td></tr>
+          <tr><td>Регулярне відвідування гуртка</td><td class="pts z">факт</td><td class="pts z">0</td><td><b>Свідомо не оплачується.</b> Хто ходить за бали — кине разом із балами</td></tr>
+          <tr><td>Пройдений квест міста</td><td class="pts a">+150</td><td class="pts b">+60</td><td>Складається з кількох дій, тому дорожчий за суму частин</td></tr>
+          <tr><td>Мікровнесок у міські дані</td><td class="pts a">+5</td><td class="pts b">+10</td><td>Фото проблеми, уточнення даних про заклад, опитування. П'ять хвилин, дешево у Шляху, відчутно в гаманці</td></tr>
+          <tr><td>Волонтерська зміна з підтвердженням</td><td class="pts a">+50</td><td class="pts b">+80</td><td>Корисне іншим оплачується найдорожче — але вже не єдине джерело</td></tr>
+          <tr><td>Ідея, яка пройшла поріг підтримки</td><td class="pts a">+100</td><td class="pts b">+40</td><td>Не за подачу, а за результат — інакше засипле спамом</td></tr>
+          <tr><td>Наставництво над молодшим учасником</td><td class="pts a">+120</td><td class="pts b">+100</td><td>Найдорожча дія в системі</td></tr>
+          <tr><td>Оцінки, домашні завдання, олімпіади</td><td class="pts no">ніколи</td><td class="pts no">ніколи</td><td>Це територія школи. Плюс бали за навчання вбивають інтерес до навчання</td></tr>
+          <tr><td>Подана заява, заповнений профіль</td><td class="pts no">ніколи</td><td class="pts no">ніколи</td><td>Послугу треба отримати швидко і піти. Бали тут подовжують шлях</td></tr>
+          <tr><td>Покупка, оплата, запрошення друга</td><td class="pts no">ніколи</td><td class="pts no">ніколи</td><td>Це програма лояльності супермаркету, а не міста</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="math">
+    <h4>Порахуємо за Дениса: перші три місяці</h4>
+    <div class="mrow"><span>9 нових локацій у районі</span><b class="pts a">+225 Шляху / +90 Внеску</b></div>
+    <div class="mrow"><span>Пробне заняття з робототехніки</span><b class="pts a">+40 Шляху / +20 Внеску</b></div>
+    <div class="mrow"><span>Квест «Спробуй п'ять» пройдено</span><b class="pts a">+150 Шляху / +60 Внеску</b></div>
+    <div class="mrow"><span>2 шкільні голосування</span><b class="pts a">+40 Шляху / +40 Внеску</b></div>
+    <div class="mrow"><span>Прибирання парку з класом</span><b class="pts b">+60 Шляху / +60 Внеску</b></div>
+    <div class="mtot"><span>Разом</span><b>515 Шляху · 270 Внеску</b></div>
+    <p class="mnote">515 Шляху — це рівень <b>«Киянин»</b> (поріг 300) і майже половина шляху до «Активного киянина» (600), який дає право голосу в молодіжному бюджеті участі.<br><br>270 Внеску — це те, що можна витратити вже цими вихідними: прокат м'яча на день (20), година в залі для своєї компанії (60), і ще лишається на екскурсію в депо метро (150). Саме цього не було б, якби квест давав тільки статус: Денис заробив би рівень і нічого, що можна взяти в суботу.<br><br>Зверніть увагу: за три місяці він не отримав жодного бала за навчання і жодного за дії в порталі. Усі 515 — це те, що він фізично зробив у місті.</p>
+  </div>
+</section>
+
+<!-- ══════════ ЗА ЩО БАЛИ ══════════ -->
+<section id="tasks" class="wrap">
+  <p class="kicker">За що бали</p>
+  <h2>Що робить дитина, щоб заробити Внесок</h2>
+  <p class="lead" style="max-width:70ch;margin:18px 0 38px">Правило одне: заробити, не виходячи з дому, неможливо. Жодного бала за кліки в порталі, перегляди чи заповнений профіль. Категорії далі йдуть від найлегшої до найдорожчої.</p>
+
+  <div class="grid g3">
+
+    <div class="blk">
+      <div class="bn"><span>01</span><em>працює для більшості</em></div>
+      <h3>Мікровнесок</h3>
+      <p class="one">П'ять хвилин, ні з ким не треба говорити, нікуди не записуватись — і місто отримує те, чого не має взагалі.</p>
+      <div class="ex"><b>Що саме</b>Сфотографувати яму, зламану лавку чи звалище. Перевірити, чи не змінились години роботи закладу. Позначити, чи є пандус. Пройти коротке опитування про район. Оцінити стан майданчика після зими. Протестувати новий сервіс.</div>
+      <div class="city"><b>Місту:</b> заявка з геоміткою, живий каталог закладів і дані про безбар'єрність, які інакше збирати нікому.</div>
+    </div>
+
+    <div class="blk">
+      <div class="bn"><span>02</span><em>разово</em></div>
+      <h3>Дії в місті</h3>
+      <p class="one">Один вихід, без зобов'язань наперед і без оформлення у волонтери.</p>
+      <div class="ex"><b>Що саме</b>Толока в парку чи на березі. Здача вторсировини в пункті. Висадка дерев. Допомога на міській події: реєстрація, навігація, вода. Участь у міському голосуванні чи обговоренні. Донорство крові з 18.</div>
+      <div class="city"><b>Місту:</b> руки там, де їх бракує щосезону, і явка на обговореннях, куди зараз не приходить ніхто молодший за сорок.</div>
+    </div>
+
+    <div class="blk">
+      <div class="bn"><span>03</span><em>регулярно · дорожче</em></div>
+      <h3>Волонтерство</h3>
+      <p class="one">Верифікована зміна з підтвердженням координатора. Найдорожча категорія разом із наставництвом.</p>
+      <div class="ex"><b>Що саме</b>Притулок для тварин — найнижчий поріг входу, бо не треба говорити з людьми. Зміна в бібліотеці, музеї, молодіжному центрі. Допомога літнім. Соцслужба й лікарня з 18. Допомога після обстрілів за окремим протоколом.</div>
+      <div class="city"><b>Місту:</b> верифіковані години, з яких зростає довідка для роботодавця — документ, що коштує місту нуль гривень.</div>
+    </div>
+
+    <div class="blk">
+      <div class="bn"><span>04</span><em>найдорожче</em></div>
+      <h3>Знання і час</h3>
+      <p class="one">Те, що може дати тільки людина, яка вже щось уміє.</p>
+      <div class="ex"><b>Що саме</b>Наставництво над молодшим учасником. Цифрова допомога літнім — тут підліток уперше в житті експерт. Переклад чи опис локації для каталогу. Провести екскурсію або майстерку для молодших.</div>
+      <div class="city"><b>Місту:</b> система, яка сама себе наповнює людьми, замість того щоб наймати їх.</div>
+    </div>
+
+    <div class="blk">
+      <div class="bn"><span>05</span><em>операційно</em></div>
+      <h3>Допомога закладам</h3>
+      <p class="one">Дрібна робота, якої в закладу завжди більше, ніж рук.</p>
+      <div class="ex"><b>Що саме</b>Підготувати простір до події. Зняти подію й зробити фото для сторінки закладу — у більшості закладів немає ні фотографа, ні нормальних фото. Бути тестовою групою для нового формату.</div>
+      <div class="city"><b>Місту:</b> заклади отримують ресурс, за який не треба платити, і причину підключитись до системи.</div>
+    </div>
+
+    <div class="blk">
+      <div class="bn"><span>06</span><em>зміна проти v1</em></div>
+      <h3>Квести</h3>
+      <p class="one">Ігровий шар поверх усього переліченого. У цій версії квест дає <b>і Шлях, і Внесок</b> — інакше для більшості учасників він не дає взагалі нічого.</p>
+      <div class="ex"><b>Приклади нижче</b>Загадка, яка веде до місця; маршрут із ланцюжком підказок; квест-аудит району, на виході якого місто отримує п'ять заявок із геомітками.</div>
+      <div class="city"><b>Місту:</b> один інструмент замість окремої кампанії з рекламним бюджетом на кожну задачу.</div>
+    </div>
+
+  </div>
+
+  <h3 style="margin-top:52px">Квести, у яких є загадка</h3>
+  <p class="mut sm" style="margin:10px 0 22px;max-width:70ch">Точка на карті сама по собі не інтрига. Загадка перетворює похід у бібліотеку на причину туди піти.</p>
+  <div class="grid g3">
+    <div class="card soft"><span class="idx">Загадка → місце</span><h4>Загадка про пам'ятник</h4><p>«Стою спиною до річки і дивлюся на того, хто ніколи тут не був». Відгадав — прийшов — відсканував.</p></div>
+    <div class="card soft"><span class="idx">Загадка → місце</span><h4>Полювання на деталь</h4><p>Знайти маскарон, дату на фасаді чи ініціали над входом. Змушує підняти голову на вулиці, якою ходиш щодня.</p></div>
+    <div class="card soft"><span class="idx">Загадка → місце</span><h4>Що тут було раніше</h4><p>Дається старе фото Києва — треба знайти те саме місце й зняти з того ж ракурсу. Місто заодно збирає колекцію «тоді і зараз».</p></div>
+    <div class="card soft"><span class="idx">Загадка → місце</span><h4>Код заховано в книжці</h4><p>«Сторінка, на якій уперше згадується Хрещатик». Щоб пройти — треба зайти в бібліотеку й попросити книжку. Найдешевший спосіб завести туди підлітка.</p></div>
+    <div class="card soft"><span class="idx">Маршрут</span><h4>Шифр району</h4><p>На п'яти локаціях по одній літері. Зібрав усі — склав слово, яке відкриває фінальну точку.</p></div>
+    <div class="card soft"><span class="idx">Маршрут</span><h4>Ланцюжок підказок</h4><p>Кожен код дає підказку до наступної точки. Фінал невідомий до кінця — це тримає краще за прогресбар.</p></div>
+    <div class="card soft"><span class="idx">Маршрут</span><h4>Звуковий маршрут</h4><p>Аудіоісторія веде вулицею, наступна точка називається в кінці треку. Працює в навушниках, говорити ні з ким не треба.</p></div>
+    <div class="card soft"><span class="idx">Механіка</span><h4>Пасхалки</h4><p>Рідкісні локації без анонсу. Дізнатись можна тільки від того, хто вже знайшов. Створює те, чого місто не купить рекламою, — розмову між підлітками.</p></div>
+    <div class="card soft"><span class="idx">Механіка</span><h4>Командні точки</h4><p>Відкриваються, тільки якщо двоє-троє відсканували в різних місцях протягом десяти хвилин. Командна дія без жодних зборів і оргкомітетів.</p></div>
+    <div class="card"><span class="idx">Користь місту · дорожче</span><h4>Аудит району</h4><p>«Знайди п'ять зламаних лавок». На вигляд полювання, на виході — п'ять заявок із геомітками.</p></div>
+    <div class="card"><span class="idx">Користь місту · дорожче</span><h4>Перепис дерев</h4><p>Сфотографувати й позначити дерева на своїй вулиці. Реальний краудсорсинг у форматі гри.</p></div>
+    <div class="card"><span class="idx">Користь місту · дорожче</span><h4>Розвідка доступності</h4><p>Обійти п'ять входів і позначити, де пандус, а де сходи. Дані про безбар'єрність, яких у міста немає.</p></div>
+  </div>
+
+  <div style="margin-top:34px;border:1px solid var(--red-line);background:var(--red-soft);border-radius:var(--r);padding:22px 24px">
+    <h4 style="color:var(--red)">За що не нараховуємо нічого</h4>
+    <p class="sm" style="margin-top:10px">Оцінки, домашні завдання, олімпіади — територія школи. Дії всередині послуги: подана заява, заповнений профіль, оплачена квитанція. Покупки, оплати, запрошення друга — це програма лояльності супермаркету. Повторний візит у той самий заклад — платимо лише за перший. Регулярне відвідування гуртка — фіксується як факт, не оплачується жодною шкалою.</p>
+    <p class="sm">І окремо: <b>Внеском не купуються права участі</b> — голос у молодіжному бюджеті, місце в молодіжній раді, стажування в КМДА. Вони відкриваються тільки Шляхом.</p>
+  </div>
+
+  <h3 style="margin-top:52px">Хто підтверджує</h3>
+  <p class="mut sm" style="margin-top:10px">Без підтвердження механіку зламають за тиждень. Аномалії розбирає людина, а не автоматика — дітей не банить робот.</p>
+  <div class="tw">
+    <div class="scrl">
+      <table>
+        <thead><tr><th>Тип дії</th><th>Хто підтверджує</th></tr></thead>
+        <tbody>
+          <tr><td>Мікровнесок із фото й геоміткою</td><td>Автоматична перевірка + вибіркова модерація</td></tr>
+          <tr><td>Опитування, голосування, тестування</td><td>Сама система</td></tr>
+          <tr><td>Разова дія на події</td><td>Організатор події зі свого кабінету</td></tr>
+          <tr><td>Волонтерська зміна</td><td>Координатор організації зі свого кабінету</td></tr>
+          <tr><td>Наставництво</td><td>Заклад або координатор напряму</td></tr>
+          <tr><td>Здача вторсировини, донорство</td><td>Пункт прийому, центр крові</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ВІТРИНА ══════════ -->
+<section id="shop" class="wrap">
+  <p class="kicker">На що витратити</p>
+  <h2>Вітрина: місто платить доступом</h2>
+  <p class="lead" style="max-width:70ch;margin:18px 0 20px">Більшість позицій не коштує місту нічого — бо це надлишкова ємність (місце й так є, використане чи ні), інформація без собівартості або статус. Ціни умовні, потрібні, щоб було видно масштаб.</p>
+
+  <div class="math" style="margin-top:0;margin-bottom:34px">
+    <h4>Головне про суми</h4>
+    <p class="mnote" style="margin-top:12px">Внесок має витрачатися <b>легко й часто, дрібними сумами</b>. Активний підліток копить на екскурсію в депо метро. Неактивний повинен мати змогу витратити свої 40 балів на прокат м'яча в суботу — інакше баланс просто лежить, і система для нього мертва.</p>
+  </div>
+
+  <h3>Місто дає з того, що вже має</h3>
+  <p class="mut sm" style="margin:10px 0 22px;max-width:70ch">Нічого не треба купувати й нікому компенсувати.</p>
+  <div class="grid g3">
+    <div class="card soft"><span class="idx">40 Внеску</span><h4>Година простору для себе і друзів</h4><p>Кімната в молодіжному центрі чи бібліотеці: диван, Wi-Fi, розетка. Без програми й керівника. Вдома батьки, на вулиці холодно, у ТРЦ треба щось купити — а тут просто можна бути. Приміщення все одно стоїть після 18:00.</p></div>
+    <div class="card soft"><span class="idx">60 Внеску</span><h4>Година на майданчику чи в залі</h4><p>Взяв поле, корт або зал у вихідний і прийшов із друзями. Не секція, не тренер, не запис у групу — просто поганяли м'яч. Ємність простоює.</p></div>
+    <div class="card soft"><span class="idx">20 Внеску</span><h4>Онлайн-підписки бібліотек</h4><p>Електронні книги, бази, освітні платформи. Бібліотеки вже тримають підписки, якими майже ніхто не користується — гранична вартість ще одного акаунта нульова.</p></div>
+    <div class="card soft"><span class="idx">30 Внеску</span><h4>Година з тваринами в притулку</h4><p>Прийти погратися з котами й вигуляти собак — без оформлення у волонтери й без зобов'язання ходити щотижня.</p></div>
+    <div class="card soft"><span class="idx">50 Внеску</span><h4>Право обрати</h4><p>Фільм на показі в бібліотеці, трек у плейлисті молодіжного центру, колір лавки в парку. Мікровплив без виступів, зборів і активізму.</p></div>
+    <div class="card soft"><span class="idx">120 Внеску · лімітовано</span><h4>Бекстейдж фестивалю</h4><p>Пропуск за лаштунки міської події. Місць мало, коштує нуль, а в очах підлітка це найдорожча позиція вітрини.</p></div>
+    <div class="card soft"><span class="idx">15 Внеску</span><h4>Кастомізація профілю</h4><p>Тема оформлення, аватар, рамка за пройдену колекцію, стікерпак із районами Києва. Для покоління, вихованого на скінах, це нормальна винагорода з нульовою вартістю після розробки.</p></div>
+    <div class="card soft"><span class="idx">150 Внеску</span><h4>Екскурсія в депо метро</h4><p>Групи туди водять і так — службовців, журналістів. Додати підлітка в наявну групу не коштує нічого понад те, що вже витрачається.</p></div>
+    <div class="card soft"><span class="idx">під питанням</span><h4>Поїздки в метро</h4><p>Гранична вартість перевезення однієї людини в непікову годину близька до нуля, і транспорт — та сама міська система, тобто компенсувати нікому. Потребує окремого рішення, тому позиція поки відкрита.</p></div>
+  </div>
+
+  <h3 style="margin-top:48px">Потребує партнера або закупівлі</h3>
+  <p class="mut sm" style="margin:10px 0 22px;max-width:70ch">Ці позиції теж не йдуть із міського бюджету на призи — але їх треба або купити один раз, або домовитись із бізнесом.</p>
+  <div class="grid g3">
+    <div class="card"><span class="idx">разова закупівля</span><h4>Прокат обладнання</h4><p>Ролики, скейти, велосипеди, м'ячі, настолки, намети. Багато чого підліток не пробує лише тому, що не має інвентарю і не проситиме грошей у батьків. Купується раз, далі майже нуль. Природний власник — молодіжні центри.</p></div>
+    <div class="card"><span class="idx">партнер</span><h4>Атракціони в парку та на подіях</h4><p>Оператор дає квоту в непікові години в обмін на присутність у міському каналі. Місто не платить.</p></div>
+    <div class="card"><span class="idx">партнер</span><h4>Година в комп'ютерному клубі</h4><p>Сильна позиція для тієї аудиторії, яку інакше не дістати нічим. Дається партнером, а не містом — і тільки в межах правил відбору партнерів.</p></div>
+  </div>
+
+  <h3 style="margin-top:48px">Звідки брати гроші на те, що таки коштує</h3>
+  <p class="mut sm" style="margin:10px 0 22px;max-width:70ch">Місто не має витрачати кошти громади на мерч. Десять джерел, жодне з яких не є міським бюджетом на призи.</p>
+  <div class="tw">
+    <div class="scrl">
+      <table>
+        <thead><tr><th>Джерело</th><th>Як працює</th></tr></thead>
+        <tbody>
+          <tr><td>Партнерська вітрина</td><td>Бізнес дає товар або послугу за доступ до аудиторії й присутність у міському каналі. Місто не платить — партнер платить продуктом</td></tr>
+          <tr><td>Бюджети закладів на промо</td><td>У багатьох закладів уже є стаття на залучення відвідувачів. Частину можна перенаправити у винагороду замість зовнішньої реклами — сума та сама</td></tr>
+          <tr><td>КСВ великих компаній</td><td>У банків і телекомів є бюджети саме під молодіжні ініціативи. Це гроші, які шукають, куди піти, а не бюджет, який треба випросити</td></tr>
+          <tr><td>Гранти донорських програм</td><td>Громадянська освіта молоді й цифрова трансформація послуг: USAID, EU4Youth, «Дім Європи»</td></tr>
+          <tr><td>Краудфандинг під конкретний приз</td><td>Не «дайте грошей на гейміфікацію», а «профінансуйте 20 екскурсій цього кварталу» — прозоріше й легше продати донору</td></tr>
+          <tr><td>«Всиновлення» винагороди</td><td>Компанія бере на утримання один тип нагороди зі своїм лого на сторінці. Це спонсорство заходу, а не реклама дітям</td></tr>
+          <tr><td>Бартер між департаментами</td><td>Культура дає квитки, молодь приводить аудиторію й статистику. Обмін ресурсом, надлишковим в одного й дефіцитним в іншого</td></tr>
+          <tr><td>Уже оплачене, але невикористане</td><td>У закладів є квоти безкоштовних місць за соцпрограмами, які не вибираються повністю. Направити залишок у систему замість того, щоб він згорав</td></tr>
+          <tr><td>Платний вхід у каталог партнерів</td><td>Під суворим фільтром категорій. Гроші йдуть на бюджет програми, а не конкретній дитині</td></tr>
+          <tr><td>Спонсор однієї хвилі</td><td>Один великий партнер за статус «партнер запуску» — типова модель для пілотів, які потім масштабуються на муніципальному бюджеті</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div style="margin-top:34px;border:1px solid var(--red-line);background:var(--red-soft);border-radius:var(--r);padding:22px 24px">
+    <h4 style="color:var(--red)">Фільтр для кожної нової позиції вітрини</h4>
+    <p class="sm" style="margin-top:10px"><b>1.</b> Чи існувало б це благо, якби гри не було? Якщо це послуга, на яку в дитини вже є право — місце в гуртку, путівка, черга в садок — винагородою бути не може.<br>
+    <b>2.</b> Чи не вимагає воно покупки? «Знижка 10% при купівлі від 500 грн» — це реклама, а не винагорода.<br>
+    <b>3.</b> Чи можна це отримати, не будучи активістом? Більшість аудиторії не хоче виступати, домовлятись і бути помітною.<br>
+    <b>4.</b> Хто за це платить і чим? Якщо міський бюджет — шукаємо джерело з таблиці вище.</p>
+    <p class="sm">І те, чого у вітрині не буде ніколи: <b>психолог, юрист, соціальна й медична допомога</b>. Вони мають бути доступні будь-якій дитині одразу й безумовно. Робити з них винагороду за бали — неприйнятно.</p>
+  </div>
+</section>
+
+<!-- ══════════ ПРОТОТИП ══════════ -->
+<section id="demo" class="wrap">
+  <p class="kicker lime">Робочий прототип</p>
+  <h2>Спробуйте самі</h2>
+  <p class="lead" style="max-width:70ch;margin-top:18px">Це не картинка — усе клікається. Ви граєте за Дениса, 15 років, у нього 275 Шляху і 80 Внеску. Йому лишилось дві бібліотеки до завершення квесту — зверніть увагу, що кожен чек-ін тепер поповнює обидві шкали, а квест дає +150 Шляху і +60 Внеску.</p>
+
+  <div class="demo-wrap">
+    <div class="demo-steps">
+      <div class="dstep on" data-hint="1">
+        <span class="k">1</span>
+        <div><h4>Відкрийте карту</h4><p>Вісім місць району. Три вже зібрані — вони підсвічені. Натисніть будь-яке незібране.</p></div>
+      </div>
+      <div class="dstep" data-hint="2">
+        <span class="k">2</span>
+        <div><h4>Зробіть чек-ін</h4><p>Кнопка «Я тут» імітує сканування коду на вході в заклад. Подивіться, що з'явиться після.</p></div>
+      </div>
+      <div class="dstep" data-hint="3">
+        <span class="k">3</span>
+        <div><h4>Зберіть обидві бібліотеки</h4><p>Квест завершиться сам, і Денис перейде на новий рівень. Рівень одразу відкриє нові права.</p></div>
+      </div>
+      <div class="dstep" data-hint="4">
+        <span class="k">4</span>
+        <div><h4>Зайдіть у профіль</h4><p>Дві шкали, колекції та портфоліо, у яке падають факти — без балів і без порівняння з кимось.</p></div>
+      </div>
+      <div class="dstep" data-hint="5">
+        <span class="k">5</span>
+        <div><h4>Витратьте Внесок</h4><p>Вітрина в профілі. Дешеві позиції беруться одразу — так і має бути. Спробуйте купити те, на що не вистачає: система не пропонує «докупити».</p></div>
+      </div>
+      <div class="dstep" data-hint="6">
+        <span class="k">6</span>
+        <div><h4>Проголосуйте в бюджеті участі</h4><p>Доступно тільки з рівня «Активний киянин». У Дениса його ще немає — подивіться, як виглядає закритий доступ.</p></div>
+      </div>
+      <p class="dim xs" style="margin-top:6px;line-height:1.5">Прототип показує логіку, а не фінальний дизайн. Усі назви закладів і проєктів — приклади.</p>
+    </div>
+
+    <div class="stage" id="stage">
+      <div class="phone">
+        <div class="screenbox">
+          <div class="notch"></div>
+          <div class="statusbar"><span>9:41</span><span id="sbLvl">Свій район</span></div>
+
+          <!-- HOME -->
+          <div class="scr on" id="s-home">
+            <div class="hcard">
+              <div class="lvl" id="hLvlTag">Рівень · Свій район</div>
+              <div class="nm">Привіт, Денисе</div>
+              <div class="bar"><i id="hBar" style="width:20%"></i></div>
+              <div class="to" id="hTo">До рівня «Киянин» — 25 Шляху</div>
+            </div>
+            <div class="wallets">
+              <div class="wal a"><div class="t">Шлях</div><div class="v" id="wA">275</div><div class="d">не витрачається</div></div>
+              <div class="wal b"><div class="t">Внесок</div><div class="v" id="wB">80</div><div class="d">можна витратити</div></div>
+            </div>
+            <div class="sect-t">Активний квест</div>
+            <button class="qcard" data-go="quest">
+              <div class="qt">Бібліотечний маршрут Подолу</div>
+              <div class="qd">П'ять бібліотек за місяць. Після завершення — доступ у читальні зали з коворкінгом.</div>
+              <div class="bar"><i id="qBar" style="width:60%"></i></div>
+              <div class="qp"><span id="qTxt">3 / 5 зібрано</span><span>+150 Шляху</span></div>
+            </button>
+            <div class="sect-t">Поруч із тобою</div>
+            <div class="plist" id="nearList"></div>
+            <div class="sect-t">Швидкий доступ</div>
+            <div class="plist">
+              <button class="pitem" data-go="levels"><span class="ic">🏅</span><span><span class="tt">Рівні та права</span><span class="dd">що відкриється далі</span></span><span class="rr">→</span></button>
+              <button class="pitem" data-go="budget"><span class="ic">🗳</span><span><span class="tt">Молодіжний бюджет участі</span><span class="dd">голосування триває 12 днів</span></span><span class="rr">→</span></button>
+            </div>
+          </div>
+
+          <!-- MAP -->
+          <div class="scr" id="s-map">
+            <div class="ph-h">Карта району</div>
+            <div class="ph-sub">Виноградар і Поділ · натисніть місце, щоб побачити картку</div>
+            <div class="mapbox">
+              <svg viewBox="0 0 340 300" id="mapsvg" role="img" aria-label="Схематична карта району з місцями">
+                <rect width="340" height="300" fill="#F7F7F9"/>
+                <path d="M0 96 H340 M0 190 H340 M112 0 V300 M232 0 V300" stroke="#E5E5EA" stroke-width="1.4"/>
+                <path d="M-10 250 C60 232 120 262 190 238 S310 214 350 236" stroke="#D9E8FF" stroke-width="15" fill="none" opacity=".65"/>
+                <rect x="126" y="110" width="90" height="64" rx="9" fill="#EDF1F6" stroke="#E5E5EA"/>
+                <text x="171" y="147" font-size="9" font-family="JetBrains Mono, monospace" fill="#A8A5A5" text-anchor="middle">ПАРК</text>
+                <g id="pins"></g>
+              </svg>
+            </div>
+            <div class="sect-t">Усі місця · <span id="mapCount">3 з 8</span></div>
+            <div class="plist" id="mapList"></div>
+          </div>
+
+          <!-- PLACE -->
+          <div class="scr" id="s-place">
+            <button class="ph-back" data-go="map"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg> Карта</button>
+            <div id="placeBody"></div>
+          </div>
+
+          <!-- SCAN -->
+          <div class="scr" id="s-scan">
+            <div class="ph-h">Наведіть на код</div>
+            <div class="ph-sub">Код на вході оновлюється кожні 3 хвилини — зняти його з фото в чаті не вийде</div>
+            <div class="scanbox">
+              <div class="frame"><span></span><span></span><span></span><span></span></div>
+              <div class="scanline"></div>
+            </div>
+            <p class="xs dim" style="text-align:center">Розпізнаємо…</p>
+          </div>
+
+          <!-- SUCCESS -->
+          <div class="scr" id="s-ok">
+            <div class="ok-hero">
+              <div class="ok-ring"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div>
+              <div class="t" id="okT">Зібрано</div>
+              <div class="s" id="okS"></div>
+            </div>
+            <div class="gain" id="okGain"></div>
+            <div class="factbox" id="okFact"></div>
+            <button class="qcard" style="margin-top:14px;text-align:center" data-go="home">На головну</button>
+          </div>
+
+          <!-- QUEST -->
+          <div class="scr" id="s-quest">
+            <button class="ph-back" data-go="home"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg> Головна</button>
+            <div class="ph-h">Бібліотечний маршрут Подолу</div>
+            <div class="ph-sub">До 30 листопада · організатор: Департамент культури</div>
+            <div class="hcard light">
+              <div class="lvl">Прогрес</div>
+              <div class="bar"><i id="qBar2" style="width:60%"></i></div>
+              <div class="to" id="qTxt2">3 з 5 бібліотек</div>
+            </div>
+            <div class="sect-t">Кроки</div>
+            <div id="questSteps"></div>
+            <div class="factbox" style="margin-top:16px">
+              <b>Що буде після завершення</b><br>
+              +150 Шляху і доступ у читальні зали з коворкінгом у будь-якій бібліотеці міста. Квест не опублікували б, якби організатор не вказав, що конкретно змінюється для учасника.
+            </div>
+          </div>
+
+          <!-- PROFILE -->
+          <div class="scr" id="s-prof">
+            <div class="ph-h">Денис К.</div>
+            <div class="ph-sub">15 років · Виноградар · профіль підтверджено батьком</div>
+            <div class="wallets" style="grid-template-columns:1fr">
+              <div class="wal a">
+                <div class="t">Шлях · пройдено</div>
+                <div class="v" id="pA">275</div>
+                <div class="bar" style="margin-top:10px"><i id="pBarA" style="width:20%"></i></div>
+                <div class="d" id="pToA">до «Киянина» лишилось 25</div>
+              </div>
+            </div>
+            <div class="wallets" style="grid-template-columns:1fr">
+              <div class="wal b"><div class="t">Внесок · гаманець</div><div class="v" id="pB">80</div><div class="d">заробляється діями у фізичному місті</div></div>
+            </div>
+            <div class="sect-t">Колекції</div>
+            <div class="plist" id="collList"></div>
+            <div class="sect-t">Портфоліо · факти, не бали</div>
+            <div class="factbox" id="portfolio"></div>
+            <div class="sect-t">Витратити Внесок</div>
+            <div id="shopList"></div>
+            <div class="factbox" style="margin-top:6px">
+              Профіль закритий. Рейтингів немає — ні між учнями, ні між класами, ні між школами. Порівняння можливе тільки із собою в минулому.
+            </div>
+          </div>
+
+          <!-- LEVELS -->
+          <div class="scr" id="s-levels">
+            <button class="ph-back" data-go="home"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg> Головна</button>
+            <div class="ph-h">Рівні та права</div>
+            <div class="ph-sub">Рівень не купується, не згорає і не знижується</div>
+            <div id="levelList"></div>
+            <div class="factbox" style="margin-top:14px">
+              <b>Чого тут немає і не буде</b><br>
+              Рівень ніколи не дає переваги в черзі на місце в гуртку, пільгову путівку чи будь-яку послугу, на яку в дитини є право. Тільки те, чого без цієї системи взагалі не існувало б.
+            </div>
+          </div>
+
+          <!-- BUDGET -->
+          <div class="scr" id="s-budget">
+            <button class="ph-back" data-go="home"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg> Головна</button>
+            <div class="ph-h">Молодіжний бюджет участі</div>
+            <div class="ph-sub">Виноградар · 1,2 млн ₴ · голосують 14–22 роки</div>
+            <div id="budGate"></div>
+            <div id="budList"></div>
+          </div>
+
+          <div class="toast" id="toast"></div>
+
+          <nav class="tabbar">
+            <button class="tab on" data-tab="home"><svg viewBox="0 0 24 24"><path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg><span>Головна</span></button>
+            <button class="tab" data-tab="map"><svg viewBox="0 0 24 24"><path d="M9 3L3 5.5v16L9 19l6 2.5 6-2.5v-16L15 5.5 9 3z"/><path d="M9 3v16M15 5.5v16"/></svg><span>Карта</span></button>
+            <button class="tab scan-tab" data-tab="scanbtn"><svg viewBox="0 0 24 24"><path d="M4 8V5a1 1 0 011-1h3M20 8V5a1 1 0 00-1-1h-3M4 16v3a1 1 0 001 1h3M20 16v3a1 1 0 01-1 1h-3"/><path d="M4 12h16"/></svg><span>Скан</span></button>
+            <button class="tab" data-tab="prof"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20a7.5 7.5 0 0115 0"/></svg><span>Профіль</span></button>
+          </nav>
+        </div>
+      </div>
+      <div class="stage-ctl">
+        <button class="sbtn" id="fsDemo">На весь екран</button>
+        <button class="sbtn" id="resetDemo">Почати спочатку</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ СІМ БЛОКІВ ══════════ -->
+<section id="blocks" class="wrap">
+  <p class="kicker">Склад системи</p>
+  <h2>Сім блоків</h2>
+  <p class="lead" style="max-width:70ch;margin:18px 0 38px">Кожен блок — окремий продукт, який можна запустити або не запускати. Порядок має значення: перші два дають дані й контент, без яких решта порожня.</p>
+  <div class="grid g2">
+
+    <div class="blk">
+      <div class="bn"><span>Блок 01</span><em>Хвиля 0 · пілот</em></div>
+      <h3>Паспорт киянина</h3>
+      <p class="one">Колекція реальних місць міста. На вході в заклад висить код — просканував, місце «зібране». Картка місця відкривається ще до візиту: що це, для кого, коли працює, чи безкоштовно.</p>
+      <div class="ex"><b>Приклад</b>Колекція «Бібліотеки Оболоні» — 5 місць. Соломія зібрала 4. П'ята — на іншому кінці району, і мама вперше про неї чує.</div>
+      <div class="city"><b>Місту:</b> єдина механіка, яка дає живий трафік у конкретний заклад із розбивкою за віком і районом. Таких даних сьогодні немає взагалі — є тільки звітність самих закладів.</div>
+    </div>
+
+    <div class="blk">
+      <div class="bn"><span>Блок 02</span><em>Хвиля 1</em></div>
+      <h3>Квести міста</h3>
+      <p class="one">Конструктор, у якому департамент або палац дітей сам збирає кампанію з готових кроків: відвідати, прийти на подію, здати вторсировину, подати ідею, проголосувати.</p>
+      <div class="ex"><b>Правило публікації</b>Квест не виходить, якщо організатор не написав, що конкретно зміниться в місті або в учаснику після завершення. Це відсікає квести заради квестів.</div>
+      <div class="city"><b>Місту:</b> замість лендінга й таргетованої реклами на кожну кампанію — один інструмент. Головна метрика: скільки квестів заклади зробили самі, без команди порталу.</div>
+    </div>
+
+    <div class="blk">
+      <div class="bn"><span>Блок 03</span><em>Хвиля 1</em></div>
+      <h3>Рівні як права</h3>
+      <p class="one">Класична гейміфікація дає бронзу-срібло-золото і нічого за ними. Тут рівень відкриває конкретну річ: вхід, запрошення, право голосу, стажування.</p>
+      <div class="ex"><b>Жорстке обмеження</b>Усе, що дає рівень, береться з <b style="display:inline;font-family:inherit;font-size:inherit;letter-spacing:0;text-transform:none">додаткового</b> пулу. Місце в гуртку чи пільгова путівка — ніколи. Перевірка кожного бонусу: чи існувало б це благо без гри взагалі.</div>
+      <div class="city"><b>Місту:</b> спосіб прозоро роздавати те, що зараз роздається за знайомством — екскурсії, зустрічі, місця на подіях, стажування.</div>
+    </div>
+
+    <div class="blk">
+      <div class="bn"><span>Блок 04</span><em>Хвиля 2 · найцінніший</em></div>
+      <h3>Молодіжний бюджет участі</h3>
+      <p class="one">Окрема квота міського бюджету, у якій проєкти подають і за які голосують люди 14–22 років. Право голосу заробляється активністю — це водночас і мотивація, і найкращий захист від накруток.</p>
+      <div class="ex"><b>Один учасник — один голос</b>Право голосу дає <b style="display:inline;font-family:inherit;font-size:inherit;letter-spacing:0;text-transform:none">рівень</b>, а не гаманець, і кількість активності не збільшує вагу голосу. Купити більше впливу неможливо в принципі.</div>
+      <div class="city"><b>Місту:</b> сходинка від шкільного бюджету участі до загальноміського. Людина, яка пройшла цикл у 15, у 18 не питає, як брати участь.</div>
+    </div>
+
+    <div class="blk">
+      <div class="bn"><span>Блок 05</span><em>Хвиля 2 · трек 18–22</em></div>
+      <h3>Волонтерський контур</h3>
+      <p class="one">Каталог реальних потреб міста, запис на зміну, підтвердження годин координатором і цифрова довідка з QR — офіційний документ міста для роботодавця чи університету.</p>
+      <div class="ex"><b>Тут гейміфікація майже не потрібна</b>Мотивація прагматична: студенту потрібен верифікований запис у резюме, місту — руки, а довідка коштує місту нуль гривень.</div>
+      <div class="city"><b>Місту:</b> уперше видно реальний обсяг молодіжного волонтерства і конкретних людей, на яких можна спертись у кризі.</div>
+    </div>
+
+    <div class="blk">
+      <div class="bn"><span>Блок 06</span><em>Хвиля 3</em></div>
+      <h3>Вітрина винагород</h3>
+      <p class="one">Більшість позицій не коштує місту нічого, бо це не товари, а доступ: екскурсія в депо метро, зустріч із головним архітектором, вхід у музей у непопулярні години, майстерклас.</p>
+      <div class="ex"><b>Заборонено назавжди</b>Алкоголь, вейпи, ставки, мікрокредити, косметологія, політичні й релігійні організації. Персоналізована реклама неповнолітнім. Винагороди, що вимагають покупки.</div>
+      <div class="city"><b>Місту:</b> партнерська програма, у якій місто не продає увагу дітей, а обмінює її на реальну цінність. Критерій відбору — користь, а не бюджет партнера.</div>
+    </div>
+
+    <div class="blk" style="grid-column:1/-1;background:linear-gradient(140deg,rgba(255,96,83,.06),var(--panel));border-color:rgba(255,96,83,.22)">
+      <div class="bn" style="color:var(--red)"><span>Блок 07</span><em>архітектурне рішення, яке треба прийняти на старті</em></div>
+      <h3>Ігровий шар не має зламати портфоліо</h3>
+      <p class="one" style="max-width:80ch">Освітня вертикаль містить блок «Цифрове портфоліо дитини» з жорстким принципом: це не рейтинг, жодних балів, жодних порівнянь. Гейміфікація за природою — це саме бали й порівняння. Якщо звести їх недбало, портфоліо перетвориться на рейтинг дітей.</p>
+      <div class="grid g2" style="margin-top:6px">
+        <div class="ex" style="border-color:var(--lime)"><b>Рішення</b>Портфоліо зберігає <b style="display:inline;font-family:inherit;font-size:inherit;letter-spacing:0;text-transform:none">факти</b>: «був у Музеї історії Києва 12 жовтня», «відпрацював 40 годин». Ігровий шар рахує бали окремо і ніколи їх туди не пише. Шеринг портфоліо не включає ні балів, ні рівня — комісія бачить діяльність, а не «золотий статус».</div>
+        <div class="ex" style="border-color:var(--blue)"><b>У 18 років</b>Профіль і портфоліо переходять у повну власність людини: вивантажити, приховати, видалити все. Батьківський доступ припиняється автоматично, без окремої дії. Без цього молодь системі не повірить.</div>
+      </div>
+      <div class="city"><b>Ціна питання:</b> нуль, якщо рішення прийняте на старті. Майже нездійсненно, якщо переробляти через рік роботи з балами всередині портфоліо.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ ЯК ЗАВЕСТИ НА ПОРТАЛ ══════════ -->
+<section id="entry" class="wrap">
+  <p class="kicker">Головне питання</p>
+  <h2>Як завести молодь саме на портал</h2>
+  <p class="lead" style="max-width:72ch;margin-top:18px">Заперечення справедливе: підліток не відкриє в браузері сайт держпослуг, щоб «щось подивитись». Але з цього не випливає, що портал програв — з цього випливає, що заводити треба інакше.</p>
+
+  <div class="pull">
+    <q>Портал програє застосунку в утриманні. Але <b>виграє в першому контакті</b> — його не треба встановлювати.</q>
+    <p class="src">Установка застосунку з'їдає 60–80% людей на першому кроці: перейти в маркет, погодитись, зачекати, зареєструватись. Веб-сторінка відкривається за 0,8 секунди зі сканування коду. Уся гейміфікація в цьому концепті побудована навколо QR саме тому: <b>камера телефона відкриває браузер, а не App Store</b>. Кожна наліпка на дверях бібліотеки — це фізичні двері на портал.</p>
+  </div>
+
+  <h3 style="margin-top:56px">Чотири двері</h3>
+  <p class="mut sm" style="margin-top:10px;max-width:70ch">Жодна з них не звучить як «зайди на портал послуг». Усі чотири ведуть у веб — тобто на портал — але людина цього слова навіть не бачить.</p>
+
+  <div class="doors">
+    <div class="door">
+      <span class="dn">01</span>
+      <h4>Камера</h4>
+      <p class="who">Основний канал · 14–22</p>
+      <p>Код на вході в бібліотеку, музей, палац дітей, на скейт-майданчику, на афіші події, на наліпці в транспорті. Сканування відкриває сторінку порталу напряму — без установки, без пароля, без «завантажте застосунок».</p>
+      <p class="note">Технічна умова: короткий домен у коді (умовно <b>kyiv.city/b14</b>), який редіректить у портал. Довге посилання дає великий нерозбірливий код і зменшує довіру.</p>
+    </div>
+    <div class="door">
+      <span class="dn">02</span>
+      <h4>Пошук</h4>
+      <p class="who">Найбільш недооцінений · 14–22</p>
+      <p>Молодь не «заходить на портал» — вона гуглить конкретне: «безкоштовні гуртки Оболонь», «куди піти в Києві 15 років», «волонтерство Київ від 16», «стажування в КМДА для студентів».</p>
+      <p class="note">Тому кожна локація, кожен гурток і кожен квест мають <b>публічну сторінку, яка відкривається без авторизації й індексується</b>. Це перетворює каталог на постійне джерело органічного трафіку, яке працює без бюджету.</p>
+    </div>
+    <div class="door">
+      <span class="dn">03</span>
+      <h4>Посилання</h4>
+      <p class="who">Соціальний канал · 14–22</p>
+      <p>У порталу немає власної аудиторії молоді — її треба позичити в тих, хто вже її має: класні керівники, учнівські ради, молодіжні центри, районні Telegram-канали, «Київ Цифровий» у батьків.</p>
+      <p class="note">Умова: посилання має відкриватись <b>у будь-якому браузері й показувати цінність до входу</b>. Якщо перше, що бачить підліток за посиланням від друга, — форма авторизації, канал мертвий.</p>
+    </div>
+    <div class="door">
+      <span class="dn">04</span>
+      <h4>Батьки</h4>
+      <p class="who">Єдиний канал для 10–13</p>
+      <p>Батьки вже на порталі — вони приходять по компенсації, довідки, зарахування. Дитячий профіль живе в їхньому кабінеті, і саме там з'являється картка «у вашому районі 6 місць, куди можна піти безкоштовно цими вихідними».</p>
+      <p class="note">Для молодшої групи це не обхідний шлях, а правильний: у 10–13 років користувач інтерфейсу — дорослий, користувач досвіду — дитина.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:56px">Шлях від наліпки до встановленого порталу</h3>
+  <p class="mut sm" style="margin-top:10px;max-width:70ch">Ключове правило: <b>не просити нічого, доки людина не отримала цінність</b>. Авторизація пропонується не на вході, а в момент, коли вже є що втрачати.</p>
+
+  <div class="flow">
+    <div class="fstage">
+      <span class="fn">Крок 1 · 0 секунд</span>
+      <h4>Сканує код</h4>
+      <p>Денис у бібліотеці наводить камеру на наліпку. Відкривається сторінка порталу. Нічого не встановлював, нікуди не входив.</p>
+    </div>
+    <div class="farrow" aria-hidden="true"></div>
+    <div class="fstage">
+      <span class="fn">Крок 2 · без входу</span>
+      <h4>Бачить цінність</h4>
+      <p>«Бібліотека №14 — зібрано. 1 з 5 у колекції». Прогрес зберігається анонімно в браузері. Він ще не користувач порталу — і не мусить ним бути.</p>
+    </div>
+    <div class="farrow" aria-hidden="true"></div>
+    <div class="fstage on">
+      <span class="fn">Крок 3 · третій чек-ін</span>
+      <h4>Зберігає прогрес</h4>
+      <p>«У тебе 3 місця. Зберегти, щоб не втратити?» Тільки тут — вхід: через шкільний акаунт або підтвердження батьком. І одразу: «Додати на екран телефона».</p>
+    </div>
+  </div>
+  <p class="mut sm" style="margin-top:18px;max-width:74ch">Після третього кроку слово «браузер» зникає: портал стоїть іконкою на екрані, надсилає вебпуші й відкривається на весь екран без адресного рядка. Технічно це <b>PWA</b> — і це єдиний спосіб для веб-продукту жити на телефоні поруч із застосунками.</p>
+
+  <h3 style="margin-top:56px">Три причини повернутись</h3>
+  <p class="mut sm" style="margin-top:10px;max-width:70ch">Портал не має ставати щоденною звичкою — це не стрічка. Він має бути місцем, куди приходять кілька разів на рік, але з реальною справою. Кожна з трьох причин природно вимагає порталу, а не застосунку.</p>
+  <div class="grid g3" style="margin-top:24px">
+    <div class="card">
+      <span class="idx">Причина 01</span>
+      <h4>Подати</h4>
+      <p>Проєкт у молодіжний бюджет участі, заявка на стажування в КМДА, подання на грант чи стипендію, реєстрація на волонтерську зміну. Це довгі форми з вкладеннями — їх роблять не в застосунку.</p>
+    </div>
+    <div class="card">
+      <span class="idx">Причина 02</span>
+      <h4>Отримати документ</h4>
+      <p>Довідка про волонтерські години з QR, сертифікат учасника, витяг із портфоліо у PDF. Офіційний документ міста видає портал — це його пряма функція, а не гра.</p>
+    </div>
+    <div class="card">
+      <span class="idx">Причина 03</span>
+      <h4>Показати</h4>
+      <p>Портфоліо для ліцею, стипендійної комісії чи роботодавця — це посилання, яке відкривається в будь-якому браузері без установок. Застосунок так не вміє в принципі.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:56px">Розподіл ролей із «Київ Цифровим»</h3>
+  <div class="tw">
+    <div class="scrl">
+      <table>
+        <thead><tr><th>Сценарій</th><th>Де відбувається</th><th>Чому саме там</th></tr></thead>
+        <tbody>
+          <tr><td>Чек-ін у закладі</td><td><b>Портал (веб)</b></td><td>Камера відкриває браузер. Установка нічого не додає, але відсіює більшість людей</td></tr>
+          <tr><td>Перегляд карти й карток місць</td><td><b>Портал</b></td><td>Публічна сторінка, індексується, відкривається за посиланням від друга</td></tr>
+          <tr><td>Пуш «квест поруч», «подія завтра»</td><td>Застосунок або PWA</td><td>Застосунок уже стоїть у батьків; у молоді працює PWA-пуш після встановлення на екран</td></tr>
+          <tr><td>Оплата проїзду, транспорт</td><td>Застосунок</td><td>Це його територія, портал туди не лізе</td></tr>
+          <tr><td>Подання проєкту, заявки, гранту</td><td><b>Портал</b></td><td>Довга форма з вкладеннями. Часто зручніше з десктопу</td></tr>
+          <tr><td>Голосування в бюджеті участі</td><td>Обидва</td><td>Дія коротка — має працювати звідусіль; логіка й підрахунок на порталі</td></tr>
+          <tr><td>Довідка, сертифікат, портфоліо</td><td><b>Портал</b></td><td>Документ і посилання для третьої сторони</td></tr>
+          <tr><td>Кабінет закладу, партнера, організації</td><td><b>Портал (десктоп)</b></td><td>Робоче місце дорослої людини, яка наповнює систему</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:34px">
+    <div class="card soft">
+      <h4>Що робити з десктопом</h4>
+      <p>Не соромитись його і не намагатись зробити «мобільним досвідом на великому екрані». У десктопа є чесна роль: <b>це робоче місце, а не стрічка</b>.</p>
+      <p>З телефона зручно сканувати, дивитись карту й голосувати. З комп'ютера — писати проєкт у бюджет участі, збирати портфоліо перед вступом, заповнювати заявку на стажування, готувати документи. Це різні задачі, і вимагати, щоб обидві робились однаково, — помилка.</p>
+      <p>Практичний наслідок: сценарії створення можна проєктувати під десктоп і не витрачати ресурс на те, щоб зробити їх ідеальними на телефоні.</p>
+    </div>
+    <div class="card soft">
+      <h4>Друга сторона порталу</h4>
+      <p>Половина трафіку порталу в цій системі — <b>не молодь</b>: методист палацу дітей, який збирає квест; бібліотекар, який друкує код; координатор волонтерів, який підтверджує години; партнер, який заводить винагороду; класний керівник, який підтверджує учня.</p>
+      <p>Вони працюють із десктопу, приходять регулярно й саме вони наповнюють систему контентом. Без їхніх кабінетів молоді нема на що дивитись — тому це не «додатковий модуль», а передумова.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:56px">Одна річ, яку варто зробити на рівні бренду</h3>
+  <p class="lead" style="max-width:72ch;margin-top:14px">Молодь не має знати слово «портал послуг». Воно означає «нудно і для дорослих» — і це заперечення виникає до першого екрана.</p>
+  <p class="mut" style="max-width:72ch">У продукту має бути власна назва (умовно «Мій Київ»), власна адреса-розділ і власна візуальна подача. Технічно він живе на порталі, використовує його авторизацію, кабінет і документи — але в комунікації це окремий продукт міста для молоді, а не розділ каталогу довідок. Це нічого не коштує й знімає найбільший психологічний бар'єр.</p>
+
+  <h3 style="margin-top:56px">Як міряти, що заведення працює</h3>
+  <div class="grid g4" style="margin-top:22px">
+    <div class="card"><h4>Частка сесій із QR</h4><p>Скільки візитів почалося зі сканування, а не з набору адреси. Головна метрика каналу №1.</p></div>
+    <div class="card"><h4>Встановлення PWA</h4><p>Скільки людей після 2–3 чек-інів додали портал на екран. Це перехід з «сайту» в «застосунок».</p></div>
+    <div class="card"><h4>Органічний трафік</h4><p>Візити на публічні сторінки місць і гуртків із пошуку. Канал, який працює без бюджету.</p></div>
+    <div class="card"><h4>Анонім → акаунт</h4><p>Частка тих, хто зберіг прогрес. Показує, чи в правильний момент просимо вхід.</p></div>
+  </div>
+  <p class="mut sm" style="margin-top:20px;max-width:74ch"><b>Чого не міряємо:</b> щоденну аудиторію порталу. Якщо підліток заходить на портал послуг щодня — це радше сигнал, що ми зробили гру замість сервісу. Правильна ціль — <b>кілька цінних дій на людину на рік</b> плюс десятки чек-інів, кожен із яких триває 15 секунд і закінчується тим, що людина йде в місто.</p>
+</section>
+
+<!-- ══════════ ЧЕРВОНІ ЛІНІЇ ══════════ -->
+<section id="red" class="redzone">
+  <div class="wrap">
+    <p class="kicker red">Червоні лінії</p>
+    <h2>Десять обмежень, а не побажань</h2>
+    <p class="lead" style="max-width:72ch;margin-top:18px">Це найдешевша й найважливіша частина концепту: її треба затвердити як продуктове рішення <b>до</b> початку розробки. Біля кожного пункту — що буде, якщо його порушити.</p>
+
+    <div style="margin-top:34px">
+      <div class="rl"><span class="rn">01</span><div>
+        <h4>Бали не впливають на доступ до послуги, на яку є право</h4>
+        <p>Гуртки, пільгові путівки, черга в садок, зарахування, соцдопомога — за чинними правилами. Гра роздає тільки те, чого без неї не існувало б.</p>
+        <div class="conseq"><b>Якщо порушити</b><span>Дитина з малозабезпеченої родини без смартфона не потрапляє в безкоштовний гурток, бо «не набрала балів». Це вже не гра, а механізм нерівності, який ніхто не затверджував.</span></div>
+      </div></div>
+
+      <div class="rl"><span class="rn">02</span><div>
+        <h4>Жодних балів за навчання</h4>
+        <p>Оцінки, домашні завдання, олімпіади, НМТ не конвертуються в міські бали ні за яких умов.</p>
+        <div class="conseq"><b>Якщо порушити</b><span>Вмикається ефект надвиправдання: дитина, яка вчиться за бали, перестає вчитись, щойно бали приберуть. Плюс місто влазить в оцінювання, за яке не відповідає.</span></div>
+      </div></div>
+
+      <div class="rl"><span class="rn">03</span><div>
+        <h4>Жодних балів за дії всередині послуги</h4>
+        <p>Подана заява, заповнений профіль, оплачена квитанція не винагороджуються.</p>
+        <div class="conseq"><b>Якщо порушити</b><span>Портал починає заохочувати зайві кліки замість швидкого результату. Мета послуги — щоб людина отримала своє і пішла, а не «залишалась у сесії».</span></div>
+      </div></div>
+
+      <div class="rl"><span class="rn">04</span><div>
+        <h4>Жодних публічних рейтингів</h4>
+        <p>Ні між дітьми, ні між класами, ні між школами, ні між районами.</p>
+        <div class="conseq"><b>Якщо порушити</b><span>Отримуємо тиск учителів на клас, змагання батьків і булінг того, хто внизу таблиці. Місто стає організатором цього.</span></div>
+      </div></div>
+
+      <div class="rl"><span class="rn">05</span><div>
+        <h4>Жодних покарань і згорань</h4>
+        <p>Бали не зникають, рівень не знижується, стріків із втратою немає. Хто зник на три місяці — повертається на те саме місце.</p>
+        <div class="conseq"><b>Якщо порушити</b><span>Це темний патерн, і для неповнолітніх він неприйнятний. Плюс він карає саме тих дітей, у яких і так менше ресурсу — хворіли, переїжджали, не було грошей.</span></div>
+      </div></div>
+
+      <div class="rl"><span class="rn">06</span><div>
+        <h4>Жодної персоналізованої реклами неповнолітнім</h4>
+        <p>Партнер отримує знеособлений факт погашення сертифіката, а не профіль дитини.</p>
+        <div class="conseq"><b>Якщо порушити</b><span>Місто перетворюється на рекламний майданчик із доступом до дітей — і одного скандалу вистачить, щоб закрити всю програму.</span></div>
+      </div></div>
+
+      <div class="rl"><span class="rn">07</span><div>
+        <h4>Жодного примусу</h4>
+        <p>Школа не може вимагати участі, нараховувати за неї оцінки чи використовувати як покарання.</p>
+        <div class="conseq"><b>Якщо порушити</b><span>Стане ще однією обов'язковою відробкою. Добровільність — єдине, що відрізняє це від «Ранкової зарядки за наказом».</span></div>
+      </div></div>
+
+      <div class="rl"><span class="rn">08</span><div>
+        <h4>Альтернативний шлях завжди існує</h4>
+        <p>Офлайн-варіант для дитини без смартфона, доступний варіант для дитини з інвалідністю, локації в усіх районах, а не лише в центрі.</p>
+        <div class="conseq"><b>Якщо порушити</b><span>Система систематично винагороджує тих, у кого вже є гаджет, час і мобільні батьки. Це посилення нерівності за міські гроші.</span></div>
+      </div></div>
+
+      <div class="rl"><span class="rn">09</span><div>
+        <h4>Місто відповідає за свою частину</h4>
+        <p>Обіцяне право надається, подана ідея отримує відповідь у строк, проєкт-переможець реалізується.</p>
+        <div class="conseq"><b>Якщо порушити</b><span>Одна нереалізована перемога в молодіжному бюджеті вбиває довіру цілого покоління — і воно не повернеться ні в 18, ні в 25.</span></div>
+      </div></div>
+
+      <div class="rl"><span class="rn">10</span><div>
+        <h4>Дані дитини мінімізуються</h4>
+        <p>Система знає вік, район і факти діяльності. Не знає оцінок, здоров'я, складу родини, доходів, категорії пільги.</p>
+        <div class="conseq"><b>Якщо порушити</b><span>Отримуємо базу переміщень десятків тисяч дітей містом, зібрану без потреби. Це ризик, який неможливо виправдати жодною метрикою залучення.</span></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ХВИЛІ ══════════ -->
+<section id="waves" class="wrap">
+  <p class="kicker">Впровадження</p>
+  <h2>Чотири хвилі</h2>
+  <p class="lead" style="max-width:70ch;margin-top:18px">Пілот навмисно крихітний: перевірити одну гіпотезу за квартал, а не будувати систему рік і дізнатись, що вона нікому не потрібна.</p>
+  <div class="tl-wave">
+    <div class="wv now">
+      <div class="dot"></div>
+      <div class="wt">Хвиля 0 · 3–4 місяці</div>
+      <h4>Пілот «Паспорт киянина»</h4>
+      <p>10–15 закладів в одному-двох районах. Без валюти, без рівнів, без винагород, без партнерів. Перевіряємо рівно одне: чи прийде підліток фізично в бібліотеку і чи відсканує код. Якщо ні — решта концепту не має сенсу, і це коштувало кварталу, а не року.</p>
+      <div class="chips"><span>Блок 1</span><span>+ старт нормативки для блоку 4</span></div>
+    </div>
+    <div class="wv">
+      <div class="dot"></div>
+      <div class="wt">Хвиля 1</div>
+      <h4>Квести й рівні</h4>
+      <p>Конструктор квестів для закладів і драбина рівнів із першими реальними правами. Розширення на 3–5 районів. Умова входу: у міста вже є пул щонайменше з десяти унікальних доступів на місяць, які реально можна надати.</p>
+      <div class="chips"><span>Блок 2</span><span>Блок 3</span></div>
+    </div>
+    <div class="wv">
+      <div class="dot"></div>
+      <div class="wt">Хвиля 2</div>
+      <h4>Участь і волонтерство</h4>
+      <p>Молодіжний бюджет участі за затвердженою нормативкою і волонтерський контур для 18–22. Найцінніша частина. Запускається на весь Київ одразу — бюджет участі в одному районі не має сенсу.</p>
+      <div class="chips"><span>Блок 4</span><span>Блок 5</span></div>
+    </div>
+    <div class="wv">
+      <div class="dot"></div>
+      <div class="wt">Хвиля 3</div>
+      <h4>Партнери й портфоліо</h4>
+      <p>Партнерська вітрина за затвердженим порядком відбору, повна інтеграція з портфоліо освітньої вертикалі, довідки, кар'єрний контур.</p>
+      <div class="chips"><span>Блок 6</span><span>Блок 7</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FAQ ══════════ -->
+<section id="faq" class="wrap">
+  <p class="kicker">Питання, які виникають першими</p>
+  <h2>Чесні відповіді</h2>
+  <div class="faq">
+    <div class="qa"><button aria-expanded="false">Діти ж просто накрутять чек-іни?</button><div class="ans" hidden>
+      <p>Спробують у перший тиждень — це нормально й передбачено. Чотири речі роблять накрутку безглуздою: код на вході <b>динамічний</b> і живе три хвилини, тому зняти його з фото в чаті не вийде; чек-ін перевіряється <b>геозоною</b>; є <b>ліміти</b> на добу; і головне — <b>повторний чек-ін не дає нічого</b>, цінність тільки в першому візиті. Накручувати нема чого: набити можна лише те, що ти й так уже отримав. Аномалії (десять чек-інів у різних районах за годину) розбирає людина, а не автоматика — дітей ніхто не банить роботом.</p>
+    </div></div>
+
+    <div class="qa"><button aria-expanded="false">Хто платить за призи?</button><div class="ans" hidden>
+      <p>Місто — ні. Більшість винагород не є товарами: це доступ, який у міста вже є і який зараз роздається за знайомством. Екскурсія в депо метро, зустріч із головним архітектором, вхід у музей у непопулярні години, майстерклас у палаці дітей, стажування — усе це коштує міста нуль гривень.</p>
+      <p>Матеріальні речі, якщо будуть, приходять від партнерів — але за жорсткими правилами: без прихованої реклами, без вимоги щось купити, без передачі даних дитини партнеру. Партнерство не може бути платним розміщенням.</p>
+    </div></div>
+
+    <div class="qa"><button aria-expanded="false">Що змінилось у версії 2?</button><div class="ans" hidden>
+      <p>У першій версії витратна шкала («Внесок») нараховувалась тільки за дії, корисні комусь іншому: волонтерство, прибирання, наставництво. Квест давав +150 Шляху і нуль у гаманець.</p>
+      <p>Для активного підлітка це працювало — він копить на рівень і права. Для більшості ні: людина проходить п'ять точок району і не може за це взяти навіть м'яч напрокат у суботу. Тому тепер Внесок нараховується майже за все, що робиться ногами, — перший чек-ін, пробне заняття, квест, мікровнесок. Дії на користь іншим лишились найдорожчими.</p>
+      <p>Захищено при цьому те, що справді потребує захисту: <b>права участі не купуються ніякою кількістю балів</b>. Голос у молодіжному бюджеті, місце в раді, стажування — тільки через Шлях, який не витрачається й не передається.</p>
+    </div></div>
+
+    <div class="qa"><button aria-expanded="false">Чому не нараховувати за навчання — це ж найпростіше?</button><div class="ans" hidden>
+      <p>Бо це найшвидший спосіб зіпсувати і навчання, і систему. Три причини разом: оцінювання — компетенція школи, а не міста; зовнішня винагорода за навчання витісняє інтерес до нього (ефект надвиправдання); і така система б'є по тих самих дітях двічі — хто внизу шкільного рейтингу, той опиниться внизу й тут.</p>
+      <p>Є й практичний аргумент: усе, прив'язане до школи, закінчується разом зі школою. Система, побудована на оцінках, втрачає людину рівно в той момент, коли місту найважливіше її втримати — на випуску. Міський контур працює до 22 років і далі, бо волонтерство, бюджет участі й кар'єра нікуди не діваються.</p>
+    </div></div>
+
+    <div class="qa"><button aria-expanded="false">Чому це в порталі, а не в застосунку? Молодь же не ходить у веб</button><div class="ans" hidden>
+      <p>Це чесна суперечність, і концепт її не ховає. Портал — веб, а щоденне середовище цієї аудиторії — застосунки й камера телефона. Тому логіка й дані живуть у порталі, але контакт відбувається деінде:</p>
+      <p><b>QR і камера</b> — головна точка входу в реальному світі: сканування веде одразу на сторінку підтвердження, без відкриття порталу вручну. <b>PWA</b> — портал ставиться на екран телефона й отримує вебпуші, це мінімальна вимога. <b>«Київ Цифровий»</b> — канал сповіщень і швидких дій із посиланнями в портал. <b>Офлайн</b> — заклади, школи й молодіжні центри як точки підтвердження для тих, у кого смартфона немає.</p>
+      <p>Архітектурно клієнти змінні: якщо завтра місто вирішить винести ігровий шар у застосунок, переписувати треба буде інтерфейс, а не систему.</p>
+    </div></div>
+
+    <div class="qa"><button aria-expanded="false">Як 14-річний взагалі зайде — у нього ж немає BankID?</button><div class="ans" hidden>
+      <p>Різні дії потребують різної надійності входу, і це головна ідея розв'язку. Чек-ін у бібліотеці й голосування за розподіл бюджетних коштів — принципово різні за ціною помилки.</p>
+      <p><b>10–13:</b> дитячий профіль усередині кабінету батьків, без власного входу. <b>14–17:</b> власний профіль із делегуванням — батько підтверджує створення, далі дитина діє сама; альтернатива — шкільний обліковий запис або підтвердження класним керівником. <b>18–22:</b> звичайна авторизація через Дія.Підпис, BankID або ID.GOV.UA.</p>
+      <p>Для чек-інів і квестів достатньо найнижчого рівня довіри — тому Хвилю 0 можна запустити, не розв'язавши найважчого питання. Надійна ідентифікація потрібна лише для голосування в бюджеті участі, тобто в Хвилі 2.</p>
+    </div></div>
+
+    <div class="qa"><button aria-expanded="false">А якщо це просто не спрацює?</button><div class="ans" hidden>
+      <p>Тому Хвиля 0 навмисно мінімальна: 10–15 закладів, один квартал, без валюти й винагород. Вона перевіряє єдину гіпотезу, на якій стоїть усе інше — <b>чи прийде підліток фізично в заклад і чи відсканує код</b>. Якщо ні, ми дізнаємось про це через три місяці і за вартість наліпок із QR, а не через рік розробки повної системи.</p>
+      <p>Друга ймовірна причина провалу — не діти, а місто: якщо департаменти не знаходять, що давати на рівнях, драбина стає порожньою і система тихо помирає. Тому в переліку наступних кроків є пункт «знайти власника процесу»: без конкретної людини, яка щомісяця наповнює пул прав, концепт не запускається.</p>
+    </div></div>
+
+    <div class="qa"><button aria-expanded="false">Це не спосіб купити лояльність молоді за право голосу?</button><div class="ans" hidden>
+      <p>Ризик реальний, і його треба знімати відкритістю, а не запевненнями. Три запобіжники: правила нарахування <b>публічні до останнього бала</b> — перелік дій і їхня вага лежать у відкритому доступі; бали <b>неможливо нарахувати вручну</b> «потрібним» людям, тільки автоматично за зафіксованою дією; і контроль за системою має бути <b>зовнішнім</b> — у Київської міської молодіжної ради, а не в того департаменту, який систему веде.</p>
+      <p>Плюс сама конструкція проти цього: право голосу дає активність будь-якого змісту — прибирання парку, волонтерство, відвідування бібліотеки. Немає жодної дії, за яку треба погодитись із міською владою.</p>
+    </div></div>
+  </div>
+</section>
+
+<!-- ══════════ ДАЛІ ══════════ -->
+<section class="final wrap">
+  <p class="kicker lime">Наступні кроки</p>
+  <h2>З чого починається запуск</h2>
+  <p class="lead" style="max-width:68ch;margin-top:18px">Порядок важливий: найдешевша дія тут — найважливіша, а найдовший трек стартує паралельно з пілотом, а не після нього.</p>
+  <div class="steps5">
+    <div class="st5"><span class="n">01</span><h4>Затвердити червоні лінії</h4><p>Як продуктове рішення, а не як побажання. Коштує нуль і рятує весь проєкт</p></div>
+    <div class="st5"><span class="n">02</span><h4>Зафіксувати межу зі школою</h4><p>Місто не входить у навчальний процес і не нараховує за оцінки — узгодити з департаментом освіти</p></div>
+    <div class="st5"><span class="n">03</span><h4>Знайти власника процесу</h4><p>Людину, яка щомісяця наповнює пул прав. Без неї концепт не запускається</p></div>
+    <div class="st5"><span class="n">04</span><h4>Запустити Хвилю 0</h4><p>10–15 закладів, один квартал, одна гіпотеза: чи прийде і чи відсканує</p></div>
+    <div class="st5"><span class="n">05</span><h4>Почати нормативку</h4><p>Молодіжна квота бюджету участі — найдовший трек, тому стартує першим</p></div>
+  </div>
+  <div class="hero-cta" style="margin-top:38px">
+    <a class="btn pri" href="concept.md">Повний документ концепту
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+    <a class="btn sec" href="#demo">Ще раз прототип</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+
+    <div class="f-top">
+      <div class="f-brand">
+        <div class="f-mark"><i></i>Місто як гра</div>
+        <p>Концепт гейміфікації для молоді 10–22 років у Порталі послуг «Київ Цифровий». Бали за реальні дії в місті, а не за кліки в кабінеті: місто платить доступом, якого не можна купити.</p>
+        <div class="f-chips">
+          <span class="f-chip">Робочий документ</span>
+          <span class="f-chip">Вересень 2026</span>
+          <span class="f-chip warn">Не офіційна позиція міста</span>
+        </div>
+      </div>
+
+      <nav class="f-nav" aria-label="Розділи сторінки">
+        <div>
+          <h5>Ідея</h5>
+          <a href="#tldr">За 90 секунд</a>
+          <a href="#histor">Три історії</a>
+          <a href="#scope">Межа зі школою</a>
+        </div>
+        <div>
+          <h5>Механіка</h5>
+          <a href="#scales">Як рахуються бали</a>
+          <a href="#demo">Прототип</a>
+          <a href="#blocks">Сім блоків</a>
+        </div>
+        <div>
+          <h5>Запуск</h5>
+          <a href="#entry">Як завести на портал</a>
+          <a href="#red">Червоні лінії</a>
+          <a href="#waves">Хвилі впровадження</a>
+          <a href="#faq">Питання</a>
+        </div>
+      </nav>
+    </div>
+
+    <div class="f-cta">
+      <div>
+        <h4>Повний документ концепту</h4>
+        <p>21 розділ: блоки з даними й метриками, ідентифікація за віком, ризики та нормативка. Те, за чим можна писати ТЗ.</p>
+      </div>
+      <a class="btn pri" href="concept.md">
+        Відкрити документ
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="f-src">
+      <h5>Джерела</h5>
+      <div class="f-src-grid">
+        <a class="src-card" href="https://portal.kyiv.digital/" target="_blank" rel="noopener">
+          <span class="t">Портал послуг Києва</span><span class="d">portal.kyiv.digital</span></a>
+        <a class="src-card" href="https://kyivcity.gov.ua/dorohy_transport_ta_parkovky/servisi_mobilnogo_zastosunku_kiv_tsifroviy/" target="_blank" rel="noopener">
+          <span class="t">Сервіси «Київ Цифрового»</span><span class="d">kyivcity.gov.ua</span></a>
+        <a class="src-card" href="https://www.pravda.com.ua/news/2026/05/28/8036759/" target="_blank" rel="noopener">
+          <span class="t">Сервіс «Мій депутат»</span><span class="d">pravda.com.ua</span></a>
+        <a class="src-card" href="https://kyivcity.gov.ua/pilhy_dovidky_ta_sotsialnyi_zakhyst/kartka_kyianyna/" target="_blank" rel="noopener">
+          <span class="t">Картка киянина</span><span class="d">kyivcity.gov.ua</span></a>
+        <a class="src-card" href="https://kmr.gov.ua/uk/content/kyyivska-miska-molodizhna-rada" target="_blank" rel="noopener">
+          <span class="t">Київська міська молодіжна рада</span><span class="d">kmr.gov.ua</span></a>
+        <a class="src-card" href="https://youthcenters.mms.gov.ua/" target="_blank" rel="noopener">
+          <span class="t">Мережа молодіжних центрів</span><span class="d">youthcenters.mms.gov.ua</span></a>
+        <a class="src-card" href="https://www.tech.gov.sg/technews/when-inspiring-citizen-engagement-in-singapore-is-all-fun-and-games/" target="_blank" rel="noopener">
+          <span class="t">Гейміфікація участі: досвід Сінгапуру</span><span class="d">tech.gov.sg</span></a>
+        <a class="src-card" href="https://en.wikipedia.org/wiki/Overjustification_effect" target="_blank" rel="noopener">
+          <span class="t">Ефект надвиправдання</span><span class="d">wikipedia.org</span></a>
+      </div>
+      <p class="f-note">Палітра сторінки взята з чинних стилів Порталу послуг: <code>#0069ff</code>, <code>#f1f7ff</code>, <code>#1d1d1f</code>, <code>#878383</code>, <code>#e5e5ea</code>. Числа нарахувань у прототипі умовні — реальний баланс калібрується на пілоті.</p>
+    </div>
+
+    <div class="f-bot">
+      <span>Підготовлено для обговорення з командою Порталу послуг</span>
+      <a href="#top" class="f-up">Догори
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+      </a>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+/* ══════════ nav scrollspy ══════════ */
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('#navlinks a'));
+  var map = {};
+  links.forEach(function(a){
+    var el = document.getElementById(a.getAttribute('href').slice(1));
+    if (el) map[el.id] = a;
+  });
+  var obs = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      var a = map[e.target.id];
+      if (!a) return;
+      if (e.isIntersecting) {
+        links.forEach(function(l){ l.classList.remove('on'); });
+        a.classList.add('on');
+      }
+    });
+  }, {rootMargin:'-45% 0px -50% 0px'});
+  Object.keys(map).forEach(function(id){ obs.observe(document.getElementById(id)); });
+})();
+
+/* ══════════ faq ══════════ */
+document.querySelectorAll('.qa button').forEach(function(b){
+  b.addEventListener('click', function(){
+    var open = b.getAttribute('aria-expanded') === 'true';
+    b.setAttribute('aria-expanded', String(!open));
+    b.parentNode.querySelector('.ans').hidden = open;
+  });
+});
+
+/* ══════════ ПРОТОТИП ══════════ */
+(function(){
+  var PLACES = [
+    {id:'b1', nm:'Бібліотека №14 ім. Гоголя',  t:'Бібліотека', ic:'📚', pts:25, bp:10, x:58,  y:62,  quest:true,  info:'Читальний зал, безкоштовний Wi-Fi, настільні ігри по середах. Пн–Пт 10:00–19:00.'},
+    {id:'b2', nm:'Публічна бібліотека Подолу', t:'Бібліотека', ic:'📚', pts:25, bp:10, x:172, y:44,  quest:true,  info:'Коворкінг для школярів, клуб дебатів щочетверга. Пн–Сб 9:00–20:00.'},
+    {id:'b3', nm:'Бібліотека-філія №8',        t:'Бібліотека', ic:'📚', pts:25, bp:10, x:284, y:78,  quest:true,  info:'Найбільший фонд коміксів у районі. Вхід вільний. Пн–Пт 11:00–18:00.'},
+    {id:'b4', nm:'Медіатека на Ярославській',  t:'Бібліотека', ic:'📚', pts:25, bp:10, x:76,  y:216, quest:true,  info:'Студія звукозапису та монтажу — безкоштовно для 12–22 років за записом. Вт–Нд 12:00–20:00.'},
+    {id:'b5', nm:'Бібліотека №21',             t:'Бібліотека', ic:'📚', pts:25, bp:10, x:296, y:222, quest:true,  info:'Мовні клуби англійської та польської, вівторок і п’ятниця. Пн–Пт 10:00–19:00.'},
+    {id:'m1', nm:'Музей історії Києва',        t:'Музей',      ic:'🏛', pts:35, bp:15, x:186, y:262, quest:false, info:'Для школярів вхід безкоштовний у будні до 14:00. Квести по експозиції щосуботи.'},
+    {id:'p1', nm:'Палац дітей та юнацтва',     t:'Позашкілля', ic:'🎨', pts:40, bp:20, x:262, y:150, quest:false, info:'34 гуртки, з них 19 безкоштовні. Набір відкритий цілий рік, є вільні місця.'},
+    {id:'pk', nm:'Парк «Кинь-Грусть»',         t:'Парк',       ic:'🌳', pts:20, bp:8,  x:44,  y:132, quest:false, info:'Скейт-майданчик, вулична сцена, безкоштовні тренування з воркауту по неділях.'}
+  ];
+  var LEVELS = [
+    {nm:'Гість',            at:0,    d:'Карта закладів, картки місць, перегляд квестів'},
+    {nm:'Свій район',       at:150,  d:'Сповіщення про події поруч, запрошення на дні відкритих дверей'},
+    {nm:'Киянин',           at:300,  d:'Безкоштовний вхід у комунальні заклади-партнери, ранній запис на міські події'},
+    {nm:'Активний киянин',  at:600,  d:'Право голосу в молодіжному бюджеті участі, участь у консультаціях міста'},
+    {nm:'Амбасадор',        at:1000, d:'Молодіжна рада району за спрощеною процедурою, стажування в КМДА'}
+  ];
+  var SHOP = [
+    {id:'skin',  nm:'Кастомізація профілю', d:'Тема, аватар, стікерпак районів', cost:15},
+    {id:'rent',  nm:'Прокат м’яча на вихідні', d:'Молодіжний центр · пт–нд', cost:20},
+    {id:'room',  nm:'Година простору для себе і друзів', d:'Кімната з диваном і Wi-Fi · субота', cost:40},
+    {id:'gym',   nm:'Година на майданчику для своєї компанії', d:'Зал або корт · без тренера', cost:60},
+    {id:'mk',    nm:'Майстерклас у Палаці дітей', d:'3D-друк · субота', cost:60},
+    {id:'back',  nm:'Бекстейдж міського фестивалю', d:'Лімітовано · 8 місць', cost:120},
+    {id:'metro', nm:'Екскурсія в депо метро', d:'Група 12 осіб · 14 жовтня', cost:150},
+    {id:'arch',  nm:'Зустріч із головним архітектором', d:'Відкрита розмова · 20 осіб', cost:200}
+  ];
+  var PROJECTS = [
+    {id:'v1', nm:'Накриття над скейт-майданчиком', d:'Виноградар · 380 тис. ₴ · подав Денис К., 15 років', v:412},
+    {id:'v2', nm:'Освітлення бігової доріжки в парку', d:'Виноградар · 260 тис. ₴ · подала Аліна П., 17 років', v:388},
+    {id:'v3', nm:'Простір для навчання в бібліотеці №14', d:'Поділ · 520 тис. ₴ · подала учнівська рада ліцею №22', v:301}
+  ];
+
+  var START = {a:275, b:80, got:['b1','b2','b3'], bought:[], voted:null, qdone:false, colldone:false};
+  var S;
+
+  var $ = function(id){ return document.getElementById(id); };
+  var toastT;
+
+  function reset(){
+    S = {a:START.a, b:START.b, got:START.got.slice(), bought:[], voted:null, qdone:false, colldone:false};
+    go('home'); setTab('home'); renderAll();
+  }
+
+  function levelOf(a){
+    var L = LEVELS[0];
+    LEVELS.forEach(function(l){ if (a >= l.at) L = l; });
+    return L;
+  }
+  function nextLevel(a){
+    for (var i=0;i<LEVELS.length;i++) if (LEVELS[i].at > a) return LEVELS[i];
+    return null;
+  }
+
+  function toast(title, body, lime){
+    var t = $('toast');
+    t.className = 'toast' + (lime ? ' lime' : '');
+    t.innerHTML = '<b></b><span></span>';
+    t.querySelector('b').textContent = title;
+    t.querySelector('span').textContent = body;
+    void t.offsetWidth;
+    t.classList.add('show');
+    clearTimeout(toastT);
+    toastT = setTimeout(function(){ t.classList.remove('show'); }, 3600);
+  }
+
+  function go(id){
+    document.querySelectorAll('.scr').forEach(function(s){ s.classList.remove('on'); });
+    var el = $('s-' + id);
+    if (el) { el.classList.add('on'); el.scrollTop = 0; }
+  }
+  function setTab(id){
+    document.querySelectorAll('.tab').forEach(function(t){
+      t.classList.toggle('on', t.getAttribute('data-tab') === id);
+    });
+  }
+
+  /* ---------- renderers ---------- */
+  function renderHome(){
+    var L = levelOf(S.a), N = nextLevel(S.a);
+    $('hLvlTag').textContent = 'Рівень · ' + L.nm;
+    $('sbLvl').textContent = L.nm;
+    $('wA').textContent = S.a;
+    $('wB').textContent = S.b;
+    if (N) {
+      var span = N.at - L.at, done = S.a - L.at;
+      $('hBar').style.width = Math.min(100, Math.round(done / span * 100)) + '%';
+      $('hTo').textContent = 'До рівня «' + N.nm + '» — ' + (N.at - S.a) + ' Шляху';
+    } else {
+      $('hBar').style.width = '100%';
+      $('hTo').textContent = 'Максимальний рівень';
+    }
+    var qd = PLACES.filter(function(p){ return p.quest && S.got.indexOf(p.id) > -1; }).length;
+    $('qBar').style.width = (qd/5*100) + '%';
+    $('qBar2').style.width = (qd/5*100) + '%';
+    $('qTxt').textContent = qd + ' / 5 зібрано';
+    $('qTxt2').textContent = qd + ' з 5 бібліотек';
+
+    var near = PLACES.filter(function(p){ return S.got.indexOf(p.id) < 0; }).slice(0,3);
+    $('nearList').innerHTML = '';
+    if (!near.length) {
+      $('nearList').innerHTML = '<div class="factbox">Усі місця району зібрані. Нові з’являються під події — стежте за сповіщеннями.</div>';
+    }
+    near.forEach(function(p){ $('nearList').appendChild(placeRow(p)); });
+  }
+
+  function placeRow(p){
+    var done = S.got.indexOf(p.id) > -1;
+    var b = document.createElement('button');
+    b.className = 'pitem' + (done ? ' done' : '');
+    b.innerHTML = '<span class="ic">' + p.ic + '</span>' +
+      '<span><span class="tt"></span><span class="dd"></span></span>' +
+      '<span class="rr"></span>';
+    b.querySelector('.tt').textContent = p.nm;
+    b.querySelector('.dd').textContent = p.t + (p.quest ? ' · у квесті' : '');
+    b.querySelector('.rr').textContent = done ? 'зібрано' : '+' + p.pts + '/' + p.bp;
+    b.addEventListener('click', function(){ openPlace(p.id); });
+    return b;
+  }
+
+  function renderMap(){
+    var pins = $('pins');
+    pins.innerHTML = '';
+    PLACES.forEach(function(p){
+      var done = S.got.indexOf(p.id) > -1;
+      var g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      g.setAttribute('class','pin' + (done ? ' done' : ''));
+      g.setAttribute('transform','translate(' + p.x + ',' + p.y + ')');
+      g.setAttribute('role','button');
+      g.setAttribute('tabindex','0');
+      g.innerHTML = '<circle class="o" r="15" stroke-width="1.5"/>' +
+                    '<text y="4">' + (done ? '✓' : p.ic) + '</text>';
+      g.addEventListener('click', function(){ openPlace(p.id); });
+      g.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPlace(p.id); } });
+      pins.appendChild(g);
+    });
+    $('mapCount').textContent = S.got.length + ' з ' + PLACES.length;
+    var ml = $('mapList');
+    ml.innerHTML = '';
+    PLACES.forEach(function(p){ ml.appendChild(placeRow(p)); });
+  }
+
+  function openPlace(id){
+    var p = PLACES.filter(function(x){ return x.id === id; })[0];
+    var done = S.got.indexOf(id) > -1;
+    var h = '';
+    h += '<div class="ph-h">' + p.nm + '</div>';
+    h += '<div class="ph-sub">' + p.t + ' · за 12 хв пішки' + (p.quest ? ' · крок квесту' : '') + '</div>';
+    h += '<div class="factbox" style="margin:0 0 14px">' + p.info + '</div>';
+    if (done) {
+      h += '<div class="hcard light">' +
+           '<div class="lvl">Уже зібрано</div>' +
+           '<div class="to">Повторний візит не дає балів — цінність тільки в першому разі. Це заодно знімає сенс накручувати чек-іни.</div></div>';
+    } else {
+      h += '<button class="btnScan qcard scanBtn" data-scan="' + p.id + '">' +
+           '<div class="qt">Я тут — сканувати код</div>' +
+           '<div class="qd" style="margin:4px 0 0">+' + p.pts + ' Шляху · +' + p.bp + ' Внеску · код на вході в заклад</div></button>';
+    }
+    h += '<div class="sect-t">Що тут можна робити просто зараз</div>';
+    h += '<div class="factbox">Картка місця відкривається <b>до</b> візиту. Головна цінність блоку — не значок у колекції, а те, що людина взагалі дізналась про можливість поруч із домом.</div>';
+    $('placeBody').innerHTML = h;
+    var sc = $('placeBody').querySelector('[data-scan]');
+    if (sc) sc.addEventListener('click', function(){ doScan(sc.getAttribute('data-scan')); });
+    go('place');
+  }
+
+  function doScan(id){
+    go('scan');
+    setTimeout(function(){ checkin(id); }, 1500);
+  }
+
+  function checkin(id){
+    var p = PLACES.filter(function(x){ return x.id === id; })[0];
+    if (S.got.indexOf(id) > -1) { go('map'); return; }
+    var before = levelOf(S.a).nm;
+    S.got.push(id);
+    S.a += p.pts;
+    S.b += p.bp;
+    var after = levelOf(S.a);
+    var qd = PLACES.filter(function(x){ return x.quest && S.got.indexOf(x.id) > -1; }).length;
+    var questJustDone = (qd === 5 && !S.qdone);
+    if (questJustDone) { S.qdone = true; S.a += 150; S.b += 60; }
+    var collJustDone = (S.got.length === PLACES.length && !S.colldone);
+    if (collJustDone) { S.colldone = true; S.a += 100; S.b += 40; }
+    after = levelOf(S.a);
+
+    $('okT').textContent = p.nm.length > 26 ? 'Зібрано' : p.nm;
+    $('okS').textContent = p.t + ' · ' + (S.got.length) + ' з ' + PLACES.length + ' місць району';
+    var g = '<span>+' + p.pts + ' Шляху</span><span>+' + p.bp + ' Внеску</span>';
+    if (questJustDone) g += '<span>+150 / +60 за квест</span>';
+    if (collJustDone) g += '<span>+100 / +40 за колекцію</span>';
+    $('okGain').innerHTML = g;
+    if (collJustDone) {
+      $('okFact').innerHTML = '<b>Район зібрано повністю.</b><br>Усі 8 місць відвідані. Нові локації з’являтимуться під події — і лишатимуться в колекції як «був тоді, коли це було».';
+    } else if (questJustDone) {
+      $('okFact').innerHTML = '<b>Квест «Бібліотечний маршрут Подолу» завершено.</b><br>+150 Шляху і <b>+60 Внеску</b> — квест платить в обидві шкали, тому за нього одразу є що взяти у вітрині. У портфоліо додано 5 фактів відвідування — без балів і без порівняння з кимось.';
+    } else {
+      $('okFact').innerHTML = '<b>У портфоліо додано факт:</b> «' + p.nm + ', ' + new Date().toLocaleDateString('uk-UA', {day:'numeric', month:'long'}) + '». Не бал, не оцінка — просто те, що сталося.';
+    }
+    go('ok');
+    renderAll();
+
+    if (after.nm !== before) {
+      setTimeout(function(){
+        toast('Новий рівень: ' + after.nm, after.d, true);
+      }, 900);
+    }
+  }
+
+  function renderQuest(){
+    var box = $('questSteps');
+    box.innerHTML = '';
+    PLACES.filter(function(p){ return p.quest; }).forEach(function(p){
+      var done = S.got.indexOf(p.id) > -1;
+      var d = document.createElement('div');
+      d.className = 'step-row' + (done ? ' done' : '');
+      d.innerHTML = '<span class="cb">' + (done ? '<svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>' : '') + '</span><span class="st"></span>';
+      d.querySelector('.st').textContent = p.nm;
+      box.appendChild(d);
+    });
+  }
+
+  function renderProfile(){
+    var L = levelOf(S.a), N = nextLevel(S.a);
+    $('pA').textContent = S.a;
+    $('pB').textContent = S.b;
+    if (N) {
+      $('pBarA').style.width = Math.min(100, Math.round((S.a - L.at) / (N.at - L.at) * 100)) + '%';
+      $('pToA').textContent = 'до «' + N.nm + '» лишилось ' + (N.at - S.a);
+    } else { $('pBarA').style.width = '100%'; $('pToA').textContent = 'максимальний рівень'; }
+
+    var types = ['Бібліотека','Музей','Позашкілля','Парк'];
+    var cl = $('collList'); cl.innerHTML = '';
+    types.forEach(function(t){
+      var all = PLACES.filter(function(p){ return p.t === t; });
+      var got = all.filter(function(p){ return S.got.indexOf(p.id) > -1; });
+      var d = document.createElement('div');
+      d.className = 'pitem' + (got.length === all.length ? ' done' : '');
+      d.innerHTML = '<span class="ic">' + all[0].ic + '</span>' +
+        '<span><span class="tt">' + t + '</span><span class="dd">колекція району</span></span>' +
+        '<span class="rr">' + got.length + ' / ' + all.length + '</span>';
+      cl.appendChild(d);
+    });
+
+    var facts = S.got.map(function(id){
+      return PLACES.filter(function(p){ return p.id === id; })[0].nm;
+    });
+    if (S.qdone) facts.push('Квест «Бібліотечний маршрут Подолу»');
+    $('portfolio').innerHTML = '<b>' + facts.length + ' записів</b><br>' + facts.join(' · ') +
+      '<br><br>Тут немає балів і рівня. Коли Денис поділиться портфоліо з ліцеєм чи стипендійною комісією, вони побачать саме це — діяльність, а не «золотий статус».';
+
+    var sl = $('shopList'); sl.innerHTML = '';
+    SHOP.forEach(function(it){
+      var owned = S.bought.indexOf(it.id) > -1;
+      var can = S.b >= it.cost;
+      var d = document.createElement('div');
+      d.className = 'shop-i';
+      d.innerHTML = '<span><span class="si-t">' + it.nm + '</span><span class="si-d">' + it.d + '</span></span>';
+      var b = document.createElement('button');
+      b.className = 'buy' + (owned ? ' owned' : '');
+      b.textContent = owned ? 'записано' : it.cost + ' Внеску';
+      b.disabled = owned || !can;
+      b.addEventListener('click', function(){
+        if (S.b < it.cost) return;
+        S.b -= it.cost; S.bought.push(it.id);
+        renderAll();
+        toast('Записано: ' + it.nm, it.d + '. Місту це коштує нуль гривень — це доступ, а не товар.', true);
+      });
+      d.appendChild(b);
+      sl.appendChild(d);
+    });
+  }
+
+  function renderLevels(){
+    var cur = levelOf(S.a);
+    var box = $('levelList'); box.innerHTML = '';
+    LEVELS.forEach(function(l){
+      var state = (l.nm === cur.nm) ? 'cur' : (S.a >= l.at ? '' : 'locked');
+      var d = document.createElement('div');
+      d.className = 'rung ' + state;
+      d.innerHTML = '<div class="rt"><span class="rn"></span><span class="rq"></span></div><div class="rd"></div>';
+      d.querySelector('.rn').textContent = l.nm;
+      d.querySelector('.rq').textContent = (l.nm === cur.nm) ? 'зараз' : (S.a >= l.at ? 'пройдено' : l.at + ' Шляху');
+      d.querySelector('.rd').textContent = l.d;
+      box.appendChild(d);
+    });
+  }
+
+  function renderBudget(){
+    var can = S.a >= 600;
+    $('budGate').innerHTML = can
+      ? '<div class="hcard"><div class="lvl">Доступ відкрито</div><div class="to">Рівень «Активний киянин». Один учасник — один голос. Внесок дав право голосу, але не збільшує його вагу.</div></div>'
+      : '<div class="hcard locked"><div class="lvl">Голосування недоступне</div><div class="to">Потрібен рівень «Активний киянин» — 600 Шляху. У вас ' + S.a + '. Право голосу заробляється активністю: це і мотивація, і найкращий захист від накруток.<br><br>Подати свій проєкт можна вже зараз, з 14 років.</div></div>';
+    var bl = $('budList'); bl.innerHTML = '';
+    PROJECTS.forEach(function(pr){
+      var d = document.createElement('div');
+      d.className = 'proj';
+      d.innerHTML = '<div class="pt"></div><div class="pd"></div><div class="pb"><span class="votes"></span></div>';
+      d.querySelector('.pt').textContent = pr.nm;
+      d.querySelector('.pd').textContent = pr.d;
+      d.querySelector('.votes').textContent = (pr.v + (S.voted === pr.id ? 1 : 0)) + ' голосів';
+      var b = document.createElement('button');
+      b.className = 'vbtn' + (S.voted === pr.id ? ' voted' : '');
+      b.textContent = S.voted === pr.id ? 'ваш голос' : 'голосувати';
+      b.disabled = !can || (S.voted && S.voted !== pr.id);
+      b.addEventListener('click', function(){
+        S.voted = pr.id; renderAll();
+        toast('Голос враховано', 'Результат буде опубліковано 12 грудня, а переможець реалізований до травня. Невиконана обіцянка тут коштує довіри цілого покоління.', true);
+      });
+      d.querySelector('.pb').appendChild(b);
+      bl.appendChild(d);
+    });
+  }
+
+  function renderAll(){ renderHome(); renderMap(); renderQuest(); renderProfile(); renderLevels(); renderBudget(); }
+
+  /* ---------- wiring ---------- */
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.addEventListener('click', function(){
+      var id = t.getAttribute('data-tab');
+      if (id === 'scanbtn') {
+        setTab('scanbtn');
+        var next = PLACES.filter(function(p){ return S.got.indexOf(p.id) < 0; })[0];
+        if (!next) { toast('Усе зібрано', 'У цьому районі більше немає незібраних місць.'); setTab('home'); go('home'); return; }
+        openPlace(next.id);
+        return;
+      }
+      setTab(id); go(id);
+    });
+  });
+  document.querySelectorAll('[data-go]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var id = b.getAttribute('data-go');
+      go(id);
+      if (['home','map','prof'].indexOf(id) > -1) setTab(id);
+      if (id === 'prof') hint(4);
+      if (id === 'budget') hint(5);
+    });
+  });
+  $('resetDemo').addEventListener('click', reset);
+  $('fsDemo').addEventListener('click', function(){
+    var st = $('stage');
+    st.classList.toggle('full');
+    this.textContent = st.classList.contains('full') ? 'Згорнути' : 'На весь екран';
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && $('stage').classList.contains('full')) {
+      $('stage').classList.remove('full');
+      $('fsDemo').textContent = 'На весь екран';
+    }
+  });
+
+  /* hint highlighting */
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.dstep'));
+  function hint(n){ steps.forEach(function(s,i){ s.classList.toggle('on', i === n); }); }
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.addEventListener('click', function(){
+      var id = t.getAttribute('data-tab');
+      if (id === 'map') hint(0);
+      if (id === 'scanbtn') hint(1);
+      if (id === 'prof') hint(3);
+    });
+  });
+
+  reset();
+})();
+</script>
+</body>
+</html>
