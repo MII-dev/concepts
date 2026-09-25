@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Портал послуг — Дітям</title>
+<style>
+:root{
+  --blue:#0068ff; --blue-d:#0052cc; --blue-l:#f1f7ff; --blue-b:#e2f1fb;
+  --ink:#1d1d1f; --ink2:#323232; --mut:#6e6e6e; --mut2:#878383;
+  --line:#e5e5ea; --line2:#ececed; --sidebg:#f5f5f5; --ctrl:#f1f1f3;
+  --unread:#fdf8e4; --green:#35ac46; --amber:#8a5a00; --red:#d83020;
+  --new:#7b2ff7; --foot:#16181d;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color:var(--ink);background:#fff;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{margin:0;letter-spacing:-.025em}
+h1{font-size:40px;font-weight:800;line-height:1.1}
+h2{font-size:24px;font-weight:800}
+h3{font-size:17px;font-weight:700;letter-spacing:-.01em}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;color:inherit}
+svg{display:block}
+
+/* ---------- mock tabs ---------- */
+.mock{background:#0c1116;color:#9aa4ae;display:flex;align-items:center;gap:8px;padding:0 24px;height:46px;font-size:13px}
+.mock .lbl{font-weight:700;color:#fff;letter-spacing:.02em;margin-right:6px}
+.mock .tab{background:transparent;border:1px solid #2b333c;color:#9aa4ae;border-radius:99px;padding:6px 18px;font-weight:600}
+.mock .tab:hover{color:#fff;border-color:#4b555f}
+.mock .tab.on{background:#fff;color:#0c1116;border-color:#fff;font-weight:700}
+.mock .hint{margin-left:auto;opacity:.65}
+.mock .hint b{color:#c39bff}
+
+/* ---------- header ---------- */
+.hdr{background:var(--blue);color:#fff;height:64px;display:flex;align-items:center;padding:0 26px;position:relative}
+.logo{display:flex;align-items:center;gap:11px}
+.logo .mark{width:36px;height:36px;border:2.5px solid #fff;border-radius:9px;display:grid;place-items:center;font-size:19px;font-weight:800}
+.logo .txt{font-size:17px;font-weight:800;letter-spacing:.02em;line-height:1.05}
+.logo .txt small{display:block;font-size:9px;font-weight:700;letter-spacing:.16em;opacity:.85;margin-top:1px}
+.hnav{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:44px;font-size:15px;font-weight:700}
+.hnav a{padding:6px 0;border-bottom:2.5px solid transparent;opacity:.95}
+.hnav a:hover,.hnav a.on{opacity:1;border-color:#fff}
+.uchip{margin-left:auto;display:flex;align-items:center;gap:9px;font-size:15px;font-weight:700}
+
+/* ---------- shell ---------- */
+.shell{display:flex;min-height:calc(100vh - 110px);align-items:stretch}
+.side{width:300px;flex:none;background:var(--sidebg);padding:24px 0 40px}
+.side .pad{padding:0 20px}
+.order{width:100%;background:var(--blue);color:#fff;border:0;border-radius:14px;padding:17px 18px;font-size:16px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 6px 18px rgba(0,104,255,.25)}
+.order:hover{background:var(--blue-d)}
+.smenu{margin-top:26px}
+.smenu .it{display:flex;align-items:center;gap:14px;padding:14px 20px;font-size:15px;font-weight:700;color:var(--ink);cursor:pointer}
+.smenu .it svg{color:var(--ink2);flex:none}
+.smenu .it:hover{background:#ededee}
+.smenu .it.on{background:#fff;color:var(--blue);box-shadow:inset 3px 0 0 var(--blue)}
+.smenu .it.on svg{color:var(--blue)}
+.smenu .it .cav{margin-left:auto;color:var(--mut2);font-size:11px}
+.smenu .sub{padding:11px 20px 11px 58px;font-size:15px;color:var(--ink2);cursor:pointer;display:flex;align-items:center;gap:10px}
+.smenu .sub:hover{background:#ededee}
+.smenu .sub.on{color:var(--blue);font-weight:700}
+.smenu hr{border:0;border-top:1px solid #e0e0e0;margin:14px 20px}
+.bdg{background:var(--blue);color:#fff;border-radius:99px;min-width:24px;height:22px;display:inline-flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;padding:0 7px;margin-left:auto}
+.bdg.pur{background:var(--new)}
+.tag-new{background:var(--new);color:#fff;border-radius:99px;font-size:10px;padding:2px 7px;font-weight:800;letter-spacing:.04em;margin-left:auto}
+
+.main{flex:1;padding:36px 48px 70px;min-width:0;background:#fff}
+.lead{color:var(--mut);margin:14px 0 0;max-width:760px;font-size:15px}
+.crumbs{font-size:13px;color:var(--mut);margin-bottom:12px}
+.crumbs a{color:var(--blue)}
+
+/* ---------- controls row (як на скріні) ---------- */
+.ctrls{display:flex;align-items:center;gap:14px;margin:30px 0 22px}
+.ctl{background:var(--ctrl);border:0;border-radius:10px;padding:13px 20px;font-size:15px;color:var(--ink2);display:flex;align-items:center;gap:9px}
+.ctl.plain{background:transparent;padding-left:0}
+.ctl:hover{background:#e7e7ea}
+.ctl .cav{font-size:11px;color:var(--ink2)}
+.srch{margin-left:auto;background:var(--ctrl);border-radius:99px;padding:13px 24px;display:flex;align-items:center;gap:12px;width:430px;color:var(--mut2);font-size:15px}
+
+/* ---------- table ---------- */
+table.t{width:100%;border-collapse:collapse}
+table.t th{text-align:left;font-size:15px;font-weight:700;color:var(--ink);padding:0 20px 14px;border-bottom:1px solid var(--line)}
+table.t td{padding:18px 20px;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink2);vertical-align:middle}
+table.t tr.unread td{background:var(--unread)}
+table.t tr:hover td{background:#f4f8ff}
+table.t td a{color:var(--blue);font-weight:700}
+.total{font-size:17px;font-weight:800;padding:20px 20px 0}
+.pager{display:flex;align-items:center;margin-top:34px;font-size:15px;color:var(--mut)}
+.pager .per{display:flex;align-items:center;gap:14px;color:var(--ink2)}
+.pager .box{border:1px solid #c9c9cd;border-radius:8px;padding:9px 16px;display:flex;align-items:center;gap:22px;background:#fff}
+.pager .nav{margin-left:auto;display:flex;align-items:center;gap:20px}
+.pager .nav span{cursor:pointer}
+.pager .cur{background:var(--blue);color:#fff;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:700}
+
+/* ---------- generic blocks ---------- */
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.st{font-size:12px;font-weight:800;border-radius:99px;padding:4px 11px;white-space:nowrap;display:inline-block}
+.st.ok{background:#e8f7ea;color:#1f7a2e}
+.st.wait{background:#fff4e0;color:var(--amber)}
+.st.no{background:#ffeceb;color:#a3251a}
+.st.info{background:var(--blue-b);color:#00598e}
+.st.pur{background:#f3e8ff;color:#5b12b5}
+.note{background:var(--blue-l);border:1px solid var(--blue-b);border-radius:14px;padding:18px 22px;font-size:14px;color:#00598e;margin:24px 0}
+.note b{color:#004a7a}
+.note.pur{background:#f8f3ff;border-color:#e6d5ff;color:#5b12b5}
+.note.pur b{color:#40088c}
+.btn{background:var(--blue);color:#fff;border:0;border-radius:11px;padding:14px 26px;font-weight:700;font-size:15px}
+.btn:hover{background:var(--blue-d)}
+.btn.sm{padding:9px 18px;font-size:14px}
+.btn.ghost{background:#fff;color:var(--blue);border:1.5px solid var(--blue)}
+.btn.grey{background:#fff;color:var(--ink2);border:1px solid #c9c9cd}
+.actions{display:flex;gap:12px;margin-top:26px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;border-top:1px solid var(--line);font-size:15px}
+.newbadge{display:inline-block;background:var(--new);color:#fff;font-size:10px;font-weight:800;padding:3px 9px;border-radius:99px;
+  vertical-align:middle;margin-left:10px;letter-spacing:.05em;position:relative;top:-4px}
+.sec{margin-top:40px}
+.sec h2{margin-bottom:16px}
+
+/* vitrina */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.tile{border:1px solid var(--line);border-radius:14px;padding:22px 18px;text-align:center;cursor:pointer;background:#fff}
+.tile:hover{border-color:var(--blue);box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.tile .e{font-size:32px}
+.tile .t{font-weight:700;margin-top:10px;font-size:15px}
+.tile .c{font-size:13px;color:var(--mut);margin-top:2px}
+.cat{display:grid;grid-template-columns:272px 1fr;gap:28px;align-items:start;margin-top:26px}
+.filters{background:var(--sidebg);border-radius:14px;padding:22px}
+.filters h4{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--mut);margin-bottom:10px}
+.fg{margin-bottom:24px}
+.chk{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:14px;color:var(--ink2);cursor:pointer}
+.chk input{accent-color:var(--blue);width:17px;height:17px}
+.range{width:100%;accent-color:var(--blue)}
+.club{border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;gap:18px;align-items:center;margin-bottom:14px;cursor:pointer;background:#fff}
+.club:hover{border-color:var(--blue);box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.club .ic{width:58px;height:58px;border-radius:15px;background:var(--blue-b);display:grid;place-items:center;font-size:27px;flex:none}
+.club .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{background:var(--ctrl);border-radius:99px;padding:4px 12px;font-size:12.5px;color:var(--ink2)}
+.chip.free{background:#e8f7ea;color:#1f7a2e;font-weight:700}
+.chip.paid{background:#fff4e0;color:var(--amber);font-weight:700}
+.chip.few{background:#ffeceb;color:#a3251a;font-weight:700}
+.price{margin-left:auto;text-align:right;flex:none}
+.price b{font-size:19px}
+.seg{display:flex;border:1px solid #c9c9cd;border-radius:99px;overflow:hidden;background:#fff}
+.seg button{border:0;background:transparent;padding:11px 22px;font-size:14px;font-weight:700;color:var(--mut)}
+.seg button.on{background:var(--blue);color:#fff}
+.map{height:470px;border-radius:14px;border:1px solid var(--line);background:linear-gradient(115deg,#e8f0f7,#f6fafc);position:relative;overflow:hidden}
+.map .rd{position:absolute;background:#fff;opacity:.95}
+.pin{position:absolute;transform:translate(-50%,-100%);background:var(--blue);color:#fff;border-radius:99px 99px 99px 5px;
+  padding:8px 13px;font-size:12.5px;font-weight:700;box-shadow:0 6px 16px rgba(0,0,0,.18);white-space:nowrap}
+.pin.g{background:var(--green)}
+.map .cap{position:absolute;left:18px;bottom:18px;background:#fff;border-radius:10px;padding:11px 15px;font-size:12.5px;color:var(--mut);box-shadow:0 4px 14px rgba(0,0,0,.1)}
+
+/* child */
+.hero{background:linear-gradient(120deg,#0068ff,#49b0f2);color:#fff;border-radius:18px;padding:28px 30px;display:flex;align-items:center;gap:22px}
+.hero .av{width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center;font-size:34px;flex:none}
+.hero h2{font-size:26px}
+.hero .sub{opacity:.9;font-size:14px;margin-top:3px}
+.hero .stats{margin-left:auto;display:flex;gap:30px;text-align:center}
+.hero .stats b{display:block;font-size:26px;font-weight:800}
+.hero .stats span{font-size:12px;opacity:.9}
+.tl{display:grid;grid-template-columns:82px 1fr;gap:0 18px}
+.tl .d{padding:16px 0;border-bottom:1px solid var(--line);font-weight:800;color:var(--ink)}
+.tl .v{padding:16px 0;border-bottom:1px solid var(--line);color:var(--ink2)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:0 18px;font-size:15px}
+.kv>div{padding:12px 0;border-bottom:1px solid var(--line)}
+.kv>div:nth-child(odd){color:var(--mut)}
+.doc{border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;gap:16px;align-items:center}
+.doc .ic{width:48px;height:48px;border-radius:12px;background:var(--blue-b);display:grid;place-items:center;font-size:22px;flex:none}
+.kid{border:1px solid var(--line);border-radius:14px;padding:24px}
+.kid .top{display:flex;align-items:center;gap:15px;margin-bottom:14px}
+.kid .ava{width:54px;height:54px;border-radius:50%;background:var(--blue-b);display:grid;place-items:center;font-size:26px}
+.steps{display:flex;margin:26px 0 30px}
+.step{flex:1;padding:12px 8px;border-top:3px solid var(--line);font-size:13.5px;color:var(--mut);font-weight:700}
+.step.on{border-color:var(--blue);color:var(--blue)}
+.step.done{border-color:var(--green);color:var(--green)}
+.field{margin-bottom:20px;max-width:620px}
+.field label{display:block;font-size:13px;font-weight:800;color:var(--ink2);margin-bottom:7px}
+.field input,.field textarea,.field select{width:100%;border:1px solid #c9c9cd;border-radius:11px;padding:13px 16px;font:inherit;background:#fff}
+.pickk{display:flex;gap:14px}
+.pickk button{flex:1;border:2px solid var(--line);border-radius:14px;padding:18px;background:#fff;text-align:left}
+.pickk button.on{border-color:var(--blue);background:var(--blue-l)}
+.pickk .n{font-weight:800;font-size:16px}
+.pickk .s{font-size:13px;color:var(--mut);margin-top:3px}
+
+/* footer */
+.foot{background:var(--foot);color:#8e8e93;padding:42px 48px;display:flex;gap:48px;font-size:14px}
+.foot h5{margin:0 0 14px;color:#fff;font-size:15px;font-weight:700}
+.foot .col{min-width:200px}
+.foot .col div{padding:4px 0}
+.foot .lg{margin-left:auto;display:flex;align-items:flex-start;gap:11px;color:#fff;opacity:.9}
+.foot .lg .mark{width:34px;height:34px;border:2px solid #fff;border-radius:9px;display:grid;place-items:center;font-weight:800}
+.foot .lg .txt{font-size:15px;font-weight:800;line-height:1.05}
+.foot .lg .txt small{display:block;font-size:8.5px;letter-spacing:.16em;opacity:.8;font-weight:700}
+
+
+/* login */
+.login{max-width:900px;margin:10px auto 0;display:grid;grid-template-columns:1fr 330px;gap:28px;align-items:start}
+.lcard{border:1px solid var(--line);border-radius:18px;padding:34px;background:#fff;box-shadow:0 10px 40px rgba(0,0,0,.06)}
+.code{display:flex;gap:12px;margin:22px 0 14px}
+.code span{width:58px;height:70px;border:2px solid var(--line);border-radius:14px;display:grid;place-items:center;
+  font-size:30px;font-weight:800;background:#fff}
+.code span.f{border-color:var(--blue);color:var(--blue)}
+.code span.cur{border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-l)}
+.how{counter-reset:h}
+.how li{list-style:none;position:relative;padding:0 0 18px 42px;font-size:14px;color:var(--ink2)}
+.how li:before{counter-increment:h;content:counter(h);position:absolute;left:0;top:-2px;width:28px;height:28px;border-radius:50%;
+  background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
+.how li b{color:var(--ink)}
+.sess{display:flex;align-items:center;gap:14px;padding:14px 0;border-top:1px solid var(--line);font-size:14px}
+.sess .dot{width:9px;height:9px;border-radius:50%;background:var(--green);flex:none}
+@media(max-width:900px){.login{grid-template-columns:1fr}}
+.scr{display:none}
+.scr.on{display:block}
+@media(max-width:1100px){.side{display:none}.cat{grid-template-columns:1fr}.tiles,.g4,.g3,.g2{grid-template-columns:1fr}.main{padding:24px 18px}.hnav{display:none}.foot{flex-wrap:wrap}}
+
+/* --- інтерактив --- */
+.code input{width:58px;height:70px;border:2px solid var(--line);border-radius:14px;text-align:center;
+  font-size:30px;font-weight:800;font-family:inherit;color:var(--ink);background:#fff;outline:none;padding:0}
+.code input:focus{border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-l)}
+.code input.filled{border-color:var(--blue);color:var(--blue)}
+.code.bad input{border-color:var(--red);color:var(--red)}
+.code.shake{animation:sh .38s}
+@keyframes sh{0%,100%{transform:translateX(0)}20%{transform:translateX(-9px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+.err{color:var(--red);font-weight:700;font-size:14px;margin-top:4px;min-height:20px}
+.demo{background:#fff8e1;border:1px dashed #d6a800;border-radius:12px;padding:12px 16px;font-size:13.5px;color:#7a5c00;margin-top:18px}
+.demo b{color:#5c4500}
+.demo a{color:#0068ff;font-weight:700;cursor:pointer}
+.bigcode{font-size:38px;font-weight:800;letter-spacing:.16em;color:var(--blue);font-variant-numeric:tabular-nums}
+.link{color:var(--blue);font-weight:700;cursor:pointer}
+.muted{color:var(--mut)}
+.toast{position:fixed;right:26px;bottom:26px;background:#0c1116;color:#fff;border-radius:14px;padding:16px 22px;
+  font-size:14px;box-shadow:0 12px 40px rgba(0,0,0,.3);opacity:0;transform:translateY(14px);transition:.25s;z-index:99;max-width:380px}
+.toast.on{opacity:1;transform:none}
+.toast b{color:#8ec5ff}
+.mock .rst{margin-left:14px;border-color:#4b555f}
+.empty{padding:34px;text-align:center;color:var(--mut);border:1px dashed var(--line);border-radius:14px}
+</style>
+</head>
+<body>
+
+<div class="mock">
+  <span class="lbl">Макет:</span>
+  <button class="tab on" data-tab="pub">Вітрина</button>
+  <button class="tab" data-tab="kid">Кабінет дитини</button>
+  <button class="tab" data-tab="par">Кабінет батька</button>
+  <button class="tab rst" id="reset">Скинути демо</button>
+  <span class="hint">Позначка <b>нове</b> — те, чого зараз на Порталі немає</span>
+</div>
+
+<div class="hdr">
+  <div class="logo"><div class="mark">K</div><div class="txt">ПОРТАЛ ПОСЛУГ<small>KYIV.DIGITAL</small></div></div>
+  <div class="hnav" id="hnav">
+    <a href="#" data-go="v-main">Захисник</a><a href="#">Школи</a><a href="#">Вивіски</a>
+  </div>
+  <div class="uchip">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.5 18.5c1.2-2.2 3.2-3.2 5.5-3.2s4.3 1 5.5 3.2"/></svg>
+    <span id="uname">Тест М.П.</span>
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M1 3.5h10L6 9z"/></svg>
+  </div>
+</div>
+
+<div class="shell">
+
+<aside class="side" id="side-kid" style="display:none">
+  <div class="pad">
+    <button class="order" data-go="v-catalog">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
+      Знайти гурток
+    </button>
+  </div>
+  <div class="smenu">
+    <div class="it" data-go="k-inbox">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 5.5h18v11H8l-5 4z"/></svg>
+      Вхідні повідомлення <span class="bdg" id="bdg-kinbox">0</span>
+    </div>
+    <hr>
+    <div class="it" data-go="k-main">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6h16v14H4zM4 10h16M8 3v4M16 3v4"/></svg>
+      Мій розклад
+    </div>
+    <div class="it" data-go="k-clubs">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16v13H4zM9 7V4h6v3M4 12h16"/></svg>
+      Мої гуртки <span class="bdg" id="bdg-kclubs">2</span>
+    </div>
+    <div class="it" data-go="k-req">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6.5l2 2 3.5-3.5M4 13.5l2 2L9.5 12M4 20l2 2 3.5-3.5M13 7h7M13 14h7M13 21h7"/></svg>
+      Мої заявки <span class="bdg pur" id="bdg-kreq">0</span>
+    </div>
+    <hr>
+    <div class="it" data-go="k-docs">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 5.5h18v13H3z"/><circle cx="8.5" cy="11" r="2.2"/><path d="M14 9.5h4M14 13h4"/></svg>
+      Мої документи
+    </div>
+    <div class="it" data-go="k-progress">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 4h10v6a5 5 0 01-10 0zM7 6H4v2a3 3 0 003 3M17 6h3v2a3 3 0 01-3 3M9 20h6M12 15v5"/></svg>
+      Мої досягнення <span class="tag-new">нове</span>
+    </div>
+    <hr>
+    <div class="it" data-go="k-me">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c1.6-3.2 4-4.6 7-4.6s5.4 1.4 7 4.6"/></svg>
+      Відомості про мене
+    </div>
+    <div class="it" id="logout">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M10 4H5v16h5M17 8l4 4-4 4M21 12h-9"/></svg>
+      Вийти
+    </div>
+  </div>
+</aside>
+
+<aside class="side" id="side-par" style="display:none">
+  <div class="pad">
+    <button class="order" data-go="v-main">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
+      Замовити послугу
+    </button>
+  </div>
+  <div class="smenu">
+    <div class="it" data-go="p-inbox">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 5.5h18v11H8l-5 4z"/></svg>
+      Вхідні повідомлення <span class="bdg" id="bdg-pinbox">0</span>
+    </div>
+    <hr>
+    <div class="it">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16v13H4zM9 7V4h6v3"/></svg>
+      Задачі <span class="cav">▸</span>
+    </div>
+    <div class="sub">Мої задачі</div>
+    <div class="sub">Задачі відділу <span class="bdg">25</span></div>
+    <hr>
+    <div class="it">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6.5l2 2 3.5-3.5M4 15l2 2 3.5-3.5M13 7h7M13 16h7"/></svg>
+      Мої послуги <span class="cav">▾</span>
+    </div>
+    <div class="sub" data-go="p-orders">Замовлені послуги <span class="bdg" id="bdg-porders">5</span></div>
+    <div class="sub">Чернетки</div>
+    <hr>
+    <div class="it" data-go="p-kids">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="8" cy="9" r="2.8"/><circle cx="16.5" cy="10.5" r="2.2"/><path d="M3 19c1.2-2.6 2.9-3.7 5-3.7s3.8 1.1 5 3.7M14 19c.8-1.8 1.9-2.6 3.3-2.6s2.2.5 2.9 1.6"/></svg>
+      Мої діти <span class="tag-new">нове</span>
+    </div>
+    <div class="sub" data-go="p-kids">Профілі дітей</div>
+    <div class="sub" data-go="p-approve">Підтвердження заявок <span class="bdg pur" id="bdg-papprove">0</span></div>
+    <div class="sub" data-go="p-pay">Оплати та абонементи</div>
+    <div class="sub" data-go="p-access">Доступ дітей до кабінету <span class="bdg pur" id="bdg-paccess">0</span></div>
+    <hr>
+    <div class="it">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 5.5h18v13H3z"/><circle cx="8.5" cy="11" r="2.2"/><path d="M14 9.5h4M14 13h4"/></svg>
+      Відомості про мене
+    </div>
+    <div class="it">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6h16v12H4zM4 10h16M4 14h16"/></svg>
+      Реєстр
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+
+<!-- ############ ВІТРИНА ############ -->
+<section class="scr on" id="v-main">
+  <div class="crumbs"><a href="#">Головна</a> / Категорії послуг / Дітям</div>
+  <h1>Дітям</h1>
+  <p class="lead">Усе, що потрібно для дитини в Києві — від запису до школи до гуртків і секцій. Каталог відкритий без авторизації; вхід потрібен лише для подання заяви.</p>
+  <div class="note">
+    <b>Що змінюється.</b> Розділ «Дітям» на Порталі вже є, але містить окремі послуги. Пропозиція — добудувати його до єдиного сценарію «дитина в місті»:
+    каталог гуртків, електронний запис, оплата, а також <b>два кабінети</b> — власний кабінет дитини та кабінет батька, який підтверджує й оплачує.
+  </div>
+  <div class="sec">
+    <h2>Послуги розділу</h2>
+    <div class="grid g3">
+      <div class="card"><h3>Запис дитини до школи</h3><p class="lead" style="margin-top:8px;font-size:14px">Початкова школа, гімназія, ліцей комунальної форми власності</p><div class="chip" style="margin-top:14px">Онлайн · вже працює</div></div>
+      <div class="card"><h3>Оздоровлення та відпочинок</h3><p class="lead" style="margin-top:8px;font-size:14px">Путівки до дитячих таборів і заміського відпочинку</p><div class="chip" style="margin-top:14px">Онлайн · вже працює</div></div>
+      <div class="card"><h3>Додаткові пільги та гарантії</h3><p class="lead" style="margin-top:8px;font-size:14px">Підтримка родин, пільгові категорії дітей</p><div class="chip" style="margin-top:14px">Онлайн · вже працює</div></div>
+      <div class="card" style="border:2px solid var(--new)"><h3>Запис у гурток або секцію<span class="newbadge">нове</span></h3><p class="lead" style="margin-top:8px;font-size:14px">Реєстр закладів позашкільної освіти, запис, черга, оплата</p><div class="chip" style="margin-top:14px">Пропозиція</div></div>
+      <div class="card" style="border:2px solid var(--new)"><h3>Запис до садка<span class="newbadge">нове</span></h3><p class="lead" style="margin-top:8px;font-size:14px">Електронна черга до ЗДО, статус, переведення</p><div class="chip" style="margin-top:14px">Пропозиція</div></div>
+      <div class="card" style="border:2px solid var(--new)"><h3>Кабінет дитини<span class="newbadge">нове</span></h3><p class="lead" style="margin-top:8px;font-size:14px">Власний кабінет школяра: розклад, гуртки, документи, заявки</p><div class="chip" style="margin-top:14px">Пропозиція</div></div>
+    </div>
+  </div>
+  <div class="sec">
+    <h2>Напрями гуртків<span class="newbadge">нове</span></h2>
+    <div class="tiles">
+      <div class="tile" data-go="v-catalog"><div class="e">🤖</div><div class="t">Наука і техніка</div><div class="c">148 груп</div></div>
+      <div class="tile" data-go="v-catalog"><div class="e">🎨</div><div class="t">Мистецтво</div><div class="c">263 групи</div></div>
+      <div class="tile" data-go="v-catalog"><div class="e">⚽</div><div class="t">Спорт</div><div class="c">311 груп</div></div>
+      <div class="tile" data-go="v-catalog"><div class="e">🎭</div><div class="t">Театр і музика</div><div class="c">97 груп</div></div>
+      <div class="tile" data-go="v-catalog"><div class="e">💻</div><div class="t">ІТ і програмування</div><div class="c">72 групи</div></div>
+      <div class="tile" data-go="v-catalog"><div class="e">🌿</div><div class="t">Еколого-натуралістичні</div><div class="c">41 група</div></div>
+      <div class="tile" data-go="v-catalog"><div class="e">🗣️</div><div class="t">Іноземні мови</div><div class="c">88 груп</div></div>
+      <div class="tile" data-go="v-catalog"><div class="e">♟️</div><div class="t">Інтелектуальні ігри</div><div class="c">34 групи</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="scr" id="v-catalog">
+  <div class="crumbs"><a href="#" data-go="v-main">Головна</a> / Дітям / Гуртки та секції</div>
+  <h1>Гуртки та секції<span class="newbadge">нове</span></h1>
+  <p class="lead">1 154 групи у 218 закладах позашкільної освіти. Джерело — реєстр закладів Департаменту освіти і науки КМДА.</p>
+  <div class="cat">
+    <aside class="filters">
+      <div class="fg"><h4>Вік дитини</h4>
+        <input class="range" type="range" min="3" max="18" value="12" id="ager">
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--mut)"><span>3 р.</span><b style="color:var(--blue)" id="agev">12 років</b><span>18 р.</span></div>
+      </div>
+      <div class="fg"><h4>Район</h4>
+        <label class="chk"><input type="checkbox" class="flt" data-k="d" value="Солом'янський" checked> Солом'янський</label>
+        <label class="chk"><input type="checkbox" class="flt" data-k="d" value="Шевченківський" checked> Шевченківський</label>
+        <label class="chk"><input type="checkbox" class="flt" data-k="d" value="Печерський"> Печерський</label>
+        <label class="chk"><input type="checkbox" class="flt" data-k="d" value="Оболонський"> Оболонський</label>
+        <label class="chk"><input type="checkbox" class="flt" data-k="d" value="Дніпровський"> Дніпровський</label>
+      </div>
+      <div class="fg"><h4>Оплата</h4>
+        <label class="chk"><input type="checkbox" class="flt" data-k="p" value="free" checked> Безкоштовно або бюджетна група</label>
+        <label class="chk"><input type="checkbox" class="flt" data-k="p" value="paid" checked> Платна група</label>
+      </div>
+      <div class="fg"><h4>Доступність</h4>
+        <label class="chk"><input type="checkbox" class="flt" data-k="s" value="free_seats"> Лише з вільними місцями</label>
+      </div>
+      <button class="btn" style="width:100%" id="resetflt">Скинути фільтри</button>
+    </aside>
+    <div>
+      <div class="ctrls" style="margin-top:0">
+        <div class="seg"><button class="on" data-view="list">Список</button><button data-view="map">На мапі</button></div>
+        <div class="ctl">Спочатку найближчі <span class="cav">▾</span></div>
+        <div class="srch" style="padding:0 24px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
+          <input id="q" placeholder="Пошук за назвою або закладом" style="border:0;outline:none;background:transparent;font:inherit;padding:13px 0;width:100%;color:var(--ink)">
+        </div>
+      </div>
+      <div id="view-list"></div>
+      <div id="view-map" style="display:none">
+        <div class="map">
+          <div class="rd" style="left:0;top:37%;width:100%;height:15px"></div>
+          <div class="rd" style="left:0;top:71%;width:100%;height:10px"></div>
+          <div class="rd" style="left:30%;top:0;width:13px;height:100%"></div>
+          <div class="rd" style="left:67%;top:0;width:10px;height:100%"></div>
+          <div id="pins"></div>
+          <div class="cap">Мапа на ArcGIS — картографія вже використовується на Порталі, окрема інтеграція не потрібна</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="scr" id="v-club">
+  <div class="crumbs"><a href="#" data-go="v-main">Головна</a> / Дітям / <a href="#" data-go="v-catalog">Гуртки та секції</a> / <span id="club-crumb"></span></div>
+  <div id="club-body"></div>
+</section>
+
+<section class="scr" id="v-apply">
+  <div class="crumbs"><a href="#" data-go="v-catalog">Гуртки та секції</a> / <span id="apply-crumb"></span> / Запис</div>
+  <h1>Запис у гурток</h1>
+  <p class="lead" id="apply-sub"></p>
+  <div class="steps">
+    <div class="step on">1. Заявник</div><div class="step">2. Група і розклад</div>
+    <div class="step">3. Підтвердження батьком</div><div class="step">4. Рішення закладу</div>
+  </div>
+  <div class="note pur">
+    <b>Модель доступу.</b> Заяву може подати як батько зі свого кабінету, так і дитина зі свого — але дитяча заява набуває чинності лише після підтвердження батьком.
+    Дитина до 14 років входить у свій кабінет одноразовим кодом, який приходить батькові; з 14 років — власною ID-карткою та Дія.Підписом.
+  </div>
+  <h3 style="margin-bottom:14px">Хто подає заяву</h3>
+  <div class="pickk" style="max-width:760px" id="who">
+    <button class="on" data-by="kid"><div class="n">Марко, 12 років</div><div class="s">дитина · потрібне підтвердження батька</div></button>
+    <button data-by="parent"><div class="n">Тест М. П.</div><div class="s">батько · підтвердження не потрібне</div></button>
+  </div>
+  <div class="card" style="margin:24px 0;max-width:760px">
+    <h3 style="margin-bottom:14px">Дані заповнюються автоматично</h3>
+    <div class="kv">
+      <div>ПІБ дитини</div><div>Марко Петрович Тест <span class="st info">Демографічний реєстр</span></div>
+      <div>Дата народження</div><div>14.03.2014 <span class="st info">Демографічний реєстр</span></div>
+      <div>Заклад освіти</div><div>Ліцей №142, 6-Б <span class="st info">ЄДЕБО / АІКОМ</span></div>
+      <div>Пільгова категорія</div><div>Дитина з родини Захисника <span class="st info">ЄІССС</span></div>
+      <div>Район проживання</div><div>Солом'янський <span class="st info">Реєстр територіальної громади</span></div>
+    </div>
+  </div>
+  <div class="field"><label>Контактний телефон батька</label><input value="+380 (67) 123-45-67"></div>
+  <div class="field"><label>Додаткова інформація для закладу (необов'язково)</label><textarea rows="3" id="apply-note" placeholder="Наприклад, особливості здоров'я дитини"></textarea></div>
+  <label class="chk" style="max-width:620px"><input type="checkbox" id="agree" checked> Погоджуюсь на обробку персональних даних</label>
+  <div class="err" id="apply-err"></div>
+  <div class="actions">
+    <button class="btn" id="submit-apply">Подати заяву</button>
+    <button class="btn grey" data-go="v-catalog">Назад</button>
+  </div>
+</section>
+
+<section class="scr" id="v-done"><div id="done-body"></div></section>
+
+<!-- ############ КАБІНЕТ ДИТИНИ ############ -->
+<section class="scr" id="k-login">
+  <div style="text-align:center;margin-top:10px">
+    <h1>Вхід до кабінету дитини<span class="newbadge">нове</span></h1>
+    <p class="lead" style="margin:14px auto 0">Дитина входить сама, але тільки з відома батька — одноразовим кодом, який приходить батькові.</p>
+  </div>
+  <div class="login">
+    <div class="lcard">
+      <div class="steps" style="margin-top:0" id="lsteps">
+        <div class="step on">1. Хто ти</div><div class="step">2. Код від батька</div><div class="step">3. Кабінет</div>
+      </div>
+      <div id="login-step1">
+        <h2>Розкажи, хто ти</h2>
+        <p class="lead" style="margin-top:8px">Портал знайде твого батька за даними Демографічного реєстру і надішле йому код.</p>
+        <div class="field" style="margin-top:22px"><label>Прізвище та ім'я</label><input id="ln-name" value="Тест Марко"></div>
+        <div class="field"><label>Дата народження</label><input id="ln-dob" value="14.03.2014"></div>
+        <div class="err" id="ln-err1"></div>
+        <div class="actions"><button class="btn" id="getcode">Надіслати код батькові</button></div>
+      </div>
+      <div id="login-step2" style="display:none">
+        <h2>Введи код, який отримав тато</h2>
+        <p class="lead" style="margin-top:8px">Ми надіслали 6 цифр Тест М. П. — у кабінет на Порталі та пушем у «Київ Цифровий».</p>
+        <div class="code" id="codebox">
+          <input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric">
+          <input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric">
+        </div>
+        <div class="err" id="ln-err2"></div>
+        <div style="display:flex;align-items:center;gap:20px;font-size:14px;color:var(--mut)">
+          <span id="timer">Код дійсний ще <b style="color:var(--ink)">05:00</b></span>
+          <span class="link" id="resend">Надіслати ще раз</span>
+          <span class="link muted" id="backstep">Змінити дані</span>
+        </div>
+        <div class="actions"><button class="btn" id="checkcode">Увійти</button></div>
+        <div class="demo">
+          <b>Це макет.</b> Код справжній і генерується щоразу новий. Подивитись його можна у вкладці «Кабінет батька» → «Доступ дітей до кабінету»
+          або у «Вхідних» батька. Щоб не перемикатись — <a id="peek">показати код тут</a>.
+          <span id="peekval"></span>
+        </div>
+      </div>
+      <div class="note pur" style="margin-bottom:0">
+        <b>Для дітей від 14 років</b> доступний і звичайний вхід — власною ID-карткою та Дія.Підписом, без коду від батька.
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3 style="margin-bottom:16px">Як це працює</h3>
+        <ol class="how" style="margin:0;padding:0">
+          <li><b>Дитина вводить себе</b> — прізвище, ім'я та дату народження або номер учнівського квитка</li>
+          <li><b>Портал знаходить батька</b> за зв'язком із Демографічного реєстру</li>
+          <li><b>Батькові приходить код</b> — у кабінет і пушем у «Київ Цифровий»</li>
+          <li><b>Дитина вводить код</b> і потрапляє у свій кабінет</li>
+          <li><b>Сесія діє 30 днів</b>, батько будь-коли може її обірвати</li>
+        </ol>
+      </div>
+      <div class="note" style="margin-bottom:0">
+        <b>Чому саме так.</b> Це звичайна двофакторна автентифікація, де другий фактор належить батькові. Дитина не потребує ні е-підпису, ні банку,
+        ні номера телефону — а згода батька фіксується технічно, а не декларативно.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="scr" id="k-main">
+  <h1>Мій розклад</h1>
+  <p class="lead">Марко, 12 років · Ліцей №142, 6-Б клас</p>
+  <div class="hero" style="margin-top:26px">
+    <div class="av">🧒</div>
+    <div><h2>Привіт, Марко!</h2><div class="sub" id="hero-sub">Наступне заняття — середа, 15:00, шахи</div></div>
+    <div class="stats">
+      <div><b id="st-clubs">1</b><span>гуртки</span></div>
+      <div><b id="st-les">2</b><span>заняття на тиждень</span></div>
+      <div><b>7</b><span>досягнень</span></div>
+    </div>
+  </div>
+  <div class="sec"><h2>Цього тижня</h2><div class="tl" id="week"></div></div>
+  <div class="note pur">
+    <b>Як працює кабінет дитини.</b> Дитина бачить свій розклад, гуртки, документи й заявки, може сама знайти гурток і подати заяву.
+    Усе, що потребує згоди або грошей, іде на підтвердження батькові — оплати в дитячому кабінеті немає.
+  </div>
+</section>
+
+<section class="scr" id="k-inbox">
+  <h1>Вхідні повідомлення</h1>
+  <div class="ctrls">
+    <button class="ctl plain" data-refresh="kid"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M20 11a8 8 0 10-3 6.3M20 5v6h-6"/></svg>Оновити</button>
+    <div class="ctl">За статусом Усі <span class="cav">▾</span></div>
+    <div class="ctl">За датою <span class="cav">▾</span></div>
+    <div class="srch"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>Пошук</div>
+  </div>
+  <table class="t"><thead><tr><th>Повідомлення</th><th style="width:210px">Отримано</th></tr></thead><tbody id="kinbox-body"></tbody></table>
+  <div class="total" id="kinbox-total"></div>
+  <div class="pager">
+    <div class="per">Записів на сторінці <div class="box">10 <span class="cav">▾</span></div></div>
+    <div class="nav"><span>Перша</span><span>Попередня</span><div class="cur">1</div><span>Наступна</span><span>Остання</span></div>
+  </div>
+</section>
+
+<section class="scr" id="k-clubs">
+  <h1>Мої гуртки</h1>
+  <p class="lead">Те, куди ти вже ходиш, і те, що ще розглядається.</p>
+  <div class="grid g2" style="margin-top:26px" id="kclubs-body"></div>
+  <div class="card" style="margin-top:16px;border-style:dashed;text-align:center;color:var(--blue);cursor:pointer" data-go="v-catalog">
+    <b>+ Знайти новий гурток</b>
+    <div style="font-size:13.5px;color:var(--mut);margin-top:4px">Заяву підтвердить батько — тобі прийде повідомлення</div>
+  </div>
+</section>
+
+<section class="scr" id="k-req">
+  <h1>Мої заявки</h1>
+  <p class="lead">Заяви, які ти подав сам. Поки батько не підтвердив — заклад їх не бачить.</p>
+  <div class="ctrls">
+    <button class="ctl plain" data-refresh="kid"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M20 11a8 8 0 10-3 6.3M20 5v6h-6"/></svg>Оновити</button>
+    <div class="ctl">За статусом Усі <span class="cav">▾</span></div>
+    <div class="srch"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>Пошук</div>
+  </div>
+  <table class="t"><thead><tr><th>Заявка</th><th style="width:170px">Подано</th><th style="width:260px">Статус</th><th style="width:90px"></th></tr></thead><tbody id="kreq-body"></tbody></table>
+  <div class="total" id="kreq-total"></div>
+</section>
+
+<section class="scr" id="k-docs">
+  <h1>Мої документи</h1>
+  <p class="lead">Документи підтягуються з реєстрів — нічого завантажувати не потрібно.</p>
+  <div class="grid g2" style="margin-top:26px">
+    <div class="doc"><div class="ic">🪪</div><div><h3>Учнівський квиток</h3><div style="font-size:13.5px;color:var(--mut)">Ліцей №142 · діє до 31.08.2027</div></div><span class="st ok" style="margin-left:auto">Активний</span></div>
+    <div class="doc"><div class="ic">📄</div><div><h3>Свідоцтво про народження</h3><div style="font-size:13.5px;color:var(--mut)">Демографічний реєстр</div></div><span class="st info" style="margin-left:auto">Підтверджено</span></div>
+    <div class="doc"><div class="ic">🎓</div><div><h3>Довідка про навчання</h3><div style="font-size:13.5px;color:var(--mut)">Сформовано 11.09.2026</div></div><a href="#" style="margin-left:auto;color:var(--blue);font-weight:700">Завантажити</a></div>
+    <div class="doc"><div class="ic">🛡️</div><div><h3>Пільгова категорія</h3><div style="font-size:13.5px;color:var(--mut)">Дитина з родини Захисника · ЄІССС</div></div><span class="st ok" style="margin-left:auto">Діє</span></div>
+  </div>
+  <div class="note"><b>Межа з застосунком.</b> Сам носій учнівського квитка лишається в «Київ Цифровий» — Портал показує його статус і дає замовити довідки, але не дублює квиток у браузері.</div>
+</section>
+
+<section class="scr" id="k-progress">
+  <h1>Мої досягнення<span class="newbadge">нове</span></h1>
+  <p class="lead">Прогрес видно тільки тобі та батькам. Публічного рейтингу дітей немає — принцип із концепту «Київ Цифровий Kids» збережено.</p>
+  <div class="grid g4" style="margin-top:26px">
+    <div class="card" style="text-align:center"><div style="font-size:34px">📚</div><h3 style="margin-top:10px">Книжковий дослідник</h3><div style="font-size:13px;color:var(--mut);margin-top:4px">3 з 3 бібліотек</div><span class="st ok" style="margin-top:12px">Отримано</span></div>
+    <div class="card" style="text-align:center"><div style="font-size:34px">🗺️</div><h3 style="margin-top:10px">Дослідник міста</h3><div style="font-size:13px;color:var(--mut);margin-top:4px">5 з 5 локацій</div><span class="st ok" style="margin-top:12px">Отримано</span></div>
+    <div class="card" style="text-align:center;opacity:.7"><div style="font-size:34px">⚽</div><h3 style="margin-top:10px">Активний киянин</h3><div style="font-size:13px;color:var(--mut);margin-top:4px">3 з 5 активностей</div><span class="st wait" style="margin-top:12px">У процесі</span></div>
+    <div class="card" style="text-align:center;opacity:.7"><div style="font-size:34px">🎭</div><h3 style="margin-top:10px">Юний театрал</h3><div style="font-size:13px;color:var(--mut);margin-top:4px">1 з 3 вистав</div><span class="st wait" style="margin-top:12px">У процесі</span></div>
+  </div>
+  <div class="note pur"><b>Обережно з цим розділом.</b> Гейміфікація з концепту КЦ живе на пушах і щоденному відкриванні застосунку. На вебпорталі вона реалістична лише як вітрина досягнень за фактами з реєстрів. Квести й місії краще лишити застосунку.</div>
+</section>
+
+<section class="scr" id="k-me">
+  <h1>Відомості про мене</h1>
+  <p class="lead">Марко Петрович Тест, 12 років</p>
+  <div class="card" style="max-width:760px;margin-top:26px">
+    <div class="kv">
+      <div>Дата народження</div><div>14.03.2014</div>
+      <div>Заклад освіти</div><div>Ліцей №142, 6-Б клас</div>
+      <div>Район проживання</div><div>Солом'янський</div>
+      <div>Спосіб входу</div><div>Код підтвердження від батька <span class="st pur">до 14 років</span></div>
+      <div>З 14 років</div><div>Власний вхід за ID-карткою та Дія.Підписом</div>
+      <div>Поточна сесія</div><div id="sess-info">—</div>
+      <div>Батько / опікун</div><div>Тест М. П. <span class="st info">Демографічний реєстр</span></div>
+    </div>
+  </div>
+  <div class="note"><b>Що дитина не може зробити у своєму кабінеті:</b> оплатити, скасувати зарахування, змінити персональні дані, надати згоду на обробку даних. Усе це — виключно в кабінеті батька.</div>
+</section>
+
+<!-- ############ КАБІНЕТ БАТЬКА ############ -->
+<section class="scr" id="p-kids">
+  <h1>Мої діти<span class="newbadge">новий розділ</span></h1>
+  <p class="lead">Усі міські сервіси дітей в одному місці: заявки, зарахування, розклад, оплати, документи.</p>
+  <div class="grid g2" style="margin-top:26px" id="pkids-body"></div>
+  <div class="card" style="margin-top:16px;border-style:dashed;text-align:center;color:var(--blue)">
+    <b>+ Додати дитину</b>
+    <div style="font-size:13.5px;color:var(--mut);margin-top:4px">Зв'язок «батько — дитина» підтверджується за даними Демографічного реєстру, без сканів документів</div>
+  </div>
+  <div class="sec">
+    <h2>Що навмисно не переносимо на Портал</h2>
+    <div class="grid g3">
+      <div class="card" style="opacity:.75"><h3>Квести та місії</h3><p style="font-size:13.5px;color:var(--mut);margin-top:8px">Механіка утримання, потребує пушів і щоденного відкривання застосунку — не функція вебпорталу.</p></div>
+      <div class="card" style="opacity:.75"><h3>Kids Wallet</h3><p style="font-size:13.5px;color:var(--mut);margin-top:8px">Кишенькові гроші — окрема юридична та фінансова модель. На Порталі лишається оплата послуги, не гаманець.</p></div>
+      <div class="card" style="opacity:.75"><h3>Учнівський і бібліотечний квиток</h3><p style="font-size:13.5px;color:var(--mut);margin-top:8px">Носій — телефон. Портал показує статус і видає довідки, але квиток лишається в застосунку.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="scr" id="p-approve">
+  <h1>Підтвердження заявок<span class="newbadge">нове</span></h1>
+  <p class="lead">Заяви, які діти подали зі своїх кабінетів. Без вашого підтвердження заклад їх не отримує.</p>
+  <div class="ctrls">
+    <button class="ctl plain" data-refresh="par"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M20 11a8 8 0 10-3 6.3M20 5v6h-6"/></svg>Оновити</button>
+    <div class="ctl">За дитиною Усі <span class="cav">▾</span></div>
+    <div class="ctl">За датою <span class="cav">▾</span></div>
+  </div>
+  <div id="papprove-list"></div>
+  <div class="sec"><h2>Історія рішень</h2>
+    <table class="t"><thead><tr><th>Заявка</th><th style="width:140px">Дитина</th><th style="width:170px">Подано</th><th style="width:210px">Рішення</th></tr></thead><tbody id="papprove-hist"></tbody></table>
+  </div>
+</section>
+
+<section class="scr" id="p-orders">
+  <h1>Замовлені послуги</h1>
+  <p class="lead">Наявний екран кабінету. Дитячі заявки лягають у нього без окремої логіки — додається лише колонка «Дитина».</p>
+  <div class="ctrls">
+    <button class="ctl plain" data-refresh="par"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M20 11a8 8 0 10-3 6.3M20 5v6h-6"/></svg>Оновити</button>
+    <div class="ctl">За статусом Усі <span class="cav">▾</span></div>
+    <div class="ctl">За датою <span class="cav">▾</span></div>
+    <div class="srch"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>Пошук</div>
+  </div>
+  <table class="t"><thead><tr><th>Послуга</th><th style="width:120px">Дитина<span class="newbadge">нове</span></th><th style="width:170px">Подано</th><th style="width:250px">Статус</th><th style="width:90px"></th></tr></thead><tbody id="porders-body"></tbody></table>
+  <div class="total" id="porders-total"></div>
+  <div class="pager">
+    <div class="per">Записів на сторінці <div class="box">10 <span class="cav">▾</span></div></div>
+    <div class="nav"><span>Перша</span><span>Попередня</span><div class="cur">1</div><span>Наступна</span><span>Остання</span></div>
+  </div>
+</section>
+
+<section class="scr" id="p-pay">
+  <h1>Оплати та абонементи<span class="newbadge">нове</span></h1>
+  <p class="lead">Оплата платних груп і абонементів — тільки в кабінеті батька.</p>
+  <table class="t" style="margin-top:26px"><thead><tr><th>Період і послуга</th><th style="width:120px">Дитина</th><th style="width:140px">Сума</th><th style="width:230px">Статус</th><th style="width:140px"></th></tr></thead><tbody id="ppay-body"></tbody></table>
+  <div class="total" id="ppay-total"></div>
+</section>
+
+<section class="scr" id="p-access">
+  <h1>Доступ дітей до кабінету<span class="newbadge">нове</span></h1>
+  <p class="lead">Ви вирішуєте, чи має дитина власний кабінет, і підтверджуєте кожен її вхід кодом.</p>
+  <div id="paccess-req"></div>
+  <div class="sec">
+    <h2>Кабінети дітей</h2>
+    <div class="grid g2">
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:15px;margin-bottom:10px">
+          <div class="ava" style="width:54px;height:54px;border-radius:50%;background:var(--blue-b);display:grid;place-items:center;font-size:26px">🧒</div>
+          <div><h3>Марко, 12 років</h3><div style="font-size:13.5px;color:var(--mut)">Вхід за кодом від батька</div></div>
+          <span class="st ok" style="margin-left:auto" id="acc-state">Доступ увімкнено</span>
+        </div>
+        <div id="sessions"></div>
+        <button class="btn grey" style="width:100%;margin-top:18px" id="toggle-acc">Вимкнути доступ до кабінету</button>
+      </div>
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:15px;margin-bottom:10px">
+          <div class="ava" style="width:54px;height:54px;border-radius:50%;background:var(--blue-b);display:grid;place-items:center;font-size:26px">👧</div>
+          <div><h3>Софія, 8 років</h3><div style="font-size:13.5px;color:var(--mut)">Власного кабінету немає</div></div>
+          <span class="st info" style="margin-left:auto">Доступ вимкнено</span>
+        </div>
+        <p style="font-size:14px;color:var(--mut);margin:14px 0 0">Усі сервіси Софії доступні у вашому кабінеті, в розділі «Мої діти». Власний кабінет можна відкрити будь-коли.</p>
+        <button class="btn" style="width:100%;margin-top:20px">Відкрити кабінет для Софії</button>
+      </div>
+    </div>
+  </div>
+  <div class="note">
+    <b>Що фіксується в журналі.</b> Кожен вхід дитини, кожне підтвердження або відмова батька, кожне завершення сесії — з часом, пристроєм і IP.
+    Це і є технічне підтвердження батьківської згоди, якого вимагає робота з персональними даними дитини.
+  </div>
+</section>
+
+<section class="scr" id="p-inbox">
+  <h1>Вхідні повідомлення</h1>
+  <div class="ctrls">
+    <button class="ctl plain" data-refresh="par"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M20 11a8 8 0 10-3 6.3M20 5v6h-6"/></svg>Оновити</button>
+    <div class="ctl">За статусом Усі <span class="cav">▾</span></div>
+    <div class="ctl">За датою <span class="cav">▾</span></div>
+    <div class="srch"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>Пошук</div>
+  </div>
+  <table class="t"><thead><tr><th>Повідомлення</th><th style="width:210px">Отримано</th></tr></thead><tbody id="pinbox-body"></tbody></table>
+  <div class="total" id="pinbox-total"></div>
+  <div class="pager">
+    <div class="per">Записів на сторінці <div class="box">10 <span class="cav">▾</span></div></div>
+    <div class="nav"><span>Перша</span><span>Попередня</span><div class="cur">1</div><span>Наступна</span><span>Остання</span></div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<div class="foot">
+  <div class="col"><h5>Міська платформа</h5><div>Про Портал послуг</div><div>Часті питання</div><div>Контакти</div></div>
+  <div class="col"><h5>Соціальні мережі</h5><div>Facebook</div><div>Telegram</div><div>Instagram</div></div>
+  <div class="col"><h5>Мобільний застосунок</h5><div>App Store</div><div>Google Play</div></div>
+  <div class="lg"><div class="mark">K</div><div class="txt">ПОРТАЛ ПОСЛУГ<small>KYIV.DIGITAL</small></div></div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+/* ==================== ДАНІ ==================== */
+var CLUBS=[
+ {id:'robo',ic:'🤖',name:'Робототехніка та конструювання',org:'ЦДЮТ «Дивосвіт»',addr:"Солом'янський р-н, вул. Гарматна, 26/2",
+  d:"Солом'янський",amin:10,amax:14,days:'пн, ср · 17:30',pay:'free',payl:'Бюджетна група',price:'0 ₴',pn:'за рахунок міста',
+  seats:3,grp:'Група Б-2 · середній рівень',time:'понеділок, середа · 17:30–19:00 · каб. 214',x:21,y:29,
+  about:'Діти складають і програмують роботів на платформі Arduino, беруть участь у міських змаганнях.',
+  sched:[['Пн','17:30 Робототехніка · ЦДЮТ «Дивосвіт», каб. 214'],['Ср','17:30 Робототехніка · ЦДЮТ «Дивосвіт», каб. 214']]},
+ {id:'vokal',ic:'🎻',name:'Академічний вокал',org:'Київська дитяча школа мистецтв №2',addr:'Шевченківський р-н, вул. Січових Стрільців, 50',
+  d:'Шевченківський',amin:7,amax:12,days:'вт, чт · 16:00',pay:'paid',payl:'Платна група',price:'640 ₴',pn:'на місяць',
+  seats:5,grp:'Група В-1 · базовий рівень',time:'вівторок, четвер · 16:00–17:30',x:74,y:25,
+  about:'Постановка голосу, сольний і ансамблевий спів, участь у концертах школи мистецтв.',
+  sched:[['Вт','16:00 Вокал · ШМ №2'],['Чт','16:00 Вокал · ШМ №2']]},
+ {id:'py',ic:'💻',name:'Основи програмування Python',org:'Мала академія наук',addr:"Солом'янський р-н, просп. Перемоги, 37",
+  d:"Солом'янський",amin:11,amax:16,days:'сб · 11:00',pay:'free',payl:'Безкоштовно',price:'0 ₴',pn:'за рахунок міста',
+  seats:7,grp:'Група П-3',time:'субота · 11:00–13:00',x:51,y:54,
+  about:'Базовий курс Python: алгоритми, робота з даними, перші проєкти. Підготовка до конкурсу МАН.',
+  sched:[['Сб','11:00 Python · МАН']]},
+ {id:'swim',ic:'🏊',name:'Плавання — початкова підготовка',org:'ДЮСШ №14',addr:'Шевченківський р-н, вул. Мельникова, 46',
+  d:'Шевченківський',amin:8,amax:12,days:'пн, пт · 18:00',pay:'paid',payl:'Платна група',price:'450 ₴',pn:'на місяць',
+  seats:0,grp:'Група початкової підготовки',time:'понеділок, п’ятниця · 18:00–19:00',x:82,y:65,
+  about:'Початкове навчання плаванню, робота в групах до 12 дітей, тренери вищої категорії.',
+  sched:[['Пн','18:00 Плавання · ДЮСШ №14'],['Пт','18:00 Плавання · ДЮСШ №14']]},
+ {id:'chess',ic:'♟️',name:'Шаховий клуб «Дебют»',org:'Будинок дитячої творчості',addr:"Солом'янський р-н, вул. Козелецька, 5",
+  d:"Солом'янський",amin:7,amax:14,days:'ср, сб · 15:00',pay:'free',payl:'Бюджетна група',price:'0 ₴',pn:'за рахунок міста',
+  seats:4,grp:'Група Ш-2',time:'середа, субота · 15:00–16:30',x:39,y:80,
+  about:'Теорія дебютів, турнірна практика, участь у першості району та міста.',
+  sched:[['Ср','15:00 Шахи · БДТ, вул. Козелецька, 5'],['Сб','15:00 Шахи · БДТ, вул. Козелецька, 5']]}
+];
+var ST={
+ pending:{l:'Очікує підтвердження батьком',c:'pur'},
+ review:{l:'На розгляді закладу',c:'wait'},
+ enrolled:{l:'Зараховано',c:'ok'},
+ rejected:{l:'Відхилено батьком',c:'no'},
+ queue:{l:'У черзі, 12-та',c:'wait'},
+ done:{l:'Видано',c:'ok'},
+ ticket:{l:'Путівку видано',c:'ok'},
+ refused:{l:'Відмовлено',c:'no'}
+};
+function freshState(){return{
+ seq:14871,loggedIn:false,access:true,
+ code:null,codeExp:0,tries:0,step:1,sessionTill:null,
+ reqs:[
+  {id:14870,title:'Запис у секцію — Плавання, ДЮСШ №14',club:'swim',child:'Софія',by:'parent',date:'19.09.2026 09:41',status:'queue'},
+  {id:14869,title:'Довідка про навчання',child:'Марко',by:'kid',date:'11.09.2026 12:30',status:'done'},
+  {id:14865,title:'Запис дитини до школи',child:'Софія',by:'parent',date:'02.06.2026 11:20',status:'enrolled'},
+  {id:14860,title:'Оздоровлення — табір «Джерело»',child:'Марко',by:'parent',date:'14.05.2026 16:03',status:'ticket'},
+  {id:14100,title:'Часткове відшкодування вартості незалежних ДЕЕ',child:'—',by:'parent',date:'01.11.2025 10:15',status:'refused'}
+ ],
+ enrolled:['chess'],
+ pay:[
+  {id:1,t:'Вересень 2026 · Академічний вокал, ШМ №2',ch:'Софія',sum:'640 ₴',paid:false,due:'до 30.09'},
+  {id:2,t:'Серпень 2026 · Академічний вокал, ШМ №2',ch:'Софія',sum:'640 ₴',paid:true},
+  {id:3,t:'Липень 2026 · Академічний вокал, ШМ №2',ch:'Софія',sum:'640 ₴',paid:true}
+ ],
+ kidMsgs:[
+  {t:'Заняття з шахів 27.09 перенесено на 16:00 через повітряну тривогу',time:'23.09.2026 10:22',u:false},
+  {t:'Ти отримав досягнення «Дослідник міста» — 5 відвіданих локацій',time:'21.09.2026 18:05',u:false},
+  {t:'Твій учнівський квиток продовжено до 31.08.2027',time:'02.09.2026 09:00',u:false}
+ ],
+ parMsgs:[
+  {t:'<b>Нагадування:</b> абонемент за вересень (вокал, Софія) — 640 ₴, сплатити до 30.09',time:'24.09.2026 09:00',u:true},
+  {t:'У ДЮСШ №14 звільнилось місце у групі плавання — Софія може перейти з черги',time:'21.09.2026 11:30',u:false},
+  {t:'Розгляд заявки на часткове відшкодування вартості придбаних незалежних ДЕЕ',time:'07.11.2025 19:50',u:false},
+  {t:'Розгляд заявки на часткове відшкодування вартості придбаних незалежних ДЕЕ',time:'07.11.2025 11:52',u:false},
+  {t:'Розгляд заявки на часткове відшкодування вартості придбаних незалежних ДЕЕ',time:'04.11.2025 13:19',u:false}
+ ]
+};}
+var S=freshState(), CUR=CLUBS[0], APPLY_BY='kid';
+
+/* ==================== УТИЛІТИ ==================== */
+function $(id){return document.getElementById(id);}
+function pad(n){return n<10?'0'+n:''+n;}
+function now(){var d=new Date();return '24.09.2026 '+pad(d.getHours())+':'+pad(d.getMinutes());}
+function club(id){for(var i=0;i<CLUBS.length;i++)if(CLUBS[i].id===id)return CLUBS[i];return null;}
+function msg(who,text){ (who==='kid'?S.kidMsgs:S.parMsgs).unshift({t:text,time:now(),u:true}); }
+function toast(html){var t=$('toast');t.innerHTML=html;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('on');},4200);}
+function badge(id,n,hide){var e=$(id);if(!e)return;e.textContent=n;e.style.display=(hide&&!n)?'none':'inline-flex';}
+
+/* ==================== РЕНДЕР ==================== */
+function renderCatalog(){
+  var age=+$('ager').value, q=$('q').value.trim().toLowerCase();
+  var ds=[],ps=[],seats=false;
+  document.querySelectorAll('.flt').forEach(function(f){
+    if(!f.checked)return;
+    if(f.dataset.k==='d')ds.push(f.value);
+    if(f.dataset.k==='p')ps.push(f.value);
+    if(f.dataset.k==='s')seats=true;
+  });
+  var list=CLUBS.filter(function(c){
+    if(age<c.amin||age>c.amax)return false;
+    if(ds.length&&ds.indexOf(c.d)<0)return false;
+    if(ps.length&&ps.indexOf(c.pay)<0)return false;
+    if(seats&&!c.seats)return false;
+    if(q&&(c.name+' '+c.org).toLowerCase().indexOf(q)<0)return false;
+    return true;
+  });
+  $('agev').textContent=age+' років';
+  $('view-list').innerHTML = list.length? list.map(function(c){
+    return '<div class="club" data-club="'+c.id+'"><div class="ic">'+c.ic+'</div><div><h3>'+c.name+'</h3>'+
+      '<div style="font-size:13.5px;color:var(--mut);margin-top:4px">'+c.org+' · '+c.addr+'</div><div class="meta">'+
+      '<span class="chip">'+c.amin+'–'+c.amax+' років</span><span class="chip">'+c.days+'</span>'+
+      '<span class="chip '+(c.pay==='free'?'free':'paid')+'">'+c.payl+'</span>'+
+      (c.seats?'<span class="chip few">'+c.seats+' вільні місця</span>':'<span class="chip few">Місць немає, черга</span>')+
+      '</div></div><div class="price"><b>'+c.price+'</b><div style="font-size:12.5px;color:var(--mut)">'+c.pn+'</div></div></div>';
+  }).join('') : '<div class="empty">За цими фільтрами нічого не знайдено. Спробуйте змінити вік або район.</div>';
+  $('pins').innerHTML=list.map(function(c){
+    return '<div class="pin '+(c.pay==='free'?'g':'')+'" data-club="'+c.id+'" style="left:'+c.x+'%;top:'+c.y+'%;cursor:pointer">'+c.ic+' '+c.org.replace('Київська дитяча школа мистецтв','ШМ')+' · '+(c.pay==='free'?'безкоштовно':c.price)+'</div>';
+  }).join('');
+}
+function renderClub(){
+  var c=CUR, has=S.enrolled.indexOf(c.id)>=0, pend=S.reqs.filter(function(r){return r.club===c.id&&(r.status==='pending'||r.status==='review');})[0];
+  $('club-crumb').textContent=c.name;
+  var right = has? '<span class="st ok">Ви вже відвідуєте</span>' :
+    pend? '<span class="st '+ST[pend.status].c+'">'+ST[pend.status].l+'</span>' :
+    (c.seats? '<button class="btn" data-apply="1">Записатись</button>' : '<button class="btn grey" data-apply="1">Стати в чергу</button>');
+  $('club-body').innerHTML=
+   '<div style="display:flex;gap:32px;align-items:flex-start;flex-wrap:wrap"><div style="flex:1;min-width:340px">'+
+   '<h1>'+c.name+'</h1><p class="lead">'+c.org+', '+c.d+' район. '+c.about+'</p>'+
+   '<div class="sec"><h2>Групи на 2026/2027 навчальний рік</h2>'+
+   '<div class="card" style="border-color:var(--blue)"><div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap"><div>'+
+   '<h3>'+c.grp+'</h3><div style="font-size:13.5px;color:var(--mut);margin-top:5px">'+c.time+'</div>'+
+   '<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><span class="chip">'+c.amin+'–'+c.amax+' років</span>'+
+   '<span class="chip '+(c.pay==='free'?'free':'paid')+'">'+c.payl+'</span>'+
+   (c.seats?'<span class="chip few">'+c.seats+' вільні місця</span>':'<span class="chip">Місць немає</span>')+'</div></div>'+
+   '<div style="margin-left:auto">'+right+'</div></div></div></div></div>'+
+   '<div style="width:330px;flex:none"><div class="card"><h3 style="margin-bottom:14px">Заклад</h3><div class="kv">'+
+   '<div>Адреса</div><div>'+c.addr+'</div><div>Район</div><div>'+c.d+'</div>'+
+   '<div>Підпорядкування</div><div>ДОН КМДА</div><div>Укриття</div><div>є, 120 місць</div>'+
+   '<div>Безбар’ємність</div><div>пандус, ліфт</div><div>Вартість</div><div>'+c.price+' '+c.pn+'</div></div>'+
+   '<button class="btn ghost" style="width:100%;margin-top:18px" data-go="v-catalog">Показати на мапі</button></div>'+
+   '<div class="note"><b>Дані з реєстру.</b> Картка формується з реєстру закладів позашкільної освіти. Групи, розклад і кількість вільних місць заклад веде сам — через кабінет надавача.</div></div></div>';
+}
+function renderReqTables(){
+  var kid=S.reqs.filter(function(r){return r.child==='Марко';});
+  $('kreq-body').innerHTML=kid.map(function(r){
+    return '<tr'+(r.status==='pending'?' class="unread"':'')+'><td>'+r.title+'</td><td>'+r.date+
+      '</td><td><span class="st '+ST[r.status].c+'">'+ST[r.status].l+'</span></td><td><a href="#" data-req="'+r.id+'">Деталі</a></td></tr>';
+  }).join('');
+  $('kreq-total').textContent='Всього записів: '+kid.length;
+
+  $('porders-body').innerHTML=S.reqs.map(function(r){
+    var un=(r.status==='pending'||r.status==='review');
+    return '<tr'+(un?' class="unread"':'')+'><td>'+r.title+'</td><td>'+r.child+'</td><td>'+r.date+
+      '</td><td><span class="st '+ST[r.status].c+'">'+ST[r.status].l+'</span></td><td><a href="#" data-req="'+r.id+'">Деталі</a></td></tr>';
+  }).join('');
+  $('porders-total').textContent='Всього записів: '+S.reqs.length;
+
+  var pend=S.reqs.filter(function(r){return r.status==='pending';});
+  $('papprove-list').innerHTML = pend.length? pend.map(function(r){
+    var c=club(r.club)||{};
+    return '<div class="card" style="border:2px solid var(--new);margin-bottom:18px"><div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap"><div>'+
+      '<h3>'+r.title+'</h3><div style="font-size:13.5px;color:var(--mut);margin-top:5px">Подав '+r.child+', 12 років · '+r.date+' · заява №2026-ПО-'+r.id+'</div>'+
+      '<div class="kv" style="margin-top:16px;max-width:560px">'+
+      '<div>Розклад</div><div>'+(c.time||'—')+'</div>'+
+      '<div>Оплата</div><div>'+(c.pay==='free'?'Бюджетна група — 0 ₴':(c.price||'—')+' на місяць')+'</div>'+
+      '<div>Накладки в розкладі</div><div><span class="st ok">Немає</span></div>'+
+      '<div>Дорога від школи</div><div>18 хв громадським транспортом</div></div></div>'+
+      '<div style="margin-left:auto;display:flex;flex-direction:column;gap:10px;flex:none">'+
+      '<button class="btn" data-ok="'+r.id+'">Підтвердити</button>'+
+      '<button class="btn grey" data-no="'+r.id+'">Відхилити</button></div></div></div>';
+  }).join('') : '<div class="empty">Немає заявок, що чекають на ваше підтвердження.</div>';
+
+  var hist=S.reqs.filter(function(r){return r.by==='kid'&&r.status!=='pending';});
+  $('papprove-hist').innerHTML=hist.length?hist.map(function(r){
+    var lbl=r.status==='rejected'?'<span class="st no">Відхилено вами</span>':'<span class="st ok">Підтверджено вами</span>';
+    return '<tr><td>'+r.title+'</td><td>'+r.child+'</td><td>'+r.date+'</td><td>'+lbl+'</td></tr>';
+  }).join(''):'<tr><td colspan="4" class="muted" style="padding:22px">Поки що рішень не було.</td></tr>';
+}
+function renderInbox(){
+  function rows(a){return a.map(function(m){return '<tr'+(m.u?' class="unread"':'')+'><td>'+m.t+'</td><td>'+m.time+'</td></tr>';}).join('');}
+  $('kinbox-body').innerHTML=rows(S.kidMsgs);
+  $('kinbox-total').textContent='Всього записів: '+S.kidMsgs.length;
+  $('pinbox-body').innerHTML=rows(S.parMsgs);
+  $('pinbox-total').textContent='Всього записів: '+S.parMsgs.length;
+}
+function renderKidClubs(){
+  var cards=S.enrolled.map(function(id){
+    var c=club(id);
+    return '<div class="card"><div style="display:flex;align-items:center;gap:16px"><div class="ic" style="width:58px;height:58px;border-radius:15px;background:var(--blue-b);display:grid;place-items:center;font-size:27px">'+c.ic+'</div>'+
+    '<div><h3>'+c.name+'</h3><div style="font-size:13.5px;color:var(--mut)">'+c.org+' · '+c.grp+'</div></div>'+
+    '<span class="st ok" style="margin-left:auto">Зараховано</span></div>'+
+    '<div class="row"><span>Розклад</span><b>'+c.days+'</b></div>'+
+    '<div class="row"><span>Адреса</span><b>'+c.addr.split(', ').slice(1).join(', ')+'</b></div>'+
+    '<div class="row"><span>Оплата</span><span class="st '+(c.pay==='free'?'ok">За рахунок міста':'wait">'+c.price+' на місяць')+'</span></div></div>';
+  });
+  var pend=S.reqs.filter(function(r){return r.child==='Марко'&&(r.status==='pending'||r.status==='review')&&r.club;}).map(function(r){
+    var c=club(r.club);
+    return '<div class="card" style="border-style:dashed"><div style="display:flex;align-items:center;gap:16px"><div class="ic" style="width:58px;height:58px;border-radius:15px;background:var(--blue-b);display:grid;place-items:center;font-size:27px;opacity:.6">'+c.ic+'</div>'+
+    '<div><h3>'+c.name+'</h3><div style="font-size:13.5px;color:var(--mut)">'+c.org+'</div></div>'+
+    '<span class="st '+ST[r.status].c+'" style="margin-left:auto">'+ST[r.status].l+'</span></div>'+
+    '<div class="row"><span>Заява</span><b>№2026-ПО-'+r.id+'</b></div>'+
+    '<div class="row"><span>Подано</span><b>'+r.date+'</b></div></div>';
+  });
+  var all=cards.concat(pend);
+  $('kclubs-body').innerHTML=all.length?all.join(''):'<div class="empty">Ти поки нікуди не записаний.</div>';
+  badge('bdg-kclubs',S.enrolled.length);
+}
+function renderWeek(){
+  var days={'Пн':[],'Вт':[],'Ср':[],'Чт':[],'Пт':[],'Сб':[]};
+  S.enrolled.forEach(function(id){club(id).sched.forEach(function(p){days[p[0]].push(p[1]);});});
+  var html='',n=0;
+  ['Пн','Вт','Ср','Чт','Пт','Сб'].forEach(function(d){
+    if(!days[d].length)return; n+=days[d].length;
+    html+='<div class="d">'+d+'</div><div class="v">'+days[d].join(' &nbsp;·&nbsp; ')+'</div>';
+  });
+  $('week').innerHTML=html||'<div class="d">—</div><div class="v">Занять поки немає</div>';
+  $('st-clubs').textContent=S.enrolled.length;
+  $('st-les').textContent=n;
+  var first=null;
+  ['Пн','Вт','Ср','Чт','Пт','Сб'].forEach(function(d){if(!first&&days[d].length)first=d+', '+days[d][0];});
+  $('hero-sub').textContent=first?('Найближче заняття — '+first):'Занять поки немає — знайди гурток у каталозі';
+}
+function renderKids(){
+  function block(name,em,cls,rows,btn){
+    return '<div class="kid"><div class="top"><div class="ava">'+em+'</div><div><h3>'+name+'</h3>'+
+      '<div style="font-size:13.5px;color:var(--mut)">'+cls+'</div></div>'+btn+'</div>'+rows+'</div>';
+  }
+  var mr=S.reqs.filter(function(r){return r.child==='Марко';}).map(function(r){
+    return '<div class="row"><span>'+r.title+'</span><span class="st '+ST[r.status].c+'">'+ST[r.status].l+'</span></div>';
+  }).join('');
+  mr+=S.enrolled.map(function(id){return '<div class="row"><span>'+club(id).name+'</span><span class="st ok">Відвідує</span></div>';}).join('');
+  mr+='<div class="row"><span>Доступ до власного кабінету</span><span class="st '+(S.access?'info">Увімкнено':'no">Вимкнено')+'</span></div>';
+  var sr=S.reqs.filter(function(r){return r.child==='Софія';}).map(function(r){
+    return '<div class="row"><span>'+r.title+'</span><span class="st '+ST[r.status].c+'">'+ST[r.status].l+'</span></div>';
+  }).join('');
+  var unpaid=S.pay.filter(function(p){return !p.paid;}).length;
+  sr+='<div class="row"><span>Абонемент · вересень</span><span>'+(unpaid?'<b>640 ₴</b> <span class="st no">Не сплачено</span>':'<span class="st ok">Сплачено</span>')+'</span></div>';
+  sr+='<div class="row"><span>Доступ до власного кабінету</span><span class="st info">Вимкнено</span></div>';
+  $('pkids-body').innerHTML=
+    block('Марко','🧒','12 років · Ліцей №142, 6-Б',mr,'<button class="btn ghost sm" style="margin-left:auto" data-go="k-login">Кабінет дитини</button>')+
+    block('Софія','👧','8 років · Гімназія №153, 2-А',sr,'<button class="btn ghost sm" style="margin-left:auto">Кабінет дитини</button>');
+}
+function renderPay(){
+  $('ppay-body').innerHTML=S.pay.map(function(p){
+    return '<tr'+(p.paid?'':' class="unread"')+'><td>'+p.t+'</td><td>'+p.ch+'</td><td><b>'+p.sum+'</b></td>'+
+      '<td>'+(p.paid?'<span class="st ok">Сплачено</span>':'<span class="st no">Не сплачено, '+p.due+'</span>')+'</td>'+
+      '<td>'+(p.paid?'<a href="#">Квитанція</a>':'<button class="btn sm" data-pay="'+p.id+'">Сплатити</button>')+'</td></tr>';
+  }).join('')+'<tr><td>2026/2027 · Бюджетні групи</td><td>Марко</td><td>0 ₴</td><td><span class="st ok">За рахунок міста</span></td><td>—</td></tr>';
+  $('ppay-total').textContent='Всього записів: '+(S.pay.length+1);
+}
+function renderAccess(){
+  var live=S.code&&Date.now()<S.codeExp;
+  $('paccess-req').innerHTML = live?
+   '<div class="card" style="border:2px solid var(--new)"><div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap"><div>'+
+   '<h3>Марко намагається увійти до свого кабінету</h3>'+
+   '<div style="font-size:13.5px;color:var(--mut);margin-top:5px">'+now()+' · Київ, браузер Chrome</div>'+
+   '<div style="margin-top:18px;display:flex;align-items:center;gap:22px;flex-wrap:wrap">'+
+   '<div class="bigcode">'+S.code+'</div><div style="font-size:14px;color:var(--mut)">Код дійсний<br><b style="color:var(--ink)" id="acc-timer">—</b></div></div></div>'+
+   '<div style="margin-left:auto;display:flex;flex-direction:column;gap:10px">'+
+   '<button class="btn grey" id="blockcode">Це не він — заблокувати код</button></div></div></div>'
+   : '<div class="empty">Активних запитів на вхід немає. Коли дитина спробує увійти, тут з’явиться код підтвердження.</div>';
+  $('sessions').innerHTML = S.loggedIn?
+   '<div class="sess"><div class="dot"></div><div>Chrome, macOS · Київ<div style="color:var(--mut);font-size:13px">активна сесія, до '+S.sessionTill+'</div></div><span class="link" id="killsess" style="margin-left:auto;color:var(--red)">Завершити</span></div>'
+   : '<div class="sess"><div class="dot" style="background:#c9c9cd"></div><div>Активних сесій немає<div style="color:var(--mut);font-size:13px">останній вхід — 12.09.2026</div></div></div>';
+  $('acc-state').textContent=S.access?'Доступ увімкнено':'Доступ вимкнено';
+  $('acc-state').className='st '+(S.access?'ok':'no');
+  $('toggle-acc').textContent=S.access?'Вимкнути доступ до кабінету':'Увімкнути доступ до кабінету';
+  $('sess-info').textContent=S.loggedIn?('Chrome, macOS · діє до '+S.sessionTill):'—';
+  badge('bdg-paccess',live?1:0,true);
+}
+function renderAll(){
+  renderCatalog();renderReqTables();renderInbox();renderKidClubs();renderWeek();renderKids();renderPay();renderAccess();
+  badge('bdg-kinbox',S.kidMsgs.filter(function(m){return m.u;}).length,true);
+  badge('bdg-pinbox',S.parMsgs.filter(function(m){return m.u;}).length,true);
+  badge('bdg-kreq',S.reqs.filter(function(r){return r.child==='Марко'&&r.status==='pending';}).length,true);
+  badge('bdg-papprove',S.reqs.filter(function(r){return r.status==='pending';}).length,true);
+  badge('bdg-porders',S.reqs.length);
+}
+
+/* ==================== НАВІГАЦІЯ ==================== */
+var TABS={pub:{side:null,user:'Тест М.П.',nav:['Захисник','Школи','Вивіски']},
+          kid:{side:'side-kid',user:'Марко Т.',nav:['Мій розклад','Гуртки','Досягнення']},
+          par:{side:'side-par',user:'Тест М.П.',nav:['Мої діти','Школи','Вивіски']}};
+var PREF={v:'pub',k:'kid',p:'par'};
+function show(id){
+  if(id.charAt(0)==='k'&&id!=='k-login'&&!S.loggedIn)id='k-login';
+  var t=PREF[id.charAt(0)]||'pub', cfg=TABS[t], noside=(id==='k-login');
+  ['side-kid','side-par'].forEach(function(sid){$(sid).style.display=(cfg.side===sid&&!noside)?'block':'none';});
+  document.querySelectorAll('.mock .tab[data-tab]').forEach(function(b){b.classList.toggle('on',b.dataset.tab===t);});
+  $('uname').textContent=noside?'Гість':cfg.user;
+  var links=document.querySelectorAll('#hnav a');
+  cfg.nav.forEach(function(n,i){if(links[i])links[i].textContent=n;});
+  document.querySelectorAll('.scr').forEach(function(s){s.classList.toggle('on',s.id===id);});
+  document.querySelectorAll('.smenu .it,.smenu .sub').forEach(function(e){e.classList.toggle('on',e.dataset.go===id);});
+  if(id==='k-inbox'){S.kidMsgs.forEach(function(m){m.u=false;});renderAll();}
+  if(id==='p-inbox'){S.parMsgs.forEach(function(m){m.u=false;});renderAll();}
+  window.scrollTo(0,0);
+}
+
+/* ==================== 2FA ==================== */
+var boxes=[].slice.call(document.querySelectorAll('#codebox input'));
+function gen(){
+  var c='';for(var i=0;i<6;i++)c+=Math.floor(Math.random()*10);
+  S.code=c;S.codeExp=Date.now()+300000;S.tries=0;
+  msg('par','<b>Код підтвердження входу для Марка: '+c+'</b> — дійсний 5 хвилин. Якщо це не ваша дитина, заблокуйте код у розділі «Доступ дітей до кабінету».');
+  boxes.forEach(function(b){b.value='';b.classList.remove('filled');});
+  $('codebox').classList.remove('bad');$('ln-err2').textContent='';$('peekval').textContent='';
+  renderAll();
+  toast('Код надіслано батькові. Подивитись його — у вкладці <b>Кабінет батька</b> або кнопкою «показати код тут».');
+  setTimeout(function(){boxes[0].focus();},60);
+}
+function tick(){
+  var left=Math.max(0,S.codeExp-Date.now()), m=Math.floor(left/60000), s=Math.floor(left%60000/1000);
+  var txt=pad(m)+':'+pad(s);
+  var t=$('timer');
+  if(t)t.innerHTML = S.code&&left>0 ? 'Код дійсний ще <b style="color:var(--ink)">'+txt+'</b>' : '<b style="color:var(--red)">Код недійсний</b>';
+  var at=$('acc-timer'); if(at)at.textContent='ще '+txt;
+  if(S.code&&left<=0){S.code=null;renderAll();}
+}
+function verify(){
+  var val=boxes.map(function(b){return b.value;}).join('');
+  var e=$('ln-err2');
+  if(!S.code||Date.now()>S.codeExp){e.textContent='Код уже недійсний. Натисніть «Надіслати ще раз».';return;}
+  if(val.length<6){e.textContent='Введіть усі 6 цифр.';return;}
+  if(val!==S.code){
+    S.tries++;
+    $('codebox').classList.add('bad','shake');
+    setTimeout(function(){$('codebox').classList.remove('shake');},400);
+    if(S.tries>=3){e.textContent='Тричі неправильно. Код заблоковано — попросіть новий.';S.code=null;renderAll();}
+    else e.textContent='Неправильний код. Залишилось спроб: '+(3-S.tries)+'.';
+    return;
+  }
+  S.loggedIn=true;S.code=null;S.sessionTill='24.10.2026';
+  msg('kid','Вхід до кабінету підтверджено. Сесія діє до 24.10.2026.');
+  msg('par','Марко увійшов до свого кабінету · '+now()+' · Chrome, macOS');
+  renderAll();toast('Вхід виконано. Сесія діє 30 днів — батько може її обірвати будь-коли.');
+  show('k-main');
+}
+boxes.forEach(function(b,i){
+  b.addEventListener('input',function(){
+    b.value=b.value.replace(/[^0-9]/g,'');
+    b.classList.toggle('filled',!!b.value);
+    $('codebox').classList.remove('bad');
+    if(b.value&&i<5)boxes[i+1].focus();
+    if(boxes.every(function(x){return x.value;}))setTimeout(verify,120);
+  });
+  b.addEventListener('keydown',function(ev){
+    if(ev.key==='Backspace'&&!b.value&&i>0){boxes[i-1].focus();boxes[i-1].value='';boxes[i-1].classList.remove('filled');}
+    if(ev.key==='Enter')verify();
+  });
+  b.addEventListener('paste',function(ev){
+    ev.preventDefault();
+    var d=(ev.clipboardData.getData('text')||'').replace(/[^0-9]/g,'').slice(0,6).split('');
+    d.forEach(function(ch,k){if(boxes[k]){boxes[k].value=ch;boxes[k].classList.add('filled');}});
+    if(d.length===6)setTimeout(verify,120);else if(boxes[d.length])boxes[d.length].focus();
+  });
+});
+function goStep(n){
+  S.step=n;
+  $('login-step1').style.display=n===1?'block':'none';
+  $('login-step2').style.display=n===2?'block':'none';
+  var st=$('lsteps').children;
+  st[0].className='step '+(n>1?'done':'on');
+  st[1].className='step '+(n===2?'on':'');
+  st[2].className='step';
+}
+
+/* ==================== ЗАЯВКИ ==================== */
+function submitApply(){
+  if(!$('agree').checked){$('apply-err').textContent='Потрібна згода на обробку персональних даних.';return;}
+  $('apply-err').textContent='';
+  var id=++S.seq, c=CUR;
+  var r={id:id,title:'Запис у гурток — '+c.name+', '+c.org,club:c.id,child:'Марко',by:APPLY_BY,date:now(),
+         status:APPLY_BY==='kid'?'pending':'review'};
+  S.reqs.unshift(r);
+  if(APPLY_BY==='kid'){
+    msg('par','<b>Марко подав заяву №2026-ПО-'+id+'</b> — запис у гурток «'+c.name+'». Потрібне ваше підтвердження.');
+    msg('kid','Твою заяву №2026-ПО-'+id+' надіслано татові на підтвердження.');
+  }else{
+    msg('par','Заяву №2026-ПО-'+id+' прийнято на розгляд — '+c.org+'.');
+    msg('kid','Тато записав тебе у гурток «'+c.name+'». Заява на розгляді закладу.');
+    decide(id);
+  }
+  renderAll();renderDone(r);show('v-done');
+}
+function renderDone(r){
+  var c=club(r.club), kid=(r.by==='kid');
+  $('done-body').innerHTML=
+   '<h1>'+(kid?'Заяву передано на підтвердження':'Заяву подано')+'</h1>'+
+   '<div class="steps"><div class="step done">1. Заявник</div><div class="step done">2. Група і розклад</div>'+
+   '<div class="step '+(kid?'on':'done')+'">3. Підтвердження батьком</div><div class="step '+(kid?'':'on')+'">4. Рішення закладу</div></div>'+
+   '<div class="card" style="max-width:780px;border-color:'+(kid?'var(--new)':'var(--green)')+'">'+
+   '<h2>Заява №2026-ПО-'+r.id+'</h2><p class="lead" style="margin:8px 0 20px">Марко, 12 років · '+c.org+' · '+c.name+', '+c.grp+'</p>'+
+   '<div class="kv"><div>Подано</div><div>'+r.date+' — '+(kid?'Марком зі свого кабінету':'батьком зі свого кабінету')+'</div>'+
+   '<div>Статус</div><div><span class="st '+ST[r.status].c+'">'+ST[r.status].l+'</span></div>'+
+   (kid?'<div>Кому надіслано</div><div>Тест М. П. — розділ «Підтвердження заявок»</div>':'')+
+   '<div>Строк розгляду</div><div>до 5 робочих днів</div></div>'+
+   '<div class="actions">'+(kid?'<button class="btn" data-go="p-approve">Перейти в кабінет батька</button>':'<button class="btn" data-go="p-orders">До замовлених послуг</button>')+
+   '<button class="btn grey" data-go="v-catalog">До каталогу</button></div></div>'+
+   '<div class="note"><b>Далі за сценарієм.</b> Після підтвердження заява йде до закладу; рішення приходить у «Вхідні» обом, а гурток з’являється в розкладі дитини.</div>';
+}
+function findReq(id){for(var i=0;i<S.reqs.length;i++)if(S.reqs[i].id===id)return S.reqs[i];return null;}
+function decide(id){
+  setTimeout(function(){
+    var r=findReq(id); if(!r||r.status!=='review')return;
+    var c=club(r.club);
+    if(c&&c.seats>0){
+      r.status='enrolled';
+      if(S.enrolled.indexOf(c.id)<0)S.enrolled.push(c.id);
+      msg('kid','<b>Тебе зараховано до гуртка «'+c.name+'»</b>, '+c.grp+'. Перше заняття — '+c.days+'.');
+      msg('par','<b>Марка зараховано</b> до гуртка «'+c.name+'» ('+c.org+').');
+      toast('Заклад ухвалив рішення: Марка зараховано до гуртка «'+c.name+'».');
+    }else{
+      r.status='queue';
+      msg('kid','Місць у групі немає — тебе поставили в чергу.');
+      msg('par','Заяву №2026-ПО-'+r.id+' поставлено в чергу: вільних місць немає.');
+      toast('Заклад ухвалив рішення: місць немає, заявку поставлено в чергу.');
+    }
+    renderAll();
+  },6000);
+}
+function approve(id){
+  var r=findReq(id); if(!r)return;
+  r.status='review';
+  msg('kid','<b>Твою заяву №2026-ПО-'+r.id+' підтвердив тато</b> — її передано до закладу на розгляд.');
+  msg('par','Заяву №2026-ПО-'+r.id+' підтверджено вами і передано до закладу.');
+  renderAll();toast('Заяву передано до закладу. Рішення надійде за кілька секунд.');
+  decide(id);
+}
+function reject(id){
+  var r=findReq(id); if(!r)return;
+  r.status='rejected';
+  msg('kid','Тато відхилив твою заяву №2026-ПО-'+r.id+'.');
+  renderAll();toast('Заяву відхилено. Дитина отримала повідомлення.');
+}
+
+/* ==================== ПОДІЇ ==================== */
+document.addEventListener('click',function(e){
+  var t;
+  if(t=e.target.closest('[data-go]')){e.preventDefault();show(t.dataset.go);return;}
+  if(t=e.target.closest('.mock .tab[data-tab]')){
+    var k=t.dataset.tab;show(k==='pub'?'v-main':k==='kid'?(S.loggedIn?'k-main':'k-login'):'p-kids');return;}
+  if(e.target.id==='reset'){S=freshState();goStep(1);boxes.forEach(function(b){b.value='';b.classList.remove('filled');});renderAll();show('v-main');toast('Демо скинуто до початкового стану.');return;}
+  if(t=e.target.closest('[data-club]')){CUR=club(t.dataset.club);renderClub();show('v-club');return;}
+  if(t=e.target.closest('[data-apply]')){
+    $('apply-crumb').textContent=CUR.name;
+    $('apply-sub').textContent=CUR.org+' · '+CUR.grp+' · '+CUR.time;
+    show('v-apply');return;}
+  if(t=e.target.closest('#who button')){
+    document.querySelectorAll('#who button').forEach(function(b){b.classList.remove('on');});
+    t.classList.add('on');APPLY_BY=t.dataset.by;return;}
+  if(e.target.id==='submit-apply'){submitApply();return;}
+  if(t=e.target.closest('[data-ok]')){approve(+t.dataset.ok);return;}
+  if(t=e.target.closest('[data-no]')){reject(+t.dataset.no);return;}
+  if(t=e.target.closest('[data-pay]')){
+    var p=S.pay.filter(function(x){return x.id===+t.dataset.pay;})[0];
+    if(p){p.paid=true;msg('par','Оплату абонемента (640 ₴, вокал, Софія) зараховано. Квитанція доступна в розділі «Оплати».');renderAll();toast('Оплату проведено. Квитанція у розділі «Оплати».');}
+    return;}
+  if(e.target.id==='getcode'){goStep(2);gen();return;}
+  if(e.target.id==='resend'){gen();return;}
+  if(e.target.id==='backstep'){goStep(1);return;}
+  if(e.target.id==='checkcode'){verify();return;}
+  if(e.target.id==='peek'){$('peekval').innerHTML=S.code?' Код: <b style="font-size:16px;letter-spacing:.1em">'+S.code+'</b>':' Активного коду немає.';return;}
+  if(e.target.id==='blockcode'){S.code=null;msg('par','Код входу заблоковано вами · '+now()+'.');renderAll();toast('Код заблоковано. Дитина не зможе увійти, доки не запросить новий.');return;}
+  if(e.target.id==='killsess'){S.loggedIn=false;msg('par','Сесію Марка завершено вами · '+now()+'.');renderAll();toast('Сесію завершено. Дитину розлогінено.');return;}
+  if(e.target.id==='toggle-acc'){S.access=!S.access;if(!S.access)S.loggedIn=false;renderAll();toast(S.access?'Доступ до кабінету увімкнено.':'Доступ вимкнено — дитина більше не може увійти.');return;}
+  if(e.target.id==='logout'||e.target.closest('#logout')){S.loggedIn=false;renderAll();show('k-login');goStep(1);return;}
+  if(t=e.target.closest('[data-refresh]')){renderAll();toast('Список оновлено.');return;}
+  if(t=e.target.closest('[data-req]')){e.preventDefault();var r=findReq(+t.dataset.req);if(r&&r.club){renderDone(r);show('v-done');}return;}
+  if(e.target.id==='resetflt'){
+    document.querySelectorAll('.flt').forEach(function(f){f.checked=(f.dataset.k!=='s');});
+    $('ager').value=12;$('q').value='';renderCatalog();return;}
+  if(t=e.target.closest('[data-view]')){
+    t.parentNode.querySelectorAll('button').forEach(function(b){b.classList.remove('on');});
+    t.classList.add('on');
+    $('view-list').style.display=t.dataset.view==='list'?'block':'none';
+    $('view-map').style.display=t.dataset.view==='map'?'block':'none';return;}
+});
+document.addEventListener('input',function(e){
+  if(e.target.id==='ager'||e.target.id==='q'||e.target.classList.contains('flt'))renderCatalog();
+});
+document.addEventListener('change',function(e){if(e.target.classList.contains('flt'))renderCatalog();});
+
+setInterval(tick,1000);
+renderAll();renderClub();goStep(1);show('v-main');
+</script>
+</body>
+</html>
