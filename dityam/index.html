@@ -347,6 +347,7 @@ table.t td a{color:var(--blue);font-weight:700}
       Мої діти <span class="tag-new">нове</span>
     </div>
     <div class="sub" data-go="p-kids">Профілі дітей</div>
+    <div class="sub" data-addkid="1">Додати дитину</div>
     <div class="sub" data-go="p-approve">Підтвердження заявок <span class="bdg pur" id="bdg-papprove">0</span></div>
     <div class="sub" data-go="p-pay">Оплати та абонементи</div>
     <div class="sub" data-go="p-access">Доступ дітей до кабінету <span class="bdg pur" id="bdg-paccess">0</span></div>
@@ -511,6 +512,7 @@ table.t td a{color:var(--blue);font-weight:700}
         <div class="field"><label>Дата народження</label><input id="ln-dob" value="14.03.2014"></div>
         <div class="err" id="ln-err1"></div>
         <div class="actions"><button class="btn" id="getcode">Надіслати код батькові</button></div>
+        <p style="font-size:14px;color:var(--mut);margin:18px 0 0">Ще немає кабінету? Його відкриває батько чи мати у своєму кабінеті: «Мої діти» → <a href="#" class="link" data-addkid="1">Додати дитину</a>.</p>
       </div>
       <div id="login-step2" style="display:none">
         <h2>Введи код, який отримав тато</h2>
@@ -658,7 +660,7 @@ table.t td a{color:var(--blue);font-weight:700}
   <h1>Мої діти<span class="newbadge">новий розділ</span></h1>
   <p class="lead">Усі міські сервіси дітей в одному місці: заявки, зарахування, розклад, оплати, документи.</p>
   <div class="grid g2" style="margin-top:26px" id="pkids-body"></div>
-  <div class="card" style="margin-top:16px;border-style:dashed;text-align:center;color:var(--blue)">
+  <div class="card" style="margin-top:16px;border-style:dashed;text-align:center;color:var(--blue);cursor:pointer" data-addkid="1">
     <b>+ Додати дитину</b>
     <div style="font-size:13.5px;color:var(--mut);margin-top:4px">Зв'язок «батько — дитина» підтверджується за даними Демографічного реєстру, без сканів документів</div>
   </div>
@@ -670,6 +672,11 @@ table.t td a{color:var(--blue);font-weight:700}
       <div class="card" style="opacity:.75"><h3>Учнівський і бібліотечний квиток</h3><p style="font-size:13.5px;color:var(--mut);margin-top:8px">Носій — телефон. Портал показує статус і видає довідки, але квиток лишається в застосунку.</p></div>
     </div>
   </div>
+</section>
+
+<section class="scr" id="p-addkid">
+  <div class="crumbs"><a href="#" data-go="p-kids">Мої діти</a> / Додати дитину</div>
+  <div id="addkid-body"></div>
 </section>
 
 <section class="scr" id="p-approve">
@@ -726,15 +733,7 @@ table.t td a{color:var(--blue);font-weight:700}
         <div id="sessions"></div>
         <button class="btn grey" style="width:100%;margin-top:18px" id="toggle-acc">Вимкнути доступ до кабінету</button>
       </div>
-      <div class="card">
-        <div style="display:flex;align-items:center;gap:15px;margin-bottom:10px">
-          <div class="ava" style="width:54px;height:54px;border-radius:50%;background:var(--blue-b);display:grid;place-items:center;font-size:26px">👧</div>
-          <div><h3>Софія, 8 років</h3><div style="font-size:13.5px;color:var(--mut)">Власного кабінету немає</div></div>
-          <span class="st info" style="margin-left:auto">Доступ вимкнено</span>
-        </div>
-        <p style="font-size:14px;color:var(--mut);margin:14px 0 0">Усі сервіси Софії доступні у вашому кабінеті, в розділі «Мої діти». Власний кабінет можна відкрити будь-коли.</p>
-        <button class="btn" style="width:100%;margin-top:20px">Відкрити кабінет для Софії</button>
-      </div>
+      <div id="acc-rest" style="display:contents"></div>
     </div>
   </div>
   <div class="note">
@@ -809,7 +808,7 @@ var ST={
  refused:{l:'Відмовлено',c:'no'}
 };
 function freshState(){return{
- seq:14871,loggedIn:false,access:true,
+ seq:14871,loggedIn:false,access:true,sofiaAccess:false,added:[],W:null,
  code:null,codeExp:0,tries:0,step:1,sessionTill:null,
  reqs:[
   {id:14870,title:'Запис у секцію — Плавання, ДЮСШ №14',club:'swim',child:'Софія',by:'parent',date:'19.09.2026 09:41',status:'queue'},
@@ -997,10 +996,16 @@ function renderKids(){
   }).join('');
   var unpaid=S.pay.filter(function(p){return !p.paid;}).length;
   sr+='<div class="row"><span>Абонемент · вересень</span><span>'+(unpaid?'<b>640 ₴</b> <span class="st no">Не сплачено</span>':'<span class="st ok">Сплачено</span>')+'</span></div>';
-  sr+='<div class="row"><span>Доступ до власного кабінету</span><span class="st info">Вимкнено</span></div>';
+  sr+='<div class="row"><span>Доступ до власного кабінету</span><span class="st '+(S.sofiaAccess?'info">Увімкнено':'no">Вимкнено')+'</span></div>';
+  function kidBtn(id){return hasAccess(id)?'<button class="btn ghost sm" style="margin-left:auto" data-go="p-access">Кабінет дитини</button>':'<button class="btn ghost sm" style="margin-left:auto" data-openkid="'+id+'">Відкрити кабінет</button>';}
+  var more=S.added.map(function(a){var c=FAMILY[a.id];
+    return block(c.name,c.em,c.age+' '+ageWord(c.age)+' · '+c.school,
+      '<div class="row"><span>Профіль створено</span><span class="st ok">'+a.date.split(' ')[0]+'</span></div>'+
+      '<div class="row"><span>Гуртки та секції</span><a href="#" data-go="v-catalog" style="color:var(--blue);font-weight:700">Знайти гурток</a></div>'+
+      '<div class="row"><span>Доступ до власного кабінету</span><span class="st '+(a.access?'info">Увімкнено':'no">Вимкнено')+'</span></div>',kidBtn(a.id));}).join('');
   $('pkids-body').innerHTML=
     block('Марко','🧒','12 років · Ліцей №142, 6-Б',mr,'<button class="btn ghost sm" style="margin-left:auto" data-go="k-login">Кабінет дитини</button>')+
-    block('Софія','👧','8 років · Гімназія №153, 2-А',sr,'<button class="btn ghost sm" style="margin-left:auto">Кабінет дитини</button>');
+    block('Софія','👧','8 років · Гімназія №153, 2-А',sr,kidBtn('sofia'))+more;
 }
 function renderPay(){
   $('ppay-body').innerHTML=S.pay.map(function(p){
@@ -1029,6 +1034,15 @@ function renderAccess(){
   $('toggle-acc').textContent=S.access?'Вимкнути доступ до кабінету':'Увімкнути доступ до кабінету';
   $('sess-info').textContent=S.loggedIn?('Chrome, macOS · діє до '+S.sessionTill):'—';
   badge('bdg-paccess',live?1:0,true);
+  $('acc-rest').innerHTML=['sofia'].concat(S.added.map(function(a){return a.id;})).map(function(id){
+    var c=FAMILY[id], on=hasAccess(id);
+    return '<div class="card"><div style="display:flex;align-items:center;gap:15px;margin-bottom:10px">'+avatar(c.em)+
+      '<div><h3>'+c.name+', '+c.age+' '+ageWord(c.age)+'</h3><div style="font-size:13.5px;color:var(--mut)">'+(on?'Вхід за кодом від батька':'Власного кабінету немає')+'</div></div>'+
+      '<span class="st '+(on?'ok':'info')+'" style="margin-left:auto">'+(on?'Доступ увімкнено':'Доступ вимкнено')+'</span></div>'+
+      (on?'<div class="sess"><div class="dot" style="background:#c9c9cd"></div><div>'+(c.f?'Ще не входила':'Ще не входив')+'<div style="color:var(--mut);font-size:13px">перший вхід — за кодом, який прийде вам</div></div></div>'
+        :'<p style="font-size:14px;color:var(--mut);margin:14px 0 0">Усі сервіси '+c.gen+' доступні у вашому кабінеті, в розділі «Мої діти». Власний кабінет можна відкрити будь-коли.</p>'+
+         '<button class="btn" style="width:100%;margin-top:20px" data-openkid="'+id+'">Відкрити кабінет для '+c.gen+'</button>')+'</div>';
+  }).join('');
 }
 function renderAll(){
   renderCatalog();renderReqTables();renderInbox();renderKidClubs();renderWeek();renderKids();renderPay();renderAccess();
@@ -1037,6 +1051,125 @@ function renderAll(){
   badge('bdg-kreq',S.reqs.filter(function(r){return r.child==='Марко'&&r.status==='pending';}).length,true);
   badge('bdg-papprove',S.reqs.filter(function(r){return r.status==='pending';}).length,true);
   badge('bdg-porders',S.reqs.length);
+}
+
+/* ==================== РЕЄСТРАЦІЯ ДИТИНИ ==================== */
+var FAMILY={
+ marko:{name:'Марко',gen:'Марка',full:'Тест Марко Петрович',dob:'14.03.2014',age:12,school:'Ліцей №142, 6-Б',em:'🧒',f:false},
+ sofia:{name:'Софія',gen:'Софії',full:'Тест Софія Петрівна',dob:'02.02.2018',age:8,school:'Гімназія №153, 2-А',em:'👧',f:true},
+ olena:{name:'Олена',gen:'Олени',full:'Тест Олена Петрівна',dob:'09.11.2015',age:10,school:'Гімназія №153, 5-А',em:'👧🏻',f:true}
+};
+function added(id){return S.added.filter(function(a){return a.id===id;})[0];}
+function inProfile(id){return id==='marko'||id==='sofia'||!!added(id);}
+function hasAccess(id){if(id==='marko')return S.access;if(id==='sofia')return S.sofiaAccess;var a=added(id);return !!(a&&a.access);}
+function ageWord(n){var t=n%100,o=n%10;if(t>=11&&t<=14)return 'років';if(o===1)return 'рік';if(o>=2&&o<=4)return 'роки';return 'років';}
+function plus14(d){var p=d.split('.');return p[0]+'.'+p[1]+'.'+(+p[2]+14);}
+function avatar(em){return '<div class="ava" style="width:54px;height:54px;border-radius:50%;background:var(--blue-b);display:grid;place-items:center;font-size:26px;flex:none">'+em+'</div>';}
+function startWizard(kid){S.W=kid?{kid:kid,step:3,access:true,from:'access'}:{kid:null,step:1,access:true,manual:false};renderWizard();show('p-addkid');}
+
+function renderWizard(){
+  var W=S.W, box=$('addkid-body');
+  if(!W){box.innerHTML='';return;}
+  var k=W.kid?FAMILY[W.kid]:null, h='';
+  var bar='<div class="steps" style="max-width:780px">'+['1. Дитина','2. Дані з реєстрів','3. Доступ до кабінету','4. Згода батька'].map(function(l,i){
+    var n=i+1;return '<div class="step '+(n<W.step?'done':n===W.step?'on':'')+'">'+l+'</div>';}).join('')+'</div>';
+  var back=function(n){return (W.from==='access'&&n<3)?'<button class="btn grey" data-go="p-access">Скасувати</button>':'<button class="btn grey" data-wstep="'+n+'">Назад</button>';};
+
+  if(W.step===1){
+    h='<h1>Додати дитину<span class="newbadge">нове</span></h1>'+
+      '<p class="lead">Профіль дитини створюється з державних реєстрів. Сканів документів і походу до ЦНАП не потрібно, лише ваш підпис.</p>'+bar+
+      '<div class="card" style="max-width:780px"><h3>Діти, пов’язані з вами в Демографічному реєстрі</h3>'+
+      '<div style="font-size:13.5px;color:var(--mut);margin:4px 0 8px">Зв’язок «батьки — дитина» береться з актового запису про народження</div>'+
+      Object.keys(FAMILY).map(function(id){var c=FAMILY[id];
+        return '<div class="row"><span style="display:flex;align-items:center;gap:14px"><span style="font-size:26px">'+c.em+'</span><span><b>'+c.full+'</b><br>'+
+          '<span style="font-size:13px;color:var(--mut)">'+c.dob+' · '+c.age+' '+ageWord(c.age)+' · '+c.school+'</span></span></span>'+
+          (inProfile(id)?'<span class="st ok">Уже в профілі</span>':'<button class="btn sm" data-wkid="'+id+'">Додати</button>')+'</div>';
+      }).join('')+'</div>'+
+      '<div class="card" style="max-width:780px;margin-top:16px"><div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><div>'+
+      '<h3>Дитини немає у списку?</h3><div style="font-size:13.5px;color:var(--mut);margin-top:4px">Опіка, усиновлення, народження за кордоном, помилка в реєстрі</div></div>'+
+      '<button class="btn grey sm" style="margin-left:auto" data-wmanual="1">'+(W.manual?'Згорнути':'Додати вручну')+'</button></div>'+
+      (W.manual?'<div style="margin-top:22px">'+
+        '<div class="field"><label>Ким ви є дитині</label><select id="wm-rel"><option>Мати або батько</option><option>Опікун або піклувальник</option><option>Прийомний батько, мати або батько-вихователь</option></select></div>'+
+        '<div class="field"><label>Серія та номер свідоцтва про народження</label><input id="wm-cert" placeholder="І-ТВ 123456"></div>'+
+        '<div class="field"><label>Дата народження дитини</label><input id="wm-dob" placeholder="ДД.ММ.РРРР"></div>'+
+        '<div class="note" style="margin-top:0">Для опікунів і прийомних батьків Портал перевіряє рішення органу опіки через Службу у справах дітей. Перевірка триває до 3 робочих днів, результат прийде у «Вхідні».</div>'+
+        '<div class="err" id="wm-err"></div><button class="btn" data-wmsend="1">Надіслати на перевірку</button></div>':'')+
+      '</div>'+
+      '<div class="note pur" style="max-width:780px"><b>Дітям від 14 років</b> реєстрація батьками не потрібна. Підліток входить власною ID-карткою та Дія.Підписом, а Портал сам зв’язує його профіль із вашим і надсилає вам повідомлення.</div>';
+  }
+  else if(W.step===2){
+    var src=function(t){return ' <span class="st info">'+t+'</span>';};
+    h='<h1>Перевірте дані</h1><p class="lead">Усе заповнено з реєстрів. Вам лишається лише підтвердити.</p>'+bar+
+      '<div class="card" style="max-width:780px"><div style="display:flex;align-items:center;gap:15px;margin-bottom:18px">'+avatar(k.em)+
+      '<div><h3>'+k.full+'</h3><div style="font-size:13.5px;color:var(--mut)">'+k.age+' '+ageWord(k.age)+' · '+k.school+'</div></div></div><div class="kv">'+
+      '<div>ПІБ</div><div>'+k.full+src('Демографічний реєстр')+'</div>'+
+      '<div>Дата народження</div><div>'+k.dob+src('Демографічний реєстр')+'</div>'+
+      '<div>Ваш зв’язок</div><div>Батько, актовий запис про народження'+src('ДРАЦС')+'</div>'+
+      '<div>Заклад освіти</div><div>'+k.school+src('АІКОМ')+'</div>'+
+      '<div>Місце проживання</div><div>Солом’янський район, м. Київ'+src('Реєстр територіальної громади')+'</div>'+
+      '<div>Пільгова категорія</div><div>Дитина з родини Захисника'+src('ЄІССС')+'</div>'+
+      '</div></div>'+
+      '<label class="chk" style="margin-top:18px"><input type="checkbox" id="w-ok"> Дані правильні</label>'+
+      '<div class="note" style="max-width:780px">Бачите помилку? Портал ці дані не редагує. Вони виправляються там, де виникли: ПІБ і дата народження — у відділі ДРАЦС, заклад освіти — у школі. Після цього профіль оновиться сам.</div>'+
+      '<div class="err" id="w-err"></div><div class="actions"><button class="btn" data-wnext="3">Далі</button>'+back(1)+'</div>';
+  }
+  else if(W.step===3){
+    h='<h1>'+(W.from==='access'?'Відкрити кабінет для '+k.gen:'Доступ до кабінету')+'</h1>'+
+      '<p class="lead">'+k.full+', '+k.age+' '+ageWord(k.age)+'</p>'+bar+
+      '<h3 style="margin-bottom:14px">Чи потрібен '+(k.f?'їй':'йому')+' власний кабінет?</h3>'+
+      '<div class="pickk" style="max-width:780px">'+
+      '<button data-wacc="1" class="'+(W.access?'on':'')+'"><div class="n">Відкрити кабінет</div><div class="s">'+k.name+' бачить свій розклад, гуртки й документи і може '+(k.f?'сама':'сам')+' подавати заяви, які йдуть вам на підтвердження</div></button>'+
+      (W.from==='access'?'':'<button data-wacc="0" class="'+(W.access?'':'on')+'"><div class="n">Поки без кабінету</div><div class="s">Профіль видно лише у вашому кабінеті. Відкрити власний можна будь-коли</div></button>')+
+      '</div>'+
+      (W.access?'<div class="card" style="max-width:780px;margin-top:20px"><h3 style="margin-bottom:10px">Що дозволено в кабінеті</h3>'+
+        [['Бачити розклад, гуртки й документи',1],['Шукати гуртки й подавати заяви, які йдуть вам на підтвердження',0],['Бачити свої досягнення',0],['Отримувати повідомлення від закладів',0]].map(function(p){
+          return '<label class="chk"><input type="checkbox" checked'+(p[1]?' disabled':'')+'> '+p[0]+'</label>';}).join('')+
+        '<div class="kv" style="margin-top:16px">'+
+        '<div>Як входитиме</div><div>Ім’я, прізвище, дата народження та одноразовий код, який приходить вам</div>'+
+        '<div>Сесія</div><div>30 днів, ви можете обірвати її будь-коли</div>'+
+        '<div>З '+plus14(k.dob)+'</div><div>У 14 років вхід переходить на власну ID-картку та Дія.Підпис. Вам прийде повідомлення</div></div>'+
+        '<div class="note" style="margin-bottom:0">Оплат, скасування зарахування і зміни персональних даних у кабінеті дитини немає. Ці дії залишаються лише у вас.</div></div>':'')+
+      '<div class="actions"><button class="btn" data-wnext="4">Далі</button>'+back(2)+'</div>';
+  }
+  else if(W.step===4){
+    h='<h1>Підпишіть згоду</h1><p class="lead">Останній крок. Підпис — це і є технічне підтвердження вашої згоди.</p>'+bar+
+      '<div class="card" style="max-width:780px"><h3>Згода на обробку персональних даних дитини</h3>'+
+      '<p style="font-size:14.5px;color:var(--ink2);margin:12px 0 8px">Я, Тест М. П., як законний представник дитини '+k.full+', '+k.dob+' р. н., погоджуюсь:</p>'+
+      '<ul style="font-size:14.5px;color:var(--ink2);margin:0;padding-left:20px;line-height:1.65">'+
+      (W.from==='access'?'':'<li>створити профіль дитини на Порталі послуг і підтягувати в нього дані з реєстрів, перелічених на кроці 2;</li>')+
+      (W.access?'<li>відкрити дитині власний кабінет із входом за одноразовим кодом, який приходить мені;</li>':'')+
+      '<li>передавати закладам позашкільної освіти лише ті дані, що потрібні для розгляду заяви, і лише після мого підтвердження кожної заяви.</li></ul>'+
+      '<p style="font-size:13.5px;color:var(--mut);margin:14px 0 0">Згоду можна відкликати в розділі «Мої діти». Тоді профіль і кабінет дитини буде видалено, а історія заяв лишиться у вашому кабінеті.</p></div>'+
+      (W.signing?'<div class="note pur" style="max-width:780px"><b>Очікуємо підтвердження в Дії…</b> Відкрийте застосунок Дія на телефоні: там запит на підпис від Порталу послуг.</div>'
+        :'<div class="actions"><button class="btn" id="wsign">Підписати Дія.Підписом</button>'+back(3)+'</div>');
+  }
+  else {
+    var t=W.from==='access'?'Кабінет для '+k.gen+' відкрито':(k.name+(k.f?' додана':' доданий')+' до профілю');
+    h='<h1>'+t+'</h1>'+bar+
+      '<div class="card" style="max-width:780px;border-color:var(--green)"><div style="display:flex;align-items:center;gap:15px;margin-bottom:16px">'+avatar(k.em)+
+      '<div><h3>'+k.full+'</h3><div style="font-size:13.5px;color:var(--mut)">'+k.age+' '+ageWord(k.age)+' · '+k.school+'</div></div></div><div class="kv">'+
+      '<div>Профіль</div><div><span class="st ok">Створено</span> '+W.done+'</div>'+
+      '<div>Згода</div><div>Підписано Дія.Підписом, Тест М. П.</div>'+
+      '<div>Власний кабінет</div><div>'+(W.access?'<span class="st ok">Відкрито</span>':'<span class="st info">Не відкрито</span>')+'</div></div></div>'+
+      (W.access?'<div class="card" style="max-width:780px;margin-top:16px"><h3 style="margin-bottom:16px">Як '+k.name+' увійде вперше</h3><ol class="how" style="margin:0;padding:0">'+
+        '<li><b>Відкриває Портал</b> — portal.kyiv.digital, кнопка «Увійти», далі «Я дитина»</li>'+
+        '<li><b>Вводить себе</b> — прізвище, ім’я та дату народження</li>'+
+        '<li><b>Вам приходить код</b> — у «Вхідні» на Порталі й пушем у застосунок</li>'+
+        '<li><b>Ви передаєте код</b> — і кабінет відкривається на 30 днів</li></ol></div>':'')+
+      '<div class="actions"><button class="btn" data-go="p-kids">До профілів дітей</button><button class="btn grey" data-go="p-access">Доступ дітей до кабінету</button></div>';
+  }
+  box.innerHTML=h;
+}
+function finishWizard(W){
+  if(W!==S.W||!W.signing)return;
+  var k=FAMILY[W.kid];
+  W.signing=false;W.step=5;W.done=now();
+  if(W.kid==='sofia')S.sofiaAccess=W.access;
+  else{var a=added(W.kid);if(a)a.access=W.access;else S.added.push({id:W.kid,access:W.access,date:W.done});}
+  if(W.from==='access')msg('par','Кабінет для '+k.gen+' відкрито. Згоду підписано Дія.Підписом · '+W.done+'.');
+  else msg('par','<b>'+k.name+': профіль створено.</b> Дані підтягнуто з реєстрів, згоду підписано Дія.Підписом · '+W.done+'.'+(W.access?' Власний кабінет відкрито, перший вхід — за кодом, який прийде вам.':''));
+  renderAll();renderWizard();window.scrollTo(0,0);
+  toast('Підпис отримано. '+(W.from==='access'?'Кабінет для '+k.gen+' відкрито.':k.name+' тепер у розділі «Мої діти».'));
 }
 
 /* ==================== НАВІГАЦІЯ ==================== */
@@ -1203,6 +1336,22 @@ document.addEventListener('click',function(e){
   if(t=e.target.closest('.mock .tab[data-tab]')){
     var k=t.dataset.tab;show(k==='pub'?'v-main':k==='kid'?(S.loggedIn?'k-main':'k-login'):'p-kids');return;}
   if(e.target.id==='reset'){S=freshState();goStep(1);boxes.forEach(function(b){b.value='';b.classList.remove('filled');});renderAll();show('v-main');toast('Демо скинуто до початкового стану.');return;}
+  if(t=e.target.closest('[data-addkid]')){e.preventDefault();startWizard(null);return;}
+  if(t=e.target.closest('[data-openkid]')){startWizard(t.dataset.openkid);return;}
+  if(t=e.target.closest('[data-wkid]')){S.W.kid=t.dataset.wkid;S.W.step=2;renderWizard();window.scrollTo(0,0);return;}
+  if(t=e.target.closest('[data-wmanual]')){S.W.manual=!S.W.manual;renderWizard();return;}
+  if(t=e.target.closest('[data-wmsend]')){
+    var cert=$('wm-cert').value.trim(),dob=$('wm-dob').value.trim();
+    if(!cert||!/^\d{2}\.\d{2}\.\d{4}$/.test(dob)){$('wm-err').textContent='Вкажіть серію й номер свідоцтва та дату народження у форматі ДД.ММ.РРРР.';return;}
+    msg('par','Запит на підтвердження зв’язку з дитиною (свідоцтво '+cert+', '+$('wm-rel').value.toLowerCase()+') передано на перевірку. Результат — до 3 робочих днів.');
+    S.W=null;renderAll();show('p-inbox');toast('Запит надіслано на перевірку. Результат прийде у «Вхідні».');return;}
+  if(t=e.target.closest('[data-wstep]')){S.W.step=+t.dataset.wstep;renderWizard();return;}
+  if(t=e.target.closest('[data-wnext]')){
+    var n=+t.dataset.wnext;
+    if(n===3&&!$('w-ok').checked){$('w-err').textContent='Підтвердіть, що дані правильні. Якщо є помилка, її треба виправити в реєстрі.';return;}
+    S.W.step=n;renderWizard();window.scrollTo(0,0);return;}
+  if(t=e.target.closest('[data-wacc]')){S.W.access=t.dataset.wacc==='1';renderWizard();return;}
+  if(e.target.id==='wsign'){var W=S.W;W.signing=true;renderWizard();setTimeout(function(){finishWizard(W);},1800);return;}
   if(t=e.target.closest('[data-club]')){CUR=club(t.dataset.club);renderClub();show('v-club');return;}
   if(t=e.target.closest('[data-apply]')){
     $('apply-crumb').textContent=CUR.name;
@@ -1218,7 +1367,14 @@ document.addEventListener('click',function(e){
     var p=S.pay.filter(function(x){return x.id===+t.dataset.pay;})[0];
     if(p){p.paid=true;msg('par','Оплату абонемента (640 ₴, вокал, Софія) зараховано. Квитанція доступна в розділі «Оплати».');renderAll();toast('Оплату проведено. Квитанція у розділі «Оплати».');}
     return;}
-  if(e.target.id==='getcode'){goStep(2);gen();return;}
+  if(e.target.id==='getcode'){
+    var nm=$('ln-name').value.toLowerCase(),e1=$('ln-err1');e1.textContent='';
+    var who=nm.indexOf('софі')>=0?'sofia':nm.indexOf('олен')>=0?'olena':nm.indexOf('марк')>=0?'marko':null;
+    if(!who){e1.textContent='Портал не знайшов дитину з такими даними. Перевір ім’я та дату народження.';return;}
+    if(!inProfile(who)){e1.textContent='Тебе ще не зареєстровано на Порталі. Попроси маму чи тата додати тебе: «Мої діти» → «Додати дитину».';return;}
+    if(!hasAccess(who)){e1.textContent='Твій профіль уже є, але власний кабінет ще не відкрито. Попроси батьків відкрити його в розділі «Доступ дітей до кабінету».';return;}
+    if(who!=='marko'){e1.textContent='Кабінет '+FAMILY[who].gen+' відкрито, і вхід спрацює так само. У макеті наповнено лише кабінет Марка, тож для демо введи «Тест Марко».';return;}
+    goStep(2);gen();return;}
   if(e.target.id==='resend'){gen();return;}
   if(e.target.id==='backstep'){goStep(1);return;}
   if(e.target.id==='checkcode'){verify();return;}
