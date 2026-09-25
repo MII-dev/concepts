@@ -242,6 +242,54 @@ table.t td a{color:var(--blue);font-weight:700}
 .toast b{color:#8ec5ff}
 .mock .rst{margin-left:14px;border-color:#4b555f}
 .empty{padding:34px;text-align:center;color:var(--mut);border:1px dashed var(--line);border-radius:14px}
+/* ---------- путівник ---------- */
+.mock .tab.tourbtn{border-color:var(--new);color:#e4d2ff;display:inline-flex;align-items:center;gap:7px}
+.mock .tab.tourbtn:hover{background:var(--new);color:#fff}
+.mock .tab.tourbtn.on{background:var(--new);border-color:var(--new);color:#fff}
+.tour{position:fixed;right:22px;bottom:22px;width:370px;max-height:calc(100vh - 44px);display:flex;flex-direction:column;background:#fff;
+  border-radius:18px;box-shadow:0 18px 60px rgba(12,17,22,.28),0 0 0 1px rgba(12,17,22,.06);z-index:60;overflow:hidden;font-size:14px}
+.tour[hidden]{display:none}
+.tour .th{background:#0c1116;color:#fff;padding:14px 16px 14px 20px;display:flex;align-items:center;gap:10px;flex:none}
+.tour .th b{font-size:15px}
+.tour .th .pr{font-size:12.5px;color:#9aa4ae;margin-left:auto}
+.tour .th button{background:transparent;border:0;color:#9aa4ae;font-size:20px;line-height:1;padding:2px 6px;border-radius:8px}
+.tour .th button:hover{color:#fff;background:#1f262e}
+.tour .tb{padding:18px 20px 20px;overflow:auto}
+.tour .intro{color:var(--ink2);margin:0 0 14px;line-height:1.5}
+.tour .fl{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:8px}
+.tour .fl:hover{border-color:var(--new);background:#faf6ff}
+.tour .fl .no{width:26px;height:26px;border-radius:50%;background:#f3e8ff;color:#5b12b5;font-weight:800;font-size:12.5px;display:grid;place-items:center;flex:none}
+.tour .fl.ok .no{background:#e8f7ea;color:#1f7a2e}
+.tour .fl .nm{font-weight:700;font-size:14px;line-height:1.3}
+.tour .fl .ds{font-size:12.5px;color:var(--mut);margin-top:2px;line-height:1.35}
+.tour .fl .rl{margin-left:auto;font-size:12px;color:var(--mut);white-space:nowrap}
+.tour .kick{font-size:12px;font-weight:800;color:var(--new);letter-spacing:.04em;text-transform:uppercase}
+.tour h4{font-size:17px;margin:4px 0 12px;letter-spacing:-.01em}
+.tour .bar{display:flex;gap:4px;margin-bottom:16px}
+.tour .bar i{flex:1;height:4px;border-radius:4px;background:var(--line)}
+.tour .bar i.d{background:var(--green)}
+.tour .bar i.c{background:var(--new)}
+.tour .txt{color:var(--ink);line-height:1.55;font-size:14.5px}
+.tour .txt .why{display:block;margin-top:10px;font-size:13px;color:var(--mut)}
+.tour .ok-msg{background:#e8f7ea;color:#1f7a2e;border-radius:10px;padding:10px 12px;font-weight:700;font-size:13.5px;margin-top:14px}
+.tour .ta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tour .ta .btn{padding:10px 16px;font-size:13.5px;border-radius:10px}
+.tour .ta .btn.pur{background:var(--new)}
+.tour .ta .btn.pur:hover{background:#6420d4}
+.tour .ta .lnk{background:none;border:0;color:var(--mut);font-size:13px;padding:10px 4px;margin-left:auto}
+.tour .ta .lnk:hover{color:var(--ink)}
+.tour .wait{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:13px;color:var(--mut)}
+.tour .wait:before{content:"";width:14px;height:14px;border-radius:50%;border:2px solid #d9c6ff;border-top-color:var(--new);animation:tspin .8s linear infinite}
+@keyframes tspin{to{transform:rotate(360deg)}}
+.tour-hl{outline:3px solid var(--new)!important;outline-offset:4px;border-radius:12px;animation:tpulse 1.6s ease-out infinite}
+@keyframes tpulse{0%{box-shadow:0 0 0 0 rgba(123,47,247,.45)}70%{box-shadow:0 0 0 14px rgba(123,47,247,0)}100%{box-shadow:0 0 0 0 rgba(123,47,247,0)}}
+body.tour-open .toast{right:414px}
+@media (min-width:1200px){body.tour-open .shell{margin-right:392px}body.tour-open .cat{grid-template-columns:230px minmax(0,1fr)}body.tour-open .ctrls{flex-wrap:wrap}}
+.cat>div{min-width:0}
+.tour .tl{display:flex;gap:18px;margin-top:12px}
+.tour .tl button{background:none;border:0;padding:0;color:var(--mut);font-size:13px}
+.tour .tl button:hover{color:var(--ink)}
+@media (max-width:760px){.tour{left:10px;right:10px;width:auto;bottom:10px;max-height:55vh}body.tour-open .toast{right:26px;bottom:auto;top:60px}}
 </style>
 </head>
 <body>
@@ -252,6 +300,7 @@ table.t td a{color:var(--blue);font-weight:700}
   <button class="tab" data-tab="kid">Кабінет дитини</button>
   <button class="tab" data-tab="par">Кабінет батька</button>
   <button class="tab rst" id="reset">Скинути демо</button>
+  <button class="tab tourbtn" id="tourbtn">🧭 Путівник</button>
   <span class="hint">Позначка <b>нове</b> — те, чого зараз на Порталі немає</span>
 </div>
 
@@ -768,6 +817,10 @@ table.t td a{color:var(--blue);font-weight:700}
   <div class="lg"><div class="mark">K</div><div class="txt">ПОРТАЛ ПОСЛУГ<small>KYIV.DIGITAL</small></div></div>
 </div>
 <div class="toast" id="toast"></div>
+<div class="tour" id="tour" hidden>
+  <div class="th"><b>🧭 Путівник</b><span class="pr" id="tour-pr"></span><button id="tour-x" title="Згорнути">×</button></div>
+  <div class="tb" id="tour-body"></div>
+</div>
 <script>
 /* ==================== ДАНІ ==================== */
 var CLUBS=[
@@ -1401,6 +1454,205 @@ document.addEventListener('change',function(e){if(e.target.classList.contains('f
 
 setInterval(tick,1000);
 renderAll();renderClub();goStep(1);show('v-main');
+/* ==================== ПУТІВНИК ==================== */
+function vis(id){var e=$(id);return !!e&&e.classList.contains('on');}
+function curTab(){var t=document.querySelector('.mock .tab.on[data-tab]');return t?t.dataset.tab:'';}
+function where(tab,sel){return curTab()===tab?sel:'.mock .tab[data-tab="'+tab+'"]';}
+function reqOf(club,by){return S.reqs.filter(function(r){return r.club===club&&(!by||r.by===by);})[0];}
+function resetDemo(){
+  S=freshState();APPLY_BY='kid';goStep(1);
+  boxes.forEach(function(b){b.value='';b.classList.remove('filled');});
+  document.querySelectorAll('#who button').forEach(function(b){b.classList.toggle('on',b.dataset.by==='kid');});
+  document.querySelectorAll('.flt').forEach(function(f){f.checked=(f.dataset.k!=='s');});
+  $('ager').value=12;$('q').value='';$('ln-name').value='Тест Марко';$('ln-dob').value='14.03.2014';$('ln-err1').textContent='';
+  document.querySelectorAll('[data-view]').forEach(function(b){b.classList.toggle('on',b.dataset.view==='list');});
+  $('view-list').style.display='block';$('view-map').style.display='none';
+  renderAll();renderWizard();
+}
+function loggedKid(){S.loggedIn=true;S.sessionTill='24.10.2026';renderAll();}
+
+var FLOWS=[
+ {id:'catalog',name:'Каталог гуртків',ds:'Пошук за віком, районом і на мапі. Без входу на Портал',min:1,
+  start:function(){resetDemo();show('v-main');},
+  steps:[
+   {t:'Це розділ «Дітям» на Порталі послуг. Каталог відкритий для всіх, вхід потрібен лише для заяви.<br><br>Натисни на будь-який напрям гуртків.',sel:'.tiles',done:function(){return vis('v-catalog');},act:function(){document.querySelector('.tile').click();}},
+   {t:'Каталог показує 1 154 групи з реєстру закладів позашкільної освіти.<br><br>Посунь повзунок <b>«Вік дитини»</b>: список звузиться до гуртків для цього віку.',sel:'#ager',done:function(){return $('ager').value!=='12';},
+    act:function(){$('ager').value=9;renderCatalog();}},
+   {t:'Тепер перемкни на <b>«На мапі»</b>.',sel:'[data-view="map"]',done:function(){return $('view-map').style.display==='block';}},
+   {t:'Натисни на будь-яку позначку: відкриється картка гуртка.',sel:'#view-map .map',done:function(){return vis('v-club');},
+    act:function(){var p=document.querySelector('#pins .pin');if(p)p.click();else{CUR=CLUBS[0];renderClub();show('v-club');}}},
+   {t:'Картка збирається з реєстру: адреса, укриття, безбар’єрність, вільні місця, вартість.<br><br>Кнопка «Записатись» веде до заяви. Це наступні сценарії.',sel:'#club-body',manual:true}
+  ]},
+ {id:'login',name:'Вхід дитини за кодом від батька',ds:'Дитина без ID-картки входить у свій кабінет',min:2,
+  start:function(){resetDemo();show('k-login');},
+  steps:[
+   {t:'Марко, 12 років, хоче увійти у свій кабінет. У нього немає ні ID-картки, ні Дія.Підпису.<br><br>Ім’я та дата народження вже введені. Натисни <b>«Надіслати код батькові»</b>.',sel:'#getcode',done:function(){return S.step===2&&!!S.code;}},
+   {t:'Код пішов не дитині, а батькові. Подивимось на нього очима батька.<br><br>Перейди у вкладку <b>«Кабінет батька»</b>, розділ <b>«Доступ дітей до кабінету»</b>.',
+    sel:function(){return where('par','#side-par [data-go="p-access"]');},done:function(){return vis('p-access');},act:function(){show('p-access');}},
+   {t:'Батько бачить, хто і звідки просить вхід, і сам код. Якщо це не його дитина, код можна заблокувати.<br><br>Запам’ятай 6 цифр і повернись у вкладку <b>«Кабінет дитини»</b>.',sel:function(){return curTab()==='par'?'#paccess-req':'.mock .tab[data-tab="kid"]';},
+    done:function(){return vis('k-login');},act:function(){show('k-login');}},
+   {t:'Введи код, який бачив батько.<span class="why">Забув? Кнопка нижче введе його за тебе.</span>',sel:'#codebox',done:function(){return S.loggedIn;},
+    act:function(){if(!S.code){goStep(2);gen();}var c=S.code.split('');boxes.forEach(function(b,i){b.value=c[i];b.classList.add('filled');});verify();}},
+   {t:'Марко у своєму кабінеті. Сесія діє 30 днів, і батько може обірвати її будь-коли.<br><br>Пройдися меню ліворуч: розклад, гуртки, заявки, документи з реєстрів, досягнення.',sel:'#side-kid .smenu',manual:true}
+  ]},
+ {id:'kidapply',name:'Дитина подає заяву, батько підтверджує',ds:'Головний сценарій: від пошуку гуртка до розкладу',min:3,
+  start:function(){resetDemo();loggedKid();show('k-main');},
+  steps:[
+   {t:'Марко вже увійшов у свій кабінет. Зараз він ходить лише на шахи.<br><br>Натисни <b>«Знайти гурток»</b>.',sel:'#side-kid .order',done:function(){return vis('v-catalog');}},
+   {t:'Обери <b>«Робототехніка та конструювання»</b>: там є вільні місця.',sel:'#view-list [data-club="robo"]',done:function(){return vis('v-club')&&CUR.id==='robo';}},
+   {t:'Натисни <b>«Записатись»</b>.',sel:'#club-body [data-apply]',done:function(){return vis('v-apply');}},
+   {t:'Заяву подає сам Марко, це вже обрано. Дані дитини підтягнулися з реєстрів, нічого вводити не треба.<br><br>Натисни <b>«Подати заяву»</b>.',sel:'#submit-apply',done:function(){return !!reqOf('robo','kid');},
+    act:function(){APPLY_BY='kid';document.querySelectorAll('#who button').forEach(function(b){b.classList.toggle('on',b.dataset.by==='kid');});submitApply();}},
+   {t:'Заклад поки нічого не бачить: дитяча заява чекає на батька.<br><br>Перейди в кабінет батька.',sel:'#done-body [data-go="p-approve"]',done:function(){return vis('p-approve');},act:function(){show('p-approve');}},
+   {t:'Батько бачить розклад, вартість, накладки з іншими заняттями й дорогу від школи.<br><br>Натисни <b>«Підтвердити»</b>.<span class="why">Можна й «Відхилити», тоді Марко отримає повідомлення про відмову.</span>',
+    sel:'#papprove-list [data-ok]',done:function(){var r=reqOf('robo','kid');return !!r&&r.status!=='pending';}},
+   {t:'Заяву передано в заклад. Рішення прийде за кілька секунд, стеж за сповіщенням.',sel:null,
+    done:function(){var r=reqOf('robo','kid');return !!r&&r.status!=='review';},wait:'Заклад розглядає заяву…'},
+   {t:'Готово. Перейди у вкладку <b>«Кабінет дитини»</b>: гурток уже в розкладі Марка.',sel:'.mock .tab[data-tab="kid"]',done:function(){return vis('k-main');},act:function(){show('k-main');}},
+   {t:'Робототехніка з’явилась у розкладі, а повідомлення про зарахування отримали і Марко, і батько.',sel:'#week',manual:true}
+  ]},
+ {id:'parapply',name:'Батько записує дитину сам',ds:'Батьківська заява йде в заклад одразу',min:2,
+  start:function(){resetDemo();show('v-catalog');},
+  steps:[
+   {t:'Тепер заяву подає батько. Обери <b>«Основи програмування Python»</b>.',sel:'#view-list [data-club="py"]',done:function(){return vis('v-club')&&CUR.id==='py';}},
+   {t:'Натисни <b>«Записатись»</b>.',sel:'#club-body [data-apply]',done:function(){return vis('v-apply');}},
+   {t:'У блоці «Хто подає заяву» обери <b>батька, Тест М. П.</b>',sel:'#who [data-by="parent"]',done:function(){return APPLY_BY==='parent';}},
+   {t:'Натисни <b>«Подати заяву»</b>.',sel:'#submit-apply',done:function(){return !!reqOf('py','parent');}},
+   {t:'Підтвердження не потрібне: заява одразу пішла в заклад. Рішення прийде за кілька секунд.',sel:null,
+    done:function(){var r=reqOf('py','parent');return !!r&&r.status!=='review';},wait:'Заклад розглядає заяву…'},
+   {t:'Марка зараховано. Відкрий <b>«До замовлених послуг»</b>.',sel:'#done-body [data-go="p-orders"]',done:function(){return vis('p-orders');},act:function(){show('p-orders');}},
+   {t:'Це наявний екран кабінету Порталу. Дитячі заявки лягають у нього без окремої логіки, додається лише колонка «Дитина».',sel:'#porders-body',manual:true}
+  ]},
+ {id:'register',name:'Реєстрація дитини на Порталі',ds:'Батько вперше додає дитину і відкриває їй кабінет',min:3,
+  start:function(){resetDemo();show('k-login');$('ln-name').value='Тест Олена';$('ln-dob').value='09.11.2015';},
+  steps:[
+   {t:'Олена, 10 років, ще жодного разу не була на Порталі. Спробуємо увійти від її імені.<br><br>Натисни <b>«Надіслати код батькові»</b>.',sel:'#getcode',done:function(){return $('ln-err1').textContent.length>0;},
+    act:function(){$('ln-name').value='Тест Олена';$('getcode').click();}},
+   {t:'Портал не пускає: дитину спершу має зареєструвати батько чи мати.<br><br>Натисни посилання <b>«Додати дитину»</b> під формою.',sel:'#login-step1 [data-addkid]',done:function(){return vis('p-addkid');},act:function(){startWizard(null);}},
+   {t:'Це кабінет батька. Портал сам знайшов його дітей у Демографічному реєстрі: жодних сканів свідоцтв.<br><br>Натисни <b>«Додати»</b> біля Олени.<span class="why">Для опіки чи усиновлення є ручне додавання нижче.</span>',
+    sel:'[data-wkid="olena"]',done:function(){return !!S.W&&S.W.step>=2;},act:function(){if(!S.W||S.W.kid!=='olena')startWizard(null);S.W.kid='olena';S.W.step=2;renderWizard();}},
+   {t:'Усі дані заповнено з реєстрів, біля кожного поля видно джерело.<br><br>Постав позначку <b>«Дані правильні»</b> і натисни <b>«Далі»</b>.',sel:'#addkid-body .chk',done:function(){return !!S.W&&S.W.step>=3;},
+    act:function(){S.W.step=3;renderWizard();}},
+   {t:'Батько вирішує, чи потрібен дитині власний кабінет і що в ньому дозволено.<br><br>Залиш <b>«Відкрити кабінет»</b> і натисни <b>«Далі»</b>.',sel:'#addkid-body .pickk',done:function(){return !!S.W&&S.W.step>=4;},
+    act:function(){S.W.access=true;S.W.step=4;renderWizard();}},
+   {t:'Останній крок: згода на обробку даних дитини. Підпис і є технічним підтвердженням батьківської згоди.<br><br>Натисни <b>«Підписати Дія.Підписом»</b>.',sel:'#wsign',done:function(){return !!S.W&&S.W.step===5;}},
+   {t:'Олену додано. На екрані описано, як вона увійде вперше.<br><br>Відкрий <b>«Доступ дітей до кабінету»</b>.',sel:'#addkid-body [data-go="p-access"]',done:function(){return vis('p-access');},act:function(){show('p-access');}},
+   {t:'Олена з’явилась серед кабінетів дітей. Її перший вхід буде за кодом, який прийде батькові.',sel:'#p-access .sec .grid',manual:true}
+  ]},
+ {id:'sofia',name:'Відкрити кабінет уже доданій дитині',ds:'Софія є в профілі батька, але без власного кабінету',min:1,
+  start:function(){resetDemo();show('p-access');},
+  steps:[
+   {t:'Софія, 8 років, уже є в профілі батька, але власного кабінету в неї немає. Усі її послуги поки в кабінеті батька.<br><br>Натисни <b>«Відкрити кабінет для Софії»</b>.',sel:'#acc-rest [data-openkid="sofia"]',done:function(){return vis('p-addkid');},act:function(){startWizard('sofia');}},
+   {t:'Дані Софії вже підтверджені, тому одразу крок доступу.<br><br>Налаштуй дозволи й натисни <b>«Далі»</b>.',sel:'#addkid-body .card',done:function(){return !!S.W&&S.W.step>=4;},act:function(){S.W.step=4;renderWizard();}},
+   {t:'Підпиши згоду Дія.Підписом.',sel:'#wsign',done:function(){return S.sofiaAccess;}},
+   {t:'Кабінет для Софії відкрито. У розділах «Мої діти» і «Доступ дітей до кабінету» її статус оновився.',sel:null,manual:true}
+  ]},
+ {id:'control',name:'Батьківський контроль доступу',ds:'Завершити сесію, вимкнути й повернути доступ',min:2,
+  start:function(){resetDemo();loggedKid();show('p-access');},
+  steps:[
+   {t:'Марко зараз у своєму кабінеті, видно його активну сесію.<br><br>Натисни <b>«Завершити»</b>, щоб розлогінити його.',sel:'#killsess',done:function(){return !S.loggedIn;}},
+   {t:'Сесію обірвано, але Марко може попросити новий код. Щоб заборонити вхід повністю, натисни <b>«Вимкнути доступ до кабінету»</b>.',sel:'#toggle-acc',done:function(){return !S.access;}},
+   {t:'Перевіримо. Перейди у вкладку <b>«Кабінет дитини»</b> і натисни <b>«Надіслати код батькові»</b>.',sel:function(){return where('kid','#getcode');},
+    done:function(){return $('ln-err1').textContent.indexOf('не відкрито')>=0;},act:function(){show('k-login');goStep(1);$('ln-name').value='Тест Марко';$('getcode').click();}},
+   {t:'Портал не надсилає код: доступ вимкнено.<br><br>Поверни його: вкладка <b>«Кабінет батька»</b>, розділ <b>«Доступ дітей до кабінету»</b>, кнопка <b>«Увімкнути доступ»</b>.',
+    sel:function(){return curTab()!=='par'?'.mock .tab[data-tab="par"]':vis('p-access')?'#toggle-acc':'#side-par [data-go="p-access"]';},done:function(){return S.access;},
+    act:function(){show('p-access');$('toggle-acc').click();}},
+   {t:'Доступ повернуто. Кожен вхід, підтвердження і завершення сесії записується в журнал із часом, пристроєм і IP.',sel:'#p-access .note',manual:true}
+  ]},
+ {id:'pay',name:'Оплата абонемента',ds:'Платна група, нагадування і квитанція',min:1,
+  start:function(){resetDemo();show('p-inbox');},
+  steps:[
+   {t:'У «Вхідних» батька нагадування: абонемент за вересень ще не сплачено.<br><br>Відкрий розділ <b>«Оплати та абонементи»</b>.',sel:'#side-par [data-go="p-pay"]',done:function(){return vis('p-pay');}},
+   {t:'Натисни <b>«Сплатити»</b>.',sel:'#ppay-body [data-pay]',done:function(){return S.pay.every(function(p){return p.paid;});}},
+   {t:'Оплату зараховано, квитанція доступна. Бюджетні групи коштують 0 ₴, їх видно окремим рядком.<br><br>У кабінеті дитини оплати немає взагалі: гроші лише в кабінеті батька.',sel:'#ppay-body',manual:true}
+  ]}
+];
+
+var TOUR={open:false,flow:null,step:0,doneFlows:[],hl:null,scrolled:-1,flash:false};
+try{TOUR.doneFlows=JSON.parse(localStorage.getItem('kidsTourDone')||'[]');}catch(e){}
+function tourSave(){try{localStorage.setItem('kidsTourDone',JSON.stringify(TOUR.doneFlows));localStorage.setItem('kidsTourSeen','1');}catch(e){}}
+function flowById(id){return FLOWS.filter(function(f){return f.id===id;})[0];}
+function tourTarget(){
+  var f=flowById(TOUR.flow);if(!f)return null;var st=f.steps[TOUR.step];if(!st||!st.sel)return null;
+  var s=typeof st.sel==='function'?st.sel():st.sel;var el=s&&document.querySelector(s);
+  return el&&el.offsetParent!==null?el:null;
+}
+function tourHL(el){
+  if(TOUR.hl===el)return;
+  if(TOUR.hl)TOUR.hl.classList.remove('tour-hl');
+  TOUR.hl=el;if(el)el.classList.add('tour-hl');
+}
+function tourRender(){
+  var box=$('tour');box.hidden=!TOUR.open;document.body.classList.toggle('tour-open',TOUR.open);
+  $('tourbtn').classList.toggle('on',TOUR.open);
+  if(!TOUR.open){tourHL(null);return;}
+  var n=TOUR.doneFlows.length;
+  $('tour-pr').textContent=n+' з '+FLOWS.length+' пройдено';
+  var f=flowById(TOUR.flow), h='';
+  if(!f){
+    h='<p class="intro">Це клікабельний макет розділу «Дітям» на Порталі послуг: вітрина, кабінет дитини і кабінет батька.<br><br>'+
+      'Обери сценарій. Путівник підсвічує, куди натиснути, і сам переходить далі, коли ти виконаєш дію. Кожен сценарій починається з чистого демо.</p>'+
+      FLOWS.map(function(x,i){var ok=TOUR.doneFlows.indexOf(x.id)>=0;
+        return '<button class="fl'+(ok?' ok':'')+'" data-tflow="'+x.id+'"><span class="no">'+(ok?'✓':i+1)+'</span><span><span class="nm" style="display:block">'+x.name+'</span><span class="ds" style="display:block">'+x.ds+'</span></span><span class="rl">'+x.min+' хв</span></button>';}).join('');
+  }else if(TOUR.step>=f.steps.length){
+    var i=FLOWS.indexOf(f), next=FLOWS[i+1];
+    h='<div class="kick">Сценарій '+(i+1)+' з '+FLOWS.length+'</div><h4>'+f.name+'</h4><div class="ok-msg" style="margin-top:0">Сценарій пройдено ✓</div>'+
+      '<div class="ta">'+(next?'<button class="btn pur" data-tflow="'+next.id+'">Далі: '+next.name+'</button>':'<button class="btn pur" data-tlist="1">Усі сценарії пройдено</button>')+
+      '<button class="lnk" data-tlist="1">До списку</button></div>';
+  }else{
+    var st=f.steps[TOUR.step], j=FLOWS.indexOf(f);
+    h='<div class="kick">Сценарій '+(j+1)+' · крок '+(TOUR.step+1)+' із '+f.steps.length+'</div><h4>'+f.name+'</h4>'+
+      '<div class="bar">'+f.steps.map(function(_,k){return '<i class="'+(k<TOUR.step?'d':k===TOUR.step?'c':'')+'"></i>';}).join('')+'</div>'+
+      '<div class="txt">'+st.t+'</div>'+
+      (TOUR.flash?'<div class="ok-msg">Готово ✓</div>':'')+
+      (st.wait?'<div class="wait">'+st.wait+'</div>':'')+
+      (st.manual||!st.wait?'<div class="ta">':'<div>')+(st.manual?'<button class="btn pur" data-tnext="1">'+(TOUR.step===f.steps.length-1?'Завершити':'Далі')+'</button>':'')+
+      (!st.manual&&!st.wait?'<button class="btn grey" data-tdo="1">Зробити за мене</button>':'')+
+      '</div><div class="tl"><button data-trestart="1">↺ Почати заново</button><button data-tlist="1">☰ Усі сценарії</button></div>';
+  }
+  $('tour-body').innerHTML=h;
+}
+function tourStart(id){
+  var f=flowById(id);if(!f)return;
+  TOUR.flow=id;TOUR.step=0;TOUR.scrolled=-1;TOUR.flash=false;TOUR.open=true;tourHL(null);
+  f.start();tourRender();
+}
+function tourAdvance(){
+  var f=flowById(TOUR.flow);if(!f)return;
+  TOUR.step++;TOUR.scrolled=-1;tourHL(null);
+  if(TOUR.step>=f.steps.length&&TOUR.doneFlows.indexOf(f.id)<0){TOUR.doneFlows.push(f.id);tourSave();}
+  TOUR.flash=TOUR.step<f.steps.length&&TOUR.step>0;tourRender();
+  clearTimeout(TOUR._f);TOUR._f=setTimeout(function(){if(TOUR.flash){TOUR.flash=false;tourRender();}},1400);
+}
+function tourTick(){
+  if(!TOUR.open||!TOUR.flow)return;
+  var f=flowById(TOUR.flow);if(!f||TOUR.step>=f.steps.length){tourHL(null);return;}
+  var st=f.steps[TOUR.step];
+  if(!st.manual&&st.done()){tourAdvance();return;}
+  var el=tourTarget();tourHL(el);
+  if(el&&TOUR.scrolled!==TOUR.step){
+    TOUR.scrolled=TOUR.step;var r=el.getBoundingClientRect();
+    if(r.top<60||r.bottom>window.innerHeight-20)el.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+}
+function tourDo(){
+  var f=flowById(TOUR.flow);if(!f)return;var st=f.steps[TOUR.step];if(!st)return;
+  if(st.act){st.act();return;}
+  var el=tourTarget();if(el)el.click();
+}
+document.addEventListener('click',function(e){
+  var t;
+  if(e.target.closest('#tourbtn')){TOUR.open=!TOUR.open;if(TOUR.open)tourSave();tourRender();return;}
+  if(e.target.closest('#tour-x')){TOUR.open=false;tourRender();return;}
+  if(t=e.target.closest('[data-tflow]')){tourStart(t.dataset.tflow);return;}
+  if(e.target.closest('[data-tlist]')){TOUR.flow=null;tourHL(null);tourRender();return;}
+  if(e.target.closest('[data-tnext]')){tourAdvance();return;}
+  if(e.target.closest('[data-trestart]')){tourStart(TOUR.flow);return;}
+  if(e.target.closest('[data-tdo]')){tourDo();return;}
+});
+setInterval(tourTick,300);
+(function(){var seen=null;try{seen=localStorage.getItem('kidsTourSeen');}catch(e){}
+  if(!seen||/[?&#]tour/.test(location.href)){TOUR.open=true;}tourRender();})();
 </script>
 </body>
 </html>
