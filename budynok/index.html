@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Цифровий будинок — Портал послуг</title>
+<link rel="preload" href="fonts/Daikon-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/KyivTypeSans-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:Daikon;font-weight:400;font-style:normal;font-display:swap;src:url(fonts/Daikon-Regular.woff2) format("woff2")}
+@font-face{font-family:Daikon;font-weight:600;font-style:normal;font-display:swap;src:url(fonts/Daikon-SemiBold.woff2) format("woff2")}
+@font-face{font-family:Daikon;font-weight:700;font-style:normal;font-display:swap;src:url(fonts/Daikon-Bold.woff2) format("woff2")}
+@font-face{font-family:KyivTypeSans;font-weight:700;font-style:normal;font-display:swap;src:url(fonts/KyivTypeSans-Bold.woff2) format("woff2")}
+:root{
+  --blue:#0068ff;--blue-d:#0052cc;--blue-l:#f1f7ff;--blue-b:#e2f1fb;
+  --black:#000;--ink:#1d1d1f;--ink2:#323232;--grey:#888888;--grey2:#6e6e6e;--nav:#444444;
+  --line:#e5e5ea;--side:#f7f7f7;--foot:#17273f;--unread:#fdf8e4;
+  --ok:#1f7a2e;--ok-b:#e8f7ea;--warn:#8a5a00;--warn-b:#fff4e0;--bad:#a3251a;--bad-b:#ffeceb;
+  --shadow:0 2px 12px rgba(20,30,50,.08),0 0 0 1px rgba(20,30,50,.035);
+  --mock:#2b2f36;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:Daikon,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#fff;font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{margin:0;font-weight:700}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;color:inherit}
+input,select,textarea{font:inherit;color:var(--ink)}
+svg{display:block}
+
+/* ---------- службова панель макета (не частина дизайну порталу) ---------- */
+.mock{background:var(--mock);color:#b8bec8;display:flex;align-items:center;gap:6px;padding:0 16px;height:44px;font-size:13px;font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.mock .lbl{font-weight:700;color:#fff;margin-right:6px;white-space:nowrap}
+.mock .tab{background:transparent;border:1px solid #454b55;color:#c9ced6;border-radius:8px;padding:5px 13px;font-weight:600;white-space:nowrap}
+.mock .tab:hover{color:#fff;border-color:#6b727d}
+.mock .tab.on{background:#fff;color:#1d1d1f;border-color:#fff}
+.mock .sep{width:1px;height:22px;background:#454b55;margin:0 6px}
+.mock .scn{display:flex;align-items:center;gap:6px;color:#b8bec8;white-space:nowrap}
+.mock .scn select{background:#1f2227;color:#fff;border:1px solid #454b55;border-radius:8px;padding:4px 8px;font-size:13px}
+.mock .tourbtn{border-color:#8b5cf6;color:#e4d2ff}
+.mock .tourbtn.on,.mock .tourbtn:hover{background:#7b2ff7;border-color:#7b2ff7;color:#fff}
+.mock .hint{margin-left:auto;opacity:.7;white-space:nowrap}
+.mock .hint b{color:#c39bff}
+
+/* ---------- шапка порталу ---------- */
+.hdr{background:var(--blue);color:#fff;height:68px;display:flex;align-items:center;padding:0 24px;position:relative}
+.hdr .logo img{height:40px;width:auto}
+.hnav{position:absolute;left:calc(50% + 70px);transform:translateX(-50%);display:flex;gap:82px;font-size:15px;font-weight:700;letter-spacing:.01em}
+.hnav a{white-space:nowrap}
+.uchip{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:15px;font-weight:700;white-space:nowrap}
+
+/* ---------- оболонка ---------- */
+.shell{display:flex;align-items:stretch;min-height:calc(100vh - 112px)}
+.side{width:297px;flex:none;background:var(--side);padding:32px 0 40px}
+.side .pad{padding:0 24px}
+.order{display:inline-flex;align-items:center;gap:14px;background:var(--blue);color:#fff;border:0;border-radius:16px;height:55px;padding:0 24px 0 26px;
+  font-size:14.5px;font-weight:700;box-shadow:0 6px 16px rgba(0,104,255,.28)}
+.order:hover{background:var(--blue-d)}
+.smenu{margin-top:30px}
+.smenu .it{display:flex;align-items:center;gap:15px;min-height:52px;padding:10px 24px;font-size:14.5px;font-weight:700;color:var(--black);cursor:pointer;position:relative}
+.smenu .it.big{font-size:17px;font-weight:400}
+.smenu .it svg{flex:none}
+.smenu .it:hover,.smenu .sub:hover{background:#efeff1}
+.smenu .sub{display:flex;align-items:center;min-height:40px;padding:8px 24px 8px 63px;font-size:14.5px;color:var(--black);cursor:pointer;position:relative}
+.smenu .it.on,.smenu .sub.on{background:#fff;margin:0 12px;padding-left:51px;border-radius:0}
+.smenu .it.on{padding-left:12px}
+.smenu .it.on:before,.smenu .sub.on:before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--blue)}
+.smenu .sub.on{font-weight:700}
+.smenu .cav{margin-left:auto;font-size:10px}
+.smenu hr{border:0;border-top:1px solid #dcdce0;margin:6px 26px}
+.cnt{margin-left:auto;background:var(--blue);color:#fff;border-radius:99px;min-width:25px;height:25px;display:inline-flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:400;padding:0 7px}
+.cnt.pur{background:#7b2ff7}
+.tag-new{margin-left:auto;background:#7b2ff7;color:#fff;border-radius:99px;font-size:10px;font-weight:700;padding:2px 8px;letter-spacing:.04em}
+
+.main{flex:1;min-width:0;padding:36px 32px 90px 31px;background:#fff}
+.scr{display:none}
+.scr.on{display:block}
+h1.pt{font-family:KyivTypeSans,Daikon,sans-serif;font-size:32px;line-height:1.2;color:#000;letter-spacing:.005em}
+.who{font-size:20px;color:var(--ink);margin-top:18px}
+.stitle{font-size:20px;font-weight:600;color:var(--ink);margin:18px 0 22px}
+.lead{font-size:15.5px;color:var(--grey2);margin:12px 0 0;max-width:760px}
+.crumbs{font-size:13.5px;color:var(--grey);margin-bottom:10px}
+.crumbs a{color:var(--blue)}
+.newb{display:inline-block;background:#7b2ff7;color:#fff;font-family:Daikon,sans-serif;font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;vertical-align:middle;margin-left:10px;letter-spacing:.05em;position:relative;top:-4px}
+
+/* ---------- картка сутності (за Figma) ---------- */
+.ent{display:grid;grid-template-columns:minmax(0,733px) 1fr;gap:66px;align-items:start}
+.anchors{position:sticky;top:20px;padding-top:4px}
+.anchors a{display:block;font-size:16px;color:var(--grey);padding:0 0 22px;cursor:pointer;line-height:1.3}
+.anchors a:hover{color:var(--nav)}
+.anchors a.on{color:var(--nav);font-weight:600}
+.ecard{background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:28px 30px 30px;margin-bottom:28px}
+.ecard.ln{box-shadow:none;border:1.5px solid var(--line)}
+.ecard .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.ecard h3{font-size:20px;font-weight:600;color:var(--ink);margin-bottom:16px}
+.ecard h4{font-size:15px;font-weight:600;color:var(--ink)}
+.fld{margin-bottom:14px}
+.fld .l{font-size:14.5px;color:var(--grey);margin-bottom:4px}
+.fld .v{font-size:17px;color:var(--ink)}
+.fld .v b{font-weight:600}
+.fld .v a,.lnk{color:var(--blue);cursor:pointer}
+.fg2{display:grid;grid-template-columns:1fr 1fr;column-gap:24px}
+.acc{cursor:pointer}
+.acc .hd{display:flex;align-items:center;gap:16px}
+.acc .hd .t{flex:1}
+.acc .chev{flex:none;transition:transform .2s}
+.acc.open .chev{transform:rotate(180deg)}
+.acc .bd{display:none;margin-top:18px}
+.acc.open .bd{display:block}
+.acc .date{font-size:16px;color:var(--grey);margin-bottom:14px}
+.acc .ttl{font-size:16.5px;font-weight:600;color:var(--ink)}
+.acc .sub2{font-size:16.5px;color:var(--ink);margin-top:14px}
+.acc .sub2 b{font-weight:600}
+.file{display:flex;align-items:center;gap:14px;padding:5px 0;font-size:16px}
+.file .nm{flex:1}
+.file .ic{display:flex;gap:12px;color:var(--blue)}
+.pen{color:var(--blue);cursor:pointer}
+
+/* ---------- таблиця «Вхідні» (за Figma) ---------- */
+.ctrls{display:flex;align-items:center;gap:10px;margin:34px 0 18px}
+.ctl{background:#f3f3f5;border:0;border-radius:12px;height:39px;padding:0 18px;font-size:15px;color:var(--ink);display:flex;align-items:center;gap:10px}
+.ctl.w{font-weight:700;background:#f3f3f5}
+.srch{margin-left:auto;background:#f3f3f5;border-radius:99px;height:40px;padding:0 20px;display:flex;align-items:center;gap:12px;width:380px;color:#aaa;font-size:15px}
+table.t{width:100%;border-collapse:collapse}
+table.t th{text-align:left;font-size:15px;font-weight:700;color:var(--ink);padding:26px 0 16px;border-top:1px solid #d6d6da;border-bottom:1px solid #d6d6da}
+table.t td{padding:16px 0;border-bottom:1px solid #d6d6da;font-size:16px;color:var(--ink);vertical-align:middle}
+table.t td+td,table.t th+th{padding-left:24px}
+table.t tr.unread td{background:var(--unread)}
+table.t tr.cl{cursor:pointer}
+table.t tr.cl:hover td{background:#f4f8ff}
+.total{font-size:17px;font-weight:700;padding:18px 12px 0}
+
+/* ---------- загальні елементи ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--blue);color:#fff;border:0;border-radius:12px;height:48px;padding:0 24px;font-size:15px;font-weight:700;white-space:nowrap}
+.btn:hover{background:var(--blue-d)}
+.btn.sm{height:38px;padding:0 16px;font-size:14px;border-radius:10px}
+.btn.ghost{background:#fff;color:var(--blue);box-shadow:inset 0 0 0 1.5px var(--blue)}
+.btn.ghost:hover{background:var(--blue-l)}
+.btn.grey{background:#f3f3f5;color:var(--ink)}
+.btn.grey:hover{background:#e8e8ec}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.st{display:inline-block;font-size:13px;font-weight:600;border-radius:99px;padding:4px 12px;white-space:nowrap}
+.st.ok{background:var(--ok-b);color:var(--ok)}
+.st.wait{background:var(--warn-b);color:var(--warn)}
+.st.bad{background:var(--bad-b);color:var(--bad)}
+.st.info{background:var(--blue-b);color:#00598e}
+.st.pur{background:#f3e8ff;color:#5b12b5}
+.note{background:var(--blue-l);border-radius:14px;padding:18px 22px;font-size:15px;color:#1b4d8c;margin:22px 0}
+.note b{color:#0b3a73}
+.note.pur{background:#f8f3ff;color:#5b12b5}
+.note.pur b{color:#40088c}
+.demo{background:#fff8e1;border:1px dashed #d6a800;border-radius:12px;padding:12px 16px;font-size:14px;color:#7a5c00;margin-top:16px}
+.grid{display:grid;gap:20px}
+.grid>*{min-width:0}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 0;border-top:1px solid var(--line);font-size:16px}
+.field{margin-bottom:18px;max-width:640px}
+.field label{display:block;font-size:14.5px;color:var(--grey);margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 16px;background:#fff;font-size:16px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue)}
+.chk{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:15.5px;cursor:pointer}
+.chk input{width:18px;height:18px;accent-color:var(--blue)}
+.err{color:#d83020;font-weight:600;font-size:14px;min-height:20px;margin-top:4px}
+.muted{color:var(--grey)}
+.mono{font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.toast{position:fixed;right:24px;bottom:24px;background:#1d1d1f;color:#fff;border-radius:14px;padding:15px 20px;font-size:14.5px;box-shadow:0 12px 40px rgba(0,0,0,.3);
+  opacity:0;transform:translateY(14px);transition:.25s;z-index:99;max-width:400px}
+.toast.on{opacity:1;transform:none}
+.toast b{color:#8ec5ff}
+
+/* ---------- «Мій будинок»: блоки ---------- */
+.hhead{display:flex;gap:26px;align-items:center;flex-wrap:wrap}
+.kpis{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.kpi{background:#f3f3f5;border-radius:12px;padding:10px 16px;font-size:15px}
+.kpi b{font-weight:700}
+.kpi.warn{background:var(--bad-b);color:var(--bad)}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:28px}
+.tile{background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:22px 22px 20px;cursor:pointer;display:flex;flex-direction:column;gap:8px;min-height:148px;transition:box-shadow .15s}
+.tile:hover{box-shadow:0 8px 26px rgba(20,30,50,.13),0 0 0 1px rgba(0,104,255,.25)}
+.tile .ic{width:44px;height:44px;border-radius:12px;background:var(--blue-l);display:grid;place-items:center;color:var(--blue)}
+.tile h4{font-size:15.5px;font-weight:700;letter-spacing:.02em;text-transform:uppercase}
+.tile p{margin:0;font-size:14px;color:var(--grey2);line-height:1.4}
+.tile .ct{margin-top:auto;font-size:13.5px;color:var(--blue);font-weight:600}
+.nooss{background:linear-gradient(120deg,#f1f7ff,#f8f3ff);border-radius:16px;padding:24px 28px;margin-top:26px;display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+
+/* ---------- таймлайн історії ---------- */
+.tl{position:relative;padding-left:30px}
+.tl:before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl .ev{position:relative;padding:0 0 22px}
+.tl .ev:before{content:"";position:absolute;left:-27px;top:5px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--blue)}
+.tl .ev.new:before{border-color:#7b2ff7;background:#7b2ff7}
+.tl .yr{font-size:14px;color:var(--grey);font-weight:600}
+.tl .tx{font-size:16.5px;margin-top:2px}
+.tl .src{font-size:13.5px;color:var(--grey);margin-top:2px}
+
+/* ---------- кроки створення ОСББ ---------- */
+.steps6{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:6px 0 28px}
+.steps6 .s{border-top:4px solid var(--line);padding-top:10px;font-size:13.5px;color:var(--grey);font-weight:600;line-height:1.3}
+.steps6 .s.done{border-color:#35ac46;color:#1f7a2e}
+.steps6 .s.on{border-color:var(--blue);color:var(--blue)}
+.pers{display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--line)}
+.ava{width:40px;height:40px;border-radius:50%;background:var(--blue-b);display:grid;place-items:center;font-weight:700;color:#00598e;flex:none;font-size:14px}
+
+/* ---------- мапа території ---------- */
+.mapbox{border-radius:14px;overflow:hidden;box-shadow:var(--shadow);background:#eef2ea;position:relative}
+.mapbox svg{width:100%;height:auto}
+.maplg{display:flex;gap:16px;flex-wrap:wrap;font-size:13.5px;color:var(--grey2);margin-top:12px}
+.maplg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.tree{cursor:pointer}
+.tree:hover circle{stroke:#0068ff;stroke-width:3}
+.opt{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;font-size:15.5px;background:#fff}
+.opt.on{border-color:var(--blue);background:var(--blue-l)}
+.meter{height:10px;border-radius:99px;background:#eceef1;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--blue);border-radius:99px}
+.meter.g i{background:#35ac46}
+.bars .b{display:grid;grid-template-columns:180px 1fr 110px;gap:14px;align-items:center;padding:7px 0;font-size:15px}
+
+/* ---------- «Київ Цифровий» (імітація застосунку) ---------- */
+.overlay{position:fixed;inset:0;background:rgba(12,17,22,.6);z-index:55;display:grid;place-items:center;padding:20px}
+.overlay[hidden]{display:none}
+.phone{width:360px;max-width:92vw;height:720px;max-height:88vh;background:#0c0c0e;border-radius:44px;padding:12px;box-shadow:0 30px 80px rgba(0,0,0,.45);position:relative}
+.phone .scrn{background:#f2f3f5;border-radius:34px;height:100%;overflow:auto;font-family:-apple-system,"SF Pro Text",Roboto,Arial,sans-serif}
+.phone .bar{height:40px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font-size:13px;font-weight:600}
+.kd-h{padding:6px 18px 12px;display:flex;align-items:center;gap:10px}
+.kd-h .lg{width:30px;height:30px;border-radius:9px;background:#000;color:#fff;display:grid;place-items:center;font-weight:800;font-size:14px}
+.kd-h b{font-size:15px}
+.kd-c{background:#fff;border-radius:18px;margin:0 12px 12px;padding:16px}
+.kd-c h5{margin:0 0 6px;font-size:15px}
+.kd-q{font-size:14px;padding:10px 0;border-top:1px solid #eee}
+.kd-v{display:flex;gap:6px;margin-top:8px}
+.kd-v button{flex:1;border:1.5px solid #ddd;background:#fff;border-radius:10px;padding:7px 0;font-size:13px;font-weight:600}
+.kd-v button.on{background:#000;color:#fff;border-color:#000}
+.kd-btn{display:block;width:calc(100% - 24px);margin:4px 12px 12px;background:#000;color:#fff;border:0;border-radius:14px;padding:14px;font-weight:700;font-size:15px}
+.kd-btn.l{background:#fff;color:#000;border:1.5px solid #000}
+
+/* ---------- футер порталу (за Figma) ---------- */
+.foot{background:var(--foot);color:#fff;padding:48px 40px 34px}
+.foot .cols{display:flex;gap:40px;align-items:flex-start}
+.foot .c1{width:260px}
+.foot .c2{width:300px}
+.foot .cap{font-size:13px;color:#aab3c2;margin-bottom:22px}
+.foot .c1 a{display:block;font-size:14.5px;font-weight:700;margin-bottom:17px}
+.soc{display:flex;gap:12px}
+.soc span{width:40px;height:40px;border-radius:50%;background:#9aa3b0;display:grid;place-items:center;color:var(--foot)}
+.stores{display:flex;gap:30px;align-items:center;color:#c6ccd6}
+.stores span{display:flex;align-items:center;gap:8px;font-size:23px;letter-spacing:-.01em}
+.foot .lg{margin-left:auto}
+.foot .lg img{height:40px}
+.foot hr{border:0;border-top:1px solid #33435c;margin:34px 0 26px}
+.foot .bot{display:flex;justify-content:space-between;gap:24px;font-size:14.5px;color:#c6ccd6;line-height:1.55;flex-wrap:wrap}
+.foot .bot b{color:#fff}
+
+@media(max-width:1180px){.ent{grid-template-columns:1fr}.anchors{position:static;display:flex;gap:18px;overflow-x:auto;order:-1;padding-bottom:6px}.anchors a{white-space:nowrap;padding:0}.tiles{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:1100px){
+  .shell{flex-direction:column}
+  .side{width:auto;padding:10px 0 4px}
+  .side .pad{display:none}
+  .smenu{display:flex;overflow-x:auto;margin-top:0;padding:0 10px 8px;gap:2px}
+  .smenu .it,.smenu .sub{white-space:nowrap;padding:8px 14px;min-height:0;flex:none;margin:0}
+  .smenu .it.on,.smenu .sub.on{margin:0;padding-left:14px}
+  .smenu .it svg,.smenu hr,.smenu .tag-new,.smenu .cav{display:none}
+  .mock{overflow-x:auto}
+  .mock .hint{display:none}
+  .hnav{display:none}
+  .main{padding:24px 16px 60px}
+  .g2,.g3,.g4,.fg2,.steps6{grid-template-columns:1fr}
+  .tiles{grid-template-columns:1fr}
+  .foot .cols{flex-wrap:wrap}
+  .srch{width:100%}
+  .ctrls{flex-wrap:wrap}
+  .bars .b{grid-template-columns:1fr}
+}
+@media(max-width:760px){table.t{display:block;overflow-x:auto;white-space:nowrap}h1.pt{font-size:26px}.uchip span{display:none}}
+/* ---------- путівник (службовий елемент макета) ---------- */
+.tour{position:fixed;right:22px;bottom:22px;width:370px;max-height:calc(100vh - 44px);display:flex;flex-direction:column;background:#fff;border-radius:18px;
+  box-shadow:0 18px 60px rgba(12,17,22,.28),0 0 0 1px rgba(12,17,22,.06);z-index:60;overflow:hidden;font:14px/1.45 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#1d1d1f}
+.tour[hidden]{display:none}
+.tour .th{background:#2b2f36;color:#fff;padding:13px 14px 13px 18px;display:flex;align-items:center;gap:10px;flex:none}
+.tour .th b{font-size:15px}
+.tour .th .pr{font-size:12.5px;color:#b8bec8;margin-left:auto}
+.tour .th button{background:transparent;border:0;color:#b8bec8;font-size:20px;line-height:1;padding:2px 6px;border-radius:8px}
+.tour .th button:hover{color:#fff;background:#3a3f48}
+.tour .tb{padding:18px 20px 20px;overflow:auto}
+.tour .intro{color:#323232;margin:0 0 14px}
+.tour .fl{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:1px solid #e5e5ea;border-radius:12px;padding:10px 12px;margin-bottom:8px;font:inherit}
+.tour .fl:hover{border-color:#7b2ff7;background:#faf6ff}
+.tour .fl .no{width:26px;height:26px;border-radius:50%;background:#f3e8ff;color:#5b12b5;font-weight:800;font-size:12.5px;display:grid;place-items:center;flex:none}
+.tour .fl.ok .no{background:#e8f7ea;color:#1f7a2e}
+.tour .fl .nm{font-weight:700;font-size:14px;line-height:1.3}
+.tour .fl .ds{font-size:12.5px;color:#6e6e6e;margin-top:2px;line-height:1.35}
+.tour .fl .rl{margin-left:auto;font-size:12px;color:#6e6e6e;white-space:nowrap}
+.tour .kick{font-size:12px;font-weight:800;color:#7b2ff7;letter-spacing:.04em;text-transform:uppercase}
+.tour h4{font-size:17px;margin:4px 0 12px}
+.tour .bar{display:flex;gap:4px;margin-bottom:16px}
+.tour .bar i{flex:1;height:4px;border-radius:4px;background:#e5e5ea}
+.tour .bar i.d{background:#35ac46}
+.tour .bar i.c{background:#7b2ff7}
+.tour .txt{font-size:14.5px;line-height:1.55}
+.tour .txt .why{display:block;margin-top:10px;font-size:13px;color:#6e6e6e}
+.tour .ok-msg{background:#e8f7ea;color:#1f7a2e;border-radius:10px;padding:10px 12px;font-weight:700;font-size:13.5px;margin-top:14px}
+.tour .ta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tour .ta .btn{height:auto;padding:10px 16px;font:700 13.5px/1.2 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;border-radius:10px}
+.tour .ta .btn.pur{background:#7b2ff7;color:#fff}
+.tour .ta .btn.pur:hover{background:#6420d4}
+.tour .tlinks{display:flex;gap:18px;margin-top:12px}
+.tour .tlinks button{background:none;border:0;padding:0;color:#6e6e6e;font-size:13px}
+.tour .tlinks button:hover{color:#1d1d1f}
+.tour .wait{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:13px;color:#6e6e6e}
+.tour .wait:before{content:"";width:14px;height:14px;border-radius:50%;border:2px solid #d9c6ff;border-top-color:#7b2ff7;animation:tspin .8s linear infinite}
+@keyframes tspin{to{transform:rotate(360deg)}}
+.tour-hl{outline:3px solid #7b2ff7!important;outline-offset:4px;border-radius:12px;animation:tpulse 1.6s ease-out infinite}
+@keyframes tpulse{0%{box-shadow:0 0 0 0 rgba(123,47,247,.45)}70%{box-shadow:0 0 0 14px rgba(123,47,247,0)}100%{box-shadow:0 0 0 0 rgba(123,47,247,0)}}
+body.tour-open .toast{right:414px}
+@media (min-width:1200px){body.tour-open .shell{margin-right:392px}body.tour-open .tiles{grid-template-columns:repeat(2,1fr)}body.tour-open .srch{width:240px}}
+@media (min-width:1200px) and (max-width:1500px){body.tour-open .ent{grid-template-columns:1fr}body.tour-open .anchors{position:static;display:flex;gap:18px;flex-wrap:wrap;order:-1}body.tour-open .anchors a{padding:0}}
+@media (max-width:760px){.tour{left:10px;right:10px;width:auto;bottom:10px;max-height:55vh}body.tour-open .toast{right:24px;bottom:auto;top:60px}}
+</style>
+</head>
+<body>
+<div class="mock">
+  <span class="lbl">Макет:</span>
+  <button class="tab on" data-tab="pub">Вітрина</button>
+  <button class="tab" data-tab="own">Співвласник</button>
+  <button class="tab" data-tab="ig">Ініціативна група</button>
+  <button class="tab" data-tab="head">Голова ОСББ</button>
+  <button class="tab" data-tab="rda">РДА</button>
+  <span class="sep"></span>
+  <label class="scn">Сценарій: <select id="scn"><option value="none">Будинок без ОСББ</option><option value="osbb">ОСББ уже створено</option></select></label>
+  <button class="tab" id="reset">Скинути</button>
+  <button class="tab tourbtn" id="tourbtn">🧭 Путівник</button>
+  <span class="hint">Позначка <b>нове</b> — те, чого на Порталі ще немає</span>
+</div>
+
+<div class="hdr">
+  <a class="logo" href="#" data-go="vit"><img src="img/logo.svg" alt="Портал послуг Kyiv.Digital"></a>
+  <div class="hnav" id="hnav"><a href="#">Захисник</a><a href="#">Школи</a><a href="#">Вивіски</a></div>
+  <div class="uchip"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="10" r="3.2"/><path d="M6.4 18.3c1.3-2.3 3.2-3.4 5.6-3.4s4.3 1.1 5.6 3.4"/></svg><span id="uname">Тест М.П</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></div>
+</div>
+
+<div class="shell">
+<aside class="side" id="side-own" style="display:none">
+  <div class="pad"><button class="order" data-go="orders"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 4v16M4 12h16"/></svg> Замовити послугу</button></div>
+  <div class="smenu">
+    <div class="it" data-go="inbox"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 4.5h17v12h-12l-5 4z"/><path d="M8 9h8M8 12.5h5"/></svg><span>Вхідні повідомлення</span> <span class="cnt" id="c-inbox-own" style="display:none">0</span></div>
+    <hr>
+    <div class="it" data-go="home"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.5L12 4l8.5 6.5V20h-17z"/><path d="M9.5 20v-5.5h5V20"/></svg><span>Мій будинок</span> <span class="tag-new">нове</span></div>
+    <div class="it" data-go="card"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><circle cx="9" cy="10.5" r="2.2"/><path d="M5.8 16.5c.7-1.6 1.8-2.3 3.2-2.3s2.5.7 3.2 2.3M14.5 9.5h3.5M14.5 13h3.5"/></svg><span>Картка будинку</span> <span class="tag-new">нове</span></div>
+    <div class="it" data-go="issues"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l9 16H3z"/><path d="M12 10v4.5M12 17.2v.1"/></svg><span>Проблеми будинку</span> <span class="cnt" id="c-issues">3</span></div>
+    <div class="it" data-go="bills"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h12v17l-2.5-1.6L13 20.5l-2.5-1.6L8 20.5l-2-1.3z"/><path d="M9 8.5h6M9 12h6M9 15.5h3"/></svg><span>Комунальні послуги</span></div>
+    <hr>
+    <div class="it" data-go="orders"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 6.5l2 2 3.5-3.5M3.5 15l2 2 3.5-3.5M12.5 7h8M12.5 15.5h8"/></svg><span>Мої послуги</span><span class="cav">▼</span></div>
+    <div class="sub" data-go="orders"><span>Замовлені послуги</span> <span class="cnt" id="c-orders">0</span></div>
+    <div class="sub" data-go="drafts"><span>Чернетки</span></div>
+    <hr>
+    <div class="it" data-go="me"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="1.5"/><circle cx="8.5" cy="11" r="2.3"/><path d="M5 16.5c.8-1.7 2-2.4 3.5-2.4S11.2 14.8 12 16.5M14.5 10h4M14.5 13.5h4"/></svg><span>Відомості про мене</span></div>
+  </div>
+</aside>
+<aside class="side" id="side-ig" style="display:none">
+  <div class="pad"><button class="order" data-go="create"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 4v16M4 12h16"/></svg> Замовити послугу</button></div>
+  <div class="smenu">
+    <div class="it" data-go="inbox"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 4.5h17v12h-12l-5 4z"/><path d="M8 9h8M8 12.5h5"/></svg><span>Вхідні повідомлення</span> <span class="cnt" id="c-inbox-ig" style="display:none">0</span></div>
+    <hr>
+    <div class="it" data-go="create"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3.2"/><path d="M3 19.5c1-3.3 3.1-4.8 6-4.8s5 1.5 6 4.8M18.5 7.5v6M15.5 10.5h6"/></svg><span>Створення ОСББ</span> <span class="tag-new">нове</span></div>
+    <div class="sub" data-go="create"><span>Статус створення</span></div>
+    <div class="sub" data-go="owners"><span>Співвласники</span></div>
+    <div class="sub" data-go="meet"><span>Установчі збори</span></div>
+    <div class="sub" data-go="osdocs"><span>Документи ОСББ</span></div>
+    <hr>
+    <div class="it" data-go="home"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.5L12 4l8.5 6.5V20h-17z"/><path d="M9.5 20v-5.5h5V20"/></svg><span>Мій будинок</span></div>
+    <div class="it" data-go="card"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><circle cx="9" cy="10.5" r="2.2"/><path d="M5.8 16.5c.7-1.6 1.8-2.3 3.2-2.3s2.5.7 3.2 2.3M14.5 9.5h3.5M14.5 13h3.5"/></svg><span>Картка будинку</span></div>
+  </div>
+</aside>
+<aside class="side" id="side-head" style="display:none">
+  <div class="pad"><button class="order" data-go="apps"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 4v16M4 12h16"/></svg> Замовити послугу</button></div>
+  <div class="smenu">
+    <div class="it" data-go="inbox"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 4.5h17v12h-12l-5 4z"/><path d="M8 9h8M8 12.5h5"/></svg><span>Вхідні повідомлення</span> <span class="cnt" id="c-inbox-head" style="display:none">0</span></div>
+    <hr>
+    <div class="it" data-go="osbb"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20.5h16M5.5 20.5v-15h8v15M13.5 9.5h5v11"/><path d="M8 8.5h2.5M8 12h2.5M8 15.5h2.5M16 13h.5M16 16h.5"/></svg><span>Кабінет ОСББ</span> <span class="tag-new">нове</span></div>
+    <div class="sub" data-go="board"><span>Правління і документи</span></div>
+    <div class="sub" data-go="fin"><span>Кошторис і внески</span></div>
+    <div class="sub" data-go="hmeet"><span>Загальні збори</span></div>
+    <div class="sub" data-go="apps"><span>Заявки ОСББ</span> <span class="cnt pur" id="c-apps" style="display:none">0</span></div>
+    <hr>
+    <div class="it" data-go="terr"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 6.5l5.5-2.5 6 2.5 5.5-2.5v13.5L15 20l-6-2.5-5.5 2.5z"/><path d="M9 4v13.5M15 6.5V20"/></svg><span>Територія</span> <span class="tag-new">нове</span></div>
+    <div class="it" data-go="green"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-6"/><path d="M12 15c-3.9 0-6.5-2.3-6.5-5.5S8 3.5 12 3.5s6.5 2.8 6.5 6-2.6 5.5-6.5 5.5z"/><path d="M12 15l-3-3M12 12.5l2.5-2.5"/></svg><span>Зелений двір</span> <span class="tag-new">нове</span></div>
+    <div class="it" data-go="progs"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5h17M5 20.5v-9l4-3 4 3v9M13 20.5V8l3.5-3.5L20 8v12.5"/><path d="M8 14.5h2M16 11h1M16 14.5h1"/></svg><span>Можливості від міста</span> <span class="tag-new">нове</span></div>
+    <hr>
+    <div class="it" data-go="card"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><circle cx="9" cy="10.5" r="2.2"/><path d="M5.8 16.5c.7-1.6 1.8-2.3 3.2-2.3s2.5.7 3.2 2.3M14.5 9.5h3.5M14.5 13h3.5"/></svg><span>Картка будинку</span></div>
+    <div class="it" data-go="issues"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l9 16H3z"/><path d="M12 10v4.5M12 17.2v.1"/></svg><span>Звернення</span></div>
+  </div>
+</aside>
+<aside class="side" id="side-rda" style="display:none">
+  <div class="pad"><button class="order" data-go="rtasks"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 4v16M4 12h16"/></svg> Замовити послугу</button></div>
+  <div class="smenu">
+    <div class="it" data-go="inbox"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 4.5h17v12h-12l-5 4z"/><path d="M8 9h8M8 12.5h5"/></svg><span>Вхідні повідомлення</span> <span class="cnt" id="c-inbox-rda" style="display:none">0</span></div>
+    <hr>
+    <div class="it big" data-go="tasks"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="12.5" rx="1.5"/><path d="M8.5 7V5h7v2M3 12.5h18"/></svg><span>Задачі</span><span class="cav">▶</span></div>
+    <div class="sub" data-go="rtasks"><span>Задачі відділу</span> <span class="cnt" id="c-rtasks">0</span></div>
+    <div class="sub" data-go="rarch"><span>Архів задач відділу</span></div>
+    <hr>
+    <div class="it big" data-go="rreg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="3.5" width="15" height="17" rx="1.5"/><path d="M8 8h8M8 11.5h8M8 15h5"/></svg><span>Реєстр будинків</span></div>
+  </div>
+</aside>
+
+<main class="main" id="main">
+<section class="scr on" id="s-vit"></section>
+<section class="scr" id="s-inbox"></section>
+<section class="scr" id="s-home"></section>
+<section class="scr" id="s-card"></section>
+<section class="scr" id="s-issues"></section>
+<section class="scr" id="s-bills"></section>
+<section class="scr" id="s-orders"></section>
+<section class="scr" id="s-drafts"></section>
+<section class="scr" id="s-me"></section>
+<section class="scr" id="s-create"></section>
+<section class="scr" id="s-owners"></section>
+<section class="scr" id="s-meet"></section>
+<section class="scr" id="s-osdocs"></section>
+<section class="scr" id="s-osbb"></section>
+<section class="scr" id="s-board"></section>
+<section class="scr" id="s-fin"></section>
+<section class="scr" id="s-hmeet"></section>
+<section class="scr" id="s-apps"></section>
+<section class="scr" id="s-terr"></section>
+<section class="scr" id="s-green"></section>
+<section class="scr" id="s-progs"></section>
+<section class="scr" id="s-tasks"></section>
+<section class="scr" id="s-rtasks"></section>
+<section class="scr" id="s-rarch"></section>
+<section class="scr" id="s-rtask"></section>
+<section class="scr" id="s-rreg"></section>
+</main>
+</div>
+
+<footer class="foot">
+  <div class="cols">
+    <div class="c1"><div class="cap">Міська платформа</div><a href="#">Каталог сервісів</a><a href="#">Часті питання</a><a href="#">Новини міста</a></div>
+    <div class="c2"><div class="cap">Соціальні мережі</div><div class="soc">
+      <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.8c0-.8.5-1 .9-1H17V2.2L14.2 2C11 2 10.3 4.4 10.3 6v2.5H8.2V12h2.1v10H14V12h2.7l.4-3.5z"/></svg></span>
+      <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></svg></span>
+      <span><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21.4 3.6L2.9 10.8c-1 .4-1 1.6 0 1.9l4.6 1.5 1.8 5.6c.3.8 1.3 1 1.9.4l2.6-2.4 4.7 3.5c.7.5 1.7.1 1.9-.8l3.1-15.4c.2-1-.8-1.8-1.7-1.5zM9.8 14.4l-.5 3.7-1.3-4.3 9.6-6.3z"/></svg></span>
+    </div></div>
+    <div><div class="cap">Мобільний застосунок</div><div class="stores">
+      <span><svg width="26" height="30" viewBox="0 0 24 28" fill="currentColor"><path d="M19.6 14.9c0-3.2 2.6-4.7 2.7-4.8-1.5-2.2-3.8-2.5-4.6-2.5-2-.2-3.8 1.2-4.8 1.2s-2.5-1.1-4.1-1.1C6.7 7.7 4.8 8.9 3.7 10.8c-2.2 3.8-.6 9.5 1.6 12.6 1.1 1.5 2.3 3.2 3.9 3.2 1.6-.1 2.2-1 4.1-1s2.4 1 4.1 1c1.7 0 2.8-1.5 3.8-3.1 1.2-1.7 1.7-3.4 1.7-3.5-.1 0-3.3-1.3-3.3-5.1zM16.5 5.5c.9-1.1 1.5-2.5 1.3-4-1.3.1-2.8.9-3.7 1.9-.8.9-1.5 2.4-1.3 3.9 1.4.1 2.8-.7 3.7-1.8z"/></svg>App Store</span>
+      <span><svg width="26" height="28" viewBox="0 0 24 26" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M3 2l12 11L3 24z"/><path d="M15 13l4-3.5L3 2M15 13l4 3.5L3 24"/></svg>Google Play</span>
+    </div></div>
+    <div class="lg"><img src="img/logo.svg" alt="Портал послуг"></div>
+  </div>
+  <hr>
+  <div class="bot"><div>Веб-портал надання електронних послуг<br>2024 © Київська міська державна адміністрація, Київська міська рада</div>
+  <div>E-mail: <b>support.my@kyivcity.gov.ua</b><br>Тел. <b>(044) 366-80-27</b></div></div>
+</footer>
+
+<div class="overlay" id="kd" hidden></div>
+<div class="toast" id="toast"></div>
+<div class="tour" id="tour" hidden>
+  <div class="th"><b>🧭 Путівник</b><span class="pr" id="tour-pr"></span><button id="tour-x" title="Згорнути">×</button></div>
+  <div class="tb" id="tour-body"></div>
+</div>
+<script>
+var ICONS={"osbb": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 20.5h16M5.5 20.5v-15h8v15M13.5 9.5h5v11\"/><path d=\"M8 8.5h2.5M8 12h2.5M8 15.5h2.5M16 13h.5M16 16h.5\"/></svg>", "owners": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"8\" cy=\"9\" r=\"2.8\"/><circle cx=\"16.5\" cy=\"10\" r=\"2.3\"/><path d=\"M3 19c1.1-2.8 2.8-4 5-4s3.9 1.2 5 4M14 19c.7-1.9 1.9-2.8 3.3-2.8s2.4.6 3.2 2\"/></svg>", "meet": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 20.5h16M6 20.5V10h12v10.5\"/><path d=\"M9 10V5.5h6V10M10.5 13.5l1.5 1.5 3-3\"/></svg>", "terr": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3.5 6.5l5.5-2.5 6 2.5 5.5-2.5v13.5L15 20l-6-2.5-5.5 2.5z\"/><path d=\"M9 4v13.5M15 6.5V20\"/></svg>", "green": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 21v-6\"/><path d=\"M12 15c-3.9 0-6.5-2.3-6.5-5.5S8 3.5 12 3.5s6.5 2.8 6.5 6-2.6 5.5-6.5 5.5z\"/><path d=\"M12 15l-3-3M12 12.5l2.5-2.5\"/></svg>", "issues": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3.5l9 16H3z\"/><path d=\"M12 10v4.5M12 17.2v.1\"/></svg>", "bills": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 3.5h12v17l-2.5-1.6L13 20.5l-2.5-1.6L8 20.5l-2-1.3z\"/><path d=\"M9 8.5h6M9 12h6M9 15.5h3\"/></svg>", "progs": "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3.5 20.5h17M5 20.5v-9l4-3 4 3v9M13 20.5V8l3.5-3.5L20 8v12.5\"/><path d=\"M8 14.5h2M16 11h1M16 14.5h1\"/></svg>"};
+/* ==================== ДАНІ ==================== */
+var B={addr:'вул. Салютна, 12',district:'Шевченківський',year:1974,floors:9,entr:4,flats:144,nonres:3,area:'9 860 м²',live:'8 912 м²',lifts:4,
+  shelter:'Найпростіше укриття в підвалі, 180 місць',energy:'D (розрахунково)',walls:'Панельні, серія 1-464А',roof:'Плоска, рулонна (ремонт 2009)',
+  heat:'Централізоване, ІТП немає',water:'Централізоване ХВП і ГВП',gas:'Газифікований',kad:'не сформована',land:'0,62 га (орієнтовно)'};
+var MGR='КП «Керуюча компанія з обслуговування житлового фонду Шевченківського району»';
+var ME={last:'Тест',first:'Марина',mid:'Петрівна',flat:72,share:'52,4 м²',since:'14.05.2016',rnokpp:'1112223334',phone:'+380957778889',mail:'test.mp@gmail.com'};
+var HIST0=[
+ {y:'2009',t:'Капітальний ремонт покрівлі',src:'Архів управителя'},
+ {y:'2022',t:'Заміна ліфта в під’їзді 2 за міською програмою',src:'Департамент ЖКІ'},
+ {y:'2023',t:'17 звернень мешканців: ліфти, під’їзди, прибудинкова територія',src:'1551'},
+ {y:'2024',t:'Ремонт тепломережі на вводі в будинок',src:'Київтеплоенерго'},
+ {y:'2025',t:'Пошкодження внаслідок атаки 14.06.2025: вибито вікна в 12 квартирах, пошкоджено покрівлю',src:'Акт обстеження РДА'}
+];
+var TREES=[
+ {id:1,sp:'Каштан кінський',age:'≈45 років',st:'Задовільний',cls:'ok',chk:'12.05.2025',x:120,y:78},
+ {id:2,sp:'Тополя біла',age:'≈55 років',st:'Аварійний',cls:'bad',chk:'22.09.2026',x:212,y:60},
+ {id:3,sp:'Липа дрібнолиста',age:'≈30 років',st:'Добрий',cls:'ok',chk:'12.05.2025',x:560,y:70},
+ {id:4,sp:'Клен гостролистий',age:'≈25 років',st:'Потребує обрізки',cls:'warn',chk:'12.05.2025',x:568,y:296},
+ {id:5,sp:'Береза повисла',age:'≈40 років',st:'Задовільний',cls:'ok',chk:'12.05.2025',x:92,y:300}
+];
+var PROGS=[
+ {id:'eff',t:'Співфінансування енергоефективних заходів ОСББ',why:'Енергоклас D, панельний будинок 1974 року, ІТП немає',what:'Утеплення фасаду, ІТП з погодним регулюванням, заміна вікон у під’їздах',share:'Місто — до 70% вартості',need:'osbb'},
+ {id:'lift',t:'Капітальний ремонт і заміна ліфтів',why:'2 з 4 ліфтів 1974 року без модернізації',what:'Заміна ліфтів у під’їздах 1 і 4',share:'Місто — до 100% для аварійних ліфтів',need:''},
+ {id:'shel',t:'Облаштування укриття',why:'Найпростіше укриття в підвалі, акт перевірки: потребує вентиляції й освітлення',what:'Вентиляція, аварійне освітлення, санвузол, вхід без бар’єрів',share:'Місто — до 100%',need:''},
+ {id:'dmg',t:'Відновлення пошкодженого житла',why:'Пошкодження 14.06.2025 зафіксовано актом обстеження',what:'Ремонт покрівлі над під’їздом 3',share:'Компенсація робіт за кошторисом',need:''},
+ {id:'bf',t:'Безбар’єрність входів',why:'4 входи без пандусів, у будинку 6 мешканців з інвалідністю за даними соцзахисту',what:'Пандуси, поручні, підйомник у під’їзді 2',share:'Місто — до 100%',need:''}
+];
+var BUDGET=[['Утримання будинку і прибудинкової території',412000],['Обслуговування ліфтів',186000],['Прибирання під’їздів',148000],['Електроенергія місць загального користування',64000],['Резервний фонд',90000],['Ремонтний фонд',240000],['Банківське обслуговування і бухгалтерія',72000]];
+var DESIGNW=['Паркування','Озеленення','Дитячий майданчик','Спортивна зона','Освітлення','Безбар’єрність','Велопарковка','Лавки','Контейнерний майданчик','Зона відпочинку'];
+var QUESTIONS=['Створення ОСББ «Салютна 12»','Затвердження статуту','Обрання голови правління: Тест М. П.','Обрання членів правління','Обрання ревізійної комісії'];
+var INVITEES=[{n:'Олег Коваль',f:15},{n:'Ірина Савчук',f:101}];
+
+/* ==================== СТАН ==================== */
+function freshState(){return{
+ role:'pub',scn:'none',
+ msgs:{own:[{t:'Планове відключення гарячої води 30.09 з 09:00 до 17:00 · Київтеплоенерго',time:'24.09.2026 08:10',u:true},{t:'Звернення №1551-2209-114 «Аварійне дерево» передано виконавцю',time:'22.09.2026 15:40',u:false},{t:'Звернення №1557-1609-032 «Протікання даху» у роботі',time:'17.09.2026 10:05',u:false}],
+       ig:[],head:[],rda:[{t:'Щотижневий звіт: 12 нових заявок щодо будинків району',time:'22.09.2026 09:00',u:false}]},
+ hist:[],
+ issues:[{id:'1551-1209-087',d:'12.09.2026',t:'Не працює ліфт, під’їзд 2',src:'1551',st:'Виконано'},{id:'1557-1609-032',d:'16.09.2026',t:'Протікання даху над 9 поверхом',src:'1557',st:'У роботі'},{id:'1551-2209-114',d:'22.09.2026',t:'Аварійне дерево біля під’їзду 1',src:'1551',st:'Передано виконавцю'}],
+ iseq:120,
+ bills:{paid:false,readSent:false,cold:318,hot:204},
+ orders:[],
+ cardTab:'info',
+ os:{stage:0,joined:[],link:null,meetDate:'18.10.2026',format:'mixed',statute:'typical',voted:false,vote:{},kdState:'vote',result:null,edr:null,regAt:null},
+ kdCtx:null,
+ budgetPub:false,
+ hmeet:{stage:0,vote:{}},
+ land:{st:'none'},
+ design:{st:'none',w:['Дитячий майданчик','Озеленення','Велопарковка'],cost:0},
+ trees:TREES.map(function(t){return {id:t.id,st:t.st,cls:t.cls,chk:t.chk,task:null};}),
+ treeSel:2,planted:false,
+ progs:{},
+ apps:[],aseq:1,
+ rtask:null,
+ ownerFix:{sent:false}
+};}
+var S=freshState();
+
+/* ==================== УТИЛІТИ ==================== */
+function $(id){return document.getElementById(id);}
+function pad(n){return n<10?'0'+n:''+n;}
+function now(){var d=new Date();return '24.09.2026 '+pad(d.getHours())+':'+pad(d.getMinutes());}
+function today(){return '24.09.2026';}
+function money(n){return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' ₴';}
+function msg(role,t){S.msgs[role].unshift({t:t,time:now(),u:true});}
+function hist(y,t,src){S.hist.unshift({y:y,t:t,src:src,n:true});}
+function toast(h){var t=$('toast');t.innerHTML=h;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('on');},4300);}
+function st(txt){var c={'Виконано':'ok','Завершено':'ok','Схвалено':'ok','Оформлено':'ok','Зареєстровано':'ok','Готово':'ok','Оплачено':'ok','Підписано':'ok',
+  'У роботі':'wait','Передано виконавцю':'wait','На розгляді':'wait','Обстеження призначено':'wait','Очікує оплати':'wait','Прийнято':'info','Нове':'pur','Відмовлено':'bad'}[txt]||'info';
+  return '<span class="st '+c+'">'+txt+'</span>';}
+var CHEV='<svg class="chev" width="34" height="20" viewBox="0 0 34 20" fill="none"><path d="M2 3l15 14L32 3" stroke="#0068ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var PEN='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0068ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M14.5 4.5l3 3L9 16H6v-3z"/></svg>';
+var BADGE='<svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#1d1d1f" stroke-width="2"><circle cx="16" cy="16" r="13"/><circle cx="11.5" cy="13" r="2.4"/><circle cx="20.5" cy="13" r="2.4"/><path d="M8 23c1.1-2.4 2.3-3.4 3.5-3.4s2.4 1 3.5 3.4M17 23c1.1-2.4 2.3-3.4 3.5-3.4s2.4 1 3.5 3.4"/></svg>';
+var HOUSE='<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1d1d1f" stroke-width="1.7" stroke-linejoin="round"><path d="M4 20.5h16M5.5 20.5v-15h8v15M13.5 9.5h5v11"/><path d="M8 8.5h2.5M8 12h2.5M8 15.5h2.5"/></svg>';
+var DL='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14"/></svg>';
+var EYE='<svg width="24" height="22" viewBox="0 0 24 22" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 11s3.8-6.5 10-6.5S22 11 22 11s-3.8 6.5-10 6.5S2 11 2 11z"/><circle cx="12" cy="11" r="3"/></svg>';
+function fld(l,v){return '<div class="fld"><div class="l">'+l+'</div><div class="v">'+v+'</div></div>';}
+function files(list){return list.map(function(f){return '<div class="file"><span class="nm">'+f+'</span><span class="ic"><span title="Завантажити">'+DL+'</span><span title="Переглянути">'+EYE+'</span></span></div>';}).join('');}
+function acc(id,head,body,open){return '<div class="ecard acc'+(open?' open':'')+'" data-acc="'+id+'"><div class="hd"><div class="t">'+head+'</div>'+CHEV+'</div><div class="bd">'+body+'</div></div>';}
+function hasOsbb(){return S.os.stage>=7;}
+function osName(){return 'ОСББ «Салютна 12»';}
+function openApps(){return S.apps.filter(function(a){return a.st!=='Схвалено'&&a.st!=='Оформлено'&&a.st!=='Готово'&&a.st!=='Відмовлено'&&a.st!=='Виконано';}).length;}
+
+function uah(n){var p=n.toFixed(2).split('.');return p[0].replace(/\B(?=(\d{3})+(?!\d))/g,' ')+','+p[1]+' ₴';}
+/* ==================== МАПА ТЕРИТОРІЇ ==================== */
+function mapSVG(mode){
+  var landOk=S.land.st==='done', design=S.design.st==='ready';
+  var h='<svg viewBox="0 0 760 360" role="img" aria-label="Схема прибудинкової території">'+
+   '<rect width="760" height="360" fill="#e7eedd"/>'+
+   '<rect x="0" y="0" width="760" height="26" fill="#d5d8dd"/><text x="14" y="18" font-size="12" fill="#6e6e6e">вул. Салютна</text>'+
+   '<rect x="0" y="334" width="760" height="26" fill="#d5d8dd"/><text x="14" y="352" font-size="12" fill="#6e6e6e">вул. Щусєва</text>'+
+   '<rect x="700" y="26" width="60" height="308" fill="#dfe2e6"/>'+
+   '<polygon points="40,44 690,44 690,322 40,322" fill="'+(landOk?'rgba(0,104,255,.07)':'none')+'" stroke="'+(landOk?'#0068ff':'#8a5a00')+'" stroke-width="2.5" stroke-dasharray="'+(landOk?'0':'9 7')+'"/>'+
+   '<rect x="250" y="120" width="300" height="84" rx="4" fill="#cfd6e0" stroke="#8d97a6" stroke-width="2"/>'+
+   '<text x="400" y="168" font-size="15" font-weight="700" text-anchor="middle" fill="#323232">буд. 12 · 9 пов.</text>'+
+   [0,1,2,3].map(function(i){return '<rect x="'+(278+i*72)+'" y="204" width="16" height="8" fill="#8d97a6"/>';}).join('')+
+   '<rect x="80" y="150" width="120" height="80" rx="10" fill="'+(design?'#ffe7b0':'#f3e3c3')+'" stroke="#c9a15a" stroke-width="1.5"/><text x="140" y="195" font-size="12" text-anchor="middle" fill="#6b4d12">'+(design?'Новий майданчик':'Майданчик')+'</text>'+
+   '<rect x="590" y="140" width="90" height="120" fill="#e0e3e8" stroke="#b5bcc6"/>'+[0,1,2,3,4].map(function(i){return '<line x1="590" y1="'+(160+i*20)+'" x2="680" y2="'+(160+i*20)+'" stroke="#fff" stroke-width="2"/>';}).join('')+
+   '<text x="635" y="276" font-size="12" text-anchor="middle" fill="#6e6e6e">Паркування</text>'+
+   '<rect x="300" y="262" width="70" height="36" fill="#d9dde3" stroke="#9aa4b2"/><text x="335" y="284" font-size="11" text-anchor="middle" fill="#555">ТПВ</text>'+
+   (design?'<rect x="420" y="262" width="96" height="30" rx="6" fill="#d8ecff" stroke="#0068ff"/><text x="468" y="281" font-size="11" text-anchor="middle" fill="#0052cc">Велопарковка</text>'+
+     '<circle cx="230" cy="280" r="10" fill="#6fbf73" stroke="#2e7d32" stroke-width="2"/><circle cx="258" cy="296" r="10" fill="#6fbf73" stroke="#2e7d32" stroke-width="2"/>':'')+
+   (S.planted?'<g class="tree"><circle cx="520" cy="300" r="11" fill="#9be07f" stroke="#2e7d32" stroke-width="2"/><text x="520" y="325" font-size="10" text-anchor="middle" fill="#2e7d32">нове</text></g>':'')+
+   TREES.map(function(t){var s=S.trees.filter(function(x){return x.id===t.id;})[0];if(s.st==='Видалено')return '<g><circle cx="'+t.x+'" cy="'+t.y+'" r="6" fill="#bbb"/></g>';
+     var c=s.cls==='bad'?'#e25b4b':s.cls==='warn'?'#e5a53b':'#4caf50';
+     return '<g class="tree" data-tree="'+t.id+'"><circle cx="'+t.x+'" cy="'+t.y+'" r="'+(S.treeSel===t.id&&mode==='green'?16:13)+'" fill="'+c+'" fill-opacity=".85" stroke="#fff" stroke-width="2"/><text x="'+t.x+'" y="'+(t.y+4)+'" font-size="11" font-weight="700" text-anchor="middle" fill="#fff">'+t.id+'</text></g>';}).join('')+
+   '</svg>';
+  return '<div class="mapbox">'+h+'</div><div class="maplg"><span><i style="border:2px '+(landOk?'solid #0068ff':'dashed #8a5a00')+'"></i>'+(landOk?'Межі ділянки (оформлено)':'Орієнтовні межі (не оформлено)')+'</span>'+
+    '<span><i style="background:#4caf50"></i>Дерево в доброму стані</span><span><i style="background:#e5a53b"></i>Потребує догляду</span><span><i style="background:#e25b4b"></i>Аварійне</span></div>';
+}
+
+/* ==================== ВІТРИНА ==================== */
+function renderVit(){
+  function c(t,d,go,nw){return '<div class="tile" '+(go?'data-go="'+go+'"':'')+'>'+'<h4 style="text-transform:none;letter-spacing:0;font-size:17px">'+t+(nw?'<span class="newb">нове</span>':'')+'</h4><p>'+d+'</p><span class="ct">'+(nw?'Пропозиція':'Онлайн · вже працює')+'</span></div>';}
+  $('s-vit').innerHTML='<div class="crumbs"><a href="#">Головна</a> / Категорії послуг / Житлові питання</div><h1 class="pt">Житлові питання та ОСББ</h1>'+
+   '<p class="lead">Усе про ваш будинок в одному місці: від першого звернення до створення ОСББ, оформлення землі й міських програм ремонту.</p>'+
+   '<div class="tiles" style="grid-template-columns:repeat(3,1fr)">'+
+   c('Цифровий будинок','Кабінет вашого будинку: паспорт, історія, звернення, комунальні послуги, територія й міські програми','home',1)+
+   c('Створити ОСББ','Від ініціативної групи до запису в ЄДР: без паперових реєстрів співвласників і черг','create',1)+
+   c('Оформити прибудинкову територію','Портал сам визначає доступний механізм і готує клопотання','terr',1)+
+   c('Замовити дизайн двору','Дизайн-проєкт прибудинкової території від визначеного містом виконавця','terr',1)+
+   c('Щомісячна допомога власникам зруйнованого війною житла','20 000 гривень на місяць для власників житла, пошкодженого внаслідок збройної агресії','',0)+
+   c('Квартирний облік','Постановка на квартирний облік і перевірка черги','',0)+'</div>'+
+   '<div class="note" style="margin-top:32px"><b>Головний принцип.</b> Об’єкт кабінету — будинок, а не ОСББ. Кабінет існує за будь-якої форми управління і не зникає при зміні голови чи управителя. Портал не дублює інші міські системи: голосування веде «Київ Цифровий», звернення — 1551 і 1557, рахунки — ЦКС.</div>';
+}
+
+/* ==================== ВХІДНІ ==================== */
+function renderInbox(){
+  var m=S.msgs[S.role]||[];
+  $('s-inbox').innerHTML='<h1 class="pt">Вхідні повідомлення</h1>'+
+   '<div class="ctrls"><button class="ctl w" data-refresh="1">↻ Оновити</button><div class="ctl">За статусом Усі ▾</div><div class="ctl w">За датою ▾</div><div class="srch">🔍 Пошук</div></div>'+
+   '<table class="t"><thead><tr><th>Повідомлення</th><th style="width:220px">Отримано</th></tr></thead><tbody>'+
+   (m.length?m.map(function(x){return '<tr'+(x.u?' class="unread"':'')+'><td style="padding-left:12px">'+x.t+'</td><td>'+x.time+'</td></tr>';}).join(''):'<tr><td colspan="2" class="muted" style="padding:26px 12px">Повідомлень немає.</td></tr>')+
+   '</tbody></table><div class="total">Всього записів: '+m.length+'</div>';
+}
+
+/* ==================== МІЙ БУДИНОК ==================== */
+function renderHome(){
+  var iss=S.issues.filter(function(i){return i.st!=='Виконано';}).length;
+  var progN=PROGS.filter(function(p){return !p.need||hasOsbb();}).length;
+  var h='<h1 class="pt">Мій будинок<span class="newb">нове</span></h1>'+
+   '<div class="ecard" style="margin-top:26px"><div class="hhead">'+HOUSE+'<div><div style="font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--grey)">МОЄ ЖИТЛО</div>'+
+   '<div style="font-size:22px;font-weight:600;margin-top:2px">'+B.addr+', кв. '+ME.flat+'</div>'+
+   '<div class="muted" style="font-size:15px;margin-top:2px">Багатоквартирний · '+B.district+' район · '+B.year+' рік · '+B.flats+' квартир</div></div>'+
+   '<div style="margin-left:auto;text-align:right"><div class="muted" style="font-size:14px">Управління</div><div style="font-weight:600">'+(hasOsbb()?osName():'Управитель')+'</div>'+
+   '<div class="muted" style="font-size:13.5px;max-width:300px">'+(hasOsbb()?'Голова правління: Тест М. П.':MGR)+'</div></div></div>'+
+   '<div class="kpis"><span class="kpi"><b>'+openApps()+'</b> активні заявки</span><span class="kpi"><b>'+iss+'</b> звернення в роботі</span><span class="kpi"><b>'+progN+'</b> міські програми</span>'+
+   '<span class="kpi warn"><b>1</b> аварійне питання: дерево №2</span><span class="kpi">Земельна ділянка: <b>'+(S.land.st==='done'?'оформлена':'потребує оформлення')+'</b></span></div>'+
+   '<div class="note" style="margin:18px 0 0">⚠️ <b>Планове відключення гарячої води</b> 30.09 з 09:00 до 17:00 · Київтеплоенерго. Відключення приходять за адресою будинку автоматично.</div></div>';
+  if(!hasOsbb()){
+    var inProg=S.os.stage>0;
+    h+='<div class="nooss"><div style="flex:1;min-width:280px"><h3 style="font-size:20px;font-weight:600">'+(inProg?'Ініціативна група створює ОСББ':'У вашому будинку не створено ОСББ')+'</h3>'+
+      '<div style="font-size:15px;color:var(--ink2);margin-top:6px">'+(inProg?'Етап '+Math.min(S.os.stage+1,6)+' з 6. Прогрес видно всім співвласникам.':'Будинком управляє управитель. ОСББ дає співвласникам право самим вирішувати, на що йдуть внески, й доступ до міських програм співфінансування.')+'</div></div>'+
+      '<div class="actions" style="margin:0">'+(inProg?'<button class="btn" data-go="create">Статус створення</button>':'<button class="btn grey" data-aboutos="1">Дізнатися про ОСББ</button><button class="btn" data-startos="1">Розпочати створення ОСББ</button>')+'</div></div>';
+  }else if(S.budgetPub){
+    h+='<div class="nooss"><div style="flex:1"><h3 style="font-size:20px;font-weight:600">Кошторис ОСББ на 2027 рік опубліковано</h3><div style="font-size:15px;margin-top:6px">'+money(BUDGET.reduce(function(a,b){return a+b[1];},0))+' на рік · внесок 11,62 ₴ за м². Ваш внесок: '+money(52.4*11.62)+' на місяць.</div></div><button class="btn" data-go="card" data-ctab="people">Переглянути</button></div>';
+  }
+  var T=[['БУДИНОК','Паспорт · історія · технічна документація','osbb','card','passport'],['ОСББ','Правління · документи · кошторис','owners',hasOsbb()?'card':'create',hasOsbb()?'people':''],
+    ['ЗБОРИ','Підготовка → проведення в «Київ Цифровий» → результати','meet',hasOsbb()?'card':'create','history'],['ТЕРИТОРІЯ','Земля · оформлення · дизайн · благоустрій','terr','card','terr'],
+    ['ЗЕЛЕНИЙ ДВІР','Дерева · обстеження · видалення · висадка','green','card','terr'],['ЗВЕРНЕННЯ','1551 · 1557 · інші міські системи','issues','issues',''],
+    ['КОМУНАЛЬНІ ПОСЛУГИ','ЦКС · платіжки · нарахування · оплати','bills','bills',''],['МОЖЛИВОСТІ ВІД МІСТА','Програми · ремонти · фінансування','progs','card','progs']];
+  h+='<div class="tiles">'+T.map(function(t){return '<div class="tile" data-go="'+t[3]+'"'+(t[4]?' data-ctab="'+t[4]+'"':'')+'><div class="ic">'+ICONS[t[2]]+'</div><h4>'+t[0]+'</h4><p>'+t[1]+'</p></div>';}).join('')+'</div>';
+  $('s-home').innerHTML=h;
+}
+
+/* ==================== КАРТКА БУДИНКУ ==================== */
+var CTABS=[['info','Загальна інформація'],['passport','Паспорт будинку'],['history','Історія будинку'],['issues','Проблеми будинку'],['terr','Територія'],['docs','Документи'],['people','Управління і співвласники'],['progs','Можливості від міста']];
+function renderCard(){
+  var t=S.cardTab, h='';
+  if(t==='info'){
+    h='<div class="stitle">Загальна інформація</div><div class="ecard"><div class="top">'+HOUSE+'</div><h3>Дані будинку</h3><div class="fg2">'+
+      fld('Адреса',B.addr)+fld('Район',B.district)+fld('Тип','Багатоквартирний житловий')+fld('Рік будівництва',B.year)+
+      fld('Поверховість',B.floors)+fld('Квартир / нежитлових',B.flats+' / '+B.nonres)+'</div>'+
+      fld('Управління',hasOsbb()?osName()+', ЄДРПОУ '+S.os.edr:'Управитель · '+MGR)+
+      fld('Земельна ділянка',S.land.st==='done'?'Оформлена · кадастровий номер 8000000000:91:123:0045':'Потребує оформлення')+
+      fld('Звідки дані','БТІ, Державний реєстр речових прав, ЄДР, земельний кадастр')+'</div>';
+  }else if(t==='passport'){
+    h='<div class="stitle">Паспорт будинку</div><div class="ecard"><h3>Будинок</h3><div class="fg2">'+fld('Загальна площа',B.area)+fld('Житлова площа',B.live)+fld('Під’їздів',B.entr)+fld('Ліфтів',B.lifts)+
+      fld('Конструкція',B.walls)+fld('Покрівля',B.roof)+fld('Опалення',B.heat)+fld('Водопостачання',B.water)+fld('Газопостачання',B.gas)+fld('Енергоклас',B.energy)+'</div>'+fld('Укриття',B.shelter)+'</div>'+
+      '<div class="ecard"><h3>Управління</h3>'+(hasOsbb()?'<div class="fg2">'+fld('Форма','ОСББ')+fld('ЄДРПОУ',S.os.edr)+fld('Голова правління','Тест Марина Петрівна')+fld('Дата створення',S.os.regAt)+'</div>'+fld('Статут','<a data-go="card" data-ctab="docs">Статут ОСББ «Салютна 12»</a>'):
+       fld('Форма','Управитель')+fld('Управитель',MGR)+fld('Договір','№ 12/Ш від 01.03.2021, діє до 28.02.2027'))+'</div>'+
+      '<div class="ecard"><h3>Земля</h3><div class="fg2">'+fld('Кадастровий номер',S.land.st==='done'?'8000000000:91:123:0045':'Не сформовано')+fld('Площа',B.land)+
+      fld('Правовий статус',S.land.st==='done'?'Постійне користування ОСББ':'Землі територіальної громади')+fld('Історія оформлення',S.land.st==='none'?'—':S.land.st==='done'?'Рішення КМР, право зареєстровано':'Клопотання на розгляді')+'</div></div>';
+  }else if(t==='history'){
+    var all=S.hist.concat(HIST0.slice().reverse());
+    h='<div class="stitle">Історія будинку</div><div class="ecard"><div class="tl">'+all.map(function(e){return '<div class="ev'+(e.n?' new':'')+'"><div class="yr">'+e.y+'</div><div class="tx">'+e.t+'</div><div class="src">Джерело: '+e.src+'</div></div>';}).join('')+'</div>'+
+      '<div class="muted" style="font-size:14px;margin-top:4px">Історія належить будинку. Вона не обнуляється при зміні голови ОСББ, управителя чи складу правління.</div></div>';
+  }else if(t==='issues'){
+    h='<div class="stitle">Проблеми будинку</div>'+S.issues.map(function(i,k){return acc('iss'+k,'<div class="date">'+i.d+'</div><div class="ttl">'+i.t+'</div><div class="sub2">Статус: <b>'+i.st+'</b></div>',
+      fld('Джерело',i.src==='1551'?'Контактний центр 1551':'Аварійна служба 1557')+fld('Номер звернення',i.id)+fld('Виконавець',i.src==='1557'?'Аварійна служба КП «Керуюча компанія»':'Шевченківська РДА'),false);}).join('')+
+      '<button class="btn" data-go="issues" data-newissue="1">Створити звернення щодо будинку</button>';
+  }else if(t==='terr'){
+    h='<div class="stitle">Територія мого будинку</div>'+mapSVG('card')+
+      '<div class="ecard" style="margin-top:22px">'+fld('Земельна ділянка',S.land.st==='done'?'Оформлена, постійне користування ОСББ':'<b>Потребує оформлення.</b> Оформлення ініціює ОСББ або управитель.')+
+      fld('Дизайн-проєкт двору',S.design.st==='ready'?'<a data-go="card" data-ctab="docs">Готовий дизайн-проєкт</a>':S.design.st==='none'?'Не замовлено':'У роботі')+
+      '<div class="actions" style="margin-top:6px"><button class="btn ghost" data-tree="2">Повідомити про аварійне дерево</button></div></div>';
+  }else if(t==='docs'){
+    var D=[['01.03.2021','Технічний паспорт будинку (БТІ)',['Техпаспорт_Салютна12.pdf']],['20.06.2025','Акт обстеження пошкоджень',['Акт_обстеження_14.06.2025.pdf','Фотофіксація.pdf']]];
+    if(!hasOsbb())D.push(['01.03.2021','Договір з управителем',['Договір_12-Ш.pdf']]);
+    if(S.os.stage>=4)D.unshift([S.os.meetAt||today(),'Протокол установчих зборів',['Протокол_установчих_зборів.pdf','Результати_голосування_КЦ.pdf']]);
+    if(hasOsbb())D.unshift([S.os.regAt,'Статут і виписка з ЄДР',['Статут_ОСББ_Салютна12.pdf','Виписка_ЄДР.pdf']]);
+    if(S.budgetPub)D.unshift([today(),'Кошторис ОСББ на 2027 рік',['Кошторис_2027.pdf']]);
+    if(S.design.st==='ready')D.unshift([today(),'Дизайн-проєкт прибудинкової території',['Дизайн-проєкт_двору.pdf','Візуалізація.pdf']]);
+    h='<div class="stitle">Документи</div>'+D.map(function(d,k){return acc('doc'+k,'<div class="date">'+d[0]+'</div><div class="ttl">'+d[1]+'</div>',files(d[2]),false);}).join('');
+  }else if(t==='people'){
+    h='<div class="stitle">Управління і співвласники</div>'+
+      (hasOsbb()?'<div class="ecard ln"><h4>Голова правління</h4><div class="fg2" style="margin-top:14px">'+fld('ПІБ','Тест Марина Петрівна')+fld('Квартира','72')+'</div></div>'+
+        '<div class="ecard ln"><h4>Члени правління</h4><div class="fg2" style="margin-top:14px">'+fld('ПІБ','Коваль Олег')+fld('Квартира','15')+fld('ПІБ','Савчук Ірина')+fld('Квартира','101')+'</div></div>'+
+        (S.budgetPub?'<div class="ecard"><h3>Кошторис на 2027 рік</h3>'+budgetTable(false)+'</div>':''):
+        '<div class="ecard ln"><h4>Управитель</h4><div class="fg2" style="margin-top:14px">'+fld('Назва',MGR)+fld('Договір','№ 12/Ш, до 28.02.2027')+'</div>'+fld('Тариф на утримання','8,94 ₴ за м² · затверджено розпорядженням РДА')+'</div>')+
+      '<div class="ecard ln"><h4>Співвласники</h4><div class="fg2" style="margin-top:14px">'+fld('Квартир',B.flats)+fld('Нежитлових приміщень',B.nonres)+fld('Право підтверджено з реєстру','131 квартира')+fld('Потребує підтвердження','9 квартир (власність до 2013 року)')+'</div>'+
+      '<div class="muted" style="font-size:14px">Персональні дані інших співвласників не показуються. Повний реєстр бачать лише ініціативна група і правління в межах закону.</div></div>';
+  }else if(t==='progs'){
+    h='<div class="stitle">Можливості від міста</div><div class="muted" style="margin:-10px 0 18px">Портал підбирає програми за паспортом будинку. Заявку подає ОСББ або управитель.</div>'+
+      PROGS.map(function(p,k){var s=S.progs[p.id];return acc('pr'+k,'<div class="ttl">'+p.t+'</div><div class="sub2">Чому ваш будинок: <b>'+p.why+'</b></div>',
+        fld('Що фінансується',p.what)+fld('Участь міста',p.share)+fld('Статус',s?st(s):(p.need&&!hasOsbb()?'Доступно після створення ОСББ':'Можна подати заявку')),false);}).join('');
+  }
+  $('s-card').innerHTML='<h1 class="pt">Картка будинку</h1><div class="who">'+B.addr+' · '+B.district+' район</div>'+
+   '<div class="ent" style="margin-top:4px"><div>'+h+'</div><nav class="anchors">'+CTABS.map(function(c){return '<a data-ctab="'+c[0]+'"'+(c[0]===t?' class="on"':'')+'>'+c[1]+'</a>';}).join('')+'</nav></div>';
+}
+
+/* ==================== ЗВЕРНЕННЯ ==================== */
+function renderIssues(){
+  var f=S.issueForm;
+  $('s-issues').innerHTML='<h1 class="pt">Проблеми мого будинку</h1><p class="lead">Не лише ваші звернення, а історія проблем будинку з 1551, 1557 та інших міських систем — у межах правил доступу.</p>'+
+   '<table class="t" style="margin-top:26px"><thead><tr><th style="width:130px;padding-left:12px">Дата</th><th>Проблема</th><th style="width:110px">Джерело</th><th style="width:210px">Статус</th></tr></thead><tbody>'+
+   S.issues.map(function(i){return '<tr'+(i.n?' class="unread"':'')+'><td style="padding-left:12px">'+i.d+'</td><td>'+i.t+'<div class="muted" style="font-size:13px">№ '+i.id+'</div></td><td>'+i.src+'</td><td>'+st(i.st)+'</td></tr>';}).join('')+'</tbody></table>'+
+   (f?'<div class="ecard" style="margin-top:30px;max-width:733px" id="issform"><h3>Звернення щодо будинку</h3>'+
+     '<div class="fg2">'+fld('Адреса',B.addr)+fld('Будинок','Багатоквартирний, '+B.floors+' поверхів')+'</div>'+
+     '<div class="muted" style="font-size:14px;margin:-4px 0 16px">Адресу й характеристики будинку підставлено автоматично.</div>'+
+     '<div class="field"><label>Під’їзд</label><select id="is-e"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>Прибудинкова територія</option></select></div>'+
+     '<div class="field"><label>Категорія</label><select id="is-c">'+['Ліфт','Під’їзд: освітлення','Покрівля','Опалення','Водопостачання','Прибудинкова територія'].map(function(o){return '<option'+(o===((S.issuePre&&S.issuePre.c)||'Під’їзд: освітлення')?' selected':'')+'>'+o+'</option>';}).join('')+'</select></div>'+
+     '<div class="field"><label>Опис</label><textarea id="is-d" rows="3">'+((S.issuePre&&S.issuePre.d)||'Не працює освітлення на 5–7 поверхах')+'</textarea></div>'+
+     '<div class="actions"><button class="btn" id="is-send">Надіслати в 1551</button><button class="btn grey" data-newissue="0">Скасувати</button></div></div>'
+   :'<div class="actions" style="margin-top:28px"><button class="btn" data-newissue="1">Створити звернення щодо будинку</button></div>');
+}
+
+/* ==================== КОМУНАЛЬНІ ==================== */
+var BILL=[['Утримання будинку та прибудинкової території',468.46],['Централізоване постачання гарячої води',412.30],['Холодна вода та водовідведення',318.90],['Вивезення побутових відходів',64.00],['Електроенергія місць загального користування',28.40],['Централізоване опалення','міжсезоння']];
+function renderBills(){
+  var total=BILL.reduce(function(a,b){return a+(typeof b[1]==='number'?b[1]:0);},0), b=S.bills;
+  $('s-bills').innerHTML='<h1 class="pt">Комунальні послуги</h1><div class="who">'+B.addr+', кв. '+ME.flat+' · особовий рахунок 1240072</div>'+
+   '<div class="ent" style="margin-top:24px"><div>'+
+   '<div class="ecard"><div class="top"><h3 style="margin:0">Вересень 2026</h3>'+(b.paid?st('Оплачено'):'<span class="st wait">До сплати</span>')+'</div>'+
+   BILL.map(function(l){return '<div class="row"><span>'+l[0]+'</span><b style="font-weight:600;white-space:nowrap">'+(typeof l[1]==='number'?uah(l[1]):l[1])+'</b></div>';}).join('')+
+   '<div class="row" style="font-size:18px"><b>Разом</b><b>'+uah(total)+'</b></div>'+
+   '<div class="actions">'+(b.paid?'<button class="btn grey">Квитанція</button>':'<button class="btn" id="bill-pay">Сплатити</button>')+'</div>'+
+   '<div class="muted" style="font-size:14px;margin-top:14px">Дані з ЦКС. Портал не рахує нарахування сам, лише показує їх і дає сплатити.</div></div>'+
+   '<div class="ecard"><h3>Показання лічильників</h3>'+(b.readSent?'<div class="fg2">'+fld('Холодна вода',b.cold+' м³ · передано '+today())+fld('Гаряча вода',b.hot+' м³ · передано '+today())+'</div>':
+     '<div class="fg2"><div class="field"><label>Холодна вода, м³ (попередні 312)</label><input id="m-c" value="318"></div><div class="field"><label>Гаряча вода, м³ (попередні 199)</label><input id="m-h" value="204"></div></div>'+
+     '<div class="err" id="m-err"></div><button class="btn ghost" id="m-send">Передати показання</button>')+'</div>'+
+   '</div><nav class="anchors"><a class="on">Поточні нарахування</a><a>Платіжки</a><a>Оплати</a><a>Історія</a><a>Заборгованість</a><a>Показання</a></nav></div>';
+}
+
+/* ==================== МОЇ ПОСЛУГИ / ВІДОМОСТІ ==================== */
+function renderOrders(){
+  var o=S.orders;
+  $('s-orders').innerHTML='<h1 class="pt">Замовлені послуги</h1>'+
+   '<table class="t" style="margin-top:30px"><thead><tr><th style="padding-left:12px">Послуга</th><th style="width:170px">Подано</th><th style="width:230px">Статус</th></tr></thead><tbody>'+
+   (o.length?o.map(function(x){return '<tr><td style="padding-left:12px">'+x.t+'</td><td>'+x.d+'</td><td>'+st(x.st)+'</td></tr>';}).join(''):'<tr><td colspan="3" class="muted" style="padding:26px 12px">Поки що немає замовлених послуг.</td></tr>')+
+   '</tbody></table><div class="total">Всього записів: '+o.length+'</div>';
+  $('s-drafts').innerHTML='<h1 class="pt">Чернетки</h1><p class="lead" style="margin-top:24px">Чернеток немає.</p>';
+}
+function renderMe(){
+  $('s-me').innerHTML='<h1 class="pt">Відомості про мене</h1><div class="ent" style="margin-top:26px"><div>'+
+   '<div class="ecard"><div class="top">'+BADGE+'<span class="pen">'+PEN+'</span></div><h3>Дані користувача</h3><div class="fg2">'+fld('Прізвище',ME.last)+fld('Ім’я',ME.first)+fld('По батькові',ME.mid)+fld('РНОКПП',ME.rnokpp)+'</div>'+
+   fld('Адреса місця проживання','м. Київ, '+B.addr+', кв. '+ME.flat)+fld('Телефон',ME.phone)+fld('Електронна пошта',ME.mail)+'</div>'+
+   '<div class="ecard"><div class="top">'+HOUSE+'</div><h3>Нерухомість</h3><div class="fg2">'+fld('Об’єкт','Квартира '+ME.flat+', '+B.addr)+fld('Площа',ME.share)+'</div>'+
+   fld('Підстава','Державний реєстр речових прав, запис від '+ME.since)+fld('Роль у будинку',hasOsbb()?'Співвласник · голова правління ОСББ':'Співвласник')+'</div>'+
+   '<div class="note"><b>Якщо права немає в електронному реєстрі.</b> Власність, оформлена до 2013 року, часто зберігається лише в паперовому архіві БТІ. Тоді Портал пропонує завантажити свідоцтво про право власності або замовити перенесення запису в реєстр через ЦНАП. До підтвердження співвласник бачить картку будинку, але не голосує.</div>'+
+   '</div><nav class="anchors"><a class="on">Загальна інформація</a><a>Нерухомість</a><a>Документи</a></nav></div>';
+}
+/* ==================== СТВОРЕННЯ ОСББ ==================== */
+var OSTEPS=['Ініціативна група','Співвласники','Підготовка зборів','Проведення зборів','Документи ОСББ','Державна реєстрація'];
+function stepsBar(){var s=S.os.stage;return '<div class="steps6">'+OSTEPS.map(function(t,i){var c=i<Math.min(s,6)?'done':(i===s?'on':'');if(s>=7)c='done';return '<div class="s '+c+'">'+(i+1)+'. '+t+'</div>';}).join('')+'</div>';}
+function renderCreate(){
+  var o=S.os, s=o.stage, h='<h1 class="pt">'+(s>=7?'ОСББ створено':'Створення ОСББ')+'<span class="newb">нове</span></h1><div class="who">'+B.addr+'</div>'+
+   '<div class="stitle">Статус створення ОСББ</div>'+stepsBar();
+  if(s===0){
+    h+='<div class="ecard" style="max-width:733px"><h3>Етап 1. Ініціативна група</h3>'+
+      '<p style="margin:0 0 16px;color:var(--ink2)">Ініціативну групу утворюють щонайменше троє співвласників. Портал уже визначив ваш будинок і підтвердив ваше право власності на кв. '+ME.flat+' за реєстром.</p>'+
+      (o.link?'<div class="fld"><div class="l">Посилання для сусідів</div><div class="v"><b class="mono">portal.kyiv.digital/join/SAL12-7KQ</b></div></div>'+
+        '<div class="muted" style="font-size:14px;margin-bottom:10px">Надішліть у чат будинку або роздрукуйте QR на дверях під’їзду. Приєднатися можна лише через КЕП або Дію, і лише власнику квартири в цьому будинку.</div>'+
+        '<div style="margin-top:10px">'+['<div class="pers"><span class="ava">ТМ</span><div style="flex:1"><b style="font-weight:600">Тест Марина</b><div class="muted" style="font-size:14px">кв. 72 · ініціатор</div></div>'+st('Підписано')+'</div>'].concat(INVITEES.map(function(p,i){var j=o.joined.indexOf(i)>=0;return '<div class="pers"><span class="ava">'+(j?p.n.split(' ').map(function(x){return x[0];}).join(''):'?')+'</span><div style="flex:1"><b style="font-weight:600">'+(j?p.n:'Запрошення надіслано')+'</b><div class="muted" style="font-size:14px">'+(j?'кв. '+p.f+' · КЕП':'очікуємо приєднання')+'</div></div>'+(j?st('Підписано'):'<span class="st wait">Очікує</span>')+'</div>';})).join('')+'</div>'+
+        '<div class="actions">'+(o.joined.length<2?'<button class="btn grey" id="os-sim-join">Сусіди приєдналися (демо)</button>':'')+'<button class="btn" id="os-group"'+(o.joined.length<2?' disabled':'')+'>Сформувати ініціативну групу</button></div>'
+      :'<div class="actions"><button class="btn" id="os-link">Запросити сусідів</button></div>')+'</div>';
+  }else if(s===1){
+    h+='<div class="ecard" style="max-width:733px"><h3>Етап 2. Інформація про співвласників</h3>'+
+      '<p style="margin:0 0 14px;color:var(--ink2)">Портал сформував перелік приміщень із Державного реєстру речових прав і даних БТІ. Вручну нічого збирати не треба.</p>'+
+      '<div class="grid g3" style="margin-bottom:16px">'+[['144','квартири'],['3','нежитлові приміщення'],['131','право підтверджено реєстром'],['9','власність до 2013 року'],['4','комунальні квартири (територіальна громада)'],['8 912 м²','загальна площа для підрахунку голосів']].map(function(x){return '<div class="kpi" style="padding:14px 16px"><b style="font-size:22px;display:block">'+x[0]+'</b>'+x[1]+'</div>';}).join('')+'</div>'+
+      '<button class="btn ghost sm" data-go="owners">Відкрити реєстр співвласників</button>'+
+      '<div class="actions"><button class="btn" id="os-owners">Перелік готовий, перейти до зборів</button></div></div>';
+  }else if(s===2){
+    h+='<div class="ecard" style="max-width:733px"><h3>Етап 3. Підготовка установчих зборів</h3>'+
+      '<div class="fg2"><div class="field"><label>Дата зборів</label><input id="mt-date" value="'+o.meetDate+'"></div><div class="field"><label>Формат</label><select id="mt-fmt"><option value="mixed">Змішаний: «Київ Цифровий» + паперові бюлетені</option><option value="kd">Лише «Київ Цифровий»</option></select></div></div>'+
+      '<div class="fld"><div class="l">Порядок денний</div></div>'+QUESTIONS.map(function(q,i){return '<label class="chk"><input type="checkbox" checked disabled> '+(i+1)+'. '+q+'</label>';}).join('')+
+      '<div class="field" style="margin-top:16px"><label>Статут</label><select id="mt-st"><option value="typical">Типовий статут ОСББ, заповнений даними будинку</option><option value="own">Власна редакція (завантажити)</option></select></div>'+
+      '<div class="fld"><div class="l">Кандидати до правління</div><div class="v">Тест М. П. (голова), Коваль О., Савчук І.</div></div>'+
+      '<div class="note" style="margin:10px 0 0">Портал контролює строки: повідомлення про збори має отримати кожен співвласник щонайменше за 14 днів. Надішлемо в «Київ Цифровий», на e-mail і паперовим листом тим, хто не користується застосунком.</div>'+
+      '<div class="actions"><button class="btn" id="os-prep">Затвердити і повідомити співвласників</button></div></div>';
+  }else if(s===3){
+    h+='<div class="ecard" style="max-width:733px"><h3>Етап 4. Проведення зборів</h3>'+
+      '<p style="margin:0 0 14px;color:var(--ink2)">Портал не має власного голосування. Матеріали, реєстр і порядок денний передаються в «Київ Цифровий», де механізм голосування ОСББ уже працює. Результати повернуться сюди автоматично.</p>'+
+      '<div class="fg2">'+fld('Дата',o.meetDate)+fld('Повідомлено','144 співвласники · '+today())+'</div>'+
+      '<div class="actions"><button class="btn" data-kd="found">Провести збори в «Київ Цифровий» ↗</button></div></div>';
+  }else if(s===4){
+    h+=resultCard()+'<div class="ecard" style="max-width:733px"><h3>Етап 5. Документи ОСББ</h3><p style="margin:0 0 10px;color:var(--ink2)">Портал сформував пакет за результатами зборів.</p>'+
+      files(['Протокол установчих зборів.pdf','Статут ОСББ «Салютна 12».pdf','Реєстр співвласників, що проголосували.pdf','Заява про державну реєстрацію юридичної особи.pdf'])+
+      '<div class="actions"><button class="btn" id="os-sign">Підписати КЕП голови і секретаря зборів</button></div></div>';
+  }else if(s===5){
+    h+='<div class="ecard" style="max-width:733px"><h3>Етап 6. Державна реєстрація</h3>'+
+      '<div class="field"><label>Державний реєстратор</label><select id="os-reg"><option>ЦНАП Шевченківського району, державний реєстратор юридичних осіб</option><option>ЦНАП у м. Києві (центральний)</option></select></div>'+
+      files(['Протокол установчих зборів.pdf · підписано КЕП','Статут ОСББ «Салютна 12».pdf · підписано КЕП','Заява про державну реєстрацію.pdf · підписано КЕП'])+
+      '<div class="actions"><button class="btn" id="os-submit">Подати на державну реєстрацію</button></div></div>';
+  }else if(s===6){
+    h+='<div class="ecard" style="max-width:733px"><h3>Етап 6. Державна реєстрація</h3><p style="margin:0;color:var(--ink2)">Документи в державного реєстратора. Портал чекає на запис в ЄДР і сам переведе кабінет у режим ОСББ.</p><div class="note" style="margin-bottom:0">⏳ Реєстрація триває…</div></div>';
+  }else{
+    h+='<div class="ecard" style="max-width:733px;box-shadow:0 0 0 2px #35ac46"><div class="top">'+HOUSE+st('Зареєстровано')+'</div><h3>ОСББ «Салютна 12» успішно зареєстровано</h3><div class="fg2">'+
+      fld('Код ЄДРПОУ',S.os.edr)+fld('Дата реєстрації',S.os.regAt)+fld('Голова правління','Тест Марина Петрівна')+fld('Реєстратор','ЦНАП Шевченківського району')+'</div>'+
+      '<p style="margin:6px 0 0;color:var(--ink2)">Кабінет ініціативної групи перейшов у режим «Кабінет ОСББ». Уся історія, документи й реєстр збережені.</p>'+
+      '<div class="actions"><button class="btn" data-gotab="head">Відкрити кабінет ОСББ</button></div></div>';
+  }
+  $('s-create').innerHTML=h;
+}
+function resultCard(){var r=S.os.result;if(!r)return '';
+  return '<div class="ecard" style="max-width:733px"><div class="top"><h3 style="margin:0">Результати установчих зборів</h3>'+st('Схвалено')+'</div><div class="fg2">'+
+    fld('Проголосували',r.n+' з 144 співвласників')+fld('Частка площі',r.area+'%')+'</div>'+
+    QUESTIONS.map(function(q,i){return '<div class="row"><span>'+(i+1)+'. '+q+'</span><span style="white-space:nowrap">'+r.yes[i]+'% «за»</span></div>';}).join('')+
+    '<div class="muted" style="font-size:14px;margin-top:10px">Джерело: «Київ Цифровий» · проведено '+S.os.meetAt+'</div></div>';}
+function renderOwners(){
+  var rows=[[1,'К*** О. В.','ДРРП','52,1'],[2,'С*** Л. М.','ДРРП','38,4'],[3,'Територіальна громада','Комунальна','38,4'],[4,'Б*** А. І.','Архів БТІ, до 2013','52,1'],[5,'Д*** Н. П.','ДРРП','64,0'],[15,'Коваль О.','ДРРП','52,1'],[72,'Тест М. П.','ДРРП','52,4'],[101,'Савчук І.','ДРРП','38,4']];
+  $('s-owners').innerHTML='<h1 class="pt">Співвласники</h1><div class="who">'+B.addr+' · 144 квартири, 3 нежитлові приміщення</div>'+
+   '<div class="note">Реєстр сформовано з Державного реєстру речових прав і даних БТІ. Персональні дані замасковані: повністю їх бачать лише члени ініціативної групи під час підготовки зборів, кожен перегляд логується.</div>'+
+   '<table class="t"><thead><tr><th style="padding-left:12px;width:120px">Приміщення</th><th>Власник</th><th style="width:220px">Джерело</th><th style="width:120px">Площа, м²</th></tr></thead><tbody>'+
+   rows.map(function(r){var fix=r[2].indexOf('БТІ')>=0;return '<tr'+(fix?' class="unread"':'')+'><td style="padding-left:12px">кв. '+r[0]+'</td><td>'+r[1]+'</td><td>'+(fix?'<span class="st wait">'+r[2]+'</span>':r[2])+'</td><td>'+r[3]+'</td></tr>';}).join('')+
+   '</tbody></table><div class="total">Показано 8 з 147</div>'+
+   '<div class="ecard" style="margin-top:28px;max-width:733px"><h3>9 квартир потребують підтвердження права</h3><p style="margin:0;color:var(--ink2)">Власність оформлена до 2013 року і є лише в паперовому архіві БТІ. Такі співвласники можуть голосувати паперовим бюлетенем, а Портал запропонує їм перенести запис у реєстр.</p>'+
+   '<div class="actions">'+(S.ownerFix.sent?st('Прийнято')+'<span class="muted" style="align-self:center">Листи й повідомлення надіслано 9 співвласникам</span>':'<button class="btn ghost" id="own-fix">Надіслати запрошення підтвердити право</button>')+'</div></div>';
+}
+function renderMeet(){
+  var o=S.os;
+  $('s-meet').innerHTML='<h1 class="pt">Установчі збори</h1><div class="who">'+B.addr+'</div>'+
+   (o.stage<2?'<div class="ecard" style="margin-top:26px;max-width:733px"><p style="margin:0">Підготовка зборів відкриється після формування ініціативної групи й переліку співвласників.</p><div class="actions"><button class="btn" data-go="create">До статусу створення</button></div></div>':
+    o.stage<4?'<div class="ecard" style="margin-top:26px;max-width:733px">'+fld('Дата',o.meetDate)+fld('Порядок денний',QUESTIONS.join('; '))+fld('Статус',o.stage===2?'Готується':'Повідомлення надіслано, голосування в «Київ Цифровий»')+'<div class="actions"><button class="btn" data-go="create">До статусу створення</button></div></div>':
+    '<div style="margin-top:26px">'+resultCard()+'</div>');
+  $('s-osdocs').innerHTML='<h1 class="pt">Документи ОСББ</h1><div class="stitle">Робочий простір ініціативної групи</div>'+
+   acc('od1','<div class="date">'+today()+'</div><div class="ttl">Проєкт статуту</div>',files(['Типовий статут ОСББ — Салютна 12.docx']),false)+
+   (o.stage>=4?acc('od2','<div class="date">'+o.meetAt+'</div><div class="ttl">Протокол і результати зборів</div>',files(['Протокол установчих зборів.pdf','Результати голосування КЦ.pdf']),false):'')+
+   (o.stage>=7?acc('od3','<div class="date">'+o.regAt+'</div><div class="ttl">Виписка з ЄДР</div>',files(['Виписка_ЄДР_'+o.edr+'.pdf']),false):'');
+}
+
+/* ==================== «КИЇВ ЦИФРОВИЙ» ==================== */
+function openKD(kind){S.kdCtx={kind:kind,step:'vote',vote:{}};renderKD();}
+function renderKD(){
+  var k=S.kdCtx, box=$('kd');
+  if(!k){box.hidden=true;box.innerHTML='';return;}
+  box.hidden=false;
+  var Q=k.kind==='found'?QUESTIONS:['Затвердити кошторис на 2027 рік (внесок 11,62 ₴/м²)','Обрати банк для рахунку ОСББ'];
+  var title=k.kind==='found'?'Установчі збори ОСББ':'Загальні збори ОСББ «Салютна 12»';
+  var body;
+  if(k.step==='vote'){
+    body='<div class="kd-c"><div style="font-size:12px;color:#888">ОСББ · '+B.addr+'</div><h5>'+title+'</h5><div style="font-size:13px;color:#555">Ваш голос: кв. '+ME.flat+' · 52,4 м² · особу підтверджено через Дію</div></div>'+
+      '<div class="kd-c">'+Q.map(function(q,i){var v=k.vote[i];return '<div class="kd-q"><b>'+(i+1)+'.</b> '+q+'<div class="kd-v">'+['За','Проти','Утримуюсь'].map(function(o){return '<button data-kdv="'+i+':'+o+'"'+(v===o?' class="on"':'')+'>'+o+'</button>';}).join('')+'</div></div>';}).join('')+'</div>'+
+      '<button class="kd-btn" id="kd-cast"'+(Object.keys(k.vote).length<Q.length?' style="opacity:.4"':'')+'>Проголосувати</button>'+
+      '<div style="font-size:11.5px;color:#888;text-align:center;padding:0 20px 12px">Голос підписується Дія.Підписом і фіксується в протоколі</div>';
+  }else if(k.step==='wait'){
+    body='<div class="kd-c"><h5>Ваш голос враховано ✓</h5><div style="font-size:13px;color:#555;margin-top:6px">Голосування триває до кінця дня зборів</div>'+
+      '<div style="margin-top:14px;font-size:13px">Проголосували 71 з 144 · 49% площі</div><div class="meter" style="margin-top:6px"><i style="width:49%;background:#000"></i></div></div>'+
+      '<button class="kd-btn" id="kd-finish">Завершити голосування (демо)</button>';
+  }else{
+    var r=k.kind==='found'?S.os.result:S.hmeet.result;
+    body='<div class="kd-c"><h5>Рішення прийнято</h5><div style="font-size:13px;color:#555;margin-top:6px">Проголосували '+r.n+' з 144 · '+r.area+'% площі</div>'+
+      Q.map(function(q,i){return '<div class="kd-q" style="font-size:13px">'+(i+1)+'. '+q+'<div style="margin-top:4px"><div class="meter g"><i style="width:'+r.yes[i]+'%"></i></div><div style="font-size:12px;color:#555;margin-top:3px">'+r.yes[i]+'% «за»</div></div></div>';}).join('')+'</div>'+
+      '<button class="kd-btn" id="kd-back">Повернутися на Портал послуг</button>';
+  }
+  box.innerHTML='<div class="phone"><div class="scrn"><div class="bar"><span>9:41</span><span>●●● 5G</span></div>'+
+    '<div class="kd-h"><div class="lg">К</div><div><b>Київ Цифровий</b><div style="font-size:12px;color:#888">Голосування ОСББ</div></div><button id="kd-x" style="margin-left:auto;background:none;border:0;font-size:22px;color:#888">×</button></div>'+body+'</div></div>';
+}
+
+/* ==================== КАБІНЕТ ГОЛОВИ ОСББ ==================== */
+function noOsbb(id){ $(id).innerHTML='<h1 class="pt">Кабінет ОСББ</h1><div class="ecard" style="margin-top:26px;max-width:733px"><h3>ОСББ у будинку ще не створено</h3><p style="margin:0;color:var(--ink2)">Кабінет голови з’явиться автоматично після запису ОСББ в ЄДР. Щоб подивитися його одразу, оберіть сценарій «ОСББ уже створено» на панелі макета.</p>'+
+  '<div class="actions"><button class="btn" data-setscn="osbb">Перемкнути сценарій</button><button class="btn grey" data-gotab="ig">Кабінет ініціативної групи</button></div></div>';}
+function budgetTable(){var tot=BUDGET.reduce(function(a,b){return a+b[1];},0);
+  return BUDGET.map(function(b){return '<div class="bars"><div class="b"><span>'+b[0]+'</span><div class="meter"><i style="width:'+Math.round(b[1]/tot*100*2.2)+'%"></i></div><b style="text-align:right;font-weight:600">'+money(b[1])+'</b></div></div>';}).join('')+
+   '<div class="row" style="font-size:17px"><b>Разом на рік</b><b>'+money(tot)+'</b></div><div class="row"><span>Внесок на 1 м² житлової площі на місяць</span><b>11,62 ₴</b></div>';}
+function renderHead(){
+  if(!hasOsbb()){['s-osbb','s-board','s-fin','s-hmeet','s-apps','s-terr','s-green','s-progs'].forEach(noOsbb);return;}
+  var iss=S.issues.filter(function(i){return i.st!=='Виконано';}).length, prg=Object.keys(S.progs).length;
+  var T=[['БУДИНОК','Паспорт · історія · технічна документація','osbb','card','passport'],['ОСББ','Правління · документи · кошторис','owners','board',''],['ЗБОРИ','Підготовка → «Київ Цифровий» → результати','meet','hmeet',''],
+    ['ТЕРИТОРІЯ','Земля · оформлення · дизайн-проєкт','terr','terr',''],['ЗЕЛЕНИЙ ДВІР','Дерева · обстеження · видалення · висадка','green','green',''],['ЗВЕРНЕННЯ','1551 · 1557 · інші міські системи','issues','issues',''],
+    ['КОМУНАЛЬНІ ПОСЛУГИ','ЦКС · агреговано по будинку','bills','fin',''],['МОЖЛИВОСТІ ВІД МІСТА','Програми · ремонти · фінансування','progs','progs','']];
+  $('s-osbb').innerHTML='<h1 class="pt">Цифровий будинок<span class="newb">нове</span></h1><div class="who">'+B.addr+' · '+osName()+' · ЄДРПОУ '+S.os.edr+'</div>'+
+   '<div class="kpis" style="margin-top:18px"><span class="kpi"><b>'+openApps()+'</b> активні заявки</span><span class="kpi"><b>'+iss+'</b> звернення</span><span class="kpi"><b>'+(PROGS.length-prg)+'</b> міські програми доступні</span><span class="kpi warn"><b>1</b> проблема потребує уваги: аварійне дерево</span></div>'+
+   '<div class="tiles">'+T.map(function(t){return '<div class="tile" data-go="'+t[3]+'"'+(t[4]?' data-ctab="'+t[4]+'"':'')+'><div class="ic">'+ICONS[t[2]]+'</div><h4>'+t[0]+'</h4><p>'+t[1]+'</p></div>';}).join('')+'</div>';
+  $('s-board').innerHTML='<h1 class="pt">Правління і документи</h1><div class="who">'+osName()+'</div><div class="ent" style="margin-top:4px"><div><div class="stitle">Органи управління</div>'+
+   '<div class="ecard ln"><h4>Голова правління</h4><div class="fg2" style="margin-top:14px">'+fld('ПІБ','Тест Марина Петрівна')+fld('Обрано',S.os.meetAt)+'</div></div>'+
+   '<div class="ecard ln"><h4>Правління</h4><div class="fg2" style="margin-top:14px">'+fld('ПІБ','Коваль Олег')+fld('Квартира','15')+fld('ПІБ','Савчук Ірина')+fld('Квартира','101')+'</div></div>'+
+   '<div class="ecard ln"><h4>Ревізійна комісія</h4><div class="fg2" style="margin-top:14px">'+fld('ПІБ','Бондар Андрій')+fld('Квартира','44')+'</div></div>'+
+   '<div class="stitle">Документи</div>'+acc('bd1','<div class="date">'+S.os.regAt+'</div><div class="ttl">Статут і виписка з ЄДР</div>',files(['Статут_ОСББ_Салютна12.pdf','Виписка_ЄДР.pdf']),false)+
+   acc('bd2','<div class="date">'+S.os.regAt+'</div><div class="ttl">Договори з підрядниками</div>',files(['Договір_ліфти_ТОВ_Ліфтсервіс.pdf','Договір_прибирання.pdf'])+'<div class="muted" style="font-size:14px;margin-top:8px">Договори перейшли від управителя за актом приймання-передачі.</div>',false)+
+   acc('bd3','<div class="date">01.03.2021</div><div class="ttl">Технічна документація</div>',files(['Техпаспорт_БТІ.pdf','Акт_обстеження_14.06.2025.pdf']),false)+
+   '</div><nav class="anchors"><a class="on">Органи управління</a><a>Документи</a><a data-go="fin">Кошторис</a><a data-go="apps">Заявки</a></nav></div>';
+  $('s-fin').innerHTML='<h1 class="pt">Кошторис і внески</h1><div class="who">'+osName()+' · 2027 рік</div>'+
+   '<div class="ent" style="margin-top:4px"><div><div class="stitle">Проєкт кошторису</div><div class="ecard">'+budgetTable()+
+   '<div class="actions">'+(S.budgetPub?st('Оприлюднено')+'<span class="muted" style="align-self:center">Співвласники бачать кошторис у своїй картці будинку</span>':'<button class="btn" id="fin-pub">Оприлюднити для співвласників</button><button class="btn ghost" data-go="hmeet">Винести на загальні збори</button>')+'</div></div>'+
+   '<div class="stitle">Надходження і витрати · жовтень 2026</div><div class="ecard"><div class="fg2">'+fld('Нараховано внесків',money(103560))+fld('Сплачено',money(91240)+' · 88%')+fld('Витрачено',money(84900))+fld('Залишок на рахунку',money(6340))+'</div>'+
+   '<div class="muted" style="font-size:14px">Кожен співвласник бачить ці суми у своєму кабінеті. Прозорість грошей — головний запобіжник конфліктів в ОСББ.</div></div>'+
+   '<div class="stitle">Комунальні послуги по будинку</div><div class="ecard">'+fld('Заборгованість співвласників перед постачальниками','3,8% · агреговано, без персональних даних')+fld('Джерело','ЦКС, у межах правового режиму доступу')+'</div>'+
+   '</div><nav class="anchors"><a class="on">Кошторис</a><a>Надходження і витрати</a><a>Комунальні послуги</a></nav></div>';
+  var hm=S.hmeet;
+  $('s-hmeet').innerHTML='<h1 class="pt">Загальні збори</h1><div class="who">'+osName()+'</div>'+
+   '<div class="ecard" style="margin-top:26px;max-width:733px">'+(hm.stage===0?'<h3>Ініціювати збори</h3><div class="field"><label>Питання</label><input value="Затвердити кошторис на 2027 рік; обрати банк для рахунку ОСББ" readonly></div>'+
+     '<div class="field"><label>Дата</label><input value="15.11.2026" readonly></div><div class="actions"><button class="btn" id="hm-start">Створити збори</button></div>':
+     hm.stage===1?'<h3>Збори 15.11.2026</h3>'+fld('Статус','Повідомлення надіслано 144 співвласникам')+'<div class="actions"><button class="btn" data-kd="budget">Перейти до проведення в «Київ Цифровий» ↗</button></div>':
+     '<div class="top"><h3 style="margin:0">Збори 15.11.2026</h3>'+st('Схвалено')+'</div>'+fld('Проголосували',hm.result.n+' з 144 · '+hm.result.area+'% площі')+fld('Рішення','Кошторис на 2027 рік затверджено; банк обрано')+fld('Протокол','<a data-go="card" data-ctab="history">Додано в історію будинку</a>'))+'</div>'+
+   '<div class="note" style="max-width:733px"><b>Жодного другого модуля голосування.</b> Портал готує збори і отримує результат, а саме голосування проходить у «Київ Цифровий».</div>';
+  $('s-apps').innerHTML='<h1 class="pt">Заявки ОСББ</h1><table class="t" style="margin-top:30px"><thead><tr><th style="padding-left:12px">Заявка</th><th style="width:170px">Подано</th><th style="width:240px">Статус</th></tr></thead><tbody>'+
+   (S.apps.length?S.apps.map(function(a){return '<tr><td style="padding-left:12px">'+a.t+'</td><td>'+a.d+'</td><td>'+st(a.st)+'</td></tr>';}).join(''):'<tr><td colspan="3" class="muted" style="padding:26px 12px">Заявок поки немає. Їх можна подати з розділів «Територія», «Зелений двір» і «Можливості від міста».</td></tr>')+'</tbody></table>';
+  renderTerr();renderGreen();renderProgs();
+}
+function renderTerr(){
+  var L=S.land, D=S.design, lh, dh;
+  if(L.st==='none')lh='<p style="margin:0 0 12px;color:var(--ink2)">Земельна ділянка під будинком не сформована. Портал проаналізував статус і визначив доступний механізм:</p>'+
+    '<div class="note" style="margin:0 0 14px">Безоплатна передача прибудинкової території у постійне користування або власність ОСББ за рішенням Київської міської ради (ст. 42 Земельного кодексу). Оренда не потрібна.</div>'+
+    files(['Рішення загальних зборів про оформлення землі.pdf','Технічна документація із землеустрою (замовлення в КП).pdf'])+'<div class="actions"><button class="btn" id="land-go">Оформити прибудинкову територію</button></div>';
+  else if(L.st==='done')lh='<div class="fg2">'+fld('Кадастровий номер','8000000000:91:123:0045')+fld('Площа','0,6184 га')+fld('Право','Постійне користування ОСББ')+fld('Зареєстровано',L.at)+'</div>';
+  else lh=fld('Статус',st('На розгляді'))+'<div class="muted" style="font-size:14px">Клопотання в РДА: погодження → рішення КМР → реєстрація права → відображення в кабінеті.</div>';
+  if(D.st==='none')dh='<div class="fld"><div class="l">Побажання</div></div><div class="grid g2" style="gap:8px">'+DESIGNW.map(function(w){return '<div class="opt'+(D.w.indexOf(w)>=0?' on':'')+'" data-dw="'+w+'">'+(D.w.indexOf(w)>=0?'☑':'☐')+' '+w+'</div>';}).join('')+'</div>'+
+    '<div class="actions"><button class="btn" id="des-go"'+(D.w.length?'':' disabled')+'>Замовити дизайн-проєкт</button></div>';
+  else if(D.st==='wait')dh=fld('Статус',st('На розгляді'))+fld('Далі','обстеження → вартість → оплата → розроблення');
+  else if(D.st==='pay')dh=fld('Обстеження','Проведено 10.10.2026')+fld('Вартість розроблення',money(D.cost)+' · визначений містом виконавець КП «Київблагоустрій»')+'<div class="actions"><button class="btn" id="des-pay">Оплатити з рахунку ОСББ</button></div>';
+  else if(D.st==='dev')dh=fld('Статус',st('У роботі'))+'<div class="muted" style="font-size:14px">Виконавець розробляє проєкт.</div>';
+  else dh='<div class="top"><b style="font-weight:600">Дизайн-проєкт готовий</b>'+st('Готово')+'</div>'+files(['Дизайн-проєкт_двору.pdf','Візуалізація.pdf'])+'<div class="muted" style="font-size:14px;margin-top:8px">Нові елементи вже на схемі. Проєкт збережено в історії будинку, до нього можна прив’язати дозволи й роботи.</div>';
+  $('s-terr').innerHTML='<h1 class="pt">Територія мого будинку<span class="newb">нове</span></h1><div class="who">'+B.addr+'</div><div style="margin-top:24px;max-width:1000px">'+mapSVG('terr')+'</div>'+
+   '<div class="grid g2" style="margin-top:24px;max-width:1000px;align-items:start"><div class="ecard" style="margin:0"><h3>Земельна ділянка</h3>'+lh+'</div><div class="ecard" style="margin:0"><h3>Дизайн мого двору</h3>'+dh+'</div></div>';
+}
+function renderGreen(){
+  var id=S.treeSel, t=TREES.filter(function(x){return x.id===id;})[0], s=S.trees.filter(function(x){return x.id===id;})[0];
+  var acts=s.st==='Видалено'?'<span class="muted">Дерево видалено, пень прибрано.</span>':s.task?fld('Заявка',st(s.task.st)+' · '+s.task.t):
+    '<div class="actions" style="margin-top:6px">'+(s.cls==='bad'?'<div class="note" style="margin:0 0 6px;width:100%">Звернення 1551 про це дерево вже є. Далі — заявка на роботи.</div>':'')+'<button class="btn ghost sm" data-treeact="inspect">Замовити обстеження</button>'+
+    (s.cls==='bad'?'<button class="btn ghost sm" data-treeact="remove">Заявка на видалення</button>':'')+(s.cls==='warn'?'<button class="btn ghost sm" data-treeact="prune">Обрізка і догляд</button>':'')+'</div>';
+  $('s-green').innerHTML='<h1 class="pt">Зелений двір<span class="newb">нове</span></h1><div class="who">'+B.addr+' · дані з міського реєстру зелених насаджень</div>'+
+   '<div class="grid" style="grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);margin-top:24px;max-width:1100px;align-items:start"><div>'+mapSVG('green')+'<div class="muted" style="font-size:14px;margin-top:6px">Натисніть на дерево на схемі.</div></div>'+
+   '<div><div class="ecard" style="margin:0 0 20px"><div class="top"><h3 style="margin:0">Дерево №'+id+'</h3>'+'<span class="st '+(s.cls==='bad'?'bad':s.cls==='warn'?'wait':'ok')+'">'+s.st+'</span>'+'</div>'+
+   fld('Вид',t.sp)+fld('Вік',t.age)+fld('Дата обстеження',s.chk)+fld('Попередні роботи',id===4?'Санітарна обрізка 2021':'—')+fld('Звернення',id===2?'№1551-2209-114 «Аварійне дерево»':'—')+acts+'</div>'+
+   '<div class="ecard" style="margin:0"><h3>Висадити дерево</h3>'+(S.planted?'<p style="margin:0">'+st('Схвалено')+' Липа дрібнолиста біля сміттєвого майданчика · висадка в листопаді за програмою «Зелений Київ».</p>':
+     '<p style="margin:0 0 12px;color:var(--ink2)">Місце поруч із контейнерним майданчиком підходить за мережами й відстанями.</p><button class="btn ghost" data-treeact="plant">Подати заявку на висадку</button>')+'</div></div></div>';
+}
+function renderProgs(){
+  $('s-progs').innerHTML='<h1 class="pt">Можливості від міста<span class="newb">нове</span></h1><div class="who">Для вашого будинку доступні програми</div>'+
+   '<div class="muted" style="margin:10px 0 24px;max-width:760px">Портал аналізує паспорт будинку і сам пропонує програми. Голова ОСББ не шукає їх на сайтах різних департаментів.</div><div style="max-width:733px">'+
+   PROGS.map(function(p,k){var s=S.progs[p.id];return acc('hp'+k,'<div class="ttl">'+p.t+'</div><div class="sub2">Статус: <b>'+(s||'Можна подати заявку')+'</b></div>',
+     fld('Чому ваш будинок',p.why)+fld('Що фінансується',p.what)+fld('Участь міста',p.share)+(s?'':'<div class="actions" style="margin-top:4px"><button class="btn" data-prog="'+p.id+'">Подати заявку</button></div>'),k===0);}).join('')+'</div>';
+}
+
+/* ==================== КАБІНЕТ РДА ==================== */
+function renderRda(){
+  var open=S.apps.filter(function(a){return a.rda&&!a.done;}), done=S.apps.filter(function(a){return a.rda&&a.done;});
+  function tbl(list,empty){return '<table class="t" style="margin-top:30px"><thead><tr><th style="padding-left:12px">Задача</th><th style="width:230px">Об’єкт</th><th style="width:170px">Надійшло</th><th style="width:200px">Статус</th></tr></thead><tbody>'+
+    (list.length?list.map(function(a){return '<tr class="cl'+(a.done?'':' unread')+'" data-rtask="'+a.id+'"><td style="padding-left:12px">'+a.rt+'</td><td>'+B.addr+'</td><td>'+a.d+'</td><td>'+st(a.st)+'</td></tr>';}).join(''):'<tr><td colspan="4" class="muted" style="padding:26px 12px">'+empty+'</td></tr>')+'</tbody></table>';}
+  $('s-rtasks').innerHTML='<h1 class="pt">Задачі відділу</h1><div class="who">Шевченківська РДА · управління житлово-комунального господарства</div>'+tbl(open,'Нових задач немає. Вони з’являються, коли ОСББ подає заявку в кабінеті будинку.');
+  $('s-tasks').innerHTML=$('s-rtasks').innerHTML;
+  $('s-rarch').innerHTML='<h1 class="pt">Архів задач відділу</h1>'+tbl(done,'Архів порожній.');
+  $('s-rreg').innerHTML='<h1 class="pt">Реєстр будинків</h1><div class="who">Шевченківський район · 1 128 багатоквартирних будинків</div>'+
+   '<table class="t" style="margin-top:30px"><thead><tr><th style="padding-left:12px">Адреса</th><th>Управління</th><th style="width:160px">Земля</th><th style="width:140px">Звернень</th></tr></thead><tbody>'+
+   [[B.addr,hasOsbb()?osName():'Управитель',S.land.st==='done'?'Оформлена':'Не оформлена',S.issues.length],['вул. Салютна, 14','ОСББ «Сирець-14»','Оформлена',2],['вул. Щусєва, 5','Управитель','Не оформлена',6],['вул. Щусєва, 7','ОСББ «Щусєва 7»','Не оформлена',1]].map(function(r,i){return '<tr'+(i===0?' style="font-weight:600"':'')+'><td style="padding-left:12px">'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td></tr>';}).join('')+'</tbody></table>';
+  var a=S.apps.filter(function(x){return x.id===S.rtask;})[0];
+  if(!a){$('s-rtask').innerHTML='';return;}
+  var actions;
+  if(a.done)actions=fld('Рішення',st(a.st));
+  else if(a.kind==='design')actions='<div class="actions"><button class="btn" data-rdo="design-cost">Провести обстеження і визначити вартість</button><button class="btn grey" data-rdo="reject">Відмовити</button></div>';
+  else actions='<div class="actions"><button class="btn" data-rdo="approve">'+({land:'Погодити і внести на КМР',tree:'Призначити роботи виконавцю',prog:'Включити до програми',plant:'Погодити висадку'}[a.kind]||'Погодити')+'</button><button class="btn grey" data-rdo="reject">Відмовити</button></div>';
+  $('s-rtask').innerHTML='<div class="crumbs"><a data-go="rtasks">Задачі відділу</a> / '+a.rt+'</div><h1 class="pt">'+a.rt+'</h1><div class="who">'+B.addr+' · '+osName()+'</div>'+
+   '<div class="ent" style="margin-top:4px"><div><div class="stitle">Загальна інформація</div><div class="ecard"><div class="top">'+HOUSE+st(a.st)+'</div><div class="fg2">'+fld('Заявник',osName()+', голова Тест М. П.')+fld('Надійшло',a.d)+'</div>'+
+   fld('Зміст',a.body)+fld('Дані будинку','Паспорт, історія й документи підтягнуто з картки будинку. Запитувати в ОСББ нічого не треба.')+actions+'</div></div>'+
+   '<nav class="anchors"><a class="on">Загальна інформація</a><a data-go="card" data-ctab="history">Історія будинку</a><a data-go="card" data-ctab="docs">Документи</a></nav></div>';
+}
+/* ==================== НАВІГАЦІЯ ==================== */
+var TABS={pub:{side:null,user:'Тест М.П'},own:{side:'side-own',user:'Тест М.П'},ig:{side:'side-ig',user:'Тест М.П'},head:{side:'side-head',user:'Тест М.П'},rda:{side:'side-rda',user:'Шевченківська РДА'}};
+var HOMEOF={pub:'vit',own:'home',ig:'create',head:'osbb',rda:'rtasks'};
+var ALLOW={vit:['pub'],inbox:['own','ig','head','rda'],home:['own','ig'],card:['own','ig','head','rda'],issues:['own','head'],bills:['own'],orders:['own'],drafts:['own'],me:['own'],
+  create:['ig'],owners:['ig'],meet:['ig'],osdocs:['ig'],osbb:['head'],board:['head'],fin:['head'],hmeet:['head'],apps:['head'],terr:['head'],green:['head'],progs:['head'],
+  tasks:['rda'],rtasks:['rda'],rarch:['rda'],rtask:['rda'],rreg:['rda']};
+function setRole(r){
+  S.role=r;
+  ['side-own','side-ig','side-head','side-rda'].forEach(function(id){$(id).style.display=(TABS[r].side===id)?'block':'none';});
+  document.querySelectorAll('.mock .tab[data-tab]').forEach(function(b){b.classList.toggle('on',b.dataset.tab===r);});
+  $('uname').textContent=TABS[r].user;
+}
+function show(id){
+  var al=ALLOW[id]||['pub'];
+  if(al.indexOf(S.role)<0)setRole(al[0]);
+  if(id==='inbox'){(S.msgs[S.role]||[]).forEach(function(m){m.u=false;});}
+  renderAll();
+  document.querySelectorAll('.scr').forEach(function(s){s.classList.toggle('on',s.id==='s-'+id);});
+  var side=TABS[S.role].side?$(TABS[S.role].side):null;
+  document.querySelectorAll('.smenu .it,.smenu .sub').forEach(function(e){e.classList.remove('on');});
+  if(side){var subs=side.querySelectorAll('.sub[data-go="'+id+'"]');
+    if(subs.length)subs[0].classList.add('on');else{var its=side.querySelectorAll('.it[data-go="'+id+'"]');if(its.length)its[0].classList.add('on');}}
+  S.cur=id;window.scrollTo(0,0);
+}
+function badge(id,n){var e=$(id);if(!e)return;e.textContent=n;e.style.display=n?'inline-flex':'none';}
+
+/* ==================== ДІЇ ==================== */
+function addApp(kind,t,rt,body,extra){
+  var a={id:S.aseq++,kind:kind,t:t,rt:rt,body:body,d:now(),st:'На розгляді',rda:true,done:false};
+  for(var k in extra)a[k]=extra[k];
+  S.apps.unshift(a);msg('rda','<b>Нова задача:</b> '+rt+' · '+B.addr);msg('head','Заявку «'+t+'» подано до Шевченківської РДА.');return a;
+}
+function setScenario(v){
+  S=freshState();S.scn=v;
+  if(v==='osbb'){
+    var o=S.os;o.stage=7;o.joined=[0,1];o.link=true;o.meetAt='18.08.2026';o.regAt='02.09.2026';o.edr='45873219';o.result={n:108,area:76.8,yes:[82,79,74,71,77]};
+    S.hist=[{y:'2026',t:'Створено ОСББ «Салютна 12», запис в ЄДР',src:'ЄДР'},{y:'2026',t:'Установчі збори в «Київ Цифровий»: проголосували 108 співвласників, 76,8% площі',src:'Київ Цифровий'},{y:'2026',t:'Створено ініціативну групу зі створення ОСББ',src:'Портал послуг'}];
+    S.msgs.head=[{t:'Кабінет ОСББ «Салютна 12» активовано. Договори й технічна документація передані від управителя',time:'02.09.2026 12:00',u:true}];
+  }
+  $('scn').value=v;
+}
+function kdFinish(){
+  var k=S.kdCtx;
+  if(k.kind==='found')S.os.result={n:108,area:76.8,yes:[82,79,74,71,77]};
+  else S.hmeet.result={n:97,area:69.4,yes:[73,68]};
+  k.step='res';renderKD();
+}
+function kdBack(){
+  var k=S.kdCtx;S.kdCtx=null;renderKD();
+  if(k.kind==='found'){
+    S.os.stage=4;S.os.meetAt=today();
+    hist('2026','Установчі збори в «Київ Цифровий»: проголосували 108 співвласників, 76,8% площі. ОСББ вирішено створити','Київ Цифровий');
+    msg('ig','Результати установчих зборів отримано з «Київ Цифровий». Портал сформував протокол і пакет документів.');
+    msg('own','Установчі збори відбулися: рішення про створення ОСББ «Салютна 12» прийнято.');
+    show('create');toast('Результати повернулися з «Київ Цифровий». Протокол уже в документах.');
+  }else{
+    S.hmeet.stage=2;S.budgetPub=true;
+    hist('2026','Загальні збори ОСББ: затверджено кошторис на 2027 рік','Київ Цифровий');
+    msg('own','Загальні збори ОСББ затвердили кошторис на 2027 рік. Ваш внесок — 608,89 ₴ на місяць.');
+    show('hmeet');toast('Рішення зборів отримано. Кошторис затверджено й оприлюднено.');
+  }
+}
+function registerDone(){
+  var o=S.os; if(o.stage!==6)return;
+  o.stage=7;o.edr='45873219';o.regAt=today();
+  hist('2026','Створено ОСББ «Салютна 12», запис в ЄДР, код 45873219','ЄДР');
+  S.orders.forEach(function(x){if(x.t.indexOf('Державна реєстрація')===0)x.st='Зареєстровано';});
+  msg('ig','<b>ОСББ «Салютна 12» зареєстровано.</b> Кабінет ініціативної групи перейшов у режим «Кабінет ОСББ».');
+  msg('own','У вашому будинку створено ОСББ «Салютна 12». Управління переходить від управителя до правління.');
+  msg('head','Кабінет ОСББ «Салютна 12» активовано. Уся історія і документи ініціативної групи збережені.');
+  renderAll();toast('ОСББ зареєстровано в ЄДР. Кабінет перейшов у режим «Кабінет ОСББ».');
+}
+function rdaDo(what){
+  var a=S.apps.filter(function(x){return x.id===S.rtask;})[0]; if(!a||a.done)return;
+  if(what==='reject'){a.st='Відмовлено';a.done=true;
+    if(a.kind==='land')S.land.st='none';if(a.kind==='design')S.design.st='none';if(a.kind==='prog')delete S.progs[a.prog];
+    if(a.tree){var t0=S.trees.filter(function(x){return x.id===a.tree;})[0];t0.task=null;}
+    msg('head','Заявку «'+a.t+'» відхилено РДА. Причина: потрібні додаткові документи.');renderAll();toast('Відмову надіслано ОСББ.');return;}
+  if(what==='design-cost'){a.st='Очікує оплати';a.done=true;S.design.st='pay';S.design.cost=38000;
+    msg('head','Обстеження двору проведено. Вартість дизайн-проєкту — 38 000 ₴. Оплатіть у розділі «Територія».');renderAll();toast('Вартість надіслано ОСББ.');return;}
+  a.done=true;
+  if(a.kind==='land'){a.st='Оформлено';S.land.st='done';S.land.at=today();hist('2026','Оформлено прибудинкову територію: 0,6184 га у постійне користування ОСББ','Земельний кадастр, ДРРП');
+    msg('head','Київська міська рада ухвалила рішення, право постійного користування зареєстровано. Межі ділянки — на схемі.');}
+  else if(a.kind==='tree'){var t=S.trees.filter(function(x){return x.id===a.tree;})[0];
+    if(a.act==='remove'){a.st='Виконано';t.st='Видалено';t.cls='ok';t.task={t:a.t,st:'Виконано'};hist('2026','Видалено аварійне дерево №'+a.tree+' (тополя біла)','Київзеленбуд');}
+    else if(a.act==='inspect'){a.st='Обстеження призначено';t.task={t:a.t,st:'Обстеження призначено'};}
+    else{a.st='Виконано';t.task={t:a.t,st:'Виконано'};t.cls='ok';t.st='Задовільний';hist('2026','Обрізка й догляд: дерево №'+a.tree,'Київзеленбуд');}
+    msg('head','РДА призначила роботи за заявкою «'+a.t+'». Статус: '+a.st.toLowerCase()+'.');}
+  else if(a.kind==='plant'){a.st='Схвалено';S.planted=true;hist('2026','Погоджено висадку липи біля контейнерного майданчика','Київзеленбуд');msg('head','Висадку дерева погоджено: листопад, програма «Зелений Київ».');}
+  else if(a.kind==='prog'){a.st='Схвалено';S.progs[a.prog]='Схвалено';var p=PROGS.filter(function(x){return x.id===a.prog;})[0];hist('2026','Будинок включено до програми: '+p.t.toLowerCase(),'Департамент ЖКІ');
+    msg('head','Будинок включено до програми «'+p.t+'». Наступний крок — кошторис і договір.');msg('own','Ваш будинок включено до міської програми «'+p.t+'».');}
+  renderAll();toast('Рішення надіслано ОСББ і записано в історію будинку.');
+}
+
+/* ==================== РЕНДЕР УСЬОГО ==================== */
+function renderAll(){
+  renderVit();renderInbox();renderHome();renderCard();renderIssues();renderBills();renderOrders();renderMe();
+  renderCreate();renderOwners();renderMeet();renderHead();renderRda();
+  ['own','ig','head','rda'].forEach(function(r){badge('c-inbox-'+r,S.msgs[r].filter(function(m){return m.u;}).length);});
+  badge('c-issues',S.issues.filter(function(i){return i.st!=='Виконано';}).length);
+  badge('c-orders',S.orders.length);
+  badge('c-apps',S.apps.filter(function(a){return !a.done;}).length);
+  badge('c-rtasks',S.apps.filter(function(a){return a.rda&&!a.done;}).length);
+}
+
+/* ==================== ПОДІЇ ==================== */
+document.addEventListener('click',function(e){
+  var t;
+  if(t=e.target.closest('.acc .hd')){t.parentNode.classList.toggle('open');return;}
+  if(t=e.target.closest('.mock .tab[data-tab]')){var r=t.dataset.tab;setRole(r);show(HOMEOF[r]);return;}
+  if(e.target.id==='reset'){setScenario($('scn').value);setRole('pub');show('vit');toast('Демо скинуто до початкового стану.');return;}
+  if(t=e.target.closest('[data-ctab]')){e.preventDefault();S.cardTab=t.dataset.ctab;if(t.dataset.go==='card'||S.cur==='card'||!t.dataset.go){show('card');return;}}
+  if(t=e.target.closest('[data-newissue]')){S.issueForm=t.dataset.newissue==='1';S.issuePre=null;show('issues');if(S.issueForm)setTimeout(function(){var f=$('issform');if(f)f.scrollIntoView({block:'center'});},30);return;}
+  if(t=e.target.closest('[data-go]')){e.preventDefault();show(t.dataset.go);return;}
+  if(t=e.target.closest('[data-gotab]')){var r2=t.dataset.gotab;setRole(r2);show(HOMEOF[r2]);return;}
+  if(t=e.target.closest('[data-setscn]')){setScenario(t.dataset.setscn);setRole('head');show('osbb');toast('Сценарій: ОСББ уже створено.');return;}
+  if(t=e.target.closest('[data-aboutos]')){toast('ОСББ — юридична особа співвласників. Воно саме обирає підрядників, затверджує кошторис і може брати участь у міських програмах співфінансування.');return;}
+  if(t=e.target.closest('[data-startos]')){setRole('ig');msg('ig','Ви почали створення ОСББ для будинку '+B.addr+'. Запросіть щонайменше двох сусідів-співвласників.');show('create');return;}
+  if(e.target.id==='os-link'){S.os.link=true;renderCreate();toast('Посилання-запрошення створено.');return;}
+  if(e.target.id==='os-sim-join'){S.os.joined=[0,1];msg('ig','Олег Коваль (кв. 15) і Ірина Савчук (кв. 101) приєдналися до ініціативної групи через КЕП.');renderAll();return;}
+  if(e.target.id==='os-group'){S.os.stage=1;hist('2026','Створено ініціативну групу зі створення ОСББ: 3 співвласники','Портал послуг');msg('own','У будинку утворено ініціативну групу зі створення ОСББ. Прогрес видно в картці «Мій будинок».');renderAll();toast('Ініціативну групу сформовано. Робочий простір створено.');return;}
+  if(e.target.id==='os-owners'){S.os.stage=2;renderAll();return;}
+  if(e.target.id==='own-fix'){S.ownerFix.sent=true;renderOwners();toast('Запрошення надіслано 9 співвласникам: у «Київ Цифровий» і паперовими листами.');return;}
+  if(e.target.id==='os-prep'){S.os.meetDate=$('mt-date').value||'18.10.2026';S.os.stage=3;
+    msg('own','<b>Повідомлення про установчі збори ОСББ</b> '+S.os.meetDate+'. Голосування — у «Київ Цифровий» або паперовим бюлетенем.');msg('ig','Повідомлення про збори надіслано 144 співвласникам.');renderAll();toast('Співвласників повідомлено за 14 днів до зборів.');return;}
+  if(t=e.target.closest('[data-kd]')){openKD(t.dataset.kd);return;}
+  if(t=e.target.closest('[data-kdv]')){var p=t.dataset.kdv.split(':');S.kdCtx.vote[p[0]]=p[1];renderKD();return;}
+  if(e.target.id==='kd-cast'){var need=S.kdCtx.kind==='found'?QUESTIONS.length:2;if(Object.keys(S.kdCtx.vote).length<need){toast('Дайте відповідь на всі питання.');return;}S.kdCtx.step='wait';renderKD();return;}
+  if(e.target.id==='kd-finish'){kdFinish();return;}
+  if(e.target.id==='kd-back'){kdBack();return;}
+  if(e.target.id==='kd-x'||e.target.id==='kd'){S.kdCtx=null;renderKD();return;}
+  if(e.target.id==='os-sign'){S.os.stage=5;renderAll();toast('Документи підписано КЕП.');return;}
+  if(e.target.id==='os-submit'){S.os.stage=6;S.orders.unshift({t:'Державна реєстрація ОСББ «Салютна 12»',d:now(),st:'На розгляді'});renderAll();toast('Пакет передано державному реєстратору ЦНАП.');setTimeout(registerDone,5000);return;}
+  if(e.target.id==='fin-pub'){S.budgetPub=true;msg('own','ОСББ оприлюднило проєкт кошторису на 2027 рік. Переглянути — у картці будинку.');renderAll();toast('Кошторис оприлюднено для 144 співвласників.');return;}
+  if(e.target.id==='hm-start'){S.hmeet.stage=1;msg('own','Загальні збори ОСББ 15.11.2026: затвердження кошторису на 2027 рік. Голосування — у «Київ Цифровий».');renderAll();return;}
+  if(e.target.id==='land-go'){S.land.st='wait';addApp('land','Оформлення прибудинкової території','Клопотання про передачу прибудинкової території','Безоплатна передача 0,62 га у постійне користування ОСББ за ст. 42 Земельного кодексу. Додано рішення зборів і технічну документацію.');renderAll();toast('Клопотання подано до РДА.');return;}
+  if(t=e.target.closest('[data-dw]')){var w=t.dataset.dw,i=S.design.w.indexOf(w);if(i>=0)S.design.w.splice(i,1);else S.design.w.push(w);renderTerr();return;}
+  if(e.target.id==='des-go'){S.design.st='wait';addApp('design','Дизайн-проєкт прибудинкової території','Замовлення дизайн-проєкту двору','Побажання ОСББ: '+S.design.w.join(', ').toLowerCase()+'.');renderAll();toast('Заявку на дизайн-проєкт подано.');return;}
+  if(e.target.id==='des-pay'){S.design.st='dev';S.apps.forEach(function(a){if(a.kind==='design')a.st='У роботі';});renderAll();toast('Оплату проведено. Виконавець розробляє проєкт.');
+    setTimeout(function(){if(S.design.st!=='dev')return;S.design.st='ready';S.apps.forEach(function(a){if(a.kind==='design')a.st='Готово';});hist('2026','Готовий дизайн-проєкт двору: '+S.design.w.join(', ').toLowerCase(),'КП «Київблагоустрій»');msg('head','Дизайн-проєкт двору готовий і збережений в історії будинку.');msg('own','Для двору розроблено дизайн-проєкт. Переглянути — у картці будинку.');renderAll();toast('Дизайн-проєкт готовий.');},4000);return;}
+  if(t=e.target.closest('[data-tree]')){var tid=+t.dataset.tree;
+    if(S.role==='head'){S.treeSel=tid;if(S.cur!=='green')show('green');else renderGreen();return;}
+    if(tid===2){toast('Звернення щодо дерева №2 уже є: №1551-2209-114, статус «Передано виконавцю». Дублювати не потрібно.');show('issues');return;}
+    S.issueForm=true;S.issuePre={c:'Прибудинкова територія',d:'Дерево №'+tid+' ('+TREES.filter(function(x){return x.id===tid;})[0].sp.toLowerCase()+'): потрібне обстеження'};show('issues');setTimeout(function(){var f=$('issform');if(f)f.scrollIntoView({block:'center'});},30);return;}
+  if(t=e.target.closest('[data-treeact]')){var act=t.dataset.treeact,tr=S.trees.filter(function(x){return x.id===S.treeSel;})[0];
+    if(act==='plant'){addApp('plant','Висадка дерева','Заявка на висадку дерева','Липа дрібнолиста біля контейнерного майданчика.');renderAll();toast('Заявку на висадку подано.');return;}
+    var nm={report:'Аварійне дерево №'+S.treeSel,inspect:'Обстеження дерева №'+S.treeSel,remove:'Видалення аварійного дерева №'+S.treeSel,prune:'Обрізка дерева №'+S.treeSel}[act];
+    addApp('tree',nm,nm,'Дерево №'+S.treeSel+', '+TREES.filter(function(x){return x.id===S.treeSel;})[0].sp.toLowerCase()+', стан: '+tr.st.toLowerCase()+'.',{tree:S.treeSel,act:act==='report'?'remove':act});
+    tr.task={t:nm,st:'На розгляді'};renderAll();toast('Заявку подано. Статус видно тут і в «Заявках ОСББ».');return;}
+  if(t=e.target.closest('[data-prog]')){var pid=t.dataset.prog,pp=PROGS.filter(function(x){return x.id===pid;})[0];S.progs[pid]='На розгляді';
+    addApp('prog',pp.t,'Заявка на програму: '+pp.t.toLowerCase(),'Підстава з паспорта будинку: '+pp.why.toLowerCase()+'. Роботи: '+pp.what.toLowerCase()+'.',{prog:pid});renderAll();toast('Заявку подано. Дані будинку підтягнуто автоматично.');return;}
+  if(t=e.target.closest('[data-rtask]')){S.rtask=+t.dataset.rtask;show('rtask');return;}
+  if(t=e.target.closest('[data-rdo]')){rdaDo(t.dataset.rdo);return;}
+  if(e.target.id==='is-send'){var cat=$('is-c').value,ent=$('is-e').value,d=$('is-d').value.trim()||cat;var id='1551-2409-'+(S.iseq++);
+    var it={id:id,d:today(),t:cat+': '+d.toLowerCase()+(ent.length<3?', під’їзд '+ent:''),src:'1551',st:'Прийнято',n:true};S.issues.unshift(it);S.orders.unshift({t:'Звернення №'+id+' щодо будинку',d:now(),st:'Прийнято'});
+    S.issueForm=false;S.issuePre=null;renderAll();toast('Звернення №'+id+' зареєстровано в 1551.');
+    setTimeout(function(){it.st='Передано виконавцю';S.orders.forEach(function(o){if(o.t.indexOf(id)>=0)o.st='Передано виконавцю';});msg('own','Звернення №'+id+' передано виконавцю: КП «Керуюча компанія». Строк — 3 робочі дні.');renderAll();},5000);return;}
+  if(e.target.id==='bill-pay'){S.bills.paid=true;S.orders.unshift({t:'Оплата комунальних послуг за вересень 2026',d:now(),st:'Оплачено'});msg('own','Оплату 1 292,06 ₴ за вересень зараховано. Квитанція — у розділі «Комунальні послуги».');renderAll();toast('Оплачено 1 292,06 ₴.');return;}
+  if(e.target.id==='m-send'){var c=+$('m-c').value,hh=+$('m-h').value;if(!(c>=312)||!(hh>=199)){$('m-err').textContent='Показання не можуть бути меншими за попередні.';return;}
+    S.bills.readSent=true;S.bills.cold=c;S.bills.hot=hh;renderAll();toast('Показання передано до ЦКС.');return;}
+  if(t=e.target.closest('[data-refresh]')){renderAll();toast('Список оновлено.');return;}
+});
+document.addEventListener('change',function(e){if(e.target.id==='scn'){setScenario(e.target.value);var r=S.role==='pub'?'own':S.role;setRole(r);show(HOMEOF[r]);toast(e.target.value==='osbb'?'Сценарій: ОСББ уже створено.':'Сценарій: будинок без ОСББ.');}});
+/* ==================== ПУТІВНИК ==================== */
+function vis(id){var e=$('s-'+id);return !!e&&e.classList.contains('on');}
+function curTab(){var t=document.querySelector('.mock .tab.on[data-tab]');return t?t.dataset.tab:'';}
+function where(tab,sel){return curTab()===tab?sel:'.mock .tab[data-tab="'+tab+'"]';}
+function resetDemo(scn){setScenario(scn||'none');S.issueForm=false;setRole('pub');renderAll();}
+function stageTo(n){resetDemo('none');var o=S.os;o.link=true;o.joined=[0,1];o.stage=n;
+  S.hist=[{y:'2026',t:'Створено ініціативну групу зі створення ОСББ: 3 співвласники',src:'Портал послуг',n:true}];
+  if(n>=4){o.result={n:108,area:76.8,yes:[82,79,74,71,77]};o.meetAt=today();S.hist.unshift({y:'2026',t:'Установчі збори в «Київ Цифровий»: проголосували 108 співвласників, 76,8% площі',src:'Київ Цифровий',n:true});}
+  renderAll();}
+function appOf(kind){return S.apps.filter(function(a){return a.kind===kind;})[0];}
+function kdVoteAll(){var n=S.kdCtx.kind==='found'?QUESTIONS.length:2;for(var i=0;i<n;i++)S.kdCtx.vote[i]='За';S.kdCtx.step='wait';renderKD();}
+function toRda(){return {t:'Відкрий вкладку <b>«РДА»</b> на панелі макета: заявка вже в задачах відділу.',sel:'.mock .tab[data-tab="rda"]',done:function(){return vis('rtasks');},act:function(){setRole('rda');show('rtasks');}};}
+function openTask(){return {t:'Відкрий задачу. Дані будинку підтягнуто з картки, запитувати в ОСББ нічого не треба.',sel:'#s-rtasks tr[data-rtask]',done:function(){return vis('rtask');},act:function(){var a=S.apps.filter(function(x){return !x.done;})[0];if(a){S.rtask=a.id;show('rtask');}}};}
+function backHead(scr,label){return {t:'Повернись у вкладку <b>«Голова ОСББ»</b>, розділ <b>«'+label+'»</b>.',sel:function(){return where('head','#side-head [data-go="'+scr+'"]');},done:function(){return vis(scr)&&S.role==='head';},act:function(){setRole('head');show(scr);}};}
+
+var FLOWS=[
+ {id:'home',name:'Мій будинок і картка будинку',ds:'Паспорт, історія й документи будинку в одному місці',min:2,
+  start:function(){resetDemo('none');setRole('own');show('home');},
+  steps:[
+   {t:'Це «Мій будинок» співвласника. Портал сам знайшов квартиру за реєстром прав і зібрав картку: управління, звернення, програми, аварійні питання й відключення за адресою.',sel:'#s-home .ecard',manual:true},
+   {t:'Нижче вісім блоків із концепції. Відкрий <b>«БУДИНОК»</b>.',sel:'#s-home .tile[data-ctab="passport"]',done:function(){return vis('card')&&S.cardTab==='passport';}},
+   {t:'Паспорт зібрано з БТІ, реєстру прав, ЄДР і кадастру. Праворуч навігація, як в інших картках Порталу.<br><br>Відкрий <b>«Історія будинку»</b>.',sel:'#s-card .anchors [data-ctab="history"]',done:function(){return S.cardTab==='history';}},
+   {t:'Історія належить будинку, а не ОСББ: вона не обнуляється при зміні голови чи управителя.',sel:'#s-card .tl',manual:true},
+   {t:'Відкрий <b>«Документи»</b>.',sel:'#s-card .anchors [data-ctab="docs"]',done:function(){return S.cardTab==='docs';}},
+   {t:'Розгорни будь-який документ.',sel:'#s-card .acc',done:function(){return !!document.querySelector('#s-card .acc.open');},act:function(){document.querySelector('#s-card .acc .hd').click();}},
+   {t:'Документи будинку доступні співвласникам із завантаженням і переглядом. Техпаспорт, акт пошкоджень, договори — більше не треба просити в управителя.',sel:'#s-card .acc.open',manual:true}
+  ]},
+ {id:'issue',name:'Звернення щодо будинку',ds:'Проблеми будинку з 1551 і 1557 та нове звернення без повторного введення адреси',min:2,
+  start:function(){resetDemo('none');setRole('own');show('issues');},
+  steps:[
+   {t:'Тут історія проблем будинку з 1551 і 1557, а не лише власні звернення.',sel:'#s-issues table',manual:true},
+   {t:'Натисни <b>«Створити звернення щодо будинку»</b>.',sel:'#s-issues [data-newissue="1"]',done:function(){return !!$('issform');}},
+   {t:'Адресу й характеристики будинку вже підставлено. Натисни <b>«Надіслати в 1551»</b>.',sel:'#is-send',done:function(){return S.issues.some(function(i){return i.n;});}},
+   {t:'Звернення зареєстровано. За кілька секунд його передадуть виконавцю.',sel:null,done:function(){var i=S.issues.filter(function(x){return x.n;})[0];return !!i&&i.st==='Передано виконавцю';},wait:'1551 опрацьовує звернення…'},
+   {t:'Статус оновився, повідомлення прийшло у «Вхідні», а звернення з’явилось у «Замовлених послугах».',sel:'#s-issues table tr.unread',manual:true}
+  ]},
+ {id:'bills',name:'Комунальні послуги',ds:'Нарахування ЦКС, показання й оплата',min:1,
+  start:function(){resetDemo('none');setRole('own');show('bills');},
+  steps:[
+   {t:'Нарахування підтягуються з ЦКС, Портал не рахує їх сам. Передай показання лічильників.',sel:'#m-send',done:function(){return S.bills.readSent;}},
+   {t:'Тепер натисни <b>«Сплатити»</b>.',sel:'#bill-pay',done:function(){return S.bills.paid;}},
+   {t:'Оплату зараховано, квитанція доступна. Голова ОСББ бачить по будинку лише агреговану заборгованість, без персональних даних.',sel:'#s-bills .ecard',manual:true}
+  ]},
+ {id:'group',name:'Створення ОСББ: ініціативна група',ds:'Сусіди приєднуються через КЕП, реєстр співвласників формується сам',min:3,
+  start:function(){resetDemo('none');setRole('own');show('home');},
+  steps:[
+   {t:'У будинку немає ОСББ. Натисни <b>«Розпочати створення ОСББ»</b>.',sel:'[data-startos]',done:function(){return vis('create');}},
+   {t:'Це кабінет ініціативної групи з шістьма етапами. Натисни <b>«Запросити сусідів»</b>.',sel:'#os-link',done:function(){return S.os.link;}},
+   {t:'Посилання можна кинути в чат будинку. Приєднатися може лише власник квартири через КЕП або Дію.<br><br>Натисни <b>«Сусіди приєдналися (демо)»</b>.',sel:'#os-sim-join',done:function(){return S.os.joined.length>=2;}},
+   {t:'Натисни <b>«Сформувати ініціативну групу»</b>.',sel:'#os-group',done:function(){return S.os.stage>=1;}},
+   {t:'Етап 2: Портал сам сформував перелік приміщень із реєстрів. Відкрий <b>реєстр співвласників</b>.',sel:'#s-create [data-go="owners"]',done:function(){return vis('owners');}},
+   {t:'Дані замасковані. 9 квартир мають власність до 2013 року, якої немає в електронному реєстрі. Надішли їм запрошення підтвердити право.',sel:'#own-fix',done:function(){return S.ownerFix.sent;}},
+   {t:'Повернись до <b>«Статус створення»</b>.',sel:'#side-ig .sub[data-go="create"]',done:function(){return vis('create');},act:function(){show('create');}},
+   {t:'Натисни <b>«Перелік готовий, перейти до зборів»</b>.',sel:'#os-owners',done:function(){return S.os.stage>=2;}},
+   {t:'Ініціативна група готова, реєстр зібрано без жодного паперу. Наступний сценарій — установчі збори.',sel:'#s-create .steps6',manual:true}
+  ]},
+ {id:'found',name:'Установчі збори в «Київ Цифровий»',ds:'Портал готує збори, голосування проходить у застосунку',min:3,
+  start:function(){stageTo(2);setRole('ig');show('create');},
+  steps:[
+   {t:'Дата, формат, порядок денний і статут. Портал стежить за строками повідомлення.<br><br>Натисни <b>«Затвердити і повідомити співвласників»</b>.',sel:'#os-prep',done:function(){return S.os.stage>=3;}},
+   {t:'Портал не має власного голосування. Натисни <b>«Провести збори в «Київ Цифровий»»</b>.',sel:'[data-kd="found"]',done:function(){return !!S.kdCtx;}},
+   {t:'Це «Київ Цифровий». Проголосуй за всі п’ять питань і натисни <b>«Проголосувати»</b>.',sel:'#kd .phone',done:function(){return S.kdCtx&&S.kdCtx.step!=='vote';},act:kdVoteAll},
+   {t:'Голос враховано. Натисни <b>«Завершити голосування (демо)»</b>.',sel:'#kd-finish',done:function(){return S.kdCtx&&S.kdCtx.step==='res';}},
+   {t:'Рішення прийнято. Натисни <b>«Повернутися на Портал послуг»</b>.',sel:'#kd-back',done:function(){return S.os.stage>=4;}},
+   {t:'Результати повернулись на Портал, протокол і пакет документів сформовано, подія записана в історію будинку. Для користувача це один сценарій, хоча працюють дві системи.',sel:'#s-create .ecard',manual:true}
+  ]},
+ {id:'reg',name:'Державна реєстрація ОСББ',ds:'КЕП, реєстратор ЦНАП, запис в ЄДР і кабінет ОСББ',min:2,
+  start:function(){stageTo(4);setRole('ig');show('create');},
+  steps:[
+   {t:'Пакет сформовано за результатами зборів. Натисни <b>«Підписати КЕП»</b>.',sel:'#os-sign',done:function(){return S.os.stage>=5;}},
+   {t:'Натисни <b>«Подати на державну реєстрацію»</b>.',sel:'#os-submit',done:function(){return S.os.stage>=6;}},
+   {t:'Документи в державного реєстратора ЦНАП. Портал чекає на запис в ЄДР.',sel:null,done:function(){return S.os.stage>=7;},wait:'Реєстрація триває…'},
+   {t:'ОСББ зареєстровано. Натисни <b>«Відкрити кабінет ОСББ»</b>.',sel:'#s-create [data-gotab="head"]',done:function(){return vis('osbb');}},
+   {t:'Кабінет ініціативної групи став кабінетом ОСББ: вісім блоків із концепції, і вся історія збережена.',sel:'#s-osbb .tiles',manual:true}
+  ]},
+ {id:'budget',name:'Кошторис і прозорість внесків',ds:'Голова оприлюднює кошторис, співвласник бачить свій внесок',min:1,
+  start:function(){resetDemo('osbb');setRole('head');show('fin');},
+  steps:[
+   {t:'Це кошторис ОСББ на 2027 рік. Натисни <b>«Оприлюднити для співвласників»</b>.',sel:'#fin-pub',done:function(){return S.budgetPub;}},
+   {t:'Подивимось очима співвласника. Відкрий вкладку <b>«Співвласник»</b>.',sel:'.mock .tab[data-tab="own"]',done:function(){return S.role==='own'&&vis('home');},act:function(){setRole('own');show('home');}},
+   {t:'Співвласник одразу бачить кошторис і свій внесок. Прозорість грошей знімає головну причину конфліктів в ОСББ.',sel:'#s-home .nooss',manual:true}
+  ]},
+ {id:'hmeet',name:'Загальні збори ОСББ',ds:'Ініціювати збори, провести в «Київ Цифровий», отримати рішення',min:2,
+  start:function(){resetDemo('osbb');setRole('head');show('hmeet');},
+  steps:[
+   {t:'Натисни <b>«Створити збори»</b>.',sel:'#hm-start',done:function(){return S.hmeet.stage>=1;}},
+   {t:'Натисни <b>«Перейти до проведення в «Київ Цифровий»»</b>.',sel:'[data-kd="budget"]',done:function(){return !!S.kdCtx;}},
+   {t:'Проголосуй за обидва питання й натисни <b>«Проголосувати»</b>.',sel:'#kd .phone',done:function(){return S.kdCtx&&S.kdCtx.step!=='vote';},act:kdVoteAll},
+   {t:'Натисни <b>«Завершити голосування (демо)»</b>.',sel:'#kd-finish',done:function(){return S.kdCtx&&S.kdCtx.step==='res';}},
+   {t:'Натисни <b>«Повернутися на Портал послуг»</b>.',sel:'#kd-back',done:function(){return S.hmeet.stage===2;}},
+   {t:'Рішення повернулось на Портал, кошторис затверджено й оприлюднено, протокол — в історії будинку. Другого модуля голосування на Порталі немає.',sel:'#s-hmeet .ecard',manual:true}
+  ]},
+ {id:'land',name:'Оформлення прибудинкової території',ds:'Портал визначає механізм, РДА погоджує, межі з’являються на мапі',min:2,
+  start:function(){resetDemo('osbb');setRole('head');show('terr');},
+  steps:[
+   {t:'Ділянка не сформована, межі на схемі пунктирні. Портал визначив механізм: безоплатна передача, а не оренда.<br><br>Натисни <b>«Оформити прибудинкову територію»</b>.',sel:'#land-go',done:function(){return S.land.st!=='none';}},
+   toRda(),openTask(),
+   {t:'Натисни <b>«Погодити і внести на КМР»</b>.<span class="why">У житті між погодженням і реєстрацією права минають тижні. У макеті це стиснуто до одного кроку.</span>',sel:'#s-rtask [data-rdo="approve"]',done:function(){return S.land.st==='done';}},
+   backHead('terr','Територія'),
+   {t:'Межі ділянки стали суцільними, у картці — кадастровий номер, а подія записана в історію будинку.',sel:'#s-terr .mapbox',manual:true}
+  ]},
+ {id:'design',name:'Дизайн мого двору',ds:'Побажання, обстеження, вартість, оплата і готовий проєкт',min:3,
+  start:function(){resetDemo('osbb');setRole('head');show('terr');},
+  steps:[
+   {t:'Обери побажання до двору і натисни <b>«Замовити дизайн-проєкт»</b>.',sel:'#des-go',done:function(){return S.design.st!=='none';}},
+   toRda(),openTask(),
+   {t:'Натисни <b>«Провести обстеження і визначити вартість»</b>.',sel:'#s-rtask [data-rdo="design-cost"]',done:function(){return S.design.st==='pay';}},
+   backHead('terr','Територія'),
+   {t:'Вартість відома. Натисни <b>«Оплатити з рахунку ОСББ»</b>.',sel:'#des-pay',done:function(){return S.design.st==='dev'||S.design.st==='ready';}},
+   {t:'Виконавець розробляє проєкт.',sel:null,done:function(){return S.design.st==='ready';},wait:'Розробляємо проєкт…'},
+   {t:'Проєкт готовий: нові елементи вже на схемі, файли — в документах будинку, подія — в історії.',sel:'#s-terr .mapbox',manual:true}
+  ]},
+ {id:'green',name:'Зелений двір',ds:'Реєстр дерев, аварійне дерево і висадка нового',min:3,
+  start:function(){resetDemo('osbb');setRole('head');S.treeSel=2;show('green');},
+  steps:[
+   {t:'Дерева з міського реєстру зелених насаджень. Дерево №2 аварійне, звернення 1551 уже є.<br><br>Натисни <b>«Заявка на видалення»</b>.',sel:'[data-treeact="remove"]',done:function(){return !!S.trees[1].task;}},
+   toRda(),openTask(),
+   {t:'Натисни <b>«Призначити роботи виконавцю»</b>.',sel:'#s-rtask [data-rdo="approve"]',done:function(){return S.trees[1].st==='Видалено';}},
+   backHead('green','Зелений двір'),
+   {t:'Дерево видалено. Тепер натисни <b>«Подати заявку на висадку»</b>.',sel:'[data-treeact="plant"]',done:function(){return !!appOf('plant');}},
+   {t:'Заявка на висадку пішла в РДА так само. Після виконання робіт інформація потрапляє в історію будинку й території автоматично.',sel:'#s-green .mapbox',manual:true}
+  ]},
+ {id:'progs',name:'Можливості від міста',ds:'Програми за паспортом будинку і заявка в один клік',min:2,
+  start:function(){resetDemo('osbb');setRole('head');show('progs');},
+  steps:[
+   {t:'Портал сам підібрав програми за паспортом будинку: енергоклас, вік ліфтів, укриття, пошкодження.<br><br>Натисни <b>«Подати заявку»</b> на співфінансування енергоефективності.',sel:'[data-prog="eff"]',done:function(){return !!S.progs.eff;}},
+   toRda(),openTask(),
+   {t:'Натисни <b>«Включити до програми»</b>.',sel:'#s-rtask [data-rdo="approve"]',done:function(){return S.progs.eff==='Схвалено';}},
+   backHead('progs','Можливості від міста'),
+   {t:'Будинок включено до програми. Голова ОСББ не шукав її на сайтах департаментів, а співвласники отримали повідомлення.',sel:'#s-progs .ecard',manual:true}
+  ]}
+];
+var TOUR={open:false,flow:null,step:0,doneFlows:[],hl:null,scrolled:-1,flash:false};
+try{TOUR.doneFlows=JSON.parse(localStorage.getItem('budTourDone')||'[]');}catch(e){}
+function tourSave(){try{localStorage.setItem('budTourDone',JSON.stringify(TOUR.doneFlows));localStorage.setItem('budTourSeen','1');}catch(e){}}
+function flowById(id){return FLOWS.filter(function(f){return f.id===id;})[0];}
+function tourTarget(){
+  var f=flowById(TOUR.flow);if(!f)return null;var st=f.steps[TOUR.step];if(!st||!st.sel)return null;
+  var s=typeof st.sel==='function'?st.sel():st.sel;var el=s&&document.querySelector(s);
+  return el&&el.offsetParent!==null?el:null;
+}
+function tourHL(el){
+  if(TOUR.hl===el)return;
+  if(TOUR.hl)TOUR.hl.classList.remove('tour-hl');
+  TOUR.hl=el;if(el)el.classList.add('tour-hl');
+}
+function tourRender(){
+  var box=$('tour');box.hidden=!TOUR.open;document.body.classList.toggle('tour-open',TOUR.open);
+  $('tourbtn').classList.toggle('on',TOUR.open);
+  if(!TOUR.open){tourHL(null);return;}
+  var n=TOUR.doneFlows.length;
+  $('tour-pr').textContent=n+' з '+FLOWS.length+' пройдено';
+  var f=flowById(TOUR.flow), h='';
+  if(!f){
+    h='<p class="intro">Це клікабельний макет «Цифрового будинку» на Порталі послуг: вітрина і чотири кабінети — співвласника, ініціативної групи, голови ОСББ і РДА.<br><br>'+
+      'Обери сценарій. Путівник підсвічує, куди натиснути, і сам переходить далі, коли ти виконаєш дію. Кожен сценарій починається з чистого демо.</p>'+
+      FLOWS.map(function(x,i){var ok=TOUR.doneFlows.indexOf(x.id)>=0;
+        return '<button class="fl'+(ok?' ok':'')+'" data-tflow="'+x.id+'"><span class="no">'+(ok?'✓':i+1)+'</span><span><span class="nm" style="display:block">'+x.name+'</span><span class="ds" style="display:block">'+x.ds+'</span></span><span class="rl">'+x.min+' хв</span></button>';}).join('');
+  }else if(TOUR.step>=f.steps.length){
+    var i=FLOWS.indexOf(f), next=FLOWS[i+1];
+    h='<div class="kick">Сценарій '+(i+1)+' з '+FLOWS.length+'</div><h4>'+f.name+'</h4><div class="ok-msg" style="margin-top:0">Сценарій пройдено ✓</div>'+
+      '<div class="ta">'+(next?'<button class="btn pur" data-tflow="'+next.id+'">Далі: '+next.name+'</button>':'<button class="btn pur" data-tlist="1">Усі сценарії пройдено</button>')+
+      '<button class="lnk" data-tlist="1">До списку</button></div>';
+  }else{
+    var st=f.steps[TOUR.step], j=FLOWS.indexOf(f);
+    h='<div class="kick">Сценарій '+(j+1)+' · крок '+(TOUR.step+1)+' із '+f.steps.length+'</div><h4>'+f.name+'</h4>'+
+      '<div class="bar">'+f.steps.map(function(_,k){return '<i class="'+(k<TOUR.step?'d':k===TOUR.step?'c':'')+'"></i>';}).join('')+'</div>'+
+      '<div class="txt">'+st.t+'</div>'+
+      (TOUR.flash?'<div class="ok-msg">Готово ✓</div>':'')+
+      (st.wait?'<div class="wait">'+st.wait+'</div>':'')+
+      (st.manual||!st.wait?'<div class="ta">':'<div>')+(st.manual?'<button class="btn pur" data-tnext="1">'+(TOUR.step===f.steps.length-1?'Завершити':'Далі')+'</button>':'')+
+      (!st.manual&&!st.wait?'<button class="btn grey" data-tdo="1">Зробити за мене</button>':'')+
+      '</div><div class="tlinks"><button data-trestart="1">↺ Почати заново</button><button data-tlist="1">☰ Усі сценарії</button></div>';
+  }
+  $('tour-body').innerHTML=h;
+}
+function tourStart(id){
+  var f=flowById(id);if(!f)return;
+  TOUR.flow=id;TOUR.step=0;TOUR.scrolled=-1;TOUR.flash=false;TOUR.open=true;tourHL(null);
+  f.start();tourRender();
+}
+function tourAdvance(){
+  var f=flowById(TOUR.flow);if(!f)return;
+  TOUR.step++;TOUR.scrolled=-1;tourHL(null);
+  if(TOUR.step>=f.steps.length&&TOUR.doneFlows.indexOf(f.id)<0){TOUR.doneFlows.push(f.id);tourSave();}
+  TOUR.flash=TOUR.step<f.steps.length&&TOUR.step>0;tourRender();
+  clearTimeout(TOUR._f);TOUR._f=setTimeout(function(){if(TOUR.flash){TOUR.flash=false;tourRender();}},1400);
+}
+function tourTick(){
+  if(!TOUR.open||!TOUR.flow)return;
+  var f=flowById(TOUR.flow);if(!f||TOUR.step>=f.steps.length){tourHL(null);return;}
+  var st=f.steps[TOUR.step];
+  if(!st.manual&&st.done()){tourAdvance();return;}
+  var el=tourTarget();tourHL(el);
+  if(el&&TOUR.scrolled!==TOUR.step){
+    TOUR.scrolled=TOUR.step;var r=el.getBoundingClientRect();
+    if(r.top<60||r.bottom>window.innerHeight-20)el.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+}
+function tourDo(){
+  var f=flowById(TOUR.flow);if(!f)return;var st=f.steps[TOUR.step];if(!st)return;
+  if(st.act){st.act();return;}
+  var el=tourTarget();if(el)el.click();
+}
+document.addEventListener('click',function(e){
+  var t;
+  if(e.target.closest('#tourbtn')){TOUR.open=!TOUR.open;if(TOUR.open)tourSave();tourRender();return;}
+  if(e.target.closest('#tour-x')){TOUR.open=false;tourRender();return;}
+  if(t=e.target.closest('[data-tflow]')){tourStart(t.dataset.tflow);return;}
+  if(e.target.closest('[data-tlist]')){TOUR.flow=null;tourHL(null);tourRender();return;}
+  if(e.target.closest('[data-tnext]')){tourAdvance();return;}
+  if(e.target.closest('[data-trestart]')){tourStart(TOUR.flow);return;}
+  if(e.target.closest('[data-tdo]')){tourDo();return;}
+});
+setInterval(tourTick,300);
+(function(){var seen=null;try{seen=localStorage.getItem('budTourSeen');}catch(e){}
+  if(!seen||/[?&#]tour/.test(location.href)){TOUR.open=true;}tourRender();})();
+
+/* ==================== СТАРТ ==================== */
+setScenario('none');setRole('pub');show('vit');
+</script>
+</body>
+</html>
