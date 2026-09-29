@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Портал послуг — Дітям</title>
+<title>Мій Київ — Портал послуг</title>
 <style>
 :root{
   --blue:#0068ff; --blue-d:#0052cc; --blue-l:#f1f7ff; --blue-b:#e2f1fb;
@@ -390,6 +390,66 @@ body.tour-open .toast{right:414px}
 @media(max-width:760px){table.t{display:block;overflow-x:auto;white-space:nowrap}.bigsum{font-size:36px}.qhead .qi{width:48px;height:48px;font-size:24px}}
 @media(max-width:1100px){.flowstrip{grid-template-columns:1fr 1fr}.flowstrip .fs:after{display:none}.pass{grid-template-columns:1fr}}
 @media (min-width:1200px){body.tour-open .flowstrip{grid-template-columns:repeat(3,1fr)}body.tour-open .flowstrip .fs:nth-child(3):after{display:none}}
+/* ---------- «Мій Київ» ---------- */
+.feed{display:flex;flex-direction:column;gap:12px;margin-top:22px;max-width:860px}
+.fi{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;cursor:pointer;transition:.15s}
+.fi:hover{border-color:var(--blue);box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.fi .e{width:48px;height:48px;border-radius:14px;background:var(--blue-l);display:grid;place-items:center;font-size:24px;flex:none}
+.fi .t{flex:1;font-size:15.5px;line-height:1.4}
+.fi .t small{display:block;color:var(--mut);font-size:13px;margin-top:2px}
+.fi .go{color:var(--blue);font-weight:700;font-size:14px;white-space:nowrap}
+.fi.hot{border:2px solid var(--new);background:#fcf9ff}
+.fi.hot .e{background:#f3e8ff}
+.slogan{font-size:15px;font-weight:700;letter-spacing:.02em;color:var(--new);margin-top:8px}
+.svc2{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.svc2 a{border:1px solid var(--line);border-radius:99px;padding:8px 14px;font-size:14px;cursor:pointer;background:#fff}
+.svc2 a:hover{border-color:var(--blue);color:var(--blue)}
+.story{border-radius:18px;background:linear-gradient(135deg,#fff8e7,#fdf1d6);border:1px solid #f1dfb2;padding:24px 26px}
+.story .kk{font-size:12px;font-weight:800;letter-spacing:.14em;color:#8a5a00}
+.story h2{margin:6px 0 10px}
+.story p{margin:0;color:#4d3a12;font-size:15px;line-height:1.55}
+.stp{display:flex;gap:14px;padding:16px 0;border-top:1px solid var(--line)}
+.stp .n{width:32px;height:32px;border-radius:50%;border:2px solid #c9c9cd;display:grid;place-items:center;font-weight:800;font-size:13px;flex:none;color:var(--mut)}
+.stp.ok .n{background:var(--green);border-color:var(--green);color:#fff}
+.stp.cur .n{border-color:var(--new);color:var(--new)}
+.stp.lock{opacity:.55}
+.stp .b{flex:1}
+.stp .b h4{margin:2px 0 4px;font-size:16px}
+.stp .b p{margin:0;font-size:14.5px;color:var(--ink2)}
+.task{background:#faf6ff;border:1px solid #e6d5ff;border-radius:14px;padding:16px;margin-top:12px}
+.arch{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
+.arch .p{border-radius:14px;padding:12px;min-height:92px;font-size:13px;display:flex;flex-direction:column;gap:6px;border:1px solid var(--line);background:#fff}
+.arch .p .i{font-size:22px}
+.arch .p.ok{background:#e8f7ea;border-color:#bfe5c5}
+.arch .p.nx{background:#faf6ff;border:2px dashed var(--new)}
+.arch .p.hid{background:repeating-linear-gradient(45deg,#f4f4f6,#f4f4f6 8px,#ececef 8px,#ececef 16px);color:#9a9aa0;align-items:center;justify-content:center;text-align:center}
+.colc{margin-top:18px}
+.colc h3{display:flex;align-items:center;gap:10px}
+.coli{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.coli span{display:inline-flex;align-items:center;gap:8px;border-radius:12px;padding:9px 12px;font-size:14px;border:1px solid var(--line);background:#fff}
+.coli span.got{background:#fff4d6;border-color:#ffe29a;font-weight:700}
+.coli span.no{color:#a5a5ab;background:#f7f7f8}
+.bigpct{font-size:54px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.clsbar{height:18px;border-radius:99px;background:#eceef1;overflow:hidden;margin:12px 0 6px}
+.clsbar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#0068ff,#7b2ff7)}
+.msn{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--line);font-size:15px}
+.msn .ck{width:24px;height:24px;border-radius:50%;border:2px solid #c9c9cd;display:grid;place-items:center;color:#fff;font-size:12px;font-weight:800;flex:none}
+.msn.ok .ck{background:var(--green);border-color:var(--green)}
+.route{border:1px solid var(--line);border-radius:16px;padding:18px;background:#fff;display:flex;flex-direction:column;gap:8px}
+.route .dur{font-size:12.5px;font-weight:800;letter-spacing:.06em;color:var(--new);text-transform:uppercase}
+.orgs{display:flex;flex-direction:column;gap:8px}
+.org{background:#fff;border:1px solid var(--line);border-radius:14px;padding:11px 14px;cursor:pointer;text-align:left;width:100%}
+.org.on{border:2px solid var(--blue);background:var(--blue-l)}
+.org b{display:block;font-size:14px}
+.org span{font-size:12.5px;color:var(--mut)}
+.smenu [data-org]{display:none}
+.smenu [data-org].vis{display:flex}
+.tpl{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.tpl button{border:2px solid var(--line);border-radius:14px;background:#fff;padding:14px;text-align:left}
+.tpl button.on{border-color:var(--blue);background:var(--blue-l)}
+.tpl button b{display:block;font-size:14.5px}
+.tpl button span{font-size:12.5px;color:var(--mut)}
+@media(max-width:1100px){.arch{grid-template-columns:repeat(2,1fr)}.tpl{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -428,50 +488,49 @@ body.tour-open .toast{right:414px}
   </div>
   <div class="smenu">
     <div class="it" data-go="k-inbox">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 5.5h18v11H8l-5 4z"/></svg>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.5h18v11H8l-5 4z"/></svg>
       Вхідні повідомлення <span class="bdg" id="bdg-kinbox">0</span>
     </div>
     <hr>
     <div class="it" data-go="k-main">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6h16v14H4zM4 10h16M8 3v4M16 3v4"/></svg>
-      Мій розклад
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>
+      Для мене <span class="tag-new">нове</span>
     </div>
-    <div class="it" data-go="k-pass">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M7 10h5M7 14h3"/><rect x="14.5" y="9" width="3.5" height="3.5"/></svg>
-      Activity Pass <span class="tag-new">нове</span>
-    </div>
-    <div class="it" data-go="k-clubs">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16v13H4zM9 7V4h6v3M4 12h16"/></svg>
-      Мої гуртки <span class="bdg" id="bdg-kclubs">2</span>
-    </div>
-    <div class="it" data-go="k-req">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6.5l2 2 3.5-3.5M4 13.5l2 2L9.5 12M4 20l2 2 3.5-3.5M13 7h7M13 14h7M13 21h7"/></svg>
-      Мої заявки <span class="bdg pur" id="bdg-kreq">0</span>
-    </div>
-    <hr>
-    <div class="it" data-go="k-wallet">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 7.5h16.5a1.5 1.5 0 011.5 1.5v10H3z"/><path d="M3 7.5L15 4v3.5M16 13.5h2"/></svg>
-      Освітній гаманець <span class="tag-new">нове</span>
+    <div class="it" data-go="k-go">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0113 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>
+      Куди піти <span class="tag-new">нове</span>
     </div>
     <div class="it" data-go="k-quests">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 21V4h11l-2 3.5 2 3.5H5"/></svg>
-      Квести міста <span class="tag-new">нове</span>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4h11l-2 3.5 2 3.5H5"/></svg>
+      Квести <span class="tag-new">нове</span>
     </div>
-    <div class="it" data-go="k-school">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2.5 9.5L12 5l9.5 4.5L12 14z"/><path d="M6.5 11.5V16c3.2 2.2 7.8 2.2 11 0v-4.5M21.5 9.5v5"/></svg>
-      Моя школа <span class="tag-new">нове</span>
+    <div class="it" data-go="k-progress">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v6a5 5 0 01-10 0zM7 6H4v2a3 3 0 003 3M17 6h3v2a3 3 0 01-3 3M9 20h6M12 15v5"/></svg>
+      Мої досягнення <span class="tag-new">нове</span>
     </div>
+    <div class="it" data-go="k-class">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="2.8"/><circle cx="16.5" cy="10.5" r="2.2"/><path d="M3 19c1.2-2.6 2.9-3.7 5-3.7s3.8 1.1 5 3.7M14 19c.8-1.8 1.9-2.6 3.3-2.6s2.2.5 2.9 1.6"/></svg>
+      Мій клас <span class="tag-new">нове</span>
+    </div>
+    <div class="sub" data-go="k-class">Квест класу</div>
+    <div class="sub" data-go="k-school">Самоврядування</div>
     <hr>
-    <div class="it" data-go="k-docs">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 5.5h18v13H3z"/><circle cx="8.5" cy="11" r="2.2"/><path d="M14 9.5h4M14 13h4"/></svg>
-      Мої документи
+    <div class="it" data-go="k-pass">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5l2 2 3.5-3.5M4 15l2 2 3.5-3.5M13 7h7M13 16h7"/></svg>
+      Мої послуги<span class="cav" style="margin-left:auto">▾</span>
     </div>
+    <div class="sub" data-go="k-pass">Activity Pass</div>
+    <div class="sub" data-go="k-clubs">Мої гуртки <span class="bdg" id="bdg-kclubs">2</span></div>
+    <div class="sub" data-go="k-req">Мої заявки <span class="bdg pur" id="bdg-kreq">0</span></div>
+    <div class="sub" data-go="k-wallet">Освітній гаманець</div>
+    <div class="sub" data-go="k-docs">Мої документи</div>
+    <hr>
     <div class="it" data-go="k-me">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c1.6-3.2 4-4.6 7-4.6s5.4 1.4 7 4.6"/></svg>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c1.6-3.2 4-4.6 7-4.6s5.4 1.4 7 4.6"/></svg>
       Відомості про мене
     </div>
     <div class="it" id="logout">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M10 4H5v16h5M17 8l4 4-4 4M21 12h-9"/></svg>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4H5v16h5M17 8l4 4-4 4M21 12h-9"/></svg>
       Вийти
     </div>
   </div>
@@ -528,30 +587,31 @@ body.tour-open .toast{right:414px}
 </aside>
 
 <aside class="side" id="side-prov" style="display:none">
-  <div class="pad">
-    <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px"><div style="font-size:12px;color:var(--mut);font-weight:800;text-transform:uppercase;letter-spacing:.06em">Кабінет надавача</div><div style="font-weight:800;margin-top:4px">Будинок дитячої творчості</div><div style="font-size:13px;color:var(--mut)">Солом’янський р-н · вул. Козелецька, 5</div></div>
-  </div>
+  <div class="pad"><div style="font-size:12px;color:var(--mut);font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Кабінет закладу</div><div class="orgs"><button class="org" data-setorg="bdt"><b>Будинок дитячої творчості</b><span>Гуртки й секції</span></button><button class="org" data-setorg="lib"><b>Бібліотека для дітей №1</b><span>База квестів</span></button><button class="org" data-setorg="teach"><b>Ліцей №142</b><span>Вчитель 6-Б класу</span></button></div></div>
   <div class="smenu">
-    <div class="it" data-go="z-journal">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 3.5h12a2 2 0 012 2V20.5H7a2 2 0 01-2-2z"/><path d="M9 9l2 2 4-4M9 15h6"/></svg>
+    <div class="it" data-go="z-journal" data-org="bdt">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3.5h12a2 2 0 012 2V20.5H7a2 2 0 01-2-2z"/><path d="M9 9l2 2 4-4M9 15h6"/></svg>
       Журнал відвідування <span class="tag-new">нове</span>
     </div>
-    <div class="it" data-go="z-vouchers">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6.5 9.5v5M17.5 9.5v5"/></svg>
+    <div class="it" data-go="z-vouchers" data-org="bdt">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/></svg>
       Ваучери й виплати <span class="tag-new">нове</span>
     </div>
-    <div class="it" data-go="z-quest">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 21V4h11l-2 3.5 2 3.5H5"/></svg>
+    <div class="it" data-go="z-quest" data-org="bdt">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4h11l-2 3.5 2 3.5H5"/></svg>
       Точка квесту <span class="tag-new">нове</span>
     </div>
-    <hr>
-    <div class="it">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="8" cy="9" r="2.8"/><circle cx="16.5" cy="10.5" r="2.2"/><path d="M3 19c1.2-2.6 2.9-3.7 5-3.7s3.8 1.1 5 3.7M14 19c.8-1.8 1.9-2.6 3.3-2.6s2.2.5 2.9 1.6"/></svg>
-      Групи та розклад
+    <div class="it" data-go="z-qb" data-org="lib">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M6 20V9l6-4 6 4v11"/><path d="M10 20v-5h4v5"/></svg>
+      Конструктор квестів <span class="tag-new">нове</span>
     </div>
-    <div class="it">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6.5l2 2 3.5-3.5M4 13.5l2 2L9.5 12M4 20l2 2 3.5-3.5M13 7h7M13 14h7M13 21h7"/></svg>
-      Заявки до закладу
+    <div class="it" data-go="z-mod" data-org="lib">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>
+      Модерація маршрутів <span class="tag-new">нове</span>
+    </div>
+    <div class="it" data-go="z-cls" data-org="teach">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="2.8"/><circle cx="16.5" cy="10.5" r="2.2"/><path d="M3 19c1.2-2.6 2.9-3.7 5-3.7s3.8 1.1 5 3.7M14 19c.8-1.8 1.9-2.6 3.3-2.6s2.2.5 2.9 1.6"/></svg>
+      Квест класом <span class="tag-new">нове</span>
     </div>
   </div>
 </aside>
@@ -560,8 +620,9 @@ body.tour-open .toast{right:414px}
 
 <!-- ############ ВІТРИНА ############ -->
 <section class="scr on" id="v-main">
-  <div class="crumbs"><a href="#">Головна</a> / Категорії послуг / Дітям</div>
-  <h1>Дітям</h1>
+  <div class="crumbs"><a href="#">Головна</a> / Категорії послуг / Мій Київ</div>
+  <h1>Мій Київ<span class="newbadge">нове</span></h1>
+  <div class="slogan">Навчайся. Досліджуй. Спробуй. Впливай.</div>
   <p class="lead">Усе, що потрібно для дитини в Києві — від запису до школи до гуртків і секцій. Каталог відкритий без авторизації; вхід потрібен лише для подання заяви.</p>
   <div class="note">
     <b>Що змінюється.</b> Розділ «Дітям» на Порталі вже є, але містить окремі послуги. Пропозиція — добудувати його до єдиного сценарію «дитина в місті»:
@@ -777,7 +838,7 @@ body.tour-open .toast{right:414px}
 </section>
 
 <section class="scr" id="k-main">
-  <h1>Мій розклад</h1>
+  <h1>Для мене<span class="newbadge">нове</span></h1>
   <p class="lead">Марко, 12 років · Ліцей №142, 6-Б клас</p>
   <div class="hero" style="margin-top:26px">
     <div class="av">🧒</div>
@@ -788,11 +849,10 @@ body.tour-open .toast{right:414px}
       <div><b id="st-badges">3</b><span>бейджі</span></div>
     </div>
   </div>
+  <div class="sec" style="margin-top:30px"><h2>Що цікавого для мене сьогодні?</h2><div class="feed" id="feed"></div></div>
   <div class="sec"><h2>Цього тижня</h2><div class="tl" id="week"></div></div>
-  <div class="note pur">
-    <b>Як працює кабінет дитини.</b> Дитина бачить свій розклад, гуртки, документи й заявки, може сама знайти гурток і подати заяву.
-    Усе, що потребує згоди або грошей, іде на підтвердження батькові — оплати в дитячому кабінеті немає.
-  </div>
+  <div class="sec"><h2 style="font-size:18px">Мої послуги</h2><div class="svc2"><a data-go="k-pass">Activity Pass</a><a data-go="k-clubs">Гуртки</a><a data-go="k-req">Заявки</a><a data-go="k-wallet">Освітній гаманець</a><a data-go="k-docs">Документи й довідки</a></div>
+  <div style="font-size:13.5px;color:var(--mut);margin-top:10px">Документи, заявки й довідки нікуди не зникли — вони на другому рівні. Головне на екрані — дитина та її життя в Києві.</div></div>
 </section>
 
 <section class="scr" id="k-inbox">
@@ -858,9 +918,27 @@ body.tour-open .toast{right:414px}
   <div id="kwallet-body" style="margin-top:26px"></div>
 </section>
 
+<section class="scr" id="k-go">
+  <h1>Куди піти<span class="newbadge">нове</span></h1>
+  <p class="lead">Місця поруч, нові заняття на спробу і маршрути на вихідні.</p>
+  <div id="kgo-body"></div>
+</section>
+
+<section class="scr" id="k-progress">
+  <h1>Мої досягнення<span class="newbadge">нове</span></h1>
+  <p class="lead">Колекція Києва: картки за досліджене місто. Бачиш ти і батьки.</p>
+  <div id="kprog-body"></div>
+</section>
+
+<section class="scr" id="k-class">
+  <h1>Мій клас<span class="newbadge">нове</span></h1>
+  <p class="lead">6-Б · Ліцей №142. Спільні квести, самоврядування, ідеї для школи й для Києва.</p>
+  <div id="kclass-body"></div>
+</section>
+
 <section class="scr" id="k-quests">
   <h1>Квести міста<span class="newbadge">нове</span></h1>
-  <p class="lead">Досліджуй Київ ногами: бібліотеки, музеї, парки, секції. Відмітка ставиться QR-кодом на місці або твоїм Activity Pass.</p>
+  <p class="lead">Київ — місто-квест. Не «відвідай бібліотеку», а «розкрий таємницю»: щоб пройти, треба піти в бібліотеку, до книги, у місто й музей.</p>
   <div id="kquests-body"></div>
 </section>
 
@@ -922,6 +1000,7 @@ body.tour-open .toast{right:414px}
     <div class="ctl">За дитиною Усі <span class="cav">▾</span></div>
     <div class="ctl">За датою <span class="cav">▾</span></div>
   </div>
+  <div id="papprove-weekend"></div>
   <div id="papprove-buy"></div>
   <div id="papprove-list"></div>
   <div class="sec"><h2>Історія рішень</h2>
@@ -1001,6 +1080,24 @@ body.tour-open .toast{right:414px}
   <h1>Ваучери й виплати<span class="newbadge">нове</span></h1>
   <p class="lead">Місто платить за дитину, яка реально ходить на заняття, а не за список групи.</p>
   <div id="zvouch-body" style="margin-top:26px"></div>
+</section>
+
+<section class="scr" id="z-qb">
+  <h1>Конструктор квестів<span class="newbadge">нове</span></h1>
+  <p class="lead">Бібліотекар — автор міського освітнього контенту: вік, тема, книга, завдання, відмітка, винагорода.</p>
+  <div id="zqb-body"></div>
+</section>
+
+<section class="scr" id="z-mod">
+  <h1>Модерація маршрутів<span class="newbadge">нове</span></h1>
+  <p class="lead">Маршрути, які створили діти. Перевірте безпеку й приватність — і місто опублікує.</p>
+  <div id="zmod-body"></div>
+</section>
+
+<section class="scr" id="z-cls">
+  <h1>Квест класом<span class="newbadge">нове</span></h1>
+  <p class="lead">Ліцей №142 · вчитель 6-Б. Спільна мета класу замість рейтингу.</p>
+  <div id="zcls-body"></div>
 </section>
 
 <section class="scr" id="z-quest">
@@ -1947,7 +2044,7 @@ function qscan(id){var p=S.q.prog[id],i=p.indexOf(0);if(i<0)return;p[i]=1;var Q=
 
 /* ==================== НАВІГАЦІЯ ==================== */
 var TABS={pub:{side:null,user:'Тест М.П.',nav:['Захисник','Школи','Вивіски']},
-          kid:{side:'side-kid',user:'Марко Т.',nav:['Activity Pass','Квести','Моя школа']},
+          kid:{side:'side-kid',user:'Марко Т.',nav:['Для мене','Квести','Мій клас']},
           prov:{side:'side-prov',user:'БДТ Солом’янського р-ну',nav:['Журнал','Ваучери','Точка квесту']},
           par:{side:'side-par',user:'Тест М.П.',nav:['Мої діти','Школи','Вивіски']}};
 var PREF={v:'pub',k:'kid',p:'par',z:'prov'};
@@ -2112,7 +2209,7 @@ document.addEventListener('click',function(e){
   var t;
   if(t=e.target.closest('[data-go]')){e.preventDefault();show(t.dataset.go);return;}
   if(t=e.target.closest('.mock .tab[data-tab]')){
-    var k=t.dataset.tab;show(k==='pub'?'v-main':k==='kid'?(S.loggedIn?'k-main':'k-login'):k==='prov'?'z-journal':'p-kids');return;}
+    var k=t.dataset.tab;show(k==='pub'?'v-main':k==='kid'?(S.loggedIn?'k-main':'k-login'):k==='prov'?ORGS[S.mk?S.mk.org:'bdt'].home:'p-kids');return;}
   if(e.target.id==='reset'){resetDemo();show('v-main');toast('Демо скинуто до початкового стану.');return;}
   if(t=e.target.closest('[data-addkid]')){e.preventDefault();startWizard(null);return;}
   if(t=e.target.closest('[data-openkid]')){startWizard(t.dataset.openkid);return;}
@@ -2219,8 +2316,262 @@ document.addEventListener('change',function(e){
   if(e.target.id==='qs-on'){S.questsOn=e.target.checked;msg('kid',S.questsOn?'Батьки увімкнули квести міста.':'Батьки вимкнули квести міста.');renderAll();toast(S.questsOn?'Квести увімкнено.':'Квести вимкнено для дитини.');}
 });
 
+/* ==================== «МІЙ КИЇВ»: ДАНІ ==================== */
+var COL=[
+ {id:'hist',ic:'🏛',n:'Київ історичний',items:[['zoloti','🏛','Золоті ворота'],['sofia','⛪','Софія Київська'],['magdeburg','📜','Магдебурзьке право'],['podil','⚓','Поділ і Контрактова площа'],['oldstreet','🗺','Старі назви вулиць']]},
+ {id:'green',ic:'🌳',n:'Київ зелений',items:[['park1','🌳','Парк «Нивки»'],['birds','🐦','Птахи Києва'],['plants','🌱','Рослини Ботсаду'],['oldtree','🌲','Найстаріше дерево біля школи']]},
+ {id:'read',ic:'📚',n:'Київ читає',items:[['lib1','📚','Бібліотека для дітей №1'],['lib2','📚','Бібліотека «Солом’янка»'],['lib3','📚','Бібліотека на Чоколівці'],['book','📖','Книжковий детектив'],['writers','✍️','Українські письменники']]},
+ {id:'future',ic:'🤖',n:'Київ майбутнього',items:[['robot','🤖','Робототехніка'],['science','🔬','Наука'],['code','💻','Програмування']]},
+ {id:'prof',ic:'🧭',n:'Професії міста',items:[['urban','🏙','Юний урбаніст'],['eco','♻️','Юний еколог'],['journ','📰','Юний журналіст']]},
+ {id:'arch',ic:'🗝',n:'Зниклий архів Києва',items:[['arch1','🗝','Перша скриня'],['arch2','🗝','Друга скриня'],['arch3','🗝','Третя скриня']]}
+];
+function colAll(){var a=[];COL.forEach(function(c){c.items.forEach(function(i){a.push(i[0]);});});return a;}
+function colPct(){return Math.round(S.mk.col.length/colAll().length*100);}
+function colAdd(ids){ids.forEach(function(i){if(S.mk.col.indexOf(i)<0)S.mk.col.push(i);});}
+var LETTER=[
+ {t:'Лист 1897 року',d:'У 1897 році киянин залишив загадковий лист. Частина листа зникла. Перша підказка — у твоїй районній бібліотеці.'},
+ {t:'Бібліотека',d:'Прийди в бібліотеку й відскануй QR на кафедрі. Але QR не завершує завдання.'},
+ {t:'Місто',d:'Знайди вулицю зі старою назвою на сучасній карті Києва.'},
+ {t:'Музей',d:'Наступна підказка — у Музеї історії Києва, біля вітрини з листами XIX століття.'},
+ {t:'Фінал',d:'Лист відновлено. Бейдж «Дослідник Києва — рівень 1» і міська нагорода.'}
+];
+var ARCH=['Золоті ворота','Бібліотека для дітей №1','Парк «Нивки»','Музей історії Києва','Поштова площа','Андріївський узвіз','Київський планетарій','Ботанічний сад','Бібліотека на Подолі','Театр ляльок',
+ 'Фунікулер','Пейзажна алея','Контрактова площа','Будинок дитячої творчості','Гідропарк','Кирилівська церква','Бібліотека «Солом’янка»','Музей води','Труханів острів','Фінальна скриня архіву'];
+var PROFS=[['urban','🏙','Урбаніст','Знайди незручне місце й запропонуй, як його змінити'],['eco','♻️','Еколог','Досліди, куди в районі здати батарейки й пластик'],['journ','📰','Журналіст','Візьми інтерв’ю в бібліотекаря про історію району'],
+ ['arch','🏗','Архітектор','Знайди будівлю, старшу за 100 років, і дізнайся її історію'],['libr','📚','Бібліотекар','Підбери добірку книжок про свій район'],['trans','🚋','Транспортний планувальник','Прокладіть маршрут від школи до парку без авто'],
+ ['hist','📜','Історик','Порівняй стару фотографію району з сучасною'],['resc','🚒','Рятувальник','Знайди найближче укриття й перевір, чи є до нього знак']];
+var MISSIONS=[['🌳','Знайди найстаріше дерево біля своєї школи'],['📚','Запитай у бібліотекаря, яку книгу про Київ він рекомендує'],['🏛','Знайди будівлю, старшу за 100 років'],['♻️','Дізнайся, куди можна здати батарейки у твоєму районі']];
+var ROUTES=[{id:'r60',dur:'60 хвилин · поруч із домом',t:'Бібліотека і сквер',d:'Бібліотека для дітей №1 → сквер на Козелецькій → точка «Зниклого архіву»'},
+ {id:'r2',dur:'2 години',t:'Музей і бібліотека',d:'Музей історії Києва, у суботу вхід безкоштовний → бібліотека на Подолі'},
+ {id:'rhalf',dur:'Пів дня · великий квест',t:'Таємниці Подолу',d:'Контрактова площа → Поштова площа → фунікулер → Андріївський узвіз'}];
+var CLASSQ={lit:{n:'Київ літературний',m:['Відвідати районну бібліотеку','Знайти книгу Лесі Українки','З’ясувати факт про авторку','Знайти пов’язане з нею місце в Києві','Відвідати Музей Лесі Українки','Пройти маршрут «Київ письменників»','Екологічне завдання в парку','Знайти архітектурний об’єкт із вірша','Пройти вікторину','Створити власну історію про Київ']},
+ arch:{n:'Київ архітектурний',m:[]},green:{n:'Зелений Київ',m:[]}};
+var LIBTPL=[['det','8–10 років','Книжковий детектив','Знайди книгу за трьома підказками'],['old','10–12 років','Таємниці старого Києва','Знайди в книзі фото місця й визнач, що там зараз'],
+ ['fake','12–14 років','Фейк чи правда?','Знайди три джерела й визнач, яке твердження про Київ неправдиве'],['gone','14–16 років','Київ, якого вже немає','Досліди стару фотографію, знайди місце, зроби сучасне фото']];
+var ORGS={bdt:{n:'Будинок дитячої творчості',s:'Гуртки й секції',home:'z-journal',user:'БДТ Солом’янського р-ну'},lib:{n:'Бібліотека для дітей №1',s:'База квестів',home:'z-qb',user:'Бібліотека для дітей №1'},teach:{n:'Ліцей №142',s:'Вчитель 6-Б класу',home:'z-cls',user:'Вчитель 6-Б · Ліцей №142'}};
+
+function mkState(){return{org:'bdt',col:['zoloti','sofia','park1','lib1','lib2','robot'],qtab:'story',
+ lt:{step:0,qr1:false,err:'',hint:false},arch:3,prof:{step:0},ideas:[],mission:{done:false,photo:false},
+ weekend:null,cls:{st:'none',sel:'lit',done:0,mine:0},kq:{st:'none',name:''},lq:{st:'none',tpl:'det',done:false,step:0}};}
+
+/* ==================== СТРІЧКА «ДЛЯ МЕНЕ» ==================== */
+function renderFeed(){
+  var M=S.mk,items=[];
+  var first=null;['Пн','Вт','Ср','Чт','Пт','Сб'].forEach(function(d){S.enrolled.forEach(function(id){club(id).sched.forEach(function(p){if(!first&&p[0]===d)first=p[1];});});});
+  var fm=first&&first.match(/^(\d\d:\d\d) ([^·]+)/);items.push({e:'♟️',t:'У тебе сьогодні '+(fm?fm[2].trim().toLowerCase()+' о '+fm[1]:'шахи о 15:00')+'.',s:'Будинок дитячої творчості · вул. Козелецька, 5',go:'k-pass'});
+  if(M.lq.st==='published'&&!M.lq.done)items.push({e:'🔎',t:'У бібліотеці за 600 м від тебе відкрився новий квест «Книжковий детектив».',s:'Створила бібліотекарка · 8–10 років і старше',go:'k-quests',tab:'story',hot:1});
+  else items.push({e:'📚',t:'У бібліотеці за 600 м від тебе — підказка до квесту «Таємниця київського листа».',s:'Бібліотека для дітей №1 · відкрито до 18:00',go:'k-quests',tab:'story',hot:M.lt.step<4?1:0});
+  if(M.cls.st!=='none')items.push({e:'👥',t:'Твій 6-Б дослідив Київ на '+M.cls.done*10+'%.'+(M.cls.st==='final'?' Секретний фінальний маршрут відкрито!':' Ще '+(10-M.cls.done)+' місії — і клас відкриє секретний маршрут.'),s:'Квест класу «Київ літературний»',go:'k-class',hot:1});
+  items.push({e:'🏛',t:'У Музеї історії Києва — безкоштовний вхід цієї суботи.',s:'Можна поєднати з квестом вихідного дня',go:'k-go'});
+  items.push({e:'🧭',t:'Зниклий архів Києва: '+M.arch+' з 20 точок. Наступна відкриється після бібліотеки.',s:'Секретна карта на весь навчальний рік',go:'k-quests',tab:'arch'});
+  var h=COL[0],have=h.items.filter(function(i){return M.col.indexOf(i[0])>=0;}).length;
+  if(have<h.items.length)items.push({e:'🎯',t:'До колекції «Київ історичний» залишилось '+(h.items.length-have)+' '+(h.items.length-have===1?'завдання':'завдання')+'.',s:'Мій Київ досліджено на '+colPct()+'%',go:'k-progress'});
+  if(!M.mission.done)items.push({e:'🗓',t:'Місія тижня: '+MISSIONS[0][1].toLowerCase()+'.',s:'Нова місія — щопонеділка',go:'k-quests',tab:'story'});
+  if(!M.weekend)items.push({e:'🚲',t:'Куди підемо цими вихідними? Три маршрути саме для тебе.',s:'Обери — і батькам прийде пропозиція',go:'k-go'});
+  else items.push({e:'🚲',t:'Квест вихідного дня «'+ROUTES.filter(function(r){return r.id===M.weekend.r;})[0].t+'»: '+(M.weekend.st==='ok'?'тато погодив, субота 11:00.':M.weekend.st==='no'?'тато запропонував інший день.':'чекаємо відповіді тата.'),s:'Квест вихідного дня',go:'k-go'});
+  $('feed').innerHTML=items.map(function(i){return '<div class="fi'+(i.hot?' hot':'')+'" data-go="'+i.go+'"'+(i.tab?' data-qt="'+i.tab+'"':'')+'><div class="e">'+i.e+'</div><div class="t">'+i.t+'<small>'+i.s+'</small></div><span class="go">→</span></div>';}).join('');
+}
+
+/* ==================== КУДИ ПІТИ ==================== */
+function renderGo(){
+  var M=S.mk;
+  $('kgo-body').innerHTML='<div class="sec" style="margin-top:26px"><h2>Місця поруч</h2><div class="grid g2">'+
+   [['📚','Бібліотека для дітей №1','600 м · підказка квесту «Таємниця київського листа»','k-quests'],['🏛','Музей історії Києва','5 км · у суботу безкоштовно','k-quests'],['🌳','Парк «Нивки»','1,2 км · точка «Зниклого архіву»','k-quests'],['🎭','Театр ляльок','4 км · «Снігова королева» в неділю','k-wallet']].map(function(p){
+     return '<div class="fi" data-go="'+p[3]+'"><div class="e">'+p[0]+'</div><div class="t"><b>'+p[1]+'</b><small>'+p[2]+'</small></div><span class="go">→</span></div>';}).join('')+'</div></div>'+
+   '<div class="sec"><h2>Спробуй нове</h2><div class="tiles" style="grid-template-columns:repeat(5,1fr)">'+
+   [['⚽','Спорт'],['🎨','Творчість'],['🤖','STEM'],['🎭','Театр'],['🌿','Природа']].map(function(t){return '<div class="tile" data-go="v-catalog"><div class="e">'+t[0]+'</div><div class="t">'+t[1]+'</div><div class="c">пробне заняття</div></div>';}).join('')+'</div></div>'+
+   '<div class="sec"><h2>Куди підемо цими вихідними?</h2><p class="lead" style="margin-top:-8px">Обери маршрут — пропозиція піде батькам у кабінет і в «Київ Цифровий».</p><div class="grid g3" style="margin-top:16px">'+
+   ROUTES.map(function(r){var sel=M.weekend&&M.weekend.r===r.id;return '<div class="route"'+(sel?' style="border:2px solid var(--new)"':'')+'><div class="dur">'+r.dur+'</div><h3>'+r.t+'</h3><div style="font-size:14px;color:var(--mut);flex:1">'+r.d+'</div>'+
+     (sel?'<span class="st '+(M.weekend.st==='ok'?'ok">Тато погодив · субота 11:00':M.weekend.st==='no'?'no">Тато запропонував інший день':'pur">Чекаємо відповіді тата')+'</span>':(M.weekend?'':'<button class="btn sm" data-wk="'+r.id+'">Хочу сюди</button>'))+'</div>';}).join('')+'</div></div>';
+}
+
+/* ==================== КВЕСТИ ==================== */
+function renderQuests(){
+  if(!S.mk)S.mk=mkState();var M=S.mk,h='';
+  if(!S.questsOn){$('kquests-body').innerHTML='<div class="empty" style="margin-top:26px">Батьки вимкнули квести. Попроси їх увімкнути: кабінет батька → Activity Pass і ваучери → Дозволи.</div>';return;}
+  var tabs='<div class="seg subtabs">'+[['story','📜 Сюжети'],['arch','🗝 Зниклий архів'],['prof','🧭 Професії міста'],['mine','✍️ Створи свій']].map(function(x){return '<button data-qt="'+x[0]+'"'+(M.qtab===x[0]?' class="on"':'')+'>'+x[1]+'</button>';}).join('')+'</div>';
+  if(M.qtab==='story'){
+    var mis=M.mission;
+    h='<div class="fi hot" style="cursor:default;max-width:860px"><div class="e">'+MISSIONS[0][0]+'</div><div class="t"><b>Місія тижня.</b> '+MISSIONS[0][1]+'.<small>'+(mis.done?'Виконано: у колекції нова картка «Найстаріше дерево біля школи».':'Сфотографуй дерево без людей у кадрі. Нова місія — щопонеділка.')+'</small></div>'+
+      (mis.done?'<span class="st ok">Виконано</span>':'<button class="btn sm" data-mission="1">Виконати</button>')+'</div>';
+    var s=M.lt.step;
+    h+='<div class="story" style="margin-top:22px;max-width:860px"><div class="kk">СЮЖЕТНИЙ КВЕСТ · 10–14 РОКІВ</div><h2>Таємниця київського листа</h2><p>'+LETTER[0].d+'</p></div>'+
+      '<div class="card" style="max-width:860px;margin-top:14px">'+LETTER.map(function(st,i){var cls=i<s?'ok':i===s?'cur':'lock';var body='<h4>'+(i+1)+'. '+st.t+'</h4><p>'+st.d+'</p>';
+        if(i===s){
+          if(i===0)body+='<div class="actions" style="margin-top:12px"><button class="btn" data-lt="start">Почати квест</button></div>';
+          if(i===1){body+=!M.lt.qr1?'<div class="actions" style="margin-top:12px"><button class="btn" data-lt="qr1">📍 Я в бібліотеці: відсканувати QR</button></div>':
+            '<div class="task"><b>Завдання від бібліотеки.</b> Знайди книгу про Київ XIX століття. На сторінці, яку підкаже бібліотекар, знайди стару назву однієї з київських вулиць.'+
+            '<div class="field" style="margin:12px 0 6px"><input id="lt-ans" placeholder="Стара назва вулиці"></div><div class="err">'+M.lt.err+'</div>'+
+            (M.lt.hint?'<div style="font-size:13.5px;color:#5b12b5">Підказка бібліотекарки: вулицю назвали на честь імператора, вона вела з Подолу вгору до Хрещатика.</div>':'<a class="link" data-lt="hint" style="font-size:13.5px">Попросити підказку в бібліотекаря</a>')+
+            '<div class="actions" style="margin-top:12px"><button class="btn" data-lt="ans">Перевірити</button></div></div>';}
+          if(i===2)body+='<div class="task"><b>Олександрівська вулиця.</b> Яка це вулиця зараз?<div class="grid" style="gap:8px;margin-top:10px">'+
+            ['Вулиця Петра Сагайдачного, Поділ','Хрещатик','Вулиця Володимирська'].map(function(o,k){return '<button class="opt'+(M.lt.err&&k!==0?'':'')+'" data-lt="map'+k+'" style="text-align:left;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff">'+o+'</button>';}).join('')+'</div><div class="err">'+M.lt.err+'</div></div>';
+          if(i===3)body+='<div class="actions" style="margin-top:12px"><button class="btn" data-lt="qr2">📍 Я в музеї: відсканувати QR біля вітрини</button></div>';
+        }
+        if(i===4&&s>=4)body+='<div class="note" style="margin:12px 0 0;background:#e8f7ea;border-color:#bfe5c5;color:#1f7a2e"><b style="color:#1f7a2e">Лист відновлено!</b> Бейдж «Дослідник Києва — рівень 1», безкоштовний квиток до Музею історії Києва й три нові картки в колекції.</div>';
+        return '<div class="stp '+cls+'"><div class="n">'+(i<s||(i===4&&s>=4)?'✓':i+1)+'</div><div class="b">'+body+'</div></div>';}).join('')+
+      '<div style="font-size:13px;color:var(--mut);margin-top:10px">Портал → бібліотека → книга → знання → місто → музей → досягнення. Сюжет вигаданий, факти й місця справжні.</div></div>';
+    if(M.lq.st==='published'){var ld=M.lq.done;
+      h+='<div class="card" style="max-width:860px;margin-top:16px;border:2px solid '+(ld?'#bfe5c5':'var(--new)')+'"><div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><span style="font-size:32px">🔎</span><div style="flex:1"><h3>Книжковий детектив</h3><div style="font-size:13.5px;color:var(--mut)">Створила Бібліотека для дітей №1 · 600 м від тебе</div></div>'+
+        (ld?'<span class="st ok">Пройдено</span>':M.lq.step===0?'<button class="btn" data-lq="play">📍 Я в бібліотеці: почати</button>':'')+'</div>'+
+        (M.lq.step===1&&!ld?'<div class="task">Знайди книгу за трьома підказками: вона про кота, її авторка — киянка, а на обкладинці — трамвай. Яка це книга?<div class="actions" style="margin-top:10px;flex-wrap:wrap">'+
+          ['«Грицько і грицики»','«Мандри котячого трамваю»','«Таємниця старого годинника»'].map(function(o,k){return '<button class="btn grey sm" data-lq="a'+k+'">'+o+'</button>';}).join('')+'</div></div>':'')+'</div>';}
+    h+='<div class="sec"><h2>Маршрути міста</h2>'+QUESTS.slice(0,2).map(function(Q){var p=S.q.prog[Q.id],n=p.filter(Boolean).length,done=p.indexOf(0)<0;
+      return '<div class="card" style="margin-bottom:12px;max-width:860px"><div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><span style="font-size:30px">'+Q.ic+'</span><div style="flex:1"><h3>'+Q.name+'</h3><div style="font-size:13.5px;color:var(--mut)">'+Q.by+' · '+n+' з '+p.length+'</div></div>'+
+        (done?'<span class="st ok">Пройдено</span>':'<button class="btn ghost sm" data-qscan="'+Q.id+'">📍 Відмітитись на наступній точці</button>')+'</div></div>';}).join('')+
+      (M.kq.st==='published'?'<div class="card" style="max-width:860px"><div style="display:flex;gap:14px;align-items:center"><span style="font-size:30px">🗺</span><div style="flex:1"><h3>'+M.kq.name+'</h3><div style="font-size:13.5px;color:var(--mut)">Маршрут від Марка Т., 12 років · перевірено бібліотекою</div></div><span class="st info">Опубліковано</span></div></div>':'')+'</div>';
+  }else if(M.qtab==='arch'){
+    h='<div class="story" style="max-width:980px"><div class="kk">СЕКРЕТНА КАРТА · ДО ТРАВНЯ 2027</div><h2>Зниклий архів Києва</h2><p>20 точок містом: бібліотеки, музеї, парки, театри, будинки творчості. Кожна відкрита точка показує наступну, але ніколи не всю карту одразу.</p></div>'+
+      '<div style="display:flex;align-items:center;gap:16px;margin-top:16px;flex-wrap:wrap"><b>Відкрито '+M.arch+' з 20</b><div class="meter" style="flex:1;min-width:200px;max-width:520px"><i style="width:'+M.arch*5+'%;background:var(--new)"></i></div></div>'+
+      '<div class="arch" style="max-width:980px">'+ARCH.map(function(n,i){if(i<M.arch)return '<div class="p ok"><span class="i">✅</span><b>'+n+'</b><span style="color:var(--mut)">точка '+(i+1)+'</span></div>';
+        if(i===M.arch)return '<div class="p nx"><span class="i">🔒</span><b>Секретна місія</b><span style="color:var(--mut)">Відкриється після відвідування бібліотеки</span></div>';
+        return '<div class="p hid">?</div>';}).join('')+'</div>'+
+      (M.arch<20?'<div class="actions"><button class="btn" data-arch="1">📍 Я в бібліотеці: відсканувати QR</button></div>':'');
+  }else if(M.qtab==='prof'){
+    var P=M.prof;
+    h='<p class="lead" style="margin-top:0">Стань на день тим, хто робить місто. Найцікавіші пропозиції дітей місто розглядає по-справжньому.</p>'+
+      '<div class="card" style="max-width:860px;margin-top:18px;border:2px solid '+(P.step>=2?'#bfe5c5':'var(--new)')+'"><div style="display:flex;gap:14px;align-items:center"><span style="font-size:34px">🏙</span><div><h3>Я — урбаніст</h3><div style="font-size:13.5px;color:var(--mut)">Квест-професія · 10–16 років</div></div></div>'+
+      '<div class="stp '+(P.step>0?'ok':'cur')+'" style="margin-top:12px"><div class="n">'+(P.step>0?'✓':1)+'</div><div class="b"><h4>Знайди у своєму районі місце, незручне для людей з інвалідністю</h4><p>Відміть його на мапі й сфотографуй. Без облич людей у кадрі.</p>'+
+        (P.step===0?'<div class="actions" style="margin-top:10px"><button class="btn" data-urb="mark">📍 Відмітити місце й додати фото</button></div>':'<p style="margin-top:6px;color:var(--ink)">Вхід до бібліотеки на вул. Козелецькій: сходи без пандуса · фото додано</p>')+'</div></div>'+
+      '<div class="stp '+(P.step>1?'ok':P.step===1?'cur':'lock')+'"><div class="n">'+(P.step>1?'✓':2)+'</div><div class="b"><h4>Запропонуй, як його змінити</h4>'+
+        (P.step===1?'<div class="field" style="margin:10px 0 0"><textarea id="urb-t" rows="3">Зробити пандус праворуч від сходів і кнопку виклику біля дверей.</textarea></div><div class="actions" style="margin-top:10px"><button class="btn" data-urb="send">Надіслати місту</button></div>':
+         P.step>1?'<p>Пропозицію передано до Солом’янської РДА. Статус — у розділі «Мій клас» → «Ідеї для Києва».</p>':'<p>Після першого кроку.</p>')+'</div></div>'+
+      (P.step>1?'<div class="note" style="margin:10px 0 0;background:#e8f7ea;border-color:#bfe5c5;color:#1f7a2e"><b style="color:#1f7a2e">Бейдж «Юний урбаніст Києва».</b> Ти можеш впливати на своє місто.</div>':'')+'</div>'+
+      '<div class="sec"><h2>Інші професії</h2><div class="grid g4">'+PROFS.slice(1).map(function(p){return '<div class="card" style="text-align:center"><div style="font-size:30px">'+p[1]+'</div><h3 style="margin-top:8px">Я — '+p[2].toLowerCase()+'</h3><div style="font-size:13px;color:var(--mut);margin-top:4px">'+p[3]+'</div><button class="btn ghost sm" style="margin-top:12px" data-profx="1">Почати</button></div>';}).join('')+'</div></div>';
+  }else{
+    var K=M.kq;
+    h='<p class="lead" style="margin-top:0">Не лише проходь маршрути міста, а створюй свої. Вчитель або бібліотекар перевірить, місто опублікує, а інші діти зможуть пройти.</p>'+
+      '<div class="card" style="max-width:760px;margin-top:18px">'+(K.st==='none'?'<h3>Мій маршрут</h3><div class="field" style="margin-top:14px"><label>Назва</label><input id="kq-n" value="7 місць Солом’янки, про які ти не знав"></div>'+
+        '<div class="field"><label>Точки маршруту, по одній у рядку</label><textarea id="kq-p" rows="5">Вокзал «Київ-Пасажирський»\nСолом’янський парк\nБібліотека «Солом’янка»\nСтарий трамвайний міст\nВодонапірна вежа</textarea></div>'+
+        '<div style="font-size:13px;color:var(--mut);margin-bottom:12px">Лише публічні місця. Без адрес квартир і фото людей.</div><button class="btn" data-kq="send">Надіслати на перевірку</button>':
+       K.st==='review'?'<h3>'+K.name+'</h3><p style="margin:8px 0 0"><span class="st pur">На перевірці в бібліотеки</span> Зазвичай до 3 днів.</p>':
+       '<h3>'+K.name+'</h3><p style="margin:8px 0 0"><span class="st ok">Опубліковано</span> Маршрут бачать інші діти. У тебе бейдж «Автор маршруту».</p>')+'</div>';
+  }
+  $('kquests-body').innerHTML=tabs+h+'<div class="note pur" style="max-width:980px"><b>Правила.</b> Без рейтингів між дітьми, класами й школами. Нічого не згорає. Жодних бонусів за оцінки. Кожен квест можна пройти без смартфона з паперовою картою з бібліотеки. Нагороди — доступ і досвід, а не гроші.</div>';
+}
+
+/* ==================== МОЇ ДОСЯГНЕННЯ ==================== */
+function renderProgress(){
+  var M=S.mk,p=colPct();
+  $('kprog-body').innerHTML='<div class="card" style="display:flex;gap:26px;align-items:center;flex-wrap:wrap;margin-top:26px;background:linear-gradient(120deg,#f1f7ff,#f8f3ff)"><div><div style="font-size:13px;font-weight:800;letter-spacing:.1em;color:var(--mut)">МІЙ КИЇВ ДОСЛІДЖЕНО</div><div class="bigpct">'+p+'%</div></div>'+
+   '<div style="flex:1;min-width:240px"><div class="clsbar"><i style="width:'+p+'%"></i></div><div style="font-size:14px;color:var(--mut)">'+M.col.length+' з '+colAll().length+' карток колекції · бачиш ти і батьки, порівняння з іншими немає</div></div></div>'+
+   COL.map(function(c){var got=c.items.filter(function(i){return M.col.indexOf(i[0])>=0;}).length;
+     return '<div class="colc card"><h3><span style="font-size:24px">'+c.ic+'</span>'+c.n+'<span style="margin-left:auto;font-size:14px;color:var(--mut);font-weight:600">'+got+' з '+c.items.length+'</span></h3><div class="coli">'+
+       c.items.map(function(i){var g=M.col.indexOf(i[0])>=0;return '<span class="'+(g?'got':'no')+'">'+(g?i[1]:'🔒')+' '+i[2]+'</span>';}).join('')+'</div></div>';}).join('')+
+   '<div class="note pur"><b>Замість балів — колекція міста.</b> Картку дає пройдене завдання, місія тижня, квест класу чи професія. Нічого не згорає, і купити картку не можна.</div>';
+}
+
+/* ==================== МІЙ КЛАС ==================== */
+function renderClass(){
+  var M=S.mk,C=M.cls,Q=CLASSQ[C.sel],h;
+  if(C.st==='none')h='<div class="empty" style="margin-top:26px">Вчитель ще не запустив квест для 6-Б. Коли запустить, тут з’явиться спільний прогрес класу.</div>';
+  else{var pct=C.done*10;
+    h='<div class="card" style="margin-top:26px;max-width:860px"><div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div><div style="font-size:13px;font-weight:800;letter-spacing:.08em;color:var(--mut)">КВЕСТ КЛАСУ · 6-Б</div><h2 style="margin-top:4px">'+Q.n+'</h2></div>'+
+      (C.st==='final'?'<span class="st ok" style="margin-left:auto">Секретний маршрут відкрито</span>':'')+'</div>'+
+      '<div class="clsbar"><i style="width:'+pct+'%"></i></div><div style="font-size:16px"><b>6-Б дослідив Київ на '+pct+'%.</b> '+(C.st==='final'?'Клас відкрив секретний фінальний маршрут «Київ Лесі Українки вночі».':'Ще '+(10-C.done)+' місії — і клас відкриє секретний фінальний маршрут.')+'</div>'+
+      '<div style="margin-top:14px">'+Q.m.map(function(m,i){var ok=i<C.done;return '<div class="msn'+(ok?' ok':'')+'"><div class="ck">'+(ok?'✓':'')+'</div><span style="flex:1">'+m+'</span>'+(i===C.done&&C.st!=='final'?'<button class="btn sm" data-cq="do">Виконати</button>':'')+'</div>';}).join('')+'</div>'+
+      '<div style="font-size:13.5px;color:var(--mut);margin-top:12px">Твій внесок: '+C.mine+' '+(C.mine===1?'місія':(C.mine>=2&&C.mine<=4)?'місії':'місій')+'. Це бачиш лише ти. Рахунку «хто скільки зробив» немає ні для класу, ні для вчителя.</div></div>';}
+  var ideas=M.ideas;
+  $('kclass-body').innerHTML=h+'<div class="grid g3" style="margin-top:18px;max-width:1100px">'+
+   '<div class="card" data-go="k-school" style="cursor:pointer"><div style="font-size:28px">🗳</div><h3 style="margin-top:8px">Самоврядування</h3><div style="font-size:13.5px;color:var(--mut);margin-top:4px">Вибори учнівської ради, опитування, бюджет школи</div></div>'+
+   '<div class="card" data-go="k-school" data-gtab2="init" style="cursor:pointer"><div style="font-size:28px">💡</div><h3 style="margin-top:8px">Ідеї для школи</h3><div style="font-size:13.5px;color:var(--mut);margin-top:4px">Ініціативи з порогом підписів і обов’язковою відповіддю</div></div>'+
+   '<div class="card"><div style="font-size:28px">🏙</div><h3 style="margin-top:8px">Ідеї для Києва</h3>'+(ideas.length?ideas.map(function(i){return '<div style="font-size:14px;margin-top:8px">'+i.t+'<br><span class="st '+(i.done?'ok':'wait')+'" style="margin-top:4px">'+i.st+'</span></div>';}).join(''):
+     '<div style="font-size:13.5px;color:var(--mut);margin-top:4px">Пропозиції з квестів-професій. Спробуй «Я — урбаніст».</div><button class="btn ghost sm" style="margin-top:10px" data-go="k-quests" data-qt="prof">До професій</button>')+'</div></div>'+
+   '<div class="note pur" style="max-width:1100px"><b>Квест класом добровільний.</b> Школа не ставить за нього оцінок і не бачить, хто не брав участі. Клас не змагається з іншими класами: є лише спільна мета.</div>';
+}
+
+/* ==================== КАБІНЕТ ЗАКЛАДУ: БІБЛІОТЕКА І ВЧИТЕЛЬ ==================== */
+function renderLibTeach(){
+  var M=S.mk,L=M.lq,K=M.kq,C=M.cls;
+  $('zqb-body').innerHTML=L.st==='none'?
+   '<div class="card" style="margin-top:26px;max-width:860px"><h3>Новий квест</h3><div class="lbl2">Шаблон</div><div class="tpl">'+LIBTPL.map(function(t){return '<button data-ltpl="'+t[0]+'"'+(L.tpl===t[0]?' class="on"':'')+'><b>'+t[2]+'</b><span>'+t[1]+' · '+t[3]+'</span></button>';}).join('')+'</div>'+
+   '<div class="grid g2" style="margin-top:16px;gap:0 16px"><div class="field"><label>Книга</label><input value="«Мандри котячого трамваю»"></div><div class="field"><label>Вік</label><select><option>8–10 років</option><option>10–12 років</option></select></div></div>'+
+   '<div class="field" style="max-width:none"><label>Завдання</label><textarea rows="2">Знайди книгу за трьома підказками: вона про кота, її авторка — киянка, а на обкладинці — трамвай.</textarea></div>'+
+   '<div class="grid g2" style="gap:0 16px"><div class="field"><label>Відмітка</label><select><option>QR на кафедрі видачі</option><option>Відмітка бібліотекаря</option></select></div><div class="field"><label>Винагорода</label><select><option>Колекційна картка «Книжковий детектив»</option><option>Читацький квиток «Без лімітів»</option></select></div></div>'+
+   '<button class="btn" data-lq="send">Надіслати на модерацію міста</button></div>':
+   L.st==='moderation'?'<div class="card" style="margin-top:26px;max-width:860px"><h3>Книжковий детектив</h3><p style="margin:8px 0 0"><span class="st pur">На модерації міста</span> Перевіряють вікову доречність і безпеку маршруту.</p></div>':
+   '<div class="card" style="margin-top:26px;max-width:860px"><h3>Книжковий детектив</h3><p style="margin:8px 0 0"><span class="st ok">Опубліковано</span> Квест бачать діти в радіусі 2 км. Пройшли: '+(L.done?1:0)+'.</p><div class="actions"><button class="btn ghost sm" data-lq="again">Створити ще один квест</button></div></div>';
+  $('zmod-body').innerHTML=K.st==='review'?'<div class="card" style="margin-top:26px;max-width:860px;border:2px solid var(--new)"><h3>'+K.name+'</h3><div style="font-size:13.5px;color:var(--mut);margin-top:4px">Маршрут від дитини · Марко Т., 12 років · 5 точок</div>'+
+     '<div style="margin-top:12px;font-size:14.5px">Перевірте: лише публічні місця, без адрес квартир і облич людей, маршрут безпечний пішки.</div><div class="actions"><button class="btn" data-kq="approve">Перевірено, опублікувати</button><button class="btn grey" data-kq="return">Повернути на доопрацювання</button></div></div>':
+     '<div class="empty" style="margin-top:26px">Маршрутів на перевірці немає. Коли дитина надішле свій маршрут, він з’явиться тут.</div>';
+  var Q=CLASSQ[C.sel];
+  $('zcls-body').innerHTML=C.st==='none'?'<div class="card" style="margin-top:26px;max-width:860px"><h3>Почати квест для класу</h3><div class="lbl2">Клас</div><div style="font-size:16px">6-Б · 28 учнів</div><div class="lbl2">Квест</div><div class="tpl">'+
+     [['lit','Київ літературний','10 місій · бібліотека, музей, маршрут письменників'],['arch','Київ архітектурний','10 місій · будівлі, стилі, архітектори'],['green','Зелений Київ','10 місій · парки, птахи, екологія']].map(function(q){return '<button data-csel="'+q[0]+'"'+(C.sel===q[0]?' class="on"':'')+'><b>'+q[1]+'</b><span>'+q[2]+'</span></button>';}).join('')+'</div>'+
+     '<div class="note">Участь добровільна, оцінок немає. Ви бачите загальний прогрес класу, а не те, хто скільки зробив.</div><button class="btn" data-cq="start">Почати квест</button></div>':
+     '<div class="card" style="margin-top:26px;max-width:860px"><h3>6-Б · '+Q.n+'</h3><div class="clsbar"><i style="width:'+C.done*10+'%"></i></div><div><b>'+C.done*10+'%</b> · виконано '+C.done+' з 10 місій · беруть участь 21 з 28 учнів</div>'+
+     (C.st==='final'?'<p style="margin:10px 0 0"><span class="st ok">Секретний маршрут відкрито</span></p>':(C.done<7?'<div class="actions"><button class="btn grey sm" data-cq="week">Минув тиждень (демо)</button></div>':''))+'</div>';
+}
+
+/* ==================== «МІЙ КИЇВ»: ДІЇ ==================== */
+function mkRewardTicket(ic,t,when){S.tickets.unshift({kid:'marko',ic:ic,t:t,when:when});}
+function renderMK(){
+  if(!S.mk)S.mk=mkState();
+  renderFeed();renderGo();renderProgress();renderClass();renderLibTeach();
+  document.querySelectorAll('.smenu [data-org]').forEach(function(e){e.classList.toggle('vis',e.dataset.org===S.mk.org);});
+  document.querySelectorAll('.org[data-setorg]').forEach(function(e){e.classList.toggle('on',e.dataset.setorg===S.mk.org);});
+  TABS.prov.user=ORGS[S.mk.org].user;TABS.prov.nav={bdt:['Журнал','Ваучери','Точка квесту'],lib:['Квести','Модерація','Статистика'],teach:['Мій клас','Квести','Розклад']}[S.mk.org]; if(curTabMK()==='prov')$('uname').textContent=TABS.prov.user;
+  var b=COL.reduce(function(a,c){return a;},0);
+  $('st-badges').textContent=BASEBADGES.length+S.q.done.length+(S.mk.lt.step>=4?1:0)+(S.mk.prof.step>=2?1:0)+(S.mk.kq.st==='published'?1:0);
+  var wk=$('papprove-weekend'),W=S.mk.weekend;
+  if(wk)wk.innerHTML=W&&W.st==='pending'?'<h2 style="margin:10px 0 16px">Плани на вихідні</h2><div class="card" style="border:2px solid var(--new);margin-bottom:18px"><div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap"><span style="font-size:34px">🚲</span><div style="flex:1"><h3>Марко хоче пройти квест «'+ROUTES.filter(function(r){return r.id===W.r;})[0].t+'» цієї суботи</h3>'+
+    '<div style="font-size:13.5px;color:var(--mut);margin-top:4px">'+ROUTES.filter(function(r){return r.id===W.r;})[0].d+' · безкоштовно</div></div><div style="display:flex;gap:10px"><button class="btn" data-wkok="1">Погодити на суботу</button><button class="btn grey" data-wkno="1">Запропонувати інше</button></div></div></div>':'';
+  var pb=$('bdg-papprove');if(pb&&W&&W.st==='pending'){pb.textContent=(+pb.textContent||0)+1;pb.style.display='inline-flex';}
+}
+function curTabMK(){var t=document.querySelector('.mock .tab.on[data-tab]');return t?t.dataset.tab:'';}
+var _renderAllBase=renderAll;
+renderAll=function(){if(!S.mk)S.mk=mkState();_renderAllBase();renderMK();};
+
+document.addEventListener('click',function(e){
+  var t,M=S.mk; if(!M)return;
+  if(t=e.target.closest('[data-qt]')){M.qtab=t.dataset.qt;renderQuests();if(!t.dataset.go)return;}
+  if(t=e.target.closest('[data-gtab2]')){S.gov.tab=t.dataset.gtab2;renderSchool();}
+  if(t=e.target.closest('[data-setorg]')){M.org=t.dataset.setorg;renderAll();show(ORGS[M.org].home);return;}
+  if(t=e.target.closest('[data-lt]')){var a=t.dataset.lt,L=M.lt;L.err='';
+    if(a==='start')L.step=1;
+    else if(a==='qr1'){L.qr1=true;colAdd(['lib1']);toast('Відмітку в бібліотеці прийнято. Тепер завдання з книгою.');}
+    else if(a==='hint')L.hint=true;
+    else if(a==='ans'){var v=($('lt-ans').value||'').toLowerCase();if(v.indexOf('олександр')>=0){L.step=2;colAdd(['oldstreet']);toast('Правильно! Олександрівська вулиця.');}else L.err='Не та назва. Попроси підказку в бібліотекаря.';}
+    else if(a.indexOf('map')===0){if(a==='map0'){L.step=3;colAdd(['podil']);toast('Так, це Поділ. Наступна підказка — в музеї.');}else L.err='Ні, стара Олександрівська вела з Подолу. Спробуй ще.';}
+    else if(a==='qr2'){L.step=4;colAdd(['magdeburg']);mkRewardTicket('🏛','Безкоштовний квиток: Музей історії Києва','діє до 31.12.2026');
+      msg('kid','<b>Квест «Таємниця київського листа» пройдено!</b> Бейдж «Дослідник Києва — рівень 1» і квиток до Музею історії Києва.');msg('par','Марко пройшов сюжетний квест «Таємниця київського листа»: бібліотека, Поділ, Музей історії Києва.');toast('Лист відновлено! Бейдж і квиток уже твої.');}
+    renderAll();return;}
+  if(t=e.target.closest('[data-mission]')){M.mission.done=true;colAdd(['oldtree']);msg('kid','Місію тижня виконано: у колекції картка «Найстаріше дерево біля школи».');renderAll();toast('Місію виконано. Нова картка в колекції.');return;}
+  if(t=e.target.closest('[data-arch]')){M.arch=Math.min(20,M.arch+2);colAdd(M.arch>=5?['arch1']:[]);if(M.arch>=9)colAdd(['arch2']);renderAll();toast('Відкрито дві нові точки архіву. Наступну покаже бібліотека.');return;}
+  if(t=e.target.closest('[data-urb]')){var u=t.dataset.urb;
+    if(u==='mark'){M.prof.step=1;toast('Місце відмічено, фото додано.');}
+    else{var txt=($('urb-t').value||'').trim()||'Пандус біля входу';M.prof.step=2;colAdd(['urban']);var idea={t:'Пандус біля бібліотеки на вул. Козелецькій',st:'Передано до Солом’янської РДА',done:false};M.ideas.unshift(idea);
+      msg('kid','Твою пропозицію «'+idea.t+'» передано до Солом’янської РДА. Бейдж «Юний урбаніст Києва».');toast('Пропозицію надіслано місту.');
+      setTimeout(function(){idea.st='Включено до плану безбар’єрності на 2027 рік';idea.done=true;msg('kid','<b>РДА відповіла на твою пропозицію:</b> пандус біля бібліотеки включено до плану безбар’єрності на 2027 рік.');renderAll();},5000);}
+    renderAll();return;}
+  if(t=e.target.closest('[data-profx]')){toast('У макеті повністю показано професію «Я — урбаніст». Інші працюють за тією самою схемою.');return;}
+  if(t=e.target.closest('[data-kq]')){var k=t.dataset.kq;
+    if(k==='send'){M.kq.name=($('kq-n').value||'').trim()||'Мій маршрут';M.kq.st='review';toast('Маршрут надіслано на перевірку.');}
+    else if(k==='approve'){M.kq.st='published';msg('kid','<b>Твій маршрут «'+M.kq.name+'» опубліковано!</b> Тепер його можуть пройти інші діти. Бейдж «Автор маршруту».');toast('Маршрут опубліковано. Автор отримав повідомлення.');}
+    else{M.kq.st='none';msg('kid','Бібліотекарка повернула маршрут на доопрацювання: прибери точку з приватним двором.');toast('Маршрут повернуто автору з коментарем.');}
+    renderAll();return;}
+  if(t=e.target.closest('[data-ltpl]')){M.lq.tpl=t.dataset.ltpl;renderLibTeach();return;}
+  if(t=e.target.closest('[data-lq]')){var q=t.dataset.lq,L2=M.lq;
+    if(q==='send'){L2.st='moderation';toast('Квест надіслано на модерацію міста.');setTimeout(function(){if(S.mk.lq.st!=='moderation')return;S.mk.lq.st='published';msg('kid','У бібліотеці за 600 м від тебе відкрився новий квест «Книжковий детектив».');renderAll();toast('Місто опублікувало квест бібліотеки.');},4000);}
+    else if(q==='again'){L2.st='none';L2.done=false;L2.step=0;}
+    else if(q==='play')L2.step=1;
+    else if(q==='a1'){L2.done=true;colAdd(['book']);msg('kid','Квест «Книжковий детектив» пройдено: картка в колекції «Київ читає».');toast('Правильно! Картка «Книжковий детектив» у колекції.');}
+    else if(q==='a0'||q==='a2')toast('Не та книга. Перечитай підказки.');
+    renderAll();return;}
+  if(t=e.target.closest('[data-csel]')){M.cls.sel='lit';if(t.dataset.csel!=='lit')toast('У макеті повністю наповнено квест «Київ літературний».');renderLibTeach();return;}
+  if(t=e.target.closest('[data-cq]')){var c=t.dataset.cq,C=M.cls;
+    if(c==='start'){C.st='on';C.done=0;msg('kid','<b>Твій 6-Б почав квест «Київ літературний».</b> 10 місій на місяць, спільна мета для всього класу.');toast('Квест класу запущено.');}
+    else if(c==='week'){C.done=Math.max(C.done,7);toast('Минув тиждень: клас виконав 7 місій.');}
+    else if(c==='do'){C.done++;C.mine++;if(C.done>=10){C.st='final';colAdd(['writers']);msg('kid','<b>6-Б дослідив Київ на 100%!</b> Відкрито секретний фінальний маршрут «Київ Лесі Українки вночі».');toast('Клас відкрив секретний маршрут!');}else toast('Місію виконано. Клас — '+C.done*10+'%.');}
+    renderAll();return;}
+  if(t=e.target.closest('[data-wk]')){var r=ROUTES.filter(function(x){return x.id===t.dataset.wk;})[0];M.weekend={r:r.id,st:'pending'};
+    msg('par','<b>Марко хоче пройти квест «'+r.t+'» цієї суботи.</b> '+r.d+'. Погодити — у розділі «Підтвердження заявок».');msg('kid','Пропозицію «'+r.t+'» надіслано татові.');renderAll();toast('Пропозицію надіслано татові в кабінет і в «Київ Цифровий».');return;}
+  if(t=e.target.closest('[data-wkok]')){M.weekend.st='ok';msg('kid','<b>Тато погодив!</b> Субота, 11:00, старт на Контрактовій площі.');renderAll();toast('Погоджено. Марко отримав повідомлення.');return;}
+  if(t=e.target.closest('[data-wkno]')){M.weekend.st='no';msg('kid','Тато запропонував перенести прогулянку на неділю.');renderAll();toast('Марко отримав пропозицію іншого дня.');return;}
+});
+
 setInterval(tick,1000);
 renderAll();renderClub();goStep(1);show('v-main');
+
 /* ==================== ПУТІВНИК ==================== */
 function vis(id){var e=$(id);return !!e&&e.classList.contains('on');}
 function curTab(){var t=document.querySelector('.mock .tab.on[data-tab]');return t?t.dataset.tab:'';}
@@ -2249,6 +2600,13 @@ var FLOWS=[
    {t:'Натисни на будь-яку позначку: відкриється картка гуртка.',sel:'#view-map .map',done:function(){return vis('v-club');},
     act:function(){var p=document.querySelector('#pins .pin');if(p)p.click();else{CUR=CLUBS[0];renderClub();show('v-club');}}},
    {t:'Картка збирається з реєстру: адреса, укриття, безбар’єрність, вільні місця, вартість і те, чи приймає заклад ваучер.<br><br>Кнопка «Записатись» веде до заяви. Це наступні сценарії.',sel:'#club-body',manual:true}
+  ]},
+ {id:'feed',name:'Для мене: персональна стрічка',ds:'Головний екран дитини — не послуги, а те, що цікаво сьогодні',min:1,
+  start:function(){resetDemo();loggedKid();show('k-main');},
+  steps:[
+   {t:'Це головний екран «Мого Києва». Замість документів і заявок — стрічка «Що цікавого для мене сьогодні?»: заняття, квести поруч, безкоштовний музей, прогрес колекції, місія тижня.',sel:'#feed',manual:true},
+   {t:'Натисни на картку про <b>музей цієї суботи</b>.',sel:'#feed [data-go="k-go"]',done:function(){return vis('k-go');}},
+   {t:'«Куди піти»: місця поруч, «Спробуй нове» і квест вихідного дня. Послуги — Activity Pass, гуртки, заявки, гаманець — перейшли на другий рівень меню.',sel:'#side-kid .smenu',manual:true}
   ]},
  {id:'login',name:'Вхід дитини з нового пристрою',ds:'ID дитини і одноразовий код, який приходить батькові',min:2,
   start:function(){resetDemo();show('k-login');},
@@ -2337,16 +2695,77 @@ var FLOWS=[
     act:function(){S.gov.pb=['games','bike'];S.gov.pbVoted=true;renderAll();}},
    {t:'Так діти проходять повний цикл бюджету участі на реальних грошах школи. Минулорічний переможець уже реалізований, і це видно на тій самій сторінці.',sel:null,manual:true}
   ]},
- {id:'quests',name:'Квести міста',ds:'Відмітки на маршруті, бейдж і нагорода',min:2,
-  start:function(){resetDemo();loggedKid();show('k-quests');},
+ {id:'letter',name:'Київ — місто-квест: сюжетний квест',ds:'Портал → бібліотека → книга → місто → музей → досягнення',min:3,
+  start:function(){resetDemo();loggedKid();S.mk.qtab='story';renderQuests();show('k-quests');},
   steps:[
-   {t:'Марко вже пройшов половину квесту «Осінь у Києві». Наступний крок — здати макулатуру.<br><br>Уяви, що він на місці, і натисни <b>«Я на місці: відсканувати QR»</b>.',sel:'[data-qscan="autumn"]',done:function(){return S.q.prog.autumn[3]===1;}},
-   {t:'Лишилось два кроки: музей і відкрите тренування. Відскануй обидва.',sel:'[data-qscan="autumn"]',done:function(){return S.q.done.indexOf('autumn')>=0;},act:function(){qscan('autumn');if(S.q.done.indexOf('autumn')<0)qscan('autumn');}},
-   {t:'Квест пройдено! Відкрий вкладку <b>«Колекція»</b>.',sel:'[data-qtab="col"]',done:function(){return S.q.tab==='col';}},
-   {t:'Новий бейдж у колекції. Рейтингу немає: колекцію бачать лише Марко і батьки.<br><br>Відкрий <b>«Усі квести»</b>.',sel:'[data-qtab="all"]',done:function(){return S.q.tab==='all';}},
-   {t:'Приєднайся до <b>«Бібліотечного маршруту Солом’янки»</b>.',sel:'[data-qjoin="libs"]',done:function(){return S.q.joined.indexOf('libs')>=0;}},
-   {t:'Нагорода за квест лежить в Activity Pass. Відкрий його в меню ліворуч.',sel:'#side-kid [data-go="k-pass"]',done:function(){return vis('k-pass');}},
-   {t:'Запрошення на нічну програму Планетарію вже тут. Нагороди квестів — доступ і досвід, а не гроші, і на гривні гаманця вони не обмінюються.',sel:'#kpass-tickets',manual:true}
+   {t:'Квест «Таємниця київського листа». Не «відвідай бібліотеку», а розкрий таємницю. Натисни <b>«Почати квест»</b>.',sel:'[data-lt="start"]',done:function(){return S.mk.lt.step>=1;}},
+   {t:'Уяви, що ти в бібліотеці. Натисни <b>«Відсканувати QR»</b>.',sel:'[data-lt="qr1"]',done:function(){return S.mk.lt.qr1;}},
+   {t:'QR не завершує завдання: треба попрацювати з бібліотекарем і книгою. Введи стару назву вулиці й натисни <b>«Перевірити»</b>.<span class="why">Відповідь: Олександрівська.</span>',sel:'#lt-ans',done:function(){return S.mk.lt.step>=2;},
+    act:function(){$('lt-ans').value='Олександрівська';document.querySelector('[data-lt="ans"]').click();}},
+   {t:'Тепер знайди цю вулицю на сучасній карті.',sel:'[data-lt="map0"]',done:function(){return S.mk.lt.step>=3;}},
+   {t:'Остання підказка — в Музеї історії Києва. Натисни <b>«Відсканувати QR біля вітрини»</b>.',sel:'[data-lt="qr2"]',done:function(){return S.mk.lt.step>=4;}},
+   {t:'Лист відновлено: бейдж, безкоштовний квиток і нові картки колекції. Відкрий <b>«Мої досягнення»</b>.',sel:'#side-kid [data-go="k-progress"]',done:function(){return vis('k-progress');}},
+   {t:'Замість балів — «Колекція Києва»: відсоток дослідженого міста і картки за категоріями. Порівняння з іншими дітьми немає.',sel:'#kprog-body .card',manual:true}
+  ]},
+ {id:'archive',name:'Секретна карта «Зниклий архів Києва»',ds:'20 точок на весь рік, кожна відкриває наступну',min:1,
+  start:function(){resetDemo();loggedKid();S.mk.qtab='arch';renderQuests();show('k-quests');},
+  steps:[
+   {t:'Видно лише відкриті точки й одну секретну. Щоб відкрити наступну, треба прийти в бібліотеку. Натисни <b>«Відсканувати QR»</b>.',sel:'[data-arch]',done:function(){return S.mk.arch>=5;}},
+   {t:'Відкрились дві нові точки. Так сюжет тягнеться весь навчальний рік — значно цікавіше за каталог «ось 25 квестів».',sel:'.arch',manual:true}
+  ]},
+ {id:'classq',name:'Квест класом',ds:'Вчитель запускає, клас іде до спільної мети без рейтингу',min:3,
+  start:function(){resetDemo();S.mk.org='teach';renderAll();show('z-cls');},
+  steps:[
+   {t:'Це кабінет вчителя 6-Б у кабінеті закладу. Обрано «Київ літературний». Натисни <b>«Почати квест»</b>.',sel:'[data-cq="start"]',done:function(){return S.mk.cls.st!=='none';}},
+   {t:'Натисни <b>«Минув тиждень (демо)»</b>: клас виконав частину місій.',sel:'[data-cq="week"]',done:function(){return S.mk.cls.done>=7;}},
+   {t:'Вчитель бачить загальний прогрес, а не те, хто скільки зробив. Перейди у вкладку <b>«Кабінет дитини»</b>.',sel:'.mock .tab[data-tab="kid"]',done:function(){return vis('k-main');},act:function(){loggedKid();show('k-main');}},
+   {t:'Квест класу вже в стрічці. Відкрий <b>«Мій клас»</b>.',sel:'#side-kid [data-go="k-class"]',done:function(){return vis('k-class');},act:function(){loggedKid();show('k-class');}},
+   {t:'Не «хто набрав більше», а «6-Б дослідив Київ на 70%». Виконай місії, що лишились.',sel:'[data-cq="do"]',done:function(){return S.mk.cls.st==='final';},act:function(){while(S.mk.cls.done<10)document.querySelector('[data-cq="do"]').click();}},
+   {t:'Клас відкрив секретний фінальний маршрут. Твій внесок бачиш лише ти. Участь добровільна, оцінок немає.',sel:'#kclass-body .card',manual:true}
+  ]},
+ {id:'libq',name:'Бібліотека — база квестів',ds:'Бібліотекарка створює квест, місто публікує, дитина проходить',min:2,
+  start:function(){resetDemo();S.mk.org='lib';renderAll();show('z-qb');},
+  steps:[
+   {t:'Кабінет бібліотеки. Бібліотекарка стає автором міського контенту: вік, тема, книга, завдання, відмітка, винагорода. Натисни <b>«Надіслати на модерацію міста»</b>.',sel:'[data-lq="send"]',done:function(){return S.mk.lq.st!=='none';}},
+   {t:'Місто перевіряє вікову доречність і безпеку.',sel:null,done:function(){return S.mk.lq.st==='published';},wait:'Модерація…'},
+   {t:'Опубліковано. Перейди у вкладку <b>«Кабінет дитини»</b>.',sel:'.mock .tab[data-tab="kid"]',done:function(){return vis('k-main');},act:function(){loggedKid();show('k-main');}},
+   {t:'Квест бібліотеки з’явився в стрічці. Натисни на нього.',sel:'#feed .fi.hot[data-go="k-quests"]',done:function(){return vis('k-quests');}},
+   {t:'Натисни <b>«Я в бібліотеці: почати»</b>.',sel:'[data-lq="play"]',done:function(){return S.mk.lq.step>=1;}},
+   {t:'Обери правильну книгу: <b>«Мандри котячого трамваю»</b>.',sel:'[data-lq="a1"]',done:function(){return S.mk.lq.done;}},
+   {t:'Квест бібліотеки пройдено, картка «Книжковий детектив» у колекції. Бібліотека бачить, скільки дітей прийшло через її квест.',sel:'#kquests-body .card',manual:true}
+  ]},
+ {id:'kidroute',name:'Дитина створює свій маршрут',ds:'Маршрут від дитини, перевірка бібліотеки, публікація',min:2,
+  start:function(){resetDemo();loggedKid();S.mk.qtab='mine';renderQuests();show('k-quests');},
+  steps:[
+   {t:'Марко створює маршрут «7 місць Солом’янки». Натисни <b>«Надіслати на перевірку»</b>.',sel:'[data-kq="send"]',done:function(){return S.mk.kq.st==='review';}},
+   {t:'Перейди у вкладку <b>«Кабінет закладу»</b> і обери <b>Бібліотеку для дітей №1</b>.',sel:function(){return curTab()==='prov'?'[data-setorg="lib"]':'.mock .tab[data-tab="prov"]';},done:function(){return S.mk.org==='lib'&&curTab()==='prov';},act:function(){S.mk.org='lib';renderAll();show('z-qb');}},
+   {t:'Відкрий <b>«Модерація маршрутів»</b>.',sel:'#side-prov [data-go="z-mod"]',done:function(){return vis('z-mod');},act:function(){show('z-mod');}},
+   {t:'Бібліотекарка перевіряє: публічні місця, без облич і адрес квартир. Натисни <b>«Перевірено, опублікувати»</b>.',sel:'[data-kq="approve"]',done:function(){return S.mk.kq.st==='published';}},
+   {t:'Маршрут опубліковано, автор отримав бейдж. Діти не лише проходять контент міста, а й створюють його.',sel:'#zmod-body',manual:true}
+  ]},
+ {id:'weekend',name:'Квест вихідного дня',ds:'Дитина обирає маршрут, батько погоджує',min:2,
+  start:function(){resetDemo();loggedKid();show('k-go');},
+  steps:[
+   {t:'У п’ятницю дитина бачить три маршрути: на годину, на дві і на пів дня. Натисни <b>«Хочу сюди»</b> під «Таємницями Подолу».',sel:'[data-wk="rhalf"]',done:function(){return !!S.mk.weekend;}},
+   {t:'Перейди в кабінет батька, розділ <b>«Підтвердження заявок»</b>.',sel:function(){return where('par','#side-par [data-go="p-approve"]');},done:function(){return vis('p-approve');},act:function(){show('p-approve');}},
+   {t:'Батько бачить пропозицію дитини. Натисни <b>«Погодити на суботу»</b>.',sel:'[data-wkok]',done:function(){return S.mk.weekend.st==='ok';}},
+   {t:'Дитина сама стала ініціатором сімейного дозвілля, а в її стрічці вже «тато погодив, субота 11:00».',sel:'#papprove-list',manual:true}
+  ]},
+ {id:'urban',name:'Професії міста: «Я — урбаніст»',ds:'Дитина знаходить проблему, пропонує рішення, місто відповідає',min:2,
+  start:function(){resetDemo();loggedKid();S.mk.qtab='prof';renderQuests();show('k-quests');},
+  steps:[
+   {t:'Знайди місце, незручне для людей з інвалідністю. Натисни <b>«Відмітити місце й додати фото»</b>.',sel:'[data-urb="mark"]',done:function(){return S.mk.prof.step>=1;}},
+   {t:'Запропонуй рішення й натисни <b>«Надіслати місту»</b>.',sel:'[data-urb="send"]',done:function(){return S.mk.prof.step>=2;}},
+   {t:'Відкрий <b>«Мій клас»</b>: там розділ «Ідеї для Києва».',sel:'#side-kid [data-go="k-class"]',done:function(){return vis('k-class');}},
+   {t:'РДА розглядає пропозицію.',sel:null,done:function(){return S.mk.ideas[0]&&S.mk.ideas[0].done;},wait:'Чекаємо відповіді РДА…'},
+   {t:'Пропозицію включено до плану. Дитина відчуває: «Я можу впливати на своє місто». Це продовжує шкільне самоврядування.',sel:'#kclass-body .grid',manual:true}
+  ]},
+ {id:'mission',name:'Місія тижня і колекція Києва',ds:'Регулярний привід повертатися без балів і стріків',min:1,
+  start:function(){resetDemo();loggedKid();S.mk.qtab='story';renderQuests();show('k-quests');},
+  steps:[
+   {t:'Щопонеділка — нова місія. Натисни <b>«Виконати»</b>.',sel:'[data-mission]',done:function(){return S.mk.mission.done;}},
+   {t:'Відкрий <b>«Мої досягнення»</b>.',sel:'#side-kid [data-go="k-progress"]',done:function(){return vis('k-progress');}},
+   {t:'Картка «Найстаріше дерево біля школи» в колекції «Київ зелений». Колекція росте роками і ніколи не згорає.',sel:'#kprog-body',manual:true}
   ]},
  {id:'register',name:'Реєстрація дитини і код запрошення',ds:'Батько додає дитину, дитина прив’язує пристрій',min:3,
   start:function(){resetDemo();show('p-kids');},
@@ -2414,7 +2833,7 @@ function tourRender(){
   $('tour-pr').textContent=n+' з '+FLOWS.length+' пройдено';
   var f=flowById(TOUR.flow), h='';
   if(!f){
-    h='<p class="intro">Це клікабельний макет розділу «Дітям» на Порталі послуг: вітрина і три кабінети — дитини, батька й закладу.<br><br>'+
+    h='<p class="intro">Це клікабельний макет «Мого Києва» на Порталі послуг: вітрина і три кабінети — дитини, батька й закладу (гуртки, бібліотека, вчитель).<br><br>'+
       'Обери сценарій. Путівник підсвічує, куди натиснути, і сам переходить далі, коли ти виконаєш дію. Кожен сценарій починається з чистого демо.</p>'+
       FLOWS.map(function(x,i){var ok=TOUR.doneFlows.indexOf(x.id)>=0;
         return '<button class="fl'+(ok?' ok':'')+'" data-tflow="'+x.id+'"><span class="no">'+(ok?'✓':i+1)+'</span><span><span class="nm" style="display:block">'+x.name+'</span><span class="ds" style="display:block">'+x.ds+'</span></span><span class="rl">'+x.min+' хв</span></button>';}).join('');
