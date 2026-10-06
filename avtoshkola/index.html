@@ -371,6 +371,47 @@ table.t tr.me td{background:var(--unread)}
 .foot .bot{display:flex;justify-content:space-between;gap:24px;font-size:14.5px;color:#c6ccd6;line-height:1.55;flex-wrap:wrap}
 .foot .bot b{color:#fff}
 
+/* ---------- путівник ---------- */
+.mock .tourbtn{border-color:#8b5cf6;color:#e4d2ff}
+.mock .tourbtn.on,.mock .tourbtn:hover{background:#7b2ff7;border-color:#7b2ff7;color:#fff}
+.tour{position:fixed;right:22px;bottom:22px;width:370px;max-height:calc(100vh - 80px);display:flex;flex-direction:column;background:#fff;border-radius:18px;
+  box-shadow:0 18px 60px rgba(12,17,22,.28),0 0 0 1px rgba(12,17,22,.06);z-index:80;overflow:hidden;font:14px/1.45 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#1d1d1f}
+.tour .th{background:#2b2f36;color:#fff;padding:13px 14px 13px 18px;display:flex;align-items:center;gap:10px;flex:none}
+.tour .th b{font-size:15px}
+.tour .th .pr{font-size:12.5px;color:#b8bec8;margin-left:auto}
+.tour .th button{background:transparent;border:0;color:#b8bec8;font-size:20px;line-height:1;padding:2px 6px;border-radius:8px}
+.tour .th button:hover{color:#fff;background:#3a3f48}
+.tour .tb{padding:18px 20px 20px;overflow:auto}
+.tour .intro{color:#323232;margin:0 0 14px}
+.tour .fl{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:1px solid #e5e5ea;border-radius:12px;padding:10px 12px;margin-bottom:8px;font:inherit}
+.tour .fl:hover{border-color:#7b2ff7;background:#faf6ff}
+.tour .fl .no{width:26px;height:26px;border-radius:50%;background:#f3e8ff;color:#5b12b5;font-weight:800;font-size:12.5px;display:grid;place-items:center;flex:none}
+.tour .fl.ok .no{background:#e8f7ea;color:#1f7a2e}
+.tour .fl .nm{font-weight:700;font-size:14px;line-height:1.3;display:block}
+.tour .fl .ds{font-size:12.5px;color:#6e6e6e;margin-top:2px;line-height:1.35;display:block}
+.tour .fl .rl{margin-left:auto;font-size:12px;color:#6e6e6e;white-space:nowrap}
+.tour .kick{font-size:12px;font-weight:800;color:#7b2ff7;letter-spacing:.04em;text-transform:uppercase}
+.tour h4{font-size:17px;margin:4px 0 12px}
+.tour .bar{display:flex;gap:4px;margin-bottom:16px}
+.tour .bar i{flex:1;height:4px;border-radius:4px;background:#e5e5ea}
+.tour .bar i.d{background:#35ac46}
+.tour .bar i.c{background:#7b2ff7}
+.tour .txt{font-size:14.5px;line-height:1.55}
+.tour .ok-msg{background:#e8f7ea;color:#1f7a2e;border-radius:10px;padding:10px 12px;font-weight:700;font-size:13.5px;margin-top:14px}
+.tour .ta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tour .ta .btn{height:auto;padding:10px 16px;font:700 13.5px/1.2 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;border-radius:10px}
+.tour .ta .btn.pur{background:#7b2ff7;color:#fff}
+.tour .ta .btn.pur:hover{background:#6420d4}
+.tour .ta .lnk{background:none;border:0;color:#6e6e6e;font-size:13.5px}
+.tour .tlinks{display:flex;gap:18px;margin-top:12px}
+.tour .tlinks button{background:none;border:0;padding:0;color:#6e6e6e;font-size:13px}
+.tour .tlinks button:hover{color:#1d1d1f}
+.tour-hl{outline:3px solid #7b2ff7!important;outline-offset:4px;border-radius:12px;animation:tpulse 1.6s ease-out infinite}
+@keyframes tpulse{0%{box-shadow:0 0 0 0 rgba(123,47,247,.45)}70%{box-shadow:0 0 0 14px rgba(123,47,247,0)}100%{box-shadow:0 0 0 0 rgba(123,47,247,0)}}
+body.tour-open .toast{right:414px}
+@media(min-width:1200px){body.tour-open .portal{margin-right:392px}body.tour-open .drawer.on{right:392px}body.tour-open .lay{grid-template-columns:1fr}body.tour-open .anchors{display:none}}
+@media(max-width:760px){.tour{left:10px;right:10px;width:auto;bottom:10px;max-height:55vh}body.tour-open .toast{right:24px;bottom:auto;top:60px}}
+
 [hidden]{display:none!important}
 .lay>*,.hero>*,.mylay>*,.calw>*,.waitw>*,.mapbox>*,.fmap>*,.how>*{min-width:0}
 
@@ -419,6 +460,7 @@ table.t tr.me td{background:var(--unread)}
     <option value="A">A — напряму в автошколу</option>
   </select></label>
   <button class="tab" id="resetBtn">Скинути</button>
+  <button class="tab tourbtn" id="tourbtn">🧭 Путівник</button>
   <span class="hint">Позначка <b>ідея</b> — понад план v2.0 · дані демонстраційні</span>
 </div>
 
@@ -720,6 +762,10 @@ table.t tr.me td{background:var(--unread)}
 <div class="drawer" id="drawer"><button class="x" id="drX" aria-label="Закрити">×</button><div id="drBody"></div></div>
 <div class="overlay" id="ovl" hidden><div class="mdl" id="mdl"></div></div>
 <div class="toast" id="toast"></div>
+<div class="tour" id="tour" hidden>
+  <div class="th"><b>🧭 Путівник</b><span class="pr" id="tour-pr"></span><button id="tour-x" title="Згорнути">×</button></div>
+  <div class="tb" id="tour-body"></div>
+</div>
 
 <script>
 /* ================= ДАНІ ================= */
@@ -1276,7 +1322,9 @@ $$('#v-kmx [data-ks]').forEach(b=>b.onclick=()=>{S.ks=b.dataset.ks;closeDrawer()
 $$('#v-sch [data-ss]').forEach(b=>b.onclick=()=>{S.ss=b.dataset.ss;closeDrawer();renderSch()});
 $('#stageSel').onchange=e=>{S.role='vet';setStage(e.target.value);scrollTo(0,0)};
 $('#routeSel').onchange=e=>{S.route=e.target.value;renderAll();toast(S.route==='B'?'Варіант B: документи перевіряє КМХ.':'Варіант A: документи йдуть напряму в автошколу.')};
-$('#resetBtn').onclick=()=>{S=seed();$('#routeSel').value='B';closeDrawer();document.body.classList.remove('big');renderMapSec();renderFit();renderAll();scrollTo(0,0)};
+function resetDemo(){S=seed();$('#routeSel').value='B';closeDrawer();closeModal();document.body.classList.remove('big');renderMapSec();renderFit();renderAll();scrollTo(0,0)}
+$('#resetBtn').onclick=resetDemo;
+function setRole(r){S.role=r;closeDrawer();renderAll();scrollTo(0,0)}
 
 renderMapSec();renderFit();renderAll();
 /* посилання на стан: #stage=invited&role=kmx&ks=seats&seat=q1&route=A */
@@ -1286,6 +1334,128 @@ renderMapSec();renderFit();renderAll();
   if(h.get('vs')==='form')openForm();
   if(h.get('role'))S.role=h.get('role');if(h.get('ks'))S.ks=h.get('ks');if(h.get('ss'))S.ss=h.get('ss');if(h.get('seat'))S.matchSeat=h.get('seat');
   renderAll();if(h.get('open'))openCand(h.get('open'));setTimeout(()=>$('#toast').classList.remove('on'),0)})();
+
+/* ================= ПУТІВНИК ================= */
+const ME=()=>S.me||{};
+const drOpen=()=>$('#drawer').classList.contains('on');
+const FLOWS=[
+ {id:'page',name:'Нова сторінка послуги',ds:'Перевірка «чи підходить», карта, календар, оцінка очікування',min:2,
+  start(){resetDemo()},
+  steps:[
+   {t:'Перший екран відповідає на головне: послуга безкоштовна, документи зараз не потрібні, вхід через Дію. Праворуч — жива черга: скільки людей чекає і скільки місць попереду.',sel:'.live',manual:true},
+   {t:'Блок «Чи підходить мені?» замінює абзаци умов. Обери <b>«II група»</b>.',sel:'[data-fit="g"]',done:()=>S.fit.g==='2',act(){S.fit.g='2';renderFit()}},
+   {t:'Тепер <b>«Так»</b> — живу в Києві. Відповідь одразу показує, чи можна подаватися.',sel:'[data-fit="k"]',done:()=>S.fit.k==='y',act(){S.fit.k='y';renderFit()}},
+   {t:'Карта автошкіл-учасниць. Обери фільтр <b>«Ручне керування»</b> — лишаться школи з адаптованими авто.',sel:'[data-mf="type"]',done:()=>S.mf.type==='hand',act(){$('[data-mf="type"] [data-v="hand"]').click()}},
+   {t:'Натисни на <b>Дарницький</b> район. Він стане «зручним» і сам підставиться в заявку.',sel:'#pageMap',done:()=>S.pageD.includes('Дарницький'),act(){S.pageD.push('Дарницький');renderMapSec()}},
+   {t:'Календар стартів груп з тими самими фільтрами. Натисни будь-яку виділену дату.',sel:'#calGrid',done:()=>!!S.cal.sel,act(){const d=$('#calGrid .has');if(d)d.click();else{$('#calNext').click();setTimeout(()=>{const x=$('#calGrid .has');x&&x.click()},50)}}},
+   {t:'«Скільки чекати саме мені» — оцінка за поточною чергою і кількістю місць. Підказка нижче радить додати сусідній район, якщо там немає потрібної автошколи.',sel:'#wRes',manual:true}
+  ]},
+ {id:'apply',name:'Подати заявку за 3 хвилини',ds:'Дія, коротка форма, підпис — і ви в черзі',min:1,
+  start(){resetDemo()},
+  steps:[
+   {t:'Натисни <b>«Стати в чергу на навчання»</b>.',sel:'#ctaApply',done:()=>S.vs==='form'},
+   {t:'ПІБ, податковий номер, пошта й адреса вже підтягнуті з Дії, система перевірила, що людина ще не в черзі. Група, категорія й тип авто для демо обрані — це картки, а не списки.',sel:'#s-form .prefill',manual:true},
+   {t:'Зручні райони — на карті або кнопками, до трьох. Під картою одразу видно, скільки автошкіл підходить і скільки орієнтовно чекати.',sel:'#s-form .fmap',manual:true},
+   {t:'Постав галочку згоди на обробку персональних даних.',sel:'label.chk:has(#fAgree)',done:()=>$('#fAgree').checked,act(){$('#fAgree').checked=true}},
+   {t:'Натисни <b>«Підписати через Дію і надіслати»</b>.',sel:'#fSign',done:()=>ME().status==='queue'},
+   {t:'Готово: статус «В черзі на навчання». Трекер показує весь шлях, праворуч — історія, де кожна подія продубльована на пошту й у «Київ Цифровий».',sel:'#s-my .trk',manual:true}
+  ]},
+ {id:'invite',name:'КМХ запрошує під вільне місце',ds:'Реєстр, підбір кандидатів, запрошення ветерану',min:2,
+  start(){resetDemo();setStage('queue');S.ks='reg';setRole('kmx')},
+  steps:[
+   {t:'Реєстр Київ Мілітарі Хабу: усі заявки з датою подання, фільтри, вивантаження в CSV. Наша демо-заявка підсвічена жовтим.',sel:'#kMain .kpis',manual:true},
+   {t:'Автошкола «Кермо» повідомила про вільне місце. Відкрий <b>«Вільні місця»</b>.',sel:'#v-kmx [data-ks="seats"]',done:()=>S.ks==='seats'},
+   {t:'Натисни <b>«Підібрати»</b> біля «Кермо» (кат. B, ручне керування).',sel:'[data-ms="q1"]',done:()=>S.matchSeat==='q1'},
+   {t:'Система лишила тільки тих, кому підходить категорія й тип авто; збіг району — вгорі. Правило сортування перемикається, бо його ще затверджує керівництво. Натисни <b>«Запросити»</b> біля «Бондар О. П.».',sel:'[data-inv="me"]',done:()=>ME().status==='invited'},
+   {t:'Ветерану пішло повідомлення. Переключись на роль <b>«Ветеран»</b> у верхній панелі.',sel:'.mock [data-role="vet"]',done:()=>S.role==='vet'},
+   {t:'Запрошення: автошкола, дата старту, авто і відлік 10 днів на документи. Нижче — доступність школи, маршрут і документи.',sel:'#s-my .inv',manual:true}
+  ]},
+ {id:'docs',name:'Документи і зарахування',ds:'Дія + файли, перевірка в КМХ, дата старту в календар',min:2,
+  start(){resetDemo();setStage('invited');setRole('vet')},
+  steps:[
+   {t:'Документи — тільки зараз, після запрошення. Натисни <b>«Підтягнути з Дії»</b> для паспорта.',sel:'[data-doc="pass"]',done:()=>!!ME().docs.pass},
+   {t:'І для посвідчення особи з інвалідністю внаслідок війни.',sel:'[data-doc="ubd"]',done:()=>!!ME().docs.ubd},
+   {t:'Документ про групу — файлом. Натисни <b>«Завантажити файл»</b>.',sel:'[data-doc="grp"]',done:()=>!!ME().docs.grp},
+   {t:'І медичну довідку 083/о.',sel:'[data-doc="med"]',done:()=>!!ME().docs.med},
+   {t:'Фото ця автошкола не вимагає. Натисни <b>«Надіслати на перевірку»</b>.',sel:'#sendDocs',done:()=>ME().status==='review'},
+   {t:'За варіантом B пакет перевіряє КМХ. Переключись на <b>«Київ Мілітарі Хаб»</b>.',sel:'.mock [data-role="kmx"]',done:()=>S.role==='kmx',act(){S.ks='reg';setRole('kmx')}},
+   {t:'Відкрий рядок <b>«Бондар О. П.»</b> у реєстрі (підсвічений жовтим).',sel:'tr[data-c="me"]',done:()=>drOpen(),act(){openCand('me')}},
+   {t:'Документи на місці. Натисни <b>«Документи в порядку — зарахувати»</b>.',sel:'#dAcc',done:()=>ME().status==='enrolled'},
+   {t:'Повернись у роль <b>«Ветеран»</b>.',sel:'.mock [data-role="vet"]',done:()=>S.role==='vet'},
+   {t:'Зараховано: дата старту, перші заняття і кнопка «Додати в календар», яка завантажує справжній файл .ics з нагадуванням за день.',sel:'#s-my .inv',manual:true}
+  ]},
+ {id:'decline',name:'«Не можу зараз»',ds:'Відмова від місця без втрати черги',min:1,
+  start(){resetDemo();setStage('invited');setRole('vet')},
+  steps:[
+   {t:'Людина може бути в лікарні чи на реабілітації. Натисни <b>«Не можу зараз»</b>.',sel:'#decline',done:()=>!$('#ovl').hidden},
+   {t:'Обери, з якого місяця зручно, і підтверди.',sel:'#dOk',done:()=>ME().status==='queue'},
+   {t:'Ветеран лишився в черзі з тією самою датою подання, пропуск зафіксовано, а місце повернулося КМХ для наступного кандидата.',sel:'#s-my .card',manual:true}
+  ]},
+ {id:'school',name:'Автошкола і аналітика міста',ds:'Повідомлення про місце, попит за районами',min:1,
+  start(){resetDemo();S.ss='seats';setRole('sch')},
+  steps:[
+   {t:'Кабінет автошколи. Повідом КМХ про вільне місце: натисни <b>«Повідомити КМХ»</b>.',sel:'#nSend',done:()=>S.seats.length>3},
+   {t:'Переключись на <b>«Київ Мілітарі Хаб»</b>.',sel:'.mock [data-role="kmx"]',done:()=>S.role==='kmx'},
+   {t:'Відкрий <b>«Вільні місця»</b> — нове місце вже там.',sel:'#v-kmx [data-ks="seats"]',done:()=>S.ks==='seats'},
+   {t:'Тепер <b>«Аналітика попиту»</b>.',sel:'#v-kmx [data-ks="an"]',done:()=>S.ks==='an'},
+   {t:'Черга без документів дає місту реальну картину попиту: де хочуть навчатися, на яких авто, і де бракує автошкіл з адаптованими авто.',sel:'#kMain .note',manual:true}
+  ]},
+ {id:'routeA',name:'Варіант A: документи напряму в автошколу',ds:'Як виглядає маршрут, альтернативний рекомендованому',min:1,
+  start(){resetDemo();S.route='A';$('#routeSel').value='A';setStage('review');S.ss='stud';setRole('sch')},
+  steps:[
+   {t:'У варіанті A пакет іде не в КМХ, а одразу в автошколу. Натисни <b>«Перевірити документи»</b> біля «Бондар О. П.».',sel:'[data-rv="me"]',done:()=>drOpen()},
+   {t:'Натисни <b>«Документи в порядку — зарахувати»</b>.',sel:'#dAcc',done:()=>ME().status==='enrolled'},
+   {t:'A швидше для людини на один крок, але кожній автошколі потрібні доступи й навчені працівники, а дані бачить більше установ. План рекомендує почати з B. Перемикач — тут.',sel:'#routeSel',manual:true}
+  ]}
+];
+const TOUR={open:false,flow:null,step:0,done:[],hl:null,scrolled:-1,flash:false};
+try{TOUR.done=JSON.parse(localStorage.getItem('avtTourDone')||'[]')}catch(e){}
+function tourSave(){try{localStorage.setItem('avtTourDone',JSON.stringify(TOUR.done));localStorage.setItem('avtTourSeen','1')}catch(e){}}
+const flowById=id=>FLOWS.find(f=>f.id===id);
+function tourTarget(){const f=flowById(TOUR.flow);if(!f)return null;const st=f.steps[TOUR.step];if(!st||!st.sel)return null;
+  let el=null;try{el=document.querySelector(st.sel)}catch(e){}return el&&el.getClientRects().length?el:null}
+function tourHL(el){if(TOUR.hl===el)return;if(TOUR.hl)TOUR.hl.classList.remove('tour-hl');TOUR.hl=el;if(el)el.classList.add('tour-hl')}
+function tourRender(){
+  const box=$('#tour');box.hidden=!TOUR.open;document.body.classList.toggle('tour-open',TOUR.open);$('#tourbtn').classList.toggle('on',TOUR.open);
+  if(!TOUR.open){tourHL(null);return}
+  $('#tour-pr').textContent=TOUR.done.length+' з '+FLOWS.length+' пройдено';
+  const f=flowById(TOUR.flow);let h='';
+  if(!f){
+    h='<p class="intro">Клікабельний макет послуги «Запис в автошколу для осіб з інвалідністю внаслідок війни» за планом v2.0: сторінка послуги, кабінет ветерана, Київ Мілітарі Хаб і автошкола.<br><br>Обери сценарій. Путівник підсвічує, куди натиснути, і сам переходить далі. Кожен сценарій починається з чистого демо.</p>'+
+      FLOWS.map((x,i)=>{const ok=TOUR.done.includes(x.id);return `<button class="fl${ok?' ok':''}" data-tflow="${x.id}"><span class="no">${ok?'✓':i+1}</span><span><span class="nm">${x.name}</span><span class="ds">${x.ds}</span></span><span class="rl">${x.min} хв</span></button>`}).join('');
+  }else if(TOUR.step>=f.steps.length){
+    const i=FLOWS.indexOf(f),next=FLOWS[i+1];
+    h=`<div class="kick">Сценарій ${i+1} з ${FLOWS.length}</div><h4>${f.name}</h4><div class="ok-msg" style="margin-top:0">Сценарій пройдено ✓</div><div class="ta">${next?`<button class="btn pur" data-tflow="${next.id}">Далі: ${next.name}</button>`:'<button class="btn pur" data-tlist="1">Усі сценарії пройдено</button>'}<button class="lnk" data-tlist="1">До списку</button></div>`;
+  }else{
+    const st=f.steps[TOUR.step],j=FLOWS.indexOf(f),last=TOUR.step===f.steps.length-1;
+    h=`<div class="kick">Сценарій ${j+1} · крок ${TOUR.step+1} із ${f.steps.length}</div><h4>${f.name}</h4><div class="bar">${f.steps.map((_,k)=>`<i class="${k<TOUR.step?'d':k===TOUR.step?'c':''}"></i>`).join('')}</div><div class="txt">${st.t}</div>${TOUR.flash?'<div class="ok-msg">Готово ✓</div>':''}<div class="ta">${st.manual?`<button class="btn pur" data-tnext="1">${last?'Завершити':'Далі'}</button>`:'<button class="btn grey" data-tdo="1">Зробити за мене</button>'}</div><div class="tlinks"><button data-trestart="1">↺ Почати заново</button><button data-tlist="1">☰ Усі сценарії</button></div>`;
+  }
+  $('#tour-body').innerHTML=h;
+}
+function tourStart(id){const f=flowById(id);if(!f)return;TOUR.flow=id;TOUR.step=0;TOUR.scrolled=-1;TOUR.flash=false;TOUR.open=true;tourHL(null);f.start();tourRender()}
+function tourAdvance(){const f=flowById(TOUR.flow);if(!f)return;TOUR.step++;TOUR.scrolled=-1;tourHL(null);
+  if(TOUR.step>=f.steps.length&&!TOUR.done.includes(f.id)){TOUR.done.push(f.id);tourSave()}
+  TOUR.flash=TOUR.step<f.steps.length;tourRender();clearTimeout(TOUR._f);TOUR._f=setTimeout(()=>{if(TOUR.flash){TOUR.flash=false;tourRender()}},1400)}
+function tourTick(){
+  if(!TOUR.open||!TOUR.flow)return;const f=flowById(TOUR.flow);if(!f||TOUR.step>=f.steps.length){tourHL(null);return}
+  const st=f.steps[TOUR.step];if(!st.manual&&st.done()){tourAdvance();return}
+  const el=tourTarget();tourHL(el);
+  if(el&&TOUR.scrolled!==TOUR.step){TOUR.scrolled=TOUR.step;const r=el.getBoundingClientRect();if(r.top<70||r.bottom>innerHeight-20)el.scrollIntoView({behavior:'smooth',block:'center'})}
+}
+function tourDo(){const f=flowById(TOUR.flow);if(!f)return;const st=f.steps[TOUR.step];if(!st)return;if(st.act){st.act();return}const el=tourTarget();if(el)el.click()}
+document.addEventListener('click',e=>{let t;
+  if(e.target.closest('#tourbtn')){TOUR.open=!TOUR.open;if(TOUR.open)tourSave();tourRender();return}
+  if(e.target.closest('#tour-x')){TOUR.open=false;tourRender();return}
+  if(t=e.target.closest('[data-tflow]')){tourStart(t.dataset.tflow);return}
+  if(e.target.closest('[data-tlist]')){TOUR.flow=null;tourHL(null);tourRender();return}
+  if(e.target.closest('[data-tnext]')){tourAdvance();return}
+  if(e.target.closest('[data-trestart]')){tourStart(TOUR.flow);return}
+  if(e.target.closest('[data-tdo]')){tourDo();return}
+});
+setInterval(tourTick,300);
+(()=>{let seen=null;try{seen=localStorage.getItem('avtTourSeen')}catch(e){}
+  const h=location.hash;if((!seen&&!/stage=|role=|vs=/.test(h))||/tour/.test(h)){TOUR.open=true}
+  const m=h.match(/tour=(\w+)/);if(m&&flowById(m[1]))tourStart(m[1]);else tourRender()})();
 </script>
 </body>
 </html>
