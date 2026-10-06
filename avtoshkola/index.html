@@ -484,7 +484,7 @@ body.tour-open .toast{right:414px}
       <div>
         <div id="myBar"></div>
         <div class="crumbs"><a href="#">Головна</a> · <a href="#">Захисникам</a> · Навчання</div>
-        <div class="hero">
+        <div class="hero" style="grid-template-columns:1fr">
           <div>
             <h1 class="pt">Запис в автошколу для осіб з&nbsp;інвалідністю внаслідок війни I–II групи</h1>
             <p class="lead">Безкоштовне навчання водінню за кошти міста. Повідомте, що хочете навчатися, — документи знадобляться лише тоді, коли для вас знайдеться місце в автошколі.</p>
@@ -499,15 +499,6 @@ body.tour-open .toast{right:414px}
               <button class="btn grey" data-jump="how">Як це працює</button>
               <button class="btn grey" id="bigText" title="Збільшити текст"><b>А+</b> Більший текст <span class="idea">ідея</span></button>
             </div>
-          </div>
-          <div class="live">
-            <div class="hd"><span><span class="dot"></span>Черга зараз</span><span class="idea">ідея</span></div>
-            <div class="big" id="lvQueue">—</div>
-            <div style="font-size:14px;color:var(--grey2);margin:4px 0 12px">людей очікують на навчання</div>
-            <div class="row"><span>Вільних місць до кінця року</span><b id="lvSeats">—</b></div>
-            <div class="row"><span>Зараховано у 2026</span><b id="lvDone">—</b></div>
-            <div class="row"><span>Медіанне очікування</span><b>74 дні</b></div>
-            <div class="row"><span>Автошкіл-учасниць</span><b id="lvSch">—</b></div>
           </div>
         </div>
 
@@ -581,7 +572,7 @@ body.tour-open .toast{right:414px}
         <!-- ОЧІКУВАННЯ -->
         <section class="sec" id="wait">
           <h2 class="sh">Скільки чекати саме мені <span class="idea">ідея</span></h2>
-          <p class="sub">Оцінка за поточною чергою й кількістю місць. Це не обіцянка — КМХ ухвалює рішення під кожне вільне місце.</p>
+          <p class="sub">Оцінка за кількістю автошкіл і стартів груп. Це не обіцянка — КМХ ухвалює рішення під кожне вільне місце.</p>
           <div class="waitw">
             <div class="card ln">
               <div class="field"><label>Категорія</label><select id="wCat"><option>B</option><option>A</option><option>C</option><option>BE</option></select></div>
@@ -959,8 +950,6 @@ function estimate(cat,type,dist){
 function renderWait(){
   const e=estimate($('#wCat').value,$('#wType').value,$('#wDist').value);
   $('#wRes').innerHTML=`<div style="font-size:14px;color:#aaa">Орієнтовне очікування</div><div class="bigv">${e.range}</div>
-  <div class="r"><span>У черзі з такими ж параметрами</span><b>${e.q}</b></div>
-  <div class="r"><span>Із них обрали цей район</span><b>${e.qd}</b></div>
   <div class="r"><span>Автошкіл, що підходять</span><b>${e.schs.length}${e.inD.length?' (у районі — '+e.inD.length+')':''}</b></div>
   <div class="r"><span>Стартів груп за 3 місяці</span><b>${e.groups}</b></div>
   <div class="tip">${!e.schs.length?'Таких автошкіл поки немає — заявка все одно покаже місту попит.':!e.inD.length?'💡 У цьому районі немає відповідної автошколи. Додайте сусідній район — це може скоротити очікування.':'💡 Що більше зручних районів, то більше місць вам можуть запропонувати.'}</div>`;
@@ -1036,11 +1025,9 @@ function renderMy(){
   let main='';
   if(me.status==='queue'){
     const e=estimate(me.cat,me.type,me.dists[0]);
-    const before=S.cands.filter(c=>c.status==='queue'&&c.cat===me.cat&&c.type===me.type&&c.date<me.date&&c.id!=='me').length;
     main=`<div class="card"><h3>Ваше бажання навчатися зафіксовано</h3>
-      <div class="grid g3" style="margin:6px 0 4px">
-        <div class="fld"><div class="l">У черзі з</div><div class="v">${fmt(me.date)}</div></div>
-        <div class="fld"><div class="l">Подано раніше з такими ж параметрами <span class="idea">ідея</span></div><div class="v"><b>${before}</b></div></div>
+      <div class="grid g2" style="margin:6px 0 4px">
+        <div class="fld"><div class="l">Повідомлено</div><div class="v">${fmt(me.date)}</div></div>
         <div class="fld"><div class="l">Орієнтовне очікування <span class="idea">ідея</span></div><div class="v"><b>${e.range}</b></div></div>
       </div>
       ${me.skips?`<div class="note warn">Ви вже пропустили одне запрошення. ⚠ Ліміт пропусків погоджується.</div>`:''}
@@ -1303,9 +1290,6 @@ function renderVet(){
   const me=S.me;
   $('#myTabSt').className='st '+(me?STS[me.status][1]:'grey');$('#myTabSt').textContent=me?STS[me.status][0]:'не подано';
   $('#myBar').innerHTML=me?`<div class="mybar"><div class="t">Ваша заявка № ${me.no} · ${stb(me.status)}</div><button class="btn sm" data-vs="my">Відкрити заявку</button></div>`:'';
-  const q=S.cands.filter(c=>c.status==='queue').length;
-  $('#lvQueue').textContent=q;$('#lvSeats').textContent=S.seats.reduce((a,s)=>a+s.n,0)+SCH.reduce((a,s)=>a+s.starts.filter(x=>x>=TODAY&&x<'2027-01-01').length,0);
-  $('#lvDone').textContent=S.cands.filter(c=>c.status==='enrolled'||c.status==='done').length;$('#lvSch').textContent=SCH.length;
   ['#ctaApply','#ctaApply2'].forEach(s=>$(s).textContent=me&&!['done','refused'].includes(me.status)?'Перейти до моєї заявки':'Повідомити про бажання навчатися');
   if(S.vs==='form')renderForm();
   if(S.vs==='my')renderMy();
@@ -1342,13 +1326,13 @@ const FLOWS=[
  {id:'page',name:'Нова сторінка послуги',ds:'Перевірка «чи підходить», карта, календар, оцінка очікування',min:2,
   start(){resetDemo()},
   steps:[
-   {t:'Перший екран відповідає на головне: послуга безкоштовна, документи зараз не потрібні, вхід через Дію. Праворуч — жива черга: скільки людей чекає і скільки місць попереду.',sel:'.live',manual:true},
+   {t:'Перший екран відповідає на головне: послуга безкоштовна, займе близько трьох хвилин, документи зараз не потрібні, вхід через Дію.',sel:'#s-page .facts',manual:true},
    {t:'Блок «Чи підходить мені?» замінює абзаци умов. Обери <b>«II група»</b>.',sel:'[data-fit="g"]',done:()=>S.fit.g==='2',act(){S.fit.g='2';renderFit()}},
    {t:'Тепер <b>«Так»</b> — живу в Києві. Відповідь одразу показує, чи можна подаватися.',sel:'[data-fit="k"]',done:()=>S.fit.k==='y',act(){S.fit.k='y';renderFit()}},
    {t:'Карта автошкіл-учасниць. Обери фільтр <b>«Ручне керування»</b> — лишаться школи з адаптованими авто.',sel:'[data-mf="type"]',done:()=>S.mf.type==='hand',act(){$('[data-mf="type"] [data-v="hand"]').click()}},
    {t:'Натисни на <b>Дарницький</b> район. Він стане «зручним» і сам підставиться в заявку.',sel:'#pageMap',done:()=>S.pageD.includes('Дарницький'),act(){S.pageD.push('Дарницький');renderMapSec()}},
    {t:'Календар стартів груп з тими самими фільтрами. Натисни будь-яку виділену дату.',sel:'#calGrid',done:()=>!!S.cal.sel,act(){const d=$('#calGrid .has');if(d)d.click();else{$('#calNext').click();setTimeout(()=>{const x=$('#calGrid .has');x&&x.click()},50)}}},
-   {t:'«Скільки чекати саме мені» — оцінка за поточною чергою і кількістю місць. Підказка нижче радить додати сусідній район, якщо там немає потрібної автошколи.',sel:'#wRes',manual:true}
+   {t:'«Скільки чекати саме мені» — орієнтовний строк за кількістю автошкіл і стартів груп, без розміру черги. Підказка нижче радить додати сусідній район, якщо там немає потрібної автошколи.',sel:'#wRes',manual:true}
   ]},
  {id:'apply',name:'Повідомити про бажання навчатися',ds:'Дія, кілька побажань, підпис — 3 хвилини',min:1,
   start(){resetDemo()},
