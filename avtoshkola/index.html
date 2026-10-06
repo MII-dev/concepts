@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Запис в автошколу — Портал послуг</title>
+<link rel="preload" href="fonts/Daikon-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/KyivTypeSans-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:Daikon;font-weight:400;font-style:normal;font-display:swap;src:url(fonts/Daikon-Regular.woff2) format("woff2")}
+@font-face{font-family:Daikon;font-weight:600;font-style:normal;font-display:swap;src:url(fonts/Daikon-SemiBold.woff2) format("woff2")}
+@font-face{font-family:Daikon;font-weight:700;font-style:normal;font-display:swap;src:url(fonts/Daikon-Bold.woff2) format("woff2")}
+@font-face{font-family:KyivTypeSans;font-weight:700;font-style:normal;font-display:swap;src:url(fonts/KyivTypeSans-Bold.woff2) format("woff2")}
+:root{
+  --blue:#0068ff;--blue-d:#0052cc;--blue-l:#f1f7ff;--blue-b:#e2f1fb;
+  --black:#000;--ink:#1d1d1f;--ink2:#323232;--grey:#888888;--grey2:#6e6e6e;--nav:#444444;
+  --line:#e5e5ea;--side:#f7f7f7;--foot:#17273f;--unread:#fdf8e4;
+  --ok:#1f7a2e;--ok-b:#e8f7ea;--warn:#8a5a00;--warn-b:#fff4e0;--bad:#a3251a;--bad-b:#ffeceb;
+  --pur:#7b2ff7;--pur-b:#f3e8ff;--pur-t:#5b12b5;
+  --shadow:0 2px 12px rgba(20,30,50,.08),0 0 0 1px rgba(20,30,50,.035);
+  --mock:#2b2f36;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:Daikon,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#fff;font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased}
+body.big .portal{zoom:1.15}
+h1,h2,h3,h4{margin:0;font-weight:700}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;color:inherit}
+input,select,textarea{font:inherit;color:var(--ink)}
+svg{display:block}
+
+/* ---------- службова панель макета ---------- */
+.mock{background:var(--mock);color:#b8bec8;display:flex;align-items:center;gap:6px;padding:0 16px;min-height:44px;font-size:13px;font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;flex-wrap:wrap;position:sticky;top:0;z-index:40}
+.mock .lbl{font-weight:700;color:#fff;margin-right:6px;white-space:nowrap}
+.mock .tab{background:transparent;border:1px solid #454b55;color:#c9ced6;border-radius:8px;padding:5px 13px;font-weight:600;white-space:nowrap}
+.mock .tab:hover{color:#fff;border-color:#6b727d}
+.mock .tab.on{background:#fff;color:#1d1d1f;border-color:#fff}
+.mock .sep{width:1px;height:22px;background:#454b55;margin:0 6px}
+.mock .scn{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.mock select{background:#1f2227;color:#fff;border:1px solid #454b55;border-radius:8px;padding:4px 8px;font-size:13px}
+.mock .hint{margin-left:auto;opacity:.75;white-space:nowrap}
+.mock .hint b{color:#c39bff}
+
+/* ---------- шапка порталу ---------- */
+.hdr{background:var(--blue);color:#fff;height:68px;display:flex;align-items:center;padding:0 24px;position:relative}
+.hdr .logo img{height:40px;width:auto}
+.hnav{position:absolute;left:calc(50% + 70px);transform:translateX(-50%);display:flex;gap:82px;font-size:15px;font-weight:700;letter-spacing:.01em}
+.hnav a{white-space:nowrap}
+.hnav a.on{box-shadow:0 2px 0 #fff}
+.uchip{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:15px;font-weight:700;white-space:nowrap}
+
+/* ---------- загальне ---------- */
+.wrap{max-width:1240px;margin:0 auto;padding:30px 32px 90px}
+h1.pt{font-family:KyivTypeSans,Daikon,sans-serif;font-size:34px;line-height:1.18;color:#000;letter-spacing:.005em}
+h2.sh{font-size:24px;font-weight:700;color:#000;margin-bottom:6px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sub{font-size:15.5px;color:var(--grey2);margin-bottom:20px;max-width:760px}
+.crumbs{font-size:13.5px;color:var(--grey);margin-bottom:12px}
+.crumbs a{color:var(--blue)}
+.lead{font-size:17px;color:var(--ink2);margin:14px 0 0;max-width:720px}
+.idea{display:inline-block;background:var(--pur-b);color:var(--pur-t);font-family:Daikon,sans-serif;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:99px;letter-spacing:.05em;text-transform:uppercase;vertical-align:middle;white-space:nowrap}
+.warnf{display:inline-block;background:var(--warn-b);color:var(--warn);font-size:12px;font-weight:600;padding:2px 9px;border-radius:99px;white-space:nowrap}
+.card{background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:26px 28px}
+.card.ln{box-shadow:none;border:1.5px solid var(--line)}
+.card h3{font-size:19px;font-weight:600;margin-bottom:12px}
+.sec{margin-top:56px;scroll-margin-top:60px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--blue);color:#fff;border:0;border-radius:12px;height:48px;padding:0 24px;font-size:15px;font-weight:700;white-space:nowrap}
+.btn:hover{background:var(--blue-d)}
+.btn.sm{height:38px;padding:0 16px;font-size:14px;border-radius:10px}
+.btn.xs{height:32px;padding:0 12px;font-size:13px;border-radius:9px}
+.btn.ghost{background:#fff;color:var(--blue);box-shadow:inset 0 0 0 1.5px var(--blue)}
+.btn.ghost:hover{background:var(--blue-l)}
+.btn.grey{background:#f3f3f5;color:var(--ink)}
+.btn.grey:hover{background:#e8e8ec}
+.btn.red{background:#fff;color:var(--bad);box-shadow:inset 0 0 0 1.5px #f0b9b3}
+.btn.red:hover{background:var(--bad-b)}
+.btn.dia{background:#000}
+.btn.dia:hover{background:#222}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;align-items:center}
+.st{display:inline-block;font-size:13px;font-weight:600;border-radius:99px;padding:4px 12px;white-space:nowrap}
+.st.ok{background:var(--ok-b);color:var(--ok)}
+.st.wait{background:var(--warn-b);color:var(--warn)}
+.st.bad{background:var(--bad-b);color:var(--bad)}
+.st.info{background:var(--blue-b);color:#00598e}
+.st.pur{background:var(--pur-b);color:var(--pur-t)}
+.st.grey{background:#f0f0f2;color:#555}
+.note{background:var(--blue-l);border-radius:14px;padding:16px 20px;font-size:15px;color:#1b4d8c;margin:18px 0}
+.note b{color:#0b3a73}
+.note.warn{background:var(--warn-b);color:#6b4600}
+.note.ok{background:var(--ok-b);color:#185c23}
+.note.bad{background:var(--bad-b);color:#7d1c13}
+.muted{color:var(--grey)}
+.mono{font-variant-numeric:tabular-nums}
+.grid{display:grid;gap:20px}
+.grid>*{min-width:0}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.toast{position:fixed;right:24px;bottom:24px;background:#1d1d1f;color:#fff;border-radius:14px;padding:15px 20px;font-size:14.5px;box-shadow:0 12px 40px rgba(0,0,0,.3);opacity:0;transform:translateY(14px);transition:.25s;z-index:99;max-width:420px;pointer-events:none}
+.toast.on{opacity:1;transform:none}
+.toast b{color:#8ec5ff}
+.fld{margin-bottom:14px}
+.fld .l{font-size:14px;color:var(--grey);margin-bottom:3px}
+.fld .v{font-size:16.5px;color:var(--ink)}
+.field{margin-bottom:18px}
+.field>label{display:block;font-size:14.5px;color:var(--grey);margin-bottom:6px}
+.field input,.field select{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:11px 15px;background:#fff;font-size:16px}
+.field input:focus,.field select:focus{outline:none;border-color:var(--blue)}
+.chk{display:flex;align-items:flex-start;gap:10px;padding:6px 0;font-size:15.5px;cursor:pointer}
+.chk input{width:18px;height:18px;accent-color:var(--blue);margin-top:2px;flex:none}
+.err{color:#d83020;font-weight:600;font-size:14px;min-height:20px;margin-top:8px}
+
+/* сегменти та чіпи */
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg button{background:#f3f3f5;border:1.5px solid transparent;border-radius:11px;padding:9px 16px;font-size:15px;font-weight:600}
+.seg button:hover{background:#ebebef}
+.seg button.on{background:var(--blue-l);border-color:var(--blue);color:var(--blue)}
+.seg.sm button{padding:6px 12px;font-size:13.5px;border-radius:9px}
+.facts{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.fact{display:flex;align-items:center;gap:9px;background:#f3f3f5;border-radius:12px;padding:10px 15px;font-size:15px}
+.fact svg{color:var(--blue);flex:none}
+
+/* ---------- сторінка послуги ---------- */
+.vnav{display:flex;gap:28px;border-bottom:1px solid var(--line);padding:0 32px;max-width:1240px;margin:0 auto}
+.vnav a{padding:16px 0 14px;font-size:15px;font-weight:600;color:var(--grey);cursor:pointer;display:flex;align-items:center;gap:8px;border-bottom:2px solid transparent;margin-bottom:-1px}
+.vnav a.on{color:var(--ink);border-color:var(--blue)}
+.lay{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:56px;align-items:start}
+.anchors{position:sticky;top:64px;padding-top:6px}
+.anchors a{display:block;font-size:15px;color:var(--grey);padding:0 0 16px;cursor:pointer;line-height:1.3}
+.anchors a:hover,.anchors a.on{color:var(--nav)}
+.anchors a.on{font-weight:600}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:32px;align-items:start}
+.live{background:linear-gradient(160deg,#f1f7ff,#f8f3ff);border-radius:18px;padding:22px 24px}
+.live .hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;font-size:14px;color:var(--grey2);font-weight:600}
+.live .dot{width:8px;height:8px;border-radius:50%;background:#22b14c;display:inline-block;margin-right:7px;box-shadow:0 0 0 4px rgba(34,177,76,.15)}
+.live .big{font-size:40px;font-weight:700;line-height:1;color:#000}
+.live .row{display:flex;justify-content:space-between;padding:9px 0;border-top:1px solid rgba(0,0,0,.07);font-size:14.5px}
+.live .row b{font-weight:700}
+.mybar{display:flex;align-items:center;gap:16px;background:var(--blue-l);border-radius:14px;padding:14px 20px;margin-bottom:24px;flex-wrap:wrap}
+.mybar .t{flex:1;min-width:220px;font-size:15px}
+.fitq{display:grid;grid-template-columns:260px 1fr;gap:12px 24px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
+.fitq .q{font-size:15.5px;font-weight:600}
+.fitres{border-radius:14px;padding:16px 20px;margin-top:14px;font-size:15.5px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.fitres .t{flex:1;min-width:240px}
+.fitres.ok{background:var(--ok-b);color:#185c23}
+.fitres.bad{background:var(--bad-b);color:#7d1c13}
+.fitres.wait{background:#f3f3f5;color:var(--grey2)}
+.how{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.stage{border-radius:16px;padding:22px 24px;background:#f7f7f9}
+.stage.s2{background:#f8f3ff}
+.stage .cap{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);margin-bottom:4px}
+.stage.s2 .cap{color:var(--pur)}
+.stage h4{font-size:18px;margin-bottom:14px}
+.stp{display:flex;gap:14px;padding:10px 0}
+.stp .n{width:30px;height:30px;border-radius:50%;background:#fff;color:var(--blue);font-weight:700;display:grid;place-items:center;flex:none;font-size:14px;box-shadow:inset 0 0 0 1.5px currentColor}
+.stage.s2 .stp .n{color:var(--pur)}
+.stp b{display:block;font-weight:600;font-size:15.5px}
+.stp span{font-size:14.5px;color:var(--grey2)}
+
+/* карта */
+.mapbox{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:22px;align-items:start}
+.kmap{width:100%;height:auto;background:#fbfcfe;border-radius:16px}
+.kmap .dist{fill:#e9eff8;stroke:#fff;stroke-width:3;cursor:pointer;transition:fill .15s}
+.kmap .dist:hover{fill:#d6e5fb}
+.kmap .dist.sel{fill:#9cc3ff}
+.kmap.heat .dist{cursor:default}
+.kmap .river{fill:none;stroke:#bfe0f7;stroke-width:16;stroke-linecap:round;pointer-events:none}
+.kmap .dl{font-size:12px;fill:#4a5361;text-anchor:middle;pointer-events:none;font-weight:600}
+.kmap .dn{font-size:15px;fill:#000;text-anchor:middle;pointer-events:none;font-weight:700}
+.kmap .pin{cursor:pointer}
+.kmap .pin circle{fill:var(--blue);stroke:#fff;stroke-width:3}
+.kmap .pin.hand circle{fill:var(--pur)}
+.kmap .pin.hl circle{stroke:#000;stroke-width:3}
+.kmap .pin.off{opacity:.18}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--grey2);margin-top:10px;flex-wrap:wrap}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.slist{display:flex;flex-direction:column;gap:10px;max-height:520px;overflow:auto;padding:2px}
+.sch{border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;transition:border-color .15s}
+.sch:hover{border-color:#b9d3fb}
+.sch.hl{border-color:var(--blue);background:var(--blue-l)}
+.sch.off{display:none}
+.sch .nm{font-weight:700;font-size:16px}
+.sch .ad{font-size:14px;color:var(--grey2);margin:2px 0 8px}
+.bdg{display:flex;gap:6px;flex-wrap:wrap}
+.bdg span{font-size:12.5px;background:#f0f0f2;border-radius:7px;padding:3px 8px;color:#444}
+.bdg span.h{background:var(--pur-b);color:var(--pur-t);font-weight:600}
+.bdg span.a{background:var(--blue-b);color:#00598e}
+.fbar{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.fbar .lb{font-size:13.5px;color:var(--grey);margin-right:4px}
+.selD{font-size:14.5px;margin-top:12px;color:var(--grey2)}
+.selD b{color:var(--ink)}
+
+/* календар */
+.calw{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px;align-items:start}
+.calh{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.calh b{font-size:18px;min-width:170px;text-align:center}
+.calh button{width:36px;height:36px;border-radius:10px;border:0;background:#f3f3f5;font-size:16px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal .wd{font-size:12.5px;color:var(--grey);text-align:center;padding-bottom:4px}
+.cal .d{aspect-ratio:1.25;border-radius:11px;background:#f7f7f9;padding:6px 8px;font-size:14px;position:relative;color:#555}
+.cal .d.e{background:transparent}
+.cal .d.past{color:#c4c4c8}
+.cal .d.today{box-shadow:inset 0 0 0 1.5px #000;color:#000;font-weight:700}
+.cal .d.has{background:var(--blue-l);color:var(--blue);font-weight:700;cursor:pointer}
+.cal .d.has.hand{background:var(--pur-b);color:var(--pur-t)}
+.cal .d.sel{background:var(--blue)!important;color:#fff!important}
+.cal .d .ct{position:absolute;right:7px;bottom:5px;font-size:11px;font-weight:700;opacity:.8}
+.cday{background:#f7f7f9;border-radius:14px;padding:18px 20px;min-height:200px}
+.cday .it{padding:10px 0;border-top:1px solid var(--line);font-size:14.5px}
+.cday .it:first-of-type{border-top:0}
+
+/* очікування */
+.waitw{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:stretch}
+.wres{border-radius:16px;background:#000;color:#fff;padding:24px 26px;display:flex;flex-direction:column;gap:10px}
+.wres .bigv{font-family:KyivTypeSans,Daikon,sans-serif;font-size:42px;line-height:1}
+.wres .r{display:flex;justify-content:space-between;font-size:14.5px;border-top:1px solid #333;padding-top:9px;color:#ccc}
+.wres .r b{color:#fff}
+.wres .tip{font-size:14px;color:#c9b6ff;margin-top:auto}
+
+/* документи */
+.doc{display:grid;grid-template-columns:36px 1fr auto;gap:14px;align-items:center;padding:14px 0;border-top:1px solid var(--line)}
+.doc:first-child{border-top:0}
+.doc .ic{width:36px;height:36px;border-radius:10px;background:var(--blue-l);color:var(--blue);display:grid;place-items:center}
+.doc .ic.done{background:var(--ok-b);color:var(--ok)}
+.doc .ic.bad{background:var(--bad-b);color:var(--bad)}
+.doc .nm{font-weight:600;font-size:15.5px}
+.doc .ds{font-size:13.5px;color:var(--grey2)}
+.diab{display:inline-flex;align-items:center;gap:5px;background:#000;color:#fff;border-radius:7px;font-size:12px;font-weight:700;padding:3px 8px}
+
+/* статуси */
+.stl{display:grid;grid-template-columns:repeat(2,1fr);gap:0 28px}
+.stl .r{display:flex;gap:14px;align-items:baseline;padding:11px 0;border-top:1px solid var(--line);font-size:14.5px}
+.stl .r .st{flex:none;min-width:190px;text-align:center}
+
+/* faq */
+.faq .q{border-top:1px solid var(--line);padding:16px 0;cursor:pointer}
+.faq .q .h{display:flex;justify-content:space-between;gap:16px;font-weight:600;font-size:16px}
+.faq .q .h:after{content:"+";font-size:22px;line-height:1;color:var(--blue);font-weight:400}
+.faq .q.open .h:after{content:"–"}
+.faq .q .b{display:none;margin-top:10px;font-size:15px;color:var(--ink2);max-width:760px}
+.faq .q.open .b{display:block}
+
+/* форма заявки */
+.form{max-width:860px}
+.fsec{padding:26px 0;border-top:1px solid var(--line)}
+.fsec:first-of-type{border-top:0}
+.fsec h3{font-size:18px;font-weight:700;margin-bottom:4px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.fsec .hint{font-size:14.5px;color:var(--grey2);margin-bottom:14px}
+.prefill{display:grid;grid-template-columns:1fr 1fr;gap:4px 24px;background:#f7f7f9;border-radius:14px;padding:18px 20px}
+.opts{display:grid;gap:12px}
+.opts.c2{grid-template-columns:repeat(2,1fr)}
+.opts.c3{grid-template-columns:repeat(3,1fr)}
+.opts.c4{grid-template-columns:repeat(4,1fr)}
+.opt{border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;background:#fff;text-align:left}
+.opt:hover{border-color:#b9d3fb}
+.opt.on{border-color:var(--blue);background:var(--blue-l)}
+.opt b{display:block;font-size:16px}
+.opt span{font-size:13.5px;color:var(--grey2)}
+.opt .ico{color:var(--blue);margin-bottom:8px}
+.fmap{display:grid;grid-template-columns:minmax(0,320px) 1fr;gap:20px;align-items:start}
+
+/* моя заявка */
+.trk{display:flex;margin:6px 0 26px}
+.trk .s{flex:1;position:relative;text-align:center;font-size:13.5px;color:var(--grey);padding-top:34px}
+.trk .s:before{content:"";position:absolute;top:11px;left:-50%;right:50%;height:3px;background:var(--line)}
+.trk .s:first-child:before{display:none}
+.trk .s i{position:absolute;top:0;left:50%;transform:translateX(-50%);width:25px;height:25px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 3px var(--line);z-index:1;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:700;color:#fff}
+.trk .s.done{color:var(--ink)}
+.trk .s.done i{background:var(--blue);box-shadow:none}
+.trk .s.done:before,.trk .s.cur:before{background:var(--blue)}
+.trk .s.cur{color:#000;font-weight:700}
+.trk .s.cur i{background:#fff;box-shadow:inset 0 0 0 3px var(--blue),0 0 0 5px rgba(0,104,255,.15)}
+.trk .s.cur.alert i{box-shadow:inset 0 0 0 3px #d83020,0 0 0 5px rgba(216,48,32,.15)}
+.mylay{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:28px;align-items:start}
+.inv{border-radius:18px;background:linear-gradient(140deg,#7b2ff7,#0068ff);color:#fff;padding:24px 26px}
+.inv .cap{font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.85;font-weight:700}
+.inv h3{font-size:24px;margin:6px 0 14px;font-weight:700}
+.inv .g{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.inv .g div{background:rgba(255,255,255,.14);border-radius:12px;padding:10px 14px;font-size:13.5px}
+.inv .g b{display:block;font-size:16px}
+.dl{margin-top:16px}
+.dl .bar{height:8px;border-radius:9px;background:rgba(255,255,255,.25);overflow:hidden}
+.dl .bar i{display:block;height:100%;background:#fff}
+.dl .t{font-size:14px;margin-top:6px;display:flex;justify-content:space-between}
+.inv .btn{background:#fff;color:#000}
+.inv .btn.tr{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.6)}
+.tl{position:relative;padding-left:26px}
+.tl:before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl .ev{position:relative;padding:0 0 18px}
+.tl .ev:before{content:"";position:absolute;left:-25px;top:5px;width:10px;height:10px;border-radius:50%;background:#fff;border:3px solid var(--blue)}
+.tl .ev.pur:before{border-color:var(--pur);background:var(--pur)}
+.tl .dt{font-size:13px;color:var(--grey)}
+.tl .tx{font-size:15px}
+.tl .ch{font-size:12.5px;color:var(--grey);margin-top:2px}
+.lessons .r{display:flex;gap:14px;padding:10px 0;border-top:1px solid var(--line);font-size:15px;align-items:center}
+.lessons .r .d{width:116px;flex:none;font-weight:600}
+.stars{display:flex;gap:6px;margin-top:8px}
+.stars button{background:none;border:0;font-size:30px;color:#d4d4da;padding:0;line-height:1}
+.stars button.on{color:#ffb400}
+
+/* ---------- кабінет КМХ / автошколи ---------- */
+.shell{display:flex;align-items:stretch;min-height:calc(100vh - 112px)}
+.side{width:280px;flex:none;background:var(--side);padding:30px 0 40px}
+.side .who{padding:0 24px 22px;font-size:14px;color:var(--grey2)}
+.side .who b{display:block;color:#000;font-size:16px}
+.smenu .it{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 24px;font-size:14.5px;font-weight:700;color:var(--black);cursor:pointer;position:relative}
+.smenu .it:hover{background:#efeff1}
+.smenu .it.on{background:#fff;margin:0 12px;padding-left:12px}
+.smenu .it.on:before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--blue)}
+.cnt{margin-left:auto;background:var(--blue);color:#fff;border-radius:99px;min-width:25px;height:25px;display:inline-flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:400;padding:0 7px}
+.cnt.pur{background:var(--pur)}
+.main{flex:1;min-width:0;padding:34px 32px 90px;background:#fff}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:22px 0}
+.kpi{background:#f7f7f9;border-radius:14px;padding:14px 16px}
+.kpi .v{font-size:28px;font-weight:700;line-height:1.1}
+.kpi .l{font-size:13.5px;color:var(--grey2)}
+.ctrls{display:flex;align-items:center;gap:10px;margin:0 0 14px;flex-wrap:wrap}
+.ctrls select,.ctrls input{background:#f3f3f5;border:0;border-radius:11px;height:38px;padding:0 12px;font-size:14px}
+.ctrls input{width:220px}
+.ctrls .sp{margin-left:auto}
+table.t{width:100%;border-collapse:collapse}
+table.t th{text-align:left;font-size:13.5px;font-weight:700;color:var(--ink);padding:14px 10px 12px;border-top:1px solid #d6d6da;border-bottom:1px solid #d6d6da;white-space:nowrap}
+table.t td{padding:12px 10px;border-bottom:1px solid #e3e3e7;font-size:14.5px;color:var(--ink);vertical-align:middle}
+table.t tr.cl{cursor:pointer}
+table.t tr.cl:hover td{background:#f4f8ff}
+table.t tr.me td{background:var(--unread)}
+.tags{display:flex;gap:4px;flex-wrap:wrap}
+.tags span{font-size:12px;background:#f0f0f2;border-radius:6px;padding:2px 7px}
+.tags span.h{background:var(--pur-b);color:var(--pur-t)}
+.seat{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:12px}
+.seat.on{border-color:var(--blue);background:var(--blue-l)}
+.seat .nm{font-weight:700;font-size:16px}
+.seat .ds{font-size:14px;color:var(--grey2);margin-top:3px}
+.match{margin-top:6px}
+.mt{display:inline-block;font-size:12px;font-weight:600;border-radius:6px;padding:2px 7px;background:var(--ok-b);color:var(--ok)}
+.mt.no{background:#f0f0f2;color:#888}
+.bars .r{display:grid;grid-template-columns:150px 1fr 70px;gap:12px;align-items:center;padding:7px 0;font-size:14.5px}
+.bars .tr{height:12px;border-radius:7px;background:#f0f0f2;overflow:hidden;position:relative}
+.bars .tr i{position:absolute;left:0;top:0;bottom:0;background:var(--blue);border-radius:7px}
+.bars .tr i.c{background:#000;opacity:.85}
+.bars .tr i.h{background:var(--pur)}
+.funnel .r{display:flex;align-items:center;gap:14px;margin:8px 0}
+.funnel .b{height:40px;border-radius:10px;background:var(--blue);color:#fff;display:flex;align-items:center;padding:0 14px;font-weight:700;font-size:15px;white-space:nowrap}
+.funnel .l{font-size:14px;color:var(--grey2)}
+
+/* drawer & modal */
+.drawer{position:fixed;top:0;right:0;bottom:0;width:480px;max-width:100%;background:#fff;box-shadow:-20px 0 60px rgba(0,0,0,.18);z-index:60;transform:translateX(105%);transition:transform .25s;overflow:auto;padding:28px 30px 40px}
+.drawer.on{transform:none}
+.drawer .x{position:absolute;right:18px;top:18px;width:36px;height:36px;border-radius:50%;border:0;background:#f3f3f5;font-size:20px}
+.overlay{position:fixed;inset:0;background:rgba(12,17,22,.55);z-index:70;display:grid;place-items:center;padding:20px}
+.overlay[hidden]{display:none}
+.mdl{background:#fff;border-radius:20px;padding:28px 30px;width:480px;max-width:100%;box-shadow:0 30px 80px rgba(0,0,0,.3)}
+.mdl h3{font-size:21px;margin-bottom:10px}
+.qr{width:150px;height:150px;margin:18px auto;border-radius:12px;background:
+  conic-gradient(from 90deg at 18px 18px,#000 25%,#fff 0) 0 0/36px 36px;opacity:.85;position:relative}
+.qr:after{content:"";position:absolute;inset:55px;background:#fff;border-radius:8px}
+.spin{width:44px;height:44px;border-radius:50%;border:4px solid #e6e6ea;border-top-color:#000;animation:sp 1s linear infinite;margin:20px auto}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* футер */
+.foot{background:var(--foot);color:#fff;padding:48px 40px 34px}
+.foot .cols{display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap}
+.foot .c1{width:260px}
+.foot .cap{font-size:13px;color:#aab3c2;margin-bottom:22px}
+.foot .c1 a{display:block;font-size:14.5px;font-weight:700;margin-bottom:17px}
+.foot .lg{margin-left:auto}
+.foot .lg img{height:40px}
+.foot hr{border:0;border-top:1px solid #33435c;margin:34px 0 26px}
+.foot .bot{display:flex;justify-content:space-between;gap:24px;font-size:14.5px;color:#c6ccd6;line-height:1.55;flex-wrap:wrap}
+.foot .bot b{color:#fff}
+
+[hidden]{display:none!important}
+.lay>*,.hero>*,.mylay>*,.calw>*,.waitw>*,.mapbox>*,.fmap>*,.how>*{min-width:0}
+
+@media(max-width:1100px){
+  .lay{grid-template-columns:1fr}.anchors{display:none}
+  .hero,.mylay,.calw,.waitw,.mapbox{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .shell{flex-direction:column}.side{width:auto;padding:12px 0}.smenu{display:flex;overflow-x:auto}.side .who{display:none}
+  .hnav{display:none}
+}
+@media(max-width:700px){
+  .wrap,.main{padding:20px 16px 60px}.vnav{padding:0 16px}
+  h1.pt{font-size:26px}
+  .how,.g2,.g3,.stl,.opts.c2,.opts.c3,.opts.c4,.prefill,.fmap,.inv .g{grid-template-columns:1fr}
+  .fitq{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .mock .hint{display:none}
+  .table-x{overflow-x:auto}
+  .uchip span,.hdr .logo img{max-width:150px}.uchip span{display:none}
+  .trk .s{font-size:11.5px}
+  .dl .t{flex-direction:column;gap:2px}
+  .foot{padding:36px 16px}
+}
+</style>
+</head>
+<body>
+
+<div class="mock">
+  <span class="lbl">Макет · Запис в автошколу</span>
+  <button class="tab on" data-role="vet">Ветеран</button>
+  <button class="tab" data-role="kmx">Київ Мілітарі Хаб</button>
+  <button class="tab" data-role="sch">Автошкола</button>
+  <span class="sep"></span>
+  <label class="scn">Етап заявки: <select id="stageSel">
+    <option value="none">Ще не подано</option>
+    <option value="queue">В черзі на навчання</option>
+    <option value="invited">Запрошено</option>
+    <option value="review">Документи на перевірці</option>
+    <option value="fix">Потрібно доопрацювати</option>
+    <option value="enrolled">Зараховано</option>
+    <option value="done">Навчання завершено</option>
+    <option value="refused">Відмовлено</option>
+  </select></label>
+  <label class="scn">Документи йдуть: <select id="routeSel">
+    <option value="B">B — у КМХ (рекоменд.)</option>
+    <option value="A">A — напряму в автошколу</option>
+  </select></label>
+  <button class="tab" id="resetBtn">Скинути</button>
+  <span class="hint">Позначка <b>ідея</b> — понад план v2.0 · дані демонстраційні</span>
+</div>
+
+<div class="portal">
+<div class="hdr">
+  <a class="logo" href="#"><img src="img/logo.svg" alt="Портал послуг Kyiv.Digital"></a>
+  <div class="hnav"><a href="#" class="on">Захисник</a><a href="#">Школи</a><a href="#">Вивіски</a></div>
+  <div class="uchip"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="10" r="3.2"/><path d="M6.4 18.3c1.3-2.3 3.2-3.4 5.6-3.4s4.3 1.1 5.6 3.4"/></svg><span id="uname">Бондар О.П.</span></div>
+</div>
+
+<!-- ===================== ВЕТЕРАН ===================== -->
+<div id="v-vet">
+  <div class="vnav">
+    <a data-vs="page" class="on">Про послугу</a>
+    <a data-vs="my" id="myTab">Моя заявка <span class="st grey" id="myTabSt">не подано</span></a>
+  </div>
+
+  <!-- сторінка послуги -->
+  <div class="wrap" id="s-page">
+    <div class="lay">
+      <div>
+        <div id="myBar"></div>
+        <div class="crumbs"><a href="#">Головна</a> · <a href="#">Захисникам</a> · Навчання</div>
+        <div class="hero">
+          <div>
+            <h1 class="pt">Запис в автошколу для осіб з&nbsp;інвалідністю внаслідок війни I–II групи</h1>
+            <p class="lead">Безкоштовне навчання водінню за кошти міста. Залиште коротку заявку — документи знадобляться лише тоді, коли для вас знайдеться місце в автошколі.</p>
+            <div class="facts">
+              <div class="fact"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Заявка ~3 хвилини</div>
+              <div class="fact"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M9 13l2 2 4-4"/></svg>Документи зараз не потрібні</div>
+              <div class="fact"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg>Безкоштовно <span class="warnf" title="Умови програми ще підтверджуються">⚠ уточн.</span></div>
+              <div class="fact"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>Вхід через Дію</div>
+            </div>
+            <div class="actions">
+              <button class="btn" id="ctaApply">Стати в чергу на навчання</button>
+              <button class="btn grey" data-jump="how">Як це працює</button>
+              <button class="btn grey" id="bigText" title="Збільшити текст"><b>А+</b> Більший текст <span class="idea">ідея</span></button>
+            </div>
+          </div>
+          <div class="live">
+            <div class="hd"><span><span class="dot"></span>Черга зараз</span><span class="idea">ідея</span></div>
+            <div class="big" id="lvQueue">—</div>
+            <div style="font-size:14px;color:var(--grey2);margin:4px 0 12px">людей очікують на навчання</div>
+            <div class="row"><span>Вільних місць до кінця року</span><b id="lvSeats">—</b></div>
+            <div class="row"><span>Зараховано у 2026</span><b id="lvDone">—</b></div>
+            <div class="row"><span>Медіанне очікування</span><b>74 дні</b></div>
+            <div class="row"><span>Автошкіл-учасниць</span><b id="lvSch">—</b></div>
+          </div>
+        </div>
+
+        <!-- ЧИ ПІДХОДИТЬ -->
+        <section class="sec" id="fit">
+          <h2 class="sh">Чи підходить мені послуга? <span class="idea">ідея</span></h2>
+          <p class="sub">Три питання — і ви знатимете, чи можна подаватися. Нічого не зберігаємо.</p>
+          <div class="fitq"><div class="q">Група інвалідності внаслідок війни</div>
+            <div class="seg" data-fit="g"><button data-v="1">I група</button><button data-v="2">II група</button><button data-v="3">III група</button><button data-v="p">Ще оформлюю</button></div></div>
+          <div class="fitq"><div class="q">Зареєстровані або живете в Києві?</div>
+            <div class="seg" data-fit="k"><button data-v="y">Так</button><button data-v="n">Ні</button></div></div>
+          <div class="fitq"><div class="q">Посвідчення водія у вас уже є?</div>
+            <div class="seg" data-fit="l"><button data-v="n">Ні, вчуся вперше</button><button data-v="y">Так, потрібна нова категорія</button></div></div>
+          <div class="fitres wait" id="fitRes"><div class="t">Дайте відповідь на питання вище.</div></div>
+        </section>
+
+        <!-- ЯК ЦЕ ПРАЦЮЄ -->
+        <section class="sec" id="how">
+          <h2 class="sh">Як це працює</h2>
+          <p class="sub">Спершу ви стаєте в чергу, а документи додаєте лише тоді, коли Київ Мілітарі Хаб (КМХ) знайшов для вас місце.</p>
+          <div class="how">
+            <div class="stage">
+              <div class="cap">Етап 1 · сьогодні, ~3 хв</div>
+              <h4>Заявка про інтерес</h4>
+              <div class="stp"><div class="n">1</div><div><b>Вхід через Дію</b><span>ПІБ, податковий номер, пошта й адреса підтягнуться самі</span></div></div>
+              <div class="stp"><div class="n">2</div><div><b>Коротка заявка</b><span>Група, категорія, тип авто, зручні райони, телефон</span></div></div>
+              <div class="stp"><div class="n">3</div><div><b>Підпис</b><span>Статус «В черзі на навчання» — заявка в реєстрі КМХ</span></div></div>
+            </div>
+            <div class="stage s2">
+              <div class="cap">Етап 2 · коли з’явиться місце</div>
+              <h4>Відбір, документи, запис</h4>
+              <div class="stp"><div class="n">4</div><div><b>КМХ обирає вас під вільне місце</b><span>За категорією, типом авто, районом і датою подання</span></div></div>
+              <div class="stp"><div class="n">5</div><div><b>Запрошення на пошту й у «Київ Цифровий»</b><span>10 днів, щоб підтвердити участь і додати документи</span></div></div>
+              <div class="stp"><div class="n">6</div><div><b>Зарахування</b><span>Дата старту, адреса й контакти автошколи</span></div></div>
+            </div>
+          </div>
+          <div class="note"><b>Не можете зараз?</b> Відмовтеся від запрошення — ви залишитеся в черзі й зможете вказати, з якого місяця вам зручно.</div>
+        </section>
+
+        <!-- КАРТА -->
+        <section class="sec" id="map">
+          <h2 class="sh">Автошколи-учасниці <span class="idea">ідея</span></h2>
+          <p class="sub">Подивіться, де є адаптовані авто, і позначте на карті зручні райони — ми підставимо їх у заявку.</p>
+          <div class="fbar">
+            <div><span class="lb">Категорія</span><div class="seg sm" data-mf="cat" style="display:inline-flex"><button data-v="" class="on">Усі</button><button data-v="A">A</button><button data-v="B">B</button><button data-v="C">C</button><button data-v="BE">BE</button></div></div>
+            <div><span class="lb">Авто</span><div class="seg sm" data-mf="type" style="display:inline-flex"><button data-v="" class="on">Будь-яке</button><button data-v="auto">Автомат</button><button data-v="hand">Ручне керування</button></div></div>
+          </div>
+          <div class="mapbox">
+            <div>
+              <div id="pageMap"></div>
+              <div class="legend"><span><i style="background:var(--blue)"></i>Автошкола</span><span><i style="background:var(--pur)"></i>Є авто з ручним керуванням</span><span><i style="background:#9cc3ff;border-radius:3px"></i>Ваш зручний район</span></div>
+              <div class="selD" id="pageSelD"></div>
+            </div>
+            <div class="slist" id="schList"></div>
+          </div>
+        </section>
+
+        <!-- КАЛЕНДАР -->
+        <section class="sec" id="cal">
+          <h2 class="sh">Найближчі старти навчання <span class="idea">ідея</span></h2>
+          <p class="sub">Коли автошколи-учасниці набирають нові групи. Конкретне місце пропонує КМХ — календар показує, як часто воно з’являється. Фільтри — ті самі, що й на карті.</p>
+          <div class="calw">
+            <div>
+              <div class="calh"><button id="calPrev" aria-label="Попередній місяць">‹</button><b id="calTitle"></b><button id="calNext" aria-label="Наступний місяць">›</button></div>
+              <div class="cal" id="calGrid"></div>
+            </div>
+            <div class="cday" id="calDay"></div>
+          </div>
+        </section>
+
+        <!-- ОЧІКУВАННЯ -->
+        <section class="sec" id="wait">
+          <h2 class="sh">Скільки чекати саме мені <span class="idea">ідея</span></h2>
+          <p class="sub">Оцінка за поточною чергою й кількістю місць. Це не обіцянка — КМХ ухвалює рішення під кожне вільне місце.</p>
+          <div class="waitw">
+            <div class="card ln">
+              <div class="field"><label>Категорія</label><select id="wCat"><option>B</option><option>A</option><option>C</option><option>BE</option></select></div>
+              <div class="field"><label>Тип авто</label><select id="wType"><option value="plain">Звичайне (механіка)</option><option value="auto">Автомат</option><option value="hand" selected>Ручне керування</option></select></div>
+              <div class="field" style="margin:0"><label>Район</label><select id="wDist"></select></div>
+            </div>
+            <div class="wres" id="wRes"></div>
+          </div>
+        </section>
+
+        <!-- ДОКУМЕНТИ -->
+        <section class="sec" id="docs">
+          <h2 class="sh">Документи — лише після запрошення</h2>
+          <p class="sub">Зараз нічого збирати не треба. Коли вас запросять, буде 10 днів, щоб додати ці документи. Частину підтягнемо з Дії.</p>
+          <div class="card ln" style="padding:10px 24px">
+            <div class="doc"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2.5"/><path d="M14 10h4M14 14h4"/></svg></div><div><div class="nm">Паспорт або ID-картка</div><div class="ds">Обов’язковий</div></div><span class="diab">з Дії</span></div>
+            <div class="doc"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 10h10M7 14h6"/></svg></div><div><div class="nm">Посвідчення особи з інвалідністю внаслідок війни</div><div class="ds">Обов’язковий · з Дії, якщо доступно, або файлом</div></div><span class="diab">з Дії</span></div>
+            <div class="doc"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h8l4 4v14H6z"/></svg></div><div><div class="nm">Документ про групу інвалідності</div><div class="ds">Обов’язковий · файлом</div></div><span class="muted" style="font-size:13.5px">файл</span></div>
+            <div class="doc"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></div><div><div class="nm">Медична довідка про придатність до керування (083/о)</div><div class="ds">Обов’язковий · файлом; згодом, можливо, автоматично з eHealth</div></div><span class="muted" style="font-size:13.5px">файл</span></div>
+            <div class="doc"><div class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="12" cy="11" r="3"/></svg></div><div><div class="nm">Фото</div><div class="ds">За вимогою автошколи</div></div><span class="muted" style="font-size:13.5px">файл</span></div>
+          </div>
+          <p class="muted" style="font-size:13.5px;margin-top:10px">⚠ Перелік звіряється з вимогами законодавства та автошкіл.</p>
+        </section>
+
+        <!-- СТАТУСИ -->
+        <section class="sec" id="statuses">
+          <h2 class="sh">Що означають статуси</h2>
+          <p class="sub">Про кожну зміну ви отримаєте повідомлення на пошту і в «Київ Цифровий».</p>
+          <div class="stl" id="stList"></div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="sec" id="faq">
+          <h2 class="sh">Часті питання</h2>
+          <div class="faq">
+            <div class="q"><div class="h">Хто вирішує, кого запросити на вільне місце?</div><div class="b">Київ Мілітарі Хаб. Він бачить усіх кандидатів і обирає під конкретне місце: категорія, тип авто, район, дата подання, група інвалідності. ⚠ Точні правила відбору погоджуються.</div></div>
+            <div class="q"><div class="h">Що буде, якщо я не встигну відповісти на запрошення?</div><div class="b">Місце запропонують наступному кандидату, а ваша заявка залишиться в черзі. Нагадування прийде на 7-й день із 10.</div></div>
+            <div class="q"><div class="h">Чи можна змінити тип авто чи райони після подання?</div><div class="b">Так, у розділі «Моя заявка», поки статус — «В черзі на навчання».</div></div>
+            <div class="q"><div class="h">Чи треба підтверджувати, що я досі чекаю?</div><div class="b">Можливо, раз на пів року система спитає, чи ви ще зацікавлені, — достатньо одного натискання. ⚠ Погоджується.</div></div>
+            <div class="q"><div class="h">Мені складно заповнити заявку самому. Хто допоможе?</div><div class="b">Зверніться до Київ Мілітарі Хабу — фахівець допоможе подати заявку разом із вами. <span class="idea">ідея</span></div></div>
+          </div>
+        </section>
+
+        <section class="sec">
+          <div class="card" style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;background:linear-gradient(120deg,#f1f7ff,#f8f3ff);box-shadow:none">
+            <div style="flex:1;min-width:260px"><h3 style="margin-bottom:4px">Готові стати в чергу?</h3><div class="muted" style="font-size:15px">Займе близько трьох хвилин. Документи — пізніше.</div></div>
+            <button class="btn" id="ctaApply2">Стати в чергу на навчання</button>
+          </div>
+        </section>
+      </div>
+      <nav class="anchors" id="anchors">
+        <a data-jump="fit">Чи підходить мені</a>
+        <a data-jump="how">Як це працює</a>
+        <a data-jump="map">Автошколи на карті</a>
+        <a data-jump="cal">Старти навчання</a>
+        <a data-jump="wait">Скільки чекати</a>
+        <a data-jump="docs">Документи</a>
+        <a data-jump="statuses">Статуси</a>
+        <a data-jump="faq">Часті питання</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- форма -->
+  <div class="wrap" id="s-form" hidden>
+    <div class="crumbs"><a data-vs="page">Запис в автошколу</a> · Заявка</div>
+    <h1 class="pt">Заявка на навчання в автошколі</h1>
+    <p class="lead">Поки що — лише ваші побажання. Документи знадобляться після запрошення.</p>
+    <div class="form" style="margin-top:26px">
+      <div class="fsec">
+        <h3>Ваші дані з Дії</h3>
+        <div class="hint">Підтягнуто автоматично. Якщо щось не так — оновіть дані в Дії.</div>
+        <div class="prefill">
+          <div class="fld"><div class="l">ПІБ</div><div class="v">Бондар Олександр Петрович</div></div>
+          <div class="fld"><div class="l">РНОКПП</div><div class="v mono">31•••••653</div></div>
+          <div class="fld"><div class="l">Електронна пошта</div><div class="v">o.bondar@example.com</div></div>
+          <div class="fld"><div class="l">Адреса</div><div class="v">м. Київ, Дарницький р-н</div></div>
+        </div>
+        <div class="note ok" style="margin-bottom:0">✓ Перевірено: ви ще не в черзі й не навчалися за цією програмою.</div>
+      </div>
+      <div class="fsec">
+        <h3>Група інвалідності внаслідок війни</h3>
+        <div class="opts c2" data-ff="grp"><button class="opt" data-v="I"><b>I група</b></button><button class="opt" data-v="II"><b>II група</b></button></div>
+      </div>
+      <div class="fsec">
+        <h3>Категорія посвідчення</h3>
+        <div class="hint">Найчастіше обирають B — легковий автомобіль.</div>
+        <div class="opts c4" data-ff="cat">
+          <button class="opt" data-v="A"><b>A</b><span>мотоцикли</span></button>
+          <button class="opt" data-v="B"><b>B</b><span>легкові авто</span></button>
+          <button class="opt" data-v="C"><b>C</b><span>вантажні</span></button>
+          <button class="opt" data-v="BE"><b>BE</b><span>легкові з причепом</span></button>
+        </div>
+      </div>
+      <div class="fsec">
+        <h3>Тип авто для навчання</h3>
+        <div class="opts c3" data-ff="type">
+          <button class="opt" data-v="plain"><div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="6" cy="6" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v8M12 8v8M18 8v4H6"/></svg></div><b>Звичайне</b><span>Механічна коробка передач</span></button>
+          <button class="opt" data-v="auto"><div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="7" y="3" width="10" height="18" rx="3"/><path d="M12 7v5"/><circle cx="12" cy="15" r="1.5"/></svg></div><b>Автомат</b><span>Без педалі зчеплення</span></button>
+          <button class="opt" data-v="hand"><div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/><path d="M12 3v6.5M4.5 16l5.4-2.6M19.5 16l-5.4-2.6"/></svg></div><b>Ручне керування</b><span>Адаптоване авто: газ і гальмо руками</span></button>
+        </div>
+      </div>
+      <div class="fsec">
+        <h3>Зручні райони <span class="muted" style="font-size:14px;font-weight:400">до трьох</span></h3>
+        <div class="hint">Натисніть на район на карті або оберіть зі списку.</div>
+        <div class="fmap">
+          <div id="formMap"></div>
+          <div><div class="seg sm" id="formDist"></div><div class="selD" id="formSelD"></div></div>
+        </div>
+      </div>
+      <div class="fsec">
+        <h3>Контактний телефон</h3>
+        <div class="field" style="max-width:340px;margin:8px 0 0"><input id="fPhone" value="+380 67 000 00 00" inputmode="tel"></div>
+      </div>
+      <div class="fsec">
+        <h3>Додатково <span class="idea">ідея</span> <span class="muted" style="font-size:14px;font-weight:400">необов’язково</span></h3>
+        <div class="grid g2" style="margin-top:10px">
+          <div class="field"><label>З якого місяця вам зручно почати</label><select id="fFrom"><option>Будь-коли</option><option>Листопад 2026</option><option>Грудень 2026</option><option>Січень 2027</option><option>Лютий 2027</option><option>Березень 2027</option></select></div>
+          <div>
+            <div style="font-size:14.5px;color:var(--grey);margin-bottom:6px">Що важливо в автошколі</div>
+            <label class="chk"><input type="checkbox" data-need="Безбар’єрний вхід">Безбар’єрний вхід і доступний клас</label>
+            <label class="chk"><input type="checkbox" data-need="Досвідчений інструктор">Інструктор з досвідом навчання людей з інвалідністю</label>
+            <label class="chk"><input type="checkbox" data-need="Супровід">Потрібен супровід або асистент</label>
+          </div>
+        </div>
+      </div>
+      <div class="fsec">
+        <label class="chk"><input type="checkbox" id="fAgree">Погоджуюся на обробку персональних даних для участі в програмі</label>
+        <div class="err" id="fErr"></div>
+        <div class="actions" style="margin-top:12px">
+          <button class="btn dia" id="fSign">Підписати через Дію і надіслати</button>
+          <button class="btn grey" data-vs="page">Скасувати</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- моя заявка -->
+  <div class="wrap" id="s-my" hidden></div>
+</div>
+
+<!-- ===================== КМХ ===================== -->
+<div id="v-kmx" class="shell" hidden>
+  <aside class="side">
+    <div class="who"><b>Київ Мілітарі Хаб</b>Координатор програми</div>
+    <div class="smenu">
+      <div class="it on" data-ks="reg"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Реєстр заявок <span class="cnt" id="kcReg">0</span></div>
+      <div class="it" data-ks="seats"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="9" width="16" height="9" rx="2"/><path d="M7 9V6h10v3M7 18v2M17 18v2"/></svg>Вільні місця <span class="cnt pur" id="kcSeats">0</span></div>
+      <div class="it" data-ks="an"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Аналітика попиту <span class="idea" style="margin-left:auto">ідея</span></div>
+    </div>
+  </aside>
+  <div class="main" id="kMain"></div>
+</div>
+
+<!-- ===================== АВТОШКОЛА ===================== -->
+<div id="v-sch" class="shell" hidden>
+  <aside class="side">
+    <div class="who"><b>Автошкола «Кермо»</b>Дарницький район</div>
+    <div class="smenu">
+      <div class="it on" data-ss="seats">Вільні місця</div>
+      <div class="it" data-ss="stud">Слухачі програми <span class="cnt" id="scStud">0</span></div>
+    </div>
+  </aside>
+  <div class="main" id="sMain"></div>
+</div>
+
+<footer class="foot">
+  <div class="cols">
+    <div class="c1"><div class="cap">Міська платформа</div><a href="#">Каталог сервісів</a><a href="#">Часті питання</a><a href="#">Новини міста</a></div>
+    <div class="lg"><img src="img/logo.svg" alt="Портал послуг"></div>
+  </div>
+  <hr>
+  <div class="bot"><div>Веб-портал надання електронних послуг<br>2026 © Київська міська державна адміністрація, Київська міська рада</div>
+  <div>E-mail: <b>support.my@kyivcity.gov.ua</b><br>Тел. <b>(044) 366-80-27</b></div></div>
+</footer>
+</div>
+
+<div class="drawer" id="drawer"><button class="x" id="drX" aria-label="Закрити">×</button><div id="drBody"></div></div>
+<div class="overlay" id="ovl" hidden><div class="mdl" id="mdl"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================= ДАНІ ================= */
+const TODAY='2026-10-06';
+const DIST=[
+ ['Оболонський','130,25 298,12 306,118 205,150 122,108',214,78],
+ ['Святошинський','22,125 122,108 205,150 192,250 40,262',112,192],
+ ['Подільський','205,150 306,118 318,188 252,214 196,206',257,172],
+ ['Шевченківський','196,206 252,214 318,188 326,252 270,292 192,250',258,248],
+ ['Печерський','270,292 326,252 342,342 300,352',314,316],
+ ['Солом’янський','40,262 192,250 270,292 300,352 222,382 62,352',170,316],
+ ['Голосіївський','62,352 222,382 300,352 342,342 348,505 205,512 112,445',245,440],
+ ['Деснянський','322,12 540,40 572,170 420,190 326,140',452,100],
+ ['Дніпровський','326,140 420,190 572,170 562,300 356,300 340,205',458,240],
+ ['Дарницький','356,300 562,300 542,470 382,500 352,400',458,400]
+];
+const DN=DIST.map(d=>d[0]);
+const TYPE={plain:'Звичайне',auto:'Автомат',hand:'Ручне керування'};
+const SCH=[
+ {id:'s1',n:'«Кермо»',d:'Дарницький',a:'вул. Ревуцького, 9',cats:['B','C'],hand:1,auto:1,acc:'Пандус, ліфт, доступний клас',ph:'(044) 000-11-01',x:430,y:430,starts:['2026-10-19','2026-11-16','2026-12-14','2027-01-18']},
+ {id:'s2',n:'«Магістраль»',d:'Оболонський',a:'просп. Оболонський, 21',cats:['A','B'],hand:0,auto:1,acc:'Вхід з рівня тротуару',ph:'(044) 000-11-02',x:250,y:42,starts:['2026-10-26','2026-12-07','2027-02-01']},
+ {id:'s3',n:'«Перехрестя»',d:'Святошинський',a:'просп. Берестейський, 98',cats:['B','BE'],hand:1,auto:0,acc:'Пандус',ph:'(044) 000-11-03',x:90,y:215,starts:['2026-11-02','2026-12-21']},
+ {id:'s4',n:'«Старт-Авто»',d:'Солом’янський',a:'вул. Ушинського, 4',cats:['A','B','C'],hand:0,auto:1,acc:'Клас на 2-му поверсі без ліфта',ph:'(044) 000-11-04',x:140,y:335,starts:['2026-10-12','2026-11-23','2027-01-11']},
+ {id:'s5',n:'«Лівий берег»',d:'Дніпровський',a:'бульв. Перова, 36',cats:['B'],hand:1,auto:1,acc:'Пандус, ліфт',ph:'(044) 000-11-05',x:490,y:265,starts:['2026-10-29','2026-12-01','2027-01-25']},
+ {id:'s6',n:'«Голосієве»',d:'Голосіївський',a:'просп. Голосіївський, 50',cats:['B','C','BE'],hand:0,auto:0,acc:'Вхід з рівня тротуару',ph:'(044) 000-11-06',x:215,y:465,starts:['2026-11-09','2027-01-04']},
+ {id:'s7',n:'«Троєщина»',d:'Деснянський',a:'вул. Миколи Закревського, 47',cats:['A','B'],hand:1,auto:1,acc:'Пандус, доступний санвузол',ph:'(044) 000-11-07',x:505,y:62,starts:['2026-11-05','2026-12-10','2027-02-08']},
+ {id:'s8',n:'«Поділ-Драйв»',d:'Подільський',a:'вул. Вікентія Хвойки, 15',cats:['B'],hand:0,auto:1,acc:'Ліфт',ph:'(044) 000-11-08',x:292,y:142,starts:['2026-10-22','2026-12-03']}
+];
+const SBYID=Object.fromEntries(SCH.map(s=>[s.id,s]));
+const STS={
+ queue:['В черзі на навчання','info','Заявку прийнято, ви очікуєте на вільне місце'],
+ invited:['Запрошено','pur','КМХ обрав вас — підтвердіть участь і додайте документи'],
+ review:['Документи на перевірці','wait','Пакет надіслано, його перевіряють'],
+ fix:['Потрібно доопрацювати','bad','Якогось документа бракує або він нечитабельний'],
+ enrolled:['Зараховано','ok','Вас записано в автошколу, дата старту — у повідомленні'],
+ done:['Навчання завершено','ok','Автошкола підтвердила завершення навчання'],
+ refused:['Відмовлено','bad','У записі відмовлено, причину вказано']
+};
+const stb=s=>`<span class="st ${STS[s][1]}">${STS[s][0]}</span>`;
+
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const iso=d=>d.toISOString().slice(0,10);
+const addD=(s,n)=>{const d=new Date(s+'T12:00:00');d.setDate(d.getDate()+n);return iso(d)};
+const fmt=s=>s?s.slice(8,10)+'.'+s.slice(5,7)+'.'+s.slice(0,4):'—';
+const MON=['січня','лютого','березня','квітня','травня','червня','липня','серпня','вересня','жовтня','листопада','грудня'];
+const MONN=['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'];
+const fmtL=s=>+s.slice(8,10)+' '+MON[+s.slice(5,7)-1];
+const daysBetween=(a,b)=>Math.round((new Date(b+'T12:00:00')-new Date(a+'T12:00:00'))/864e5);
+
+let S; // увесь стан
+function seed(){
+  const r=rng(11);
+  const SUR=['Коваленко','Шевчук','Мельник','Ткаченко','Кравченко','Олійник','Бойко','Лисенко','Мороз','Савченко','Руденко','Гончаренко','Литвин','Марченко','Поліщук','Кузьменко','Павленко','Петренко','Захарченко','Ковальчук','Онищенко','Ярошенко','Гуменюк','Остапчук','Дячук','Василенко','Пономаренко','Білик','Тимошенко','Сидоренко','Іваненко','Романюк','Кириленко','Соловйов','Гриценко','Лук’яненко','Нестеренко','Федоренко','Сорока','Демченко','Яковенко','Чорновол','Левченко','Приходько'];
+  const INI='ОАВСДІМТЮЄРПГК';
+  const cands=[];
+  for(let i=0;i<SUR.length;i++){
+    const date=addD('2026-02-02',Math.floor(r()*244));
+    const t=r(),type=t<.42?'plain':t<.74?'auto':'hand';
+    const c=r(),cat=c<.78?'B':c<.88?'C':c<.95?'A':'BE';
+    const nd=1+Math.floor(r()*3),ds=new Set();while(ds.size<nd)ds.add(DN[Math.floor(r()*DN.length)]);
+    cands.push({id:'c'+i,name:SUR[i]+' '+INI[Math.floor(r()*INI.length)]+'. '+INI[Math.floor(r()*INI.length)]+'.',grp:r()<.35?'I':'II',cat,type,dists:[...ds],date,status:'queue',skips:r()<.14?1:0,phone:'+380 '+(50+Math.floor(r()*49))+' '+String(Math.floor(r()*9e6+1e6)).replace(/(\d{3})(\d{2})(\d{2})/,'$1 $2 $3'),needs:[],hist:[[date,'Заявку подано']]});
+  }
+  cands.sort((a,b)=>a.date<b.date?-1:1);
+  const pick=c=>SCH.find(s=>s.cats.includes(c.cat)&&(c.type!=='hand'||s.hand)&&(c.type!=='auto'||s.auto))||SCH[0];
+  const setS=(i,st)=>{const c=cands[i];c.status=st;const s=pick(c);c.sch=s.id;c.start=st==='done'?addD(c.date,52):s.starts[0];c.hist.push([addD(c.date,40),'Запрошено: '+s.n]);
+    if(st!=='invited')c.hist.push([addD(c.date,46),'Документи додано']);
+    if(st==='enrolled'||st==='done')c.hist.push([addD(c.date,50),'Зараховано']);
+    if(st==='done')c.hist.push([addD(c.date,150),'Навчання завершено']);};
+  [0,1,2,3].forEach(i=>setS(i,'done'));[4,5,6,7,8].forEach(i=>setS(i,'enrolled'));
+  [9,10].forEach(i=>setS(i,'review'));setS(11,'fix');[12,13].forEach(i=>setS(i,'invited'));
+  cands[1].sch='s1';cands[5].sch='s1';cands[6].sch='s1';cands[9].sch='s1';
+  return {role:'vet',vs:'page',ks:'reg',ss:'seats',route:'B',me:null,cands,
+    seats:[
+      {id:'q1',sch:'s1',cat:'B',type:'hand',n:1,start:'2026-11-16',rep:'2026-10-03',inv:[]},
+      {id:'q2',sch:'s5',cat:'B',type:'auto',n:2,start:'2026-10-29',rep:'2026-10-02',inv:[]},
+      {id:'q3',sch:'s4',cat:'C',type:'plain',n:1,start:'2026-11-23',rep:'2026-09-30',inv:[]}
+    ],
+    pageD:[],mf:{cat:'',type:''},hlSch:null,fit:{},cal:{y:2026,m:9,sel:null},
+    form:{grp:'II',cat:'B',type:'hand',d:['Дарницький','Дніпровський']},rule:'date',matchSeat:null,filt:{st:'',cat:'',type:'',d:'',g:'',q:''}};
+}
+S=seed();
+
+/* ================= УТИЛІТИ ================= */
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+let tT;function toast(h){const t=$('#toast');t.innerHTML=h;t.classList.add('on');clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('on'),3800)}
+function notify(txt){toast('📩 <b>Пошта + «Київ Цифровий»</b><br>'+txt)}
+function modal(h){$('#mdl').innerHTML=h;$('#ovl').hidden=false}
+function closeModal(){$('#ovl').hidden=true}
+$('#ovl').addEventListener('click',e=>{if(e.target.id==='ovl')closeModal()});
+function drawer(h){$('#drBody').innerHTML=h;$('#drawer').classList.add('on')}
+function closeDrawer(){$('#drawer').classList.remove('on')}
+$('#drX').onclick=closeDrawer;
+function download(name,txt,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
+
+/* ================= КАРТА ================= */
+function mapSVG(ctx,{sel=[],pins=null,heat=null,hl=null,off=null}={}){
+  const max=heat?Math.max(1,...Object.values(heat)):1;
+  let s=`<svg class="kmap${heat?' heat':''}" viewBox="0 0 590 520" data-map="${ctx}" role="img" aria-label="Схема районів Києва">`;
+  DIST.forEach(([n,p])=>{
+    const st=heat?` style="fill:rgba(0,104,255,${(.07+.8*(heat[n]||0)/max).toFixed(2)})"`:'';
+    s+=`<polygon class="dist${sel.includes(n)?' sel':''}" data-d="${n}" points="${p}"${st}><title>${n}</title></polygon>`;
+  });
+  s+=`<path class="river" d="M300,0 C312,70 300,120 318,170 S352,260 348,330 S340,430 365,520"/>`;
+  DIST.forEach(([n,,cx,cy])=>{
+    s+=`<text class="dl" x="${cx}" y="${cy}"${heat&&(heat[n]||0)/max>.55?' style="fill:#fff"':''}>${n}</text>`;
+    if(heat)s+=`<text class="dn" x="${cx}" y="${cy+20}"${(heat[n]||0)/max>.55?' style="fill:#fff"':''}>${heat[n]||0}</text>`;
+  });
+  (pins||[]).forEach(p=>{s+=`<g class="pin${p.hand?' hand':''}${hl===p.id?' hl':''}${off&&off.includes(p.id)?' off':''}" data-pin="${p.id}" transform="translate(${p.x},${p.y})"><circle r="${hl===p.id?11:8}"/><title>${p.n}</title></g>`});
+  return s+'</svg>';
+}
+document.addEventListener('click',e=>{
+  const pin=e.target.closest('[data-pin]');
+  if(pin&&pin.closest('[data-map="page"]')){S.hlSch=S.hlSch===pin.dataset.pin?null:pin.dataset.pin;renderMapSec();const el=document.querySelector(`.sch[data-s="${S.hlSch}"]`);el&&el.scrollIntoView({block:'nearest',behavior:'smooth'});return}
+  const d=e.target.closest('[data-d]');if(!d)return;
+  const ctx=d.closest('[data-map]').dataset.map,n=d.dataset.d;
+  if(ctx==='page'){toggle(S.pageD,n,3);renderMapSec()}
+  if(ctx==='form'){toggle(S.form.d,n,3);renderFormDist()}
+});
+function toggle(arr,v,max){const i=arr.indexOf(v);if(i>=0)arr.splice(i,1);else{if(arr.length>=max){toast('Можна обрати до трьох районів');return}arr.push(v)}}
+
+/* ================= СТОРІНКА ПОСЛУГИ ================= */
+function schOff(){return SCH.filter(s=>(S.mf.cat&&!s.cats.includes(S.mf.cat))||(S.mf.type==='hand'&&!s.hand)||(S.mf.type==='auto'&&!s.auto)).map(s=>s.id)}
+function renderMapSec(){
+  const off=schOff();
+  $('#pageMap').innerHTML=mapSVG('page',{sel:S.pageD,pins:SCH,hl:S.hlSch,off});
+  $('#pageSelD').innerHTML=S.pageD.length?`Ваші зручні райони: <b>${S.pageD.join(', ')}</b> — підставимо в заявку. <a class="lnk" style="color:var(--blue);cursor:pointer" id="clrD">Очистити</a>`:'Натисніть на район, щоб позначити його зручним.';
+  const c=$('#clrD');c&&(c.onclick=()=>{S.pageD.length=0;renderMapSec()});
+  $('#schList').innerHTML=SCH.map(s=>{
+    const next=s.starts.find(x=>x>=TODAY);
+    return `<div class="sch${S.hlSch===s.id?' hl':''}${off.includes(s.id)?' off':''}" data-s="${s.id}">
+    <div class="nm">Автошкола ${s.n}</div><div class="ad">${s.d} р-н · ${s.a}</div>
+    <div class="bdg">${s.cats.map(c=>`<span>${c}</span>`).join('')}${s.hand?'<span class="h">Ручне керування</span>':''}${s.auto?'<span class="a">Автомат</span>':''}</div>
+    <div style="font-size:13.5px;color:var(--grey2);margin-top:8px">♿ ${s.acc} · старт групи ${next?fmtL(next):'—'}</div></div>`}).join('')+(off.length===SCH.length?'<div class="muted">Немає автошкіл з такими параметрами.</div>':'');
+  $$('#schList .sch').forEach(el=>el.onclick=()=>{S.hlSch=S.hlSch===el.dataset.s?null:el.dataset.s;renderMapSec()});
+  renderCal();
+}
+$$('[data-mf]').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;g.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));S.mf[g.dataset.mf]=b.dataset.v;renderMapSec()}));
+
+function startsList(){
+  const off=schOff(),out=[];
+  SCH.filter(s=>!off.includes(s.id)).forEach(s=>s.starts.forEach(d=>out.push({d,s})));
+  return out;
+}
+function renderCal(){
+  const {y,m}=S.cal,first=new Date(y,m,1),dim=new Date(y,m+1,0).getDate(),lead=(first.getDay()+6)%7;
+  $('#calTitle').textContent=MONN[m]+' '+y;
+  const st=startsList();let h=['Пн','Вт','Ср','Чт','Пт','Сб','Нд'].map(w=>`<div class="wd">${w}</div>`).join('');
+  for(let i=0;i<lead;i++)h+='<div class="d e"></div>';
+  for(let d=1;d<=dim;d++){
+    const ds=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,items=st.filter(x=>x.d===ds);
+    const cls=['d'];if(ds<TODAY)cls.push('past');if(ds===TODAY)cls.push('today');if(items.length&&ds>=TODAY){cls.push('has');if(items.some(x=>x.s.hand))cls.push('hand')}if(S.cal.sel===ds)cls.push('sel');
+    h+=`<div class="${cls.join(' ')}" data-cd="${ds}">${d}${items.length&&ds>=TODAY?`<span class="ct">${items.length>1?items.length+' гр':''}</span>`:''}</div>`;
+  }
+  $('#calGrid').innerHTML=h;
+  $$('#calGrid .has').forEach(el=>el.onclick=()=>{S.cal.sel=el.dataset.cd;renderCal()});
+  const sel=S.cal.sel,box=$('#calDay');
+  if(sel){const items=st.filter(x=>x.d===sel);
+    box.innerHTML=`<b style="font-size:17px">${fmtL(sel)}</b><div class="muted" style="font-size:13.5px;margin-bottom:8px">старт груп</div>`+(items.length?items.map(x=>`<div class="it"><b>Автошкола ${x.s.n}</b><br><span class="muted">${x.s.d} р-н · ${x.s.cats.join(', ')}${x.s.hand?' · <span style="color:var(--pur-t);font-weight:600">ручне керування</span>':''}</span></div>`).join(''):'<div class="muted">Немає стартів за фільтрами.</div>');
+  }else{
+    const up=st.filter(x=>x.d>=TODAY).sort((a,b)=>a.d<b.d?-1:1).slice(0,4);
+    box.innerHTML=`<b style="font-size:17px">Найближчі старти</b><div class="muted" style="font-size:13.5px;margin-bottom:8px">натисніть дату в календарі</div>`+up.map(x=>`<div class="it"><b>${fmtL(x.d)}</b> · Автошкола ${x.s.n}<br><span class="muted">${x.s.d} р-н${x.s.hand?' · ручне керування':''}</span></div>`).join('')+`<button class="btn ghost sm" style="margin-top:10px" id="icsAll">Нагадувати про нові старти</button>`;
+    $('#icsAll').onclick=()=>toast('🔔 Готово: повідомимо в «Київ Цифровий», коли з’являться нові групи за вашими фільтрами.');
+  }
+}
+$('#calPrev').onclick=()=>{let {y,m}=S.cal;m--;if(m<0){m=11;y--}if(y*12+m<2026*12+9)return;S.cal={y,m,sel:null};renderCal()};
+$('#calNext').onclick=()=>{let {y,m}=S.cal;m++;if(m>11){m=0;y++}if(y*12+m>2027*12+1)return;S.cal={y,m,sel:null};renderCal()};
+
+function renderFit(){
+  const f=S.fit,r=$('#fitRes');
+  $$('[data-fit]').forEach(g=>g.querySelectorAll('button').forEach(b=>b.classList.toggle('on',f[g.dataset.fit]===b.dataset.v)));
+  let cls='wait',h='<div class="t">Дайте відповідь на питання вище.</div>';
+  if(f.g==='3'){cls='bad';h='<div class="t"><b>Програма охоплює I–II групу.</b> Київ Мілітарі Хаб підкаже інші програми навчання та підтримки для вас.</div><button class="btn red sm">Контакти КМХ</button>'}
+  else if(f.g==='p'){cls='bad';h='<div class="t"><b>Подати заявку можна після встановлення групи.</b> Хочете, нагадаємо про послугу?</div><button class="btn ghost sm" id="remind">Нагадати мені</button>'}
+  else if(f.k==='n'){cls='bad';h='<div class="t"><b>Це міська програма Києва.</b> Перевірте програми вашої громади — або подайте заявку, щойно задекларуєте місце проживання в Києві.</div>'}
+  else if(f.g&&f.k){cls='ok';h=`<div class="t"><b>Послуга для вас.</b> Заявка займе близько трьох хвилин${f.l==='y'?'. Оберіть у ній потрібну нову категорію.':'.'}</div><button class="btn sm" data-apply>Стати в чергу</button>`}
+  r.className='fitres '+cls;r.innerHTML=h;
+  const rm=$('#remind');rm&&(rm.onclick=()=>toast('🔔 Нагадаємо в «Київ Цифровий», щойно в Дії з’явиться посвідчення.'));
+}
+$$('[data-fit]').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;S.fit[g.dataset.fit]=b.dataset.v;renderFit()}));
+
+function estimate(cat,type,dist){
+  const q=S.cands.filter(c=>c.status==='queue'&&c.cat===cat&&c.type===type).length;
+  const qd=S.cands.filter(c=>c.status==='queue'&&c.cat===cat&&c.type===type&&c.dists.includes(dist)).length;
+  const ok=s=>s.cats.includes(cat)&&(type!=='hand'||s.hand)&&(type!=='auto'||s.auto);
+  const schs=SCH.filter(ok),inD=schs.filter(s=>s.d===dist);
+  const groups=schs.reduce((a,s)=>a+s.starts.filter(x=>x>=TODAY&&x<'2027-01-06').length,0);
+  let lo=type==='hand'?3:type==='auto'?2:1;if(!inD.length)lo+=1;if(!schs.length)lo=null;
+  return {q,qd,schs,inD,groups,range:lo?`${lo}–${lo+2} міс.`:'немає місць'};
+}
+function renderWait(){
+  const e=estimate($('#wCat').value,$('#wType').value,$('#wDist').value);
+  $('#wRes').innerHTML=`<div style="font-size:14px;color:#aaa">Орієнтовне очікування</div><div class="bigv">${e.range}</div>
+  <div class="r"><span>У черзі з такими ж параметрами</span><b>${e.q}</b></div>
+  <div class="r"><span>Із них обрали цей район</span><b>${e.qd}</b></div>
+  <div class="r"><span>Автошкіл, що підходять</span><b>${e.schs.length}${e.inD.length?' (у районі — '+e.inD.length+')':''}</b></div>
+  <div class="r"><span>Стартів груп за 3 місяці</span><b>${e.groups}</b></div>
+  <div class="tip">${!e.schs.length?'Таких автошкіл поки немає — заявка все одно покаже місту попит.':!e.inD.length?'💡 У цьому районі немає відповідної автошколи. Додайте сусідній район — це може скоротити очікування.':'💡 Що більше зручних районів, то більше місць вам можуть запропонувати.'}</div>`;
+}
+['#wCat','#wType','#wDist'].forEach(s=>$(s).onchange=renderWait);
+$('#wDist').innerHTML=DN.map(d=>`<option${d==='Дарницький'?' selected':''}>${d}</option>`).join('');
+
+$('#stList').innerHTML=Object.keys(STS).map(k=>`<div class="r">${stb(k)}<span>${STS[k][2]}</span></div>`).join('');
+$$('.faq .q').forEach(q=>q.onclick=()=>q.classList.toggle('open'));
+document.addEventListener('click',e=>{const j=e.target.closest('[data-jump]');if(j){document.getElementById(j.dataset.jump).scrollIntoView({behavior:'smooth'})}
+  if(e.target.closest('[data-apply]'))openForm();
+  const vs=e.target.closest('[data-vs]');if(vs){if(vs.dataset.vs==='my'&&!S.me){openForm();return}S.vs=vs.dataset.vs;renderVet();scrollTo(0,0)}});
+$('#ctaApply').onclick=$('#ctaApply2').onclick=()=>openForm();
+$('#bigText').onclick=()=>{document.body.classList.toggle('big')};
+
+/* якорі */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)$$('#anchors a').forEach(a=>a.classList.toggle('on',a.dataset.jump===e.target.id))}),{rootMargin:'-30% 0px -60% 0px'});
+$$('#s-page section[id]').forEach(s=>io.observe(s));
+
+/* ================= ФОРМА ================= */
+function openForm(){
+  if(S.me&&S.me.status!=='refused'&&S.me.status!=='done'){S.vs='my';renderVet();scrollTo(0,0);toast('У вас уже є активна заявка.');return}
+  if(S.pageD.length)S.form.d=[...S.pageD];
+  S.vs='form';renderVet();scrollTo(0,0);
+}
+function renderForm(){
+  $$('[data-ff]').forEach(g=>g.querySelectorAll('.opt').forEach(b=>b.classList.toggle('on',S.form[g.dataset.ff]===b.dataset.v)));
+  renderFormDist();
+}
+function renderFormDist(){
+  $('#formMap').innerHTML=mapSVG('form',{sel:S.form.d,pins:SCH.filter(s=>(S.form.type!=='hand'||s.hand)&&(S.form.type!=='auto'||s.auto)&&s.cats.includes(S.form.cat))});
+  $('#formDist').innerHTML=DN.map(d=>`<button data-v="${d}" class="${S.form.d.includes(d)?'on':''}">${d}</button>`).join('');
+  const e=estimate(S.form.cat,S.form.type,S.form.d[0]||'Дарницький');
+  $('#formSelD').innerHTML=S.form.d.length?`Обрано: <b>${S.form.d.join(', ')}</b><br><span class="idea" style="margin-top:8px">ідея</span> Автошкіл з вашими параметрами в цих районах: <b>${SCH.filter(s=>S.form.d.includes(s.d)&&s.cats.includes(S.form.cat)&&(S.form.type!=='hand'||s.hand)&&(S.form.type!=='auto'||s.auto)).length}</b> · орієнтовне очікування <b>${e.range}</b>`:'Оберіть хоча б один район.';
+}
+$('#formDist').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;toggle(S.form.d,b.dataset.v,3);renderFormDist()});
+$$('[data-ff]').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b)return;S.form[g.dataset.ff]=b.dataset.v;renderForm()}));
+$('#fSign').onclick=()=>{
+  const f=S.form,err=[];
+  if(!f.grp)err.push('групу');if(!f.cat)err.push('категорію');if(!f.type)err.push('тип авто');if(!f.d.length)err.push('хоча б один район');
+  if(!/\d{2}.*\d{3}.*\d{2}.*\d{2}/.test($('#fPhone').value))err.push('телефон');
+  if(!$('#fAgree').checked)err.push('згоду на обробку даних');
+  if(err.length){$('#fErr').textContent='Вкажіть: '+err.join(', ')+'.';return}
+  $('#fErr').textContent='';
+  modal(`<h3>Підписання через Дію</h3><p class="muted">Відскануйте QR-код у застосунку Дія і підтвердьте підпис.</p><div class="qr"></div><div class="spin"></div><p style="text-align:center;font-size:14px" class="muted">Очікуємо підтвердження…</p>`);
+  setTimeout(()=>{closeModal();submitMe();},1500);
+};
+function newMe(){
+  return {id:'me',me:1,name:'Бондар О. П.',grp:S.form.grp,cat:S.form.cat,type:S.form.type,dists:[...S.form.d],date:TODAY,status:'queue',skips:0,phone:$('#fPhone').value,
+    from:$('#fFrom').value,needs:$$('[data-need]').filter(x=>x.checked).map(x=>x.dataset.need),hist:[[TODAY,'Заявку подано й підписано через Дію']],no:'АШ-2026-0'+(400+S.cands.length),docs:{}};
+}
+function submitMe(){
+  S.cands=S.cands.filter(c=>c.id!=='me');S.me=newMe();S.cands.push(S.me);
+  S.vs='my';syncStageSel();renderAll();scrollTo(0,0);
+  notify('Заявку прийнято. Статус — «В черзі на навчання».');
+}
+
+/* ================= МОЯ ЗАЯВКА ================= */
+const DOCS=[
+ ['pass','Паспорт або ID-картка','Обов’язковий','dia'],
+ ['ubd','Посвідчення особи з інвалідністю внаслідок війни','Обов’язковий','dia'],
+ ['grp','Документ про групу інвалідності','Обов’язковий','file'],
+ ['med','Медична довідка 083/о','Обов’язковий','file'],
+ ['photo','Фото','Автошкола «Кермо» не вимагає','na']
+];
+const TRK=[['queue','В черзі'],['invited','Запрошено'],['review','Документи'],['enrolled','Зараховано'],['done','Завершено']];
+function renderMy(){
+  const me=S.me,box=$('#s-my');
+  if(!me){box.innerHTML='';return}
+  const order=['queue','invited','review','enrolled','done'],st=me.status==='fix'?'review':me.status==='refused'?'review':me.status,idx=order.indexOf(st);
+  const trk=TRK.map(([k,l],i)=>`<div class="s ${i<idx||me.status==='done'?'done':i===idx?'cur'+(me.status==='fix'||me.status==='refused'?' alert':''):''}"><i>${i<idx||me.status==='done'?'✓':''}</i>${l}</div>`).join('');
+  const sch=me.sch?SBYID[me.sch]:null;
+  let main='';
+  if(me.status==='queue'){
+    const e=estimate(me.cat,me.type,me.dists[0]);
+    const before=S.cands.filter(c=>c.status==='queue'&&c.cat===me.cat&&c.type===me.type&&c.date<me.date&&c.id!=='me').length;
+    main=`<div class="card"><h3>Ви в черзі на навчання</h3>
+      <div class="grid g3" style="margin:6px 0 4px">
+        <div class="fld"><div class="l">У черзі з</div><div class="v">${fmt(me.date)}</div></div>
+        <div class="fld"><div class="l">Подано раніше з такими ж параметрами <span class="idea">ідея</span></div><div class="v"><b>${before}</b></div></div>
+        <div class="fld"><div class="l">Орієнтовне очікування <span class="idea">ідея</span></div><div class="v"><b>${e.range}</b></div></div>
+      </div>
+      ${me.skips?`<div class="note warn">Ви вже пропустили одне запрошення. ⚠ Ліміт пропусків погоджується.</div>`:''}
+      <div class="note">Щойно з’явиться місце, ви отримаєте запрошення на пошту і в «Київ Цифровий». Документи зараз не потрібні.</div>
+      <div class="actions"><button class="btn ghost sm" id="editMe">Змінити параметри</button><button class="btn grey sm" id="pauseMe">Пауза до певного місяця <span class="idea">ідея</span></button><button class="btn red sm" id="withdraw">Відкликати заявку</button></div></div>
+      ${paramsCard(me)}`;
+  }
+  if(me.status==='invited'){
+    const dl=addD(me.invDate,10),left=Math.max(0,daysBetween(TODAY,dl)),used=10-Math.min(10,left);
+    main=`<div class="inv"><div class="cap">Запрошення · від ${fmt(me.invDate)}</div><h3>Для вас є місце в автошколі ${sch.n}</h3>
+      <div class="g"><div>Адреса<b>${sch.a}</b></div><div>Старт навчання<b>${fmtL(me.start)}</b></div><div>Авто<b>${TYPE[me.type]}, ${me.cat}</b></div></div>
+      <div class="dl"><div class="bar"><i style="width:${used*10}%"></i></div><div class="t"><span>Підтвердити й додати документи до <b>${fmt(dl)}</b></span><span>залишилось ${left} дн.</span></div></div>
+      <div class="actions"><button class="btn" id="goDocs">Іду навчатися — додати документи</button><button class="btn tr" id="decline">Не можу зараз</button></div></div>
+      <div class="card" style="margin-top:20px"><h3>Про автошколу <span class="idea">ідея</span></h3>
+      <div class="grid g2"><div>${mapSVG('mini',{pins:[sch],hl:sch.id,sel:[sch.d]})}</div>
+      <div><div class="fld"><div class="l">Доступність</div><div class="v">♿ ${sch.acc}</div></div><div class="fld"><div class="l">Телефон</div><div class="v">${sch.ph}</div></div>
+      <div class="fld"><div class="l">Формат</div><div class="v">Теорія: пн, ср 18:30 · практика — за графіком з інструктором</div></div>
+      <a class="btn grey sm" target="_blank" rel="noopener" href="https://www.google.com/maps/search/${encodeURIComponent('Київ, '+sch.a)}">Прокласти маршрут ↗</a></div></div></div>
+      <div class="card" style="margin-top:20px" id="docBox">${docsCard(me)}</div>`;
+  }
+  if(me.status==='review'||me.status==='fix'){
+    const who=S.route==='B'?'Київ Мілітарі Хаб':'Автошкола '+sch.n;
+    main=me.status==='review'?`<div class="card"><h3>Документи на перевірці</h3><p style="font-size:15.5px">Пакет отримав <b>${who}</b>. Зазвичай перевірка триває до 3 робочих днів <span class="idea">ідея</span>.</p>
+      <div class="note">Перемкніть роль на «${S.route==='B'?'Київ Мілітарі Хаб':'Автошкола'}» у верхній панелі, щоб прийняти або повернути документи.</div></div>
+      <div class="card" style="margin-top:20px">${docsCard(me,true)}</div>`
+    :`<div class="card" style="border:1.5px solid #f0b9b3;box-shadow:none"><h3>Потрібно доопрацювати документи</h3>
+      <p style="font-size:15.5px">${who}: <b>«${me.fixNote||'Медична довідка 083/о — нечитабельний скан, завантажте чіткіше фото або PDF.'}»</b></p>
+      <p class="muted" style="font-size:14.5px;margin-top:6px">На доопрацювання — 10 днів, до ${fmt(addD(TODAY,10))}.</p></div>
+      <div class="card" style="margin-top:20px" id="docBox">${docsCard(me)}</div>`;
+  }
+  if(me.status==='enrolled'){
+    main=`<div class="inv" style="background:linear-gradient(140deg,#0e8a3b,#0068ff)"><div class="cap">Зараховано</div><h3>Навчання в автошколі ${sch.n} починається ${fmtL(me.start)}</h3>
+      <div class="g"><div>Адреса<b>${sch.a}</b></div><div>Перше заняття<b>${fmtL(me.start)}, 18:30</b></div><div>Телефон<b>${sch.ph}</b></div></div>
+      <div class="actions"><button class="btn" id="ics">Додати в календар</button><a class="btn tr" target="_blank" rel="noopener" href="https://www.google.com/maps/search/${encodeURIComponent('Київ, '+sch.a)}">Маршрут ↗</a></div></div>
+      <div class="card" style="margin-top:20px"><h3>Перші заняття <span class="idea">ідея</span></h3><div class="lessons">
+      ${[[0,'Теорія: ПДР, вступне заняття','клас 2'],[2,'Теорія: дорожні знаки','клас 2'],[5,'Практика: знайомство з авто'+(me.type==='hand'?' з ручним керуванням':''),'майданчик'],[7,'Теорія: розмітка','клас 2']].map(([o,t,p])=>`<div class="r"><span class="d">${fmtL(addD(me.start,o))}</span><span style="flex:1">${t}</span><span class="muted">${p}</span></div>`).join('')}
+      </div><p class="muted" style="font-size:13.5px;margin-top:10px">Розклад передає автошкола; зміни прийдуть повідомленням.</p></div>`;
+  }
+  if(me.status==='done'){
+    main=`<div class="card"><h3>Навчання завершено 🎉</h3><p style="font-size:15.5px">Автошкола ${sch?sch.n:''} підтвердила завершення навчання ${fmt(me.doneDate||'2027-03-12')}.</p>
+      <div class="note"><b>Що далі:</b> іспит у сервісному центрі МВС — теорія та практика. Запис на іспит — через сайт сервісних центрів МВС.</div>
+      <h4 style="margin-top:18px">Оцініть навчання <span class="idea">ідея</span></h4><div class="stars" id="stars">${[1,2,3,4,5].map(i=>`<button data-r="${i}" class="${(me.rate||0)>=i?'on':''}">★</button>`).join('')}</div>
+      <p class="muted" style="font-size:13.5px;margin-top:6px">Оцінка допоможе місту обирати автошколи-учасниці.</p></div>`;
+  }
+  if(me.status==='refused'){
+    main=`<div class="card"><h3>У записі відмовлено</h3><p style="font-size:15.5px">Причина: <b>${me.refNote||'документ про групу інвалідності не підтверджує I–II групу внаслідок війни.'}</b></p>
+      <div class="actions"><button class="btn" data-apply>Подати нову заявку</button><button class="btn grey">Зв’язатися з КМХ</button></div></div>`;
+  }
+  box.innerHTML=`<div class="crumbs"><a data-vs="page">Запис в автошколу</a> · Моя заявка</div>
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap"><h1 class="pt">Моя заявка</h1>${stb(me.status)}</div>
+    <div class="muted" style="margin:6px 0 24px">№ ${me.no} · подано ${fmt(me.date)}</div>
+    <div class="trk">${trk}</div>
+    <div class="mylay"><div>${main}</div>
+    <div><div class="card"><h3>Історія</h3><div class="tl">${me.hist.slice().reverse().map((h,i)=>`<div class="ev${i===0?' pur':''}"><div class="dt">${fmt(h[0])}</div><div class="tx">${h[1]}</div><div class="ch">📩 пошта · «Київ Цифровий»</div></div>`).join('')}</div></div></div></div>`;
+  bindMy();
+}
+function paramsCard(me){
+  return `<div class="card" style="margin-top:20px"><h3>Ваші параметри</h3><div class="grid g2">
+   <div class="fld"><div class="l">Група</div><div class="v">${me.grp}</div></div><div class="fld"><div class="l">Категорія</div><div class="v">${me.cat}</div></div>
+   <div class="fld"><div class="l">Тип авто</div><div class="v">${TYPE[me.type]}</div></div><div class="fld"><div class="l">Зручні райони</div><div class="v">${me.dists.join(', ')}</div></div>
+   <div class="fld"><div class="l">Телефон</div><div class="v">${me.phone}</div></div><div class="fld"><div class="l">Почати</div><div class="v">${me.from||'Будь-коли'}</div></div></div>
+   ${me.needs&&me.needs.length?`<div class="fld"><div class="l">Важливо в автошколі</div><div class="v">${me.needs.join(', ')}</div></div>`:''}</div>`;
+}
+function docsCard(me,ro){
+  const d=me.docs;
+  const rows=DOCS.map(([k,n,req,how])=>{
+    const ok=d[k],bad=me.status==='fix'&&k==='med'&&!ok;
+    let act='';
+    if(!ro){
+      if(how==='na')act='<span class="muted" style="font-size:13.5px">не потрібно</span>';
+      else if(ok)act=`<span class="st ok">${ok}</span>`;
+      else if(how==='dia')act=`<button class="btn xs dia" data-doc="${k}" data-how="dia">Підтягнути з Дії</button>`;
+      else act=`<button class="btn xs ghost" data-doc="${k}" data-how="file">Завантажити файл</button>`;
+    }else act=ok?`<span class="st ok">${ok}</span>`:'<span class="muted">—</span>';
+    return `<div class="doc"><div class="ic ${ok?'done':bad?'bad':''}">${ok?'✓':bad?'!':'•'}</div><div><div class="nm">${n}</div><div class="ds">${bad?'<span style="color:var(--bad)">Нечитабельний скан — завантажте ще раз</span>':req}</div></div>${act}</div>`;
+  }).join('');
+  const need=DOCS.filter(x=>x[3]!=='na').map(x=>x[0]),cnt=need.filter(k=>d[k]).length;
+  return `<h3>Документи ${ro?'':`<span class="muted" style="font-size:14px;font-weight:400">${cnt} з ${need.length}</span>`}</h3>${rows}
+   ${ro?'':`<div class="actions"><button class="btn" id="sendDocs"${cnt<need.length?' disabled':''}>Надіслати на перевірку</button><span class="muted" style="font-size:14px">Отримувач: ${S.route==='B'?'Київ Мілітарі Хаб':'автошкола'}</span></div>`}`;
+}
+function bindMy(){
+  const me=S.me,on=(id,f)=>{const el=document.getElementById(id);el&&(el.onclick=f)};
+  on('editMe',()=>{S.form={grp:me.grp,cat:me.cat,type:me.type,d:[...me.dists]};S.vs='form';renderVet();scrollTo(0,0);toast('Змініть параметри й підпишіть заявку ще раз.')});
+  on('pauseMe',()=>modal(`<h3>Пауза в черзі</h3><p class="muted" style="font-size:15px">Ви залишаєтесь у черзі, але КМХ не запрошуватиме вас до обраного місяця.</p><div class="field" style="margin-top:14px"><label>Не запрошувати до</label><select id="pm"><option>Грудень 2026</option><option>Січень 2027</option><option>Лютий 2027</option><option>Березень 2027</option></select></div><div class="actions"><button class="btn" id="pmOk">Зберегти</button><button class="btn grey" onclick="closeModal()">Скасувати</button></div>`)||(document.getElementById('pmOk').onclick=()=>{me.from=$('#pm').value;me.hist.push([TODAY,'Пауза до: '+me.from]);closeModal();renderAll();notify('Пауза збережена: запрошення — не раніше ніж '+me.from+'.')}));
+  on('withdraw',()=>modal(`<h3>Відкликати заявку?</h3><p class="muted" style="font-size:15px">Ви вийдете з черги. Подати нову заявку можна будь-коли, але черга почнеться з нової дати.</p><div class="actions"><button class="btn red" id="wOk">Відкликати</button><button class="btn grey" onclick="closeModal()">Залишитись у черзі</button></div>`)||(document.getElementById('wOk').onclick=()=>{S.cands=S.cands.filter(c=>c.id!=='me');S.me=null;closeModal();S.vs='page';syncStageSel();renderAll();toast('Заявку відкликано.')}));
+  on('goDocs',()=>document.getElementById('docBox').scrollIntoView({behavior:'smooth'}));
+  on('decline',()=>modal(`<h3>Відмовитися від цього місця?</h3><p class="muted" style="font-size:15px">Місце запропонують іншому кандидату. Ви залишитеся в черзі з датою подання ${fmt(me.date)}.</p><div class="field" style="margin-top:14px"><label>З якого місяця вам буде зручно</label><select id="dm"><option>Будь-коли</option><option>Грудень 2026</option><option>Січень 2027</option><option>Лютий 2027</option></select></div><div class="actions"><button class="btn red" id="dOk">Відмовитися й залишитись у черзі</button><button class="btn grey" onclick="closeModal()">Назад</button></div>`)||(document.getElementById('dOk').onclick=()=>{releaseSeat(me);me.status='queue';me.skips++;me.from=$('#dm').value;me.hist.push([TODAY,'Відмова від місця, повернення в чергу ('+me.from+')']);closeModal();syncStageSel();renderAll();notify('Ви залишаєтесь у черзі. Місце запропонують наступному кандидату.')}));
+  $$('[data-doc]').forEach(b=>b.onclick=()=>{
+    const k=b.dataset.doc;
+    if(b.dataset.how==='dia'){b.innerHTML='…';setTimeout(()=>{me.docs[k]='з Дії';renderMy()},600)}
+    else{me.docs[k]={grp:'dovidka_MSEK.pdf',med:'083o_'+(me.status==='fix'?'nova':'skan')+'.pdf'}[k]||'файл.pdf';renderMy()}
+  });
+  on('sendDocs',()=>{me.status='review';me.hist.push([TODAY,'Документи надіслано на перевірку ('+(S.route==='B'?'КМХ':'автошкола')+')']);syncStageSel();renderAll();notify('Документи отримано. Статус — «Документи на перевірці».')});
+  on('ics',()=>{const s=SBYID[me.sch],d=me.start.replace(/-/g,'');
+    download('avtoshkola.ics',['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Kyiv Digital//UA','BEGIN:VEVENT','UID:'+me.no+'@kyiv.digital','DTSTAMP:20261006T090000Z','DTSTART:'+d+'T183000','DTEND:'+d+'T200000','SUMMARY:Автошкола '+s.n.replace(/[«»]/g,'')+' — перше заняття','LOCATION:Київ\\, '+s.a.replace(/,/g,'\\,'),'BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY','DESCRIPTION:Завтра перше заняття','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n'),'text/calendar')});
+  $$('#stars button').forEach(b=>b.onclick=()=>{me.rate=+b.dataset.r;renderMy();toast('Дякуємо за оцінку!')});
+}
+
+/* ================= ПЕРЕХОДИ СТАТУСІВ ================= */
+function releaseSeat(c){const q=S.seats.find(x=>x.id===c.seat);if(q){q.inv=q.inv.filter(i=>i!==c.id)}c.seat=null;c.sch=null}
+function invite(c,seat){
+  c.status='invited';c.sch=seat.sch;c.seat=seat.id;c.start=seat.start;c.invDate=TODAY;c.docs={};
+  seat.inv.push(c.id);c.hist.push([TODAY,'Запрошено: автошкола '+SBYID[seat.sch].n+', старт '+fmt(seat.start)]);
+  if(c.me)notify('🎉 Для вас є місце в автошколі '+SBYID[seat.sch].n+'. Підтвердіть участь до '+fmt(addD(TODAY,10))+'.');
+  else toast('Запрошення надіслано: <b>'+c.name+'</b>');
+}
+function accept(c){c.status='enrolled';c.hist.push([TODAY,'Документи прийнято. Зараховано, старт '+fmt(c.start)]);const q=S.seats.find(x=>x.id===c.seat);if(q)q.n=Math.max(0,q.n-1);if(c.me)notify('Вас зараховано! Старт — '+fmtL(c.start)+'.');else toast('Зараховано: <b>'+c.name+'</b>')}
+function returnFix(c,note){c.status='fix';c.fixNote=note;if(c.docs)c.docs.med=null;c.hist.push([TODAY,'Повернуто на доопрацювання: '+note]);if(c.me)notify('Потрібно доопрацювати документи: '+note);else toast('Повернуто на доопрацювання')}
+function finish(c){c.status='done';c.doneDate=TODAY;c.hist.push([TODAY,'Навчання завершено']);if(c.me)notify('Автошкола підтвердила завершення навчання.');else toast('Позначено: навчання завершено')}
+
+function setStage(st){
+  if(st==='none'){S.cands=S.cands.filter(c=>c.id!=='me');S.me=null;S.vs='page';renderAll();return}
+  if(!S.me){S.me=newMe();S.cands.push(S.me)}
+  const me=S.me,seat=S.seats.find(q=>q.id==='q1');
+  me.hist=[[TODAY,'Заявку подано й підписано через Дію']];me.status='queue';me.docs={};releaseSeat(me);
+  if(st==='queue'){S.vs='my';renderAll();return}
+  me.date='2026-07-14';me.hist=[['2026-07-14','Заявку подано й підписано через Дію']];
+  invite(me,seat);me.invDate='2026-10-02';me.hist[1][0]='2026-10-02';
+  const all={pass:'з Дії',ubd:'з Дії',grp:'dovidka_MSEK.pdf',med:'083o_skan.pdf'};
+  if(['review','fix','enrolled','done','refused'].includes(st)){me.docs={...all};me.status='review';me.hist.push(['2026-10-04','Документи надіслано на перевірку'])}
+  if(st==='fix'){me.status='fix';me.docs.med=null;me.fixNote='Медична довідка 083/о — нечитабельний скан, завантажте чіткіше фото або PDF.';me.hist.push([TODAY,'Повернуто на доопрацювання'])}
+  if(st==='enrolled'||st==='done'){me.status='enrolled';me.hist.push(['2026-10-05','Зараховано, старт '+fmt(me.start)])}
+  if(st==='done'){me.status='done';me.doneDate='2027-03-12';me.hist.push(['2027-03-12','Навчання завершено'])}
+  if(st==='refused'){me.status='refused';me.hist.push([TODAY,'Відмовлено: документ не підтверджує групу'])}
+  S.vs='my';renderAll();
+}
+function syncStageSel(){$('#stageSel').value=S.me?S.me.status:'none'}
+
+/* ================= КМХ ================= */
+function kpiBox(){const c=S.cands,n=s=>c.filter(x=>x.status===s).length;
+  return `<div class="kpis"><div class="kpi"><div class="v">${n('queue')}</div><div class="l">У черзі</div></div><div class="kpi"><div class="v">${n('invited')}</div><div class="l">Запрошено, чекаємо</div></div><div class="kpi"><div class="v">${n('review')+n('fix')}</div><div class="l">Документи</div></div><div class="kpi"><div class="v">${n('enrolled')}</div><div class="l">Навчаються</div></div><div class="kpi"><div class="v">${n('done')}</div><div class="l">Завершили</div></div></div>`}
+function filtered(){const f=S.filt;return S.cands.filter(c=>(!f.st||c.status===f.st)&&(!f.cat||c.cat===f.cat)&&(!f.type||c.type===f.type)&&(!f.d||c.dists.includes(f.d))&&(!f.g||c.grp===f.g)&&(!f.q||c.name.toLowerCase().includes(f.q.toLowerCase())))}
+function candRow(c,extra=''){
+  return `<tr class="cl${c.me?' me':''}" data-c="${c.id}"><td class="mono">${fmt(c.date)}</td><td><b>${c.name}</b>${c.me?' <span class="st pur" style="font-size:11px;padding:2px 8px">демо-ветеран</span>':''}</td><td>${c.grp}</td><td>${c.cat}</td><td><div class="tags"><span class="${c.type==='hand'?'h':''}">${TYPE[c.type]}</span></div></td><td><div class="tags">${c.dists.map(d=>`<span>${d}</span>`).join('')}</div></td>${extra||`<td>${stb(c.status)}</td><td class="mono">${c.skips||'—'}</td>`}</tr>`}
+function renderKmx(){
+  $('#kcReg').textContent=S.cands.filter(c=>c.status==='queue').length;
+  $('#kcSeats').textContent=S.seats.filter(q=>q.n>0).length;
+  $$('#v-kmx [data-ks]').forEach(x=>x.classList.toggle('on',x.dataset.ks===S.ks));
+  const m=$('#kMain');
+  if(S.ks==='reg'){
+    const f=S.filt,opt=(arr,v)=>arr.map(([k,l])=>`<option value="${k}"${v===k?' selected':''}>${l}</option>`).join('');
+    const list=filtered().sort((a,b)=>a.date<b.date?-1:1);
+    m.innerHTML=`<h1 class="pt">Реєстр заявок</h1><p class="muted" style="margin-top:6px">Усі кандидати на навчання в одному місці. Натисніть рядок, щоб відкрити картку.</p>${kpiBox()}
+    <div class="ctrls">
+      <select data-f="st">${opt([['','Усі статуси'],...Object.keys(STS).map(k=>[k,STS[k][0]])],f.st)}</select>
+      <select data-f="cat">${opt([['','Категорія'],['A','A'],['B','B'],['C','C'],['BE','BE']],f.cat)}</select>
+      <select data-f="type">${opt([['','Тип авто'],...Object.entries(TYPE)],f.type)}</select>
+      <select data-f="d">${opt([['','Район'],...DN.map(d=>[d,d])],f.d)}</select>
+      <select data-f="g">${opt([['','Група'],['I','I група'],['II','II група']],f.g)}</select>
+      <input data-f="q" placeholder="Пошук за прізвищем" value="${f.q}">
+      <button class="btn grey sm sp" id="csv">Вивантажити CSV</button>
+    </div>
+    <div class="table-x"><table class="t"><thead><tr><th>Подано</th><th>Кандидат</th><th>Група</th><th>Кат.</th><th>Авто</th><th>Зручні райони</th><th>Статус</th><th>Пропуски</th></tr></thead><tbody>${list.map(c=>candRow(c)).join('')}</tbody></table></div>
+    <div class="muted" style="margin-top:12px;font-size:14px">Показано ${list.length} з ${S.cands.length}</div>`;
+    $$('#kMain [data-f]').forEach(el=>{el.oninput=el.onchange=()=>{S.filt[el.dataset.f]=el.value;const pos=el.selectionStart;renderKmx();if(el.dataset.f==='q'){const n=$('#kMain [data-f="q"]');n.focus();n.setSelectionRange(pos,pos)}}});
+    $('#csv').onclick=()=>download('reiestr-avtoshkola.csv','﻿'+[['Дата подання','Кандидат','Група','Категорія','Тип авто','Райони','Статус','Пропуски'].join(';'),...list.map(c=>[fmt(c.date),c.name,c.grp,c.cat,TYPE[c.type],c.dists.join(', '),STS[c.status][0],c.skips].join(';'))].join('\n'),'text/csv');
+  }
+  if(S.ks==='seats'){
+    const seat=S.seats.find(q=>q.id===S.matchSeat);
+    m.innerHTML=`<h1 class="pt">Вільні місця</h1><p class="muted" style="margin-top:6px">Автошколи повідомляють про місця — ви підбираєте кандидата і запрошуєте його.</p>
+    <div class="grid" style="grid-template-columns:minmax(0,330px) 1fr;gap:24px;margin-top:24px;align-items:start">
+      <div>${S.seats.map(q=>{const s=SBYID[q.sch];return `<div class="seat${q.id===S.matchSeat?' on':''}"><div><div class="nm">${s.n} · ${s.d}</div><div class="ds">Кат. ${q.cat} · ${TYPE[q.type]} · старт ${fmt(q.start)}</div><div class="ds">Вільно: <b>${q.n}</b> · запрошено: ${q.inv.length} · повідомлено ${fmt(q.rep)}</div></div><button class="btn sm${q.n?'':' grey'}" data-ms="${q.id}"${q.n?'':' disabled'}>${q.n?'Підібрати':'Заповнено'}</button></div>`}).join('')}</div>
+      <div>${seat?matchPanel(seat):'<div class="card ln" style="text-align:center;padding:50px 30px"><div class="muted">Оберіть вільне місце ліворуч — система покаже кандидатів, які йому відповідають.</div></div>'}</div>
+    </div>`;
+    $$('[data-ms]').forEach(b=>b.onclick=()=>{S.matchSeat=b.dataset.ms;renderKmx()});
+    $$('[data-rule]').forEach(b=>b.onclick=()=>{S.rule=b.dataset.rule;renderKmx()});
+    $$('[data-inv]').forEach(b=>b.onclick=e=>{e.stopPropagation();invite(S.cands.find(c=>c.id===b.dataset.inv),seat);renderAll()});
+  }
+  if(S.ks==='an'){
+    const q=S.cands.filter(c=>c.status==='queue'),heat={};q.forEach(c=>c.dists.forEach(d=>heat[d]=(heat[d]||0)+1));
+    const byT=t=>q.filter(c=>c.type===t).length,cap=t=>SCH.filter(s=>t==='hand'?s.hand:t==='auto'?s.auto:1).reduce((a,s)=>a+s.starts.filter(x=>x>=TODAY&&x<'2027-01-06').length,0);
+    const mx=Math.max(...['plain','auto','hand'].map(byT),1);
+    const n=s=>S.cands.filter(c=>c.status===s).length,tot=S.cands.length;
+    m.innerHTML=`<h1 class="pt">Аналітика попиту <span class="idea" style="vertical-align:middle">ідея</span></h1><p class="muted" style="margin-top:6px">Що місто бачить завдяки черзі без документів: реальний попит за районами й типами авто.</p>
+    <div class="grid g2" style="margin-top:24px">
+      <div class="card"><h3>Де хочуть навчатися <span class="muted" style="font-size:14px;font-weight:400">заявки в черзі за зручними районами</span></h3>${mapSVG('an',{heat,pins:SCH})}<div class="legend"><span><i style="background:var(--blue)"></i>Автошкола</span><span><i style="background:var(--pur)"></i>з ручним керуванням</span></div></div>
+      <div>
+        <div class="card"><h3>Попит і місця за типом авто</h3><div class="bars">${['plain','auto','hand'].map(t=>`<div class="r"><span>${TYPE[t]}</span><div class="tr"><i class="${t==='hand'?'h':''}" style="width:${byT(t)/mx*100}%"></i></div><b>${byT(t)} у черзі</b></div><div class="r" style="padding-top:0"><span class="muted" style="font-size:13px">стартів груп до січня</span><div class="tr"><i class="c" style="width:${Math.min(100,cap(t)/mx*100)}%"></i></div><span class="muted">${cap(t)}</span></div>`).join('')}</div>
+        ${gapNote(q)}</div>
+        <div class="card" style="margin-top:20px"><h3>Воронка програми</h3><div class="funnel">${[['Усі заявки',tot],['Запрошено',tot-n('queue')],['Зараховано',n('enrolled')+n('done')],['Завершили',n('done')]].map(([l,v])=>`<div class="r"><div class="b" style="width:${Math.max(14,v/tot*100)}%">${v}</div><span class="l">${l}</span></div>`).join('')}</div></div>
+      </div>
+    </div>`;
+  }
+}
+function gapNote(q){
+  const hd={};q.filter(c=>c.type==='hand').forEach(c=>c.dists.forEach(d=>hd[d]=(hd[d]||0)+1));
+  const gap=Object.entries(hd).filter(([d])=>!SCH.some(s=>s.hand&&s.d===d)).sort((a,b)=>b[1]-a[1]);
+  if(!gap.length)return '<div class="note ok" style="margin-bottom:0">Для кожного району з попитом на ручне керування є автошкола з адаптованим авто.</div>';
+  return `<div class="note warn" style="margin-bottom:0"><b>Сигнал:</b> ${gap.slice(0,2).map(([d,n])=>`${d} — ${n} заяв.`).join(', ')} на ручне керування, але в ${gap.length>1?'цих районах':'цьому районі'} немає автошколи з адаптованим авто. Привід домовитися з ще однією автошколою.</div>`;
+}
+function matchPanel(seat){
+  const s=SBYID[seat.sch];
+  let c=S.cands.filter(x=>x.status==='queue'&&x.cat===seat.cat&&x.type===seat.type);
+  c.forEach(x=>x._d=x.dists.includes(s.d));
+  c.sort((a,b)=>(b._d-a._d)||(S.rule==='group'?(a.grp<b.grp?-1:a.grp>b.grp?1:0):0)||(a.date<b.date?-1:1));
+  return `<div class="card"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap"><div><h3 style="margin-bottom:2px">Кандидати під місце в ${s.n}</h3><div class="muted" style="font-size:14px">Кат. ${seat.cat} · ${TYPE[seat.type]} · ${s.d} р-н · старт ${fmt(seat.start)}</div></div>
+   <div><div class="muted" style="font-size:12.5px;margin-bottom:4px">Правило сортування <span class="warnf">⚠ рішення керівництва</span></div><div class="seg sm"><button data-rule="date" class="${S.rule==='date'?'on':''}">За датою</button><button data-rule="group" class="${S.rule==='group'?'on':''}">I група першою</button></div></div></div>
+   ${c.length?`<div class="table-x"><table class="t" style="margin-top:14px"><thead><tr><th>Подано</th><th>Кандидат</th><th>Група</th><th>Райони</th><th>Збіг</th><th></th></tr></thead><tbody>
+   ${c.map(x=>`<tr class="cl${x.me?' me':''}" data-c="${x.id}"><td class="mono">${fmt(x.date)}</td><td><b>${x.name}</b>${x.me?'<br><span class="st pur" style="font-size:11px;padding:2px 8px">демо-ветеран</span>':''}</td><td>${x.grp}</td><td><div class="tags">${x.dists.map(d=>`<span>${d}</span>`).join('')}</div></td><td><span class="mt${x._d?'':' no'}">${x._d?'район ✓':'інший район'}</span>${x.skips?` <span class="mt no">пропуск ${x.skips}</span>`:''}</td><td><button class="btn xs" data-inv="${x.id}">Запросити</button></td></tr>`).join('')}</tbody></table></div>`:'<div class="note" style="margin-bottom:0">Немає кандидатів у черзі з такими параметрами.</div>'}</div>`;
+}
+document.addEventListener('click',e=>{const r=e.target.closest('tr[data-c]');if(!r||e.target.closest('button'))return;openCand(r.dataset.c)});
+function openCand(id){
+  const c=S.cands.find(x=>x.id===id);if(!c)return;
+  const open=S.seats.filter(q=>q.n>0&&q.cat===c.cat&&q.type===c.type);
+  const canReview=c.status==='review'&&((S.role==='kmx'&&S.route==='B')||(S.role==='sch'&&S.route==='A'));
+  drawer(`<div class="muted" style="font-size:13.5px">Картка кандидата</div><h2 style="font-size:24px;margin:4px 0 10px">${c.name}</h2>${stb(c.status)}
+   <div class="grid g2" style="margin-top:20px;gap:0 20px">
+    <div class="fld"><div class="l">Подано</div><div class="v">${fmt(c.date)}</div></div><div class="fld"><div class="l">Група</div><div class="v">${c.grp}</div></div>
+    <div class="fld"><div class="l">Категорія</div><div class="v">${c.cat}</div></div><div class="fld"><div class="l">Тип авто</div><div class="v">${TYPE[c.type]}</div></div>
+    <div class="fld"><div class="l">Телефон</div><div class="v">${c.phone}</div></div><div class="fld"><div class="l">Пропущено запрошень</div><div class="v">${c.skips||0}</div></div>
+   </div>
+   <div class="fld"><div class="l">Зручні райони</div><div class="v">${c.dists.join(', ')}</div></div>
+   ${c.from&&c.from!=='Будь-коли'?`<div class="fld"><div class="l">Зручно почати</div><div class="v">${c.from}</div></div>`:''}
+   ${c.needs&&c.needs.length?`<div class="fld"><div class="l">Потреби</div><div class="v">${c.needs.join(', ')}</div></div>`:''}
+   ${c.sch?`<div class="fld"><div class="l">Автошкола</div><div class="v">${SBYID[c.sch].n}, старт ${fmt(c.start)}</div></div>`:''}
+   ${c.status==='queue'&&S.role==='kmx'?`<h4 style="margin:18px 0 8px">Запросити на навчання</h4>${open.length?open.map(q=>`<div class="seat"><div><div class="nm">${SBYID[q.sch].n}</div><div class="ds">${SBYID[q.sch].d} · старт ${fmt(q.start)} · вільно ${q.n}</div></div><button class="btn sm" data-dinv="${q.id}">Запросити</button></div>`).join(''):'<div class="note" style="margin:0">Зараз немає вільних місць під параметри кандидата.</div>'}`:''}
+   ${canReview?`<h4 style="margin:18px 0 8px">Перевірка документів</h4>${DOCS.filter(d=>d[3]!=='na').map(([k,n])=>`<div class="doc"><div class="ic ${c.docs&&c.docs[k]===null?'bad':'done'}">✓</div><div><div class="nm" style="font-size:14.5px">${n}</div><div class="ds">${c.docs&&c.docs[k]||'додано'}</div></div><span></span></div>`).join('')}
+     <div class="actions"><button class="btn" id="dAcc">Документи в порядку — зарахувати</button><button class="btn red sm" id="dFix">Повернути на доопрацювання</button></div>`:''}
+   ${c.status==='invited'&&S.role==='kmx'?`<div class="actions"><button class="btn red sm" id="dNo">Позначити: не відповів (місце — наступному)</button></div>`:''}
+   <h4 style="margin:24px 0 10px">Історія</h4><div class="tl">${c.hist.slice().reverse().map(h=>`<div class="ev"><div class="dt">${fmt(h[0])}</div><div class="tx">${h[1]}</div></div>`).join('')}</div>`);
+  $$('[data-dinv]').forEach(b=>b.onclick=()=>{invite(c,S.seats.find(q=>q.id===b.dataset.dinv));renderAll();openCand(id)});
+  const a=$('#dAcc');a&&(a.onclick=()=>{accept(c);renderAll();openCand(id)});
+  const fx=$('#dFix');fx&&(fx.onclick=()=>{returnFix(c,'Медична довідка 083/о — нечитабельний скан, завантажте чіткіше фото або PDF.');renderAll();openCand(id)});
+  const no=$('#dNo');no&&(no.onclick=()=>{releaseSeat(c);c.status='queue';c.skips=(c.skips||0)+1;c.hist.push([TODAY,'Не відповів на запрошення — залишається в черзі']);if(c.me)notify('Строк запрошення минув. Ви залишаєтесь у черзі.');renderAll();openCand(id)});
+}
+
+/* ================= АВТОШКОЛА ================= */
+function renderSch(){
+  const mine=S.cands.filter(c=>c.sch==='s1');
+  $('#scStud').textContent=mine.length;
+  $$('#v-sch [data-ss]').forEach(x=>x.classList.toggle('on',x.dataset.ss===S.ss));
+  const m=$('#sMain');
+  if(S.ss==='seats'){
+    const my=S.seats.filter(q=>q.sch==='s1');
+    m.innerHTML=`<h1 class="pt">Вільні місця</h1><p class="muted" style="margin-top:6px">Повідомте КМХ про місце — і він запросить кандидата з реєстру.</p>
+    <div class="grid g2" style="margin-top:24px;align-items:start">
+      <div class="card"><h3>Повідомити про вільне місце</h3>
+        <div class="grid g2" style="gap:0 16px"><div class="field"><label>Категорія</label><select id="nCat"><option>B</option><option>C</option></select></div>
+        <div class="field"><label>Тип авто</label><select id="nType"><option value="hand">Ручне керування</option><option value="auto">Автомат</option><option value="plain">Звичайне</option></select></div>
+        <div class="field"><label>Кількість місць</label><select id="nN"><option>1</option><option>2</option><option>3</option></select></div>
+        <div class="field"><label>Старт групи</label><select id="nStart">${SBYID.s1.starts.filter(x=>x>=TODAY).map(x=>`<option value="${x}">${fmt(x)}</option>`).join('')}</select></div></div>
+        <button class="btn" id="nSend">Повідомити КМХ</button></div>
+      <div class="card"><h3>Мої повідомлення</h3>${my.length?my.map(q=>`<div class="seat"><div><div class="nm">Кат. ${q.cat} · ${TYPE[q.type]}</div><div class="ds">Старт ${fmt(q.start)} · вільно ${q.n} · запрошено ${q.inv.length}</div></div>${q.n?'<span class="st info">Відкрите</span>':'<span class="st ok">Заповнене</span>'}</div>`).join(''):'<div class="muted">Ще немає.</div>'}</div>
+    </div>`;
+    $('#nSend').onclick=()=>{S.seats.unshift({id:'q'+Date.now(),sch:'s1',cat:$('#nCat').value,type:$('#nType').value,n:+$('#nN').value,start:$('#nStart').value,rep:TODAY,inv:[]});renderAll();toast('✓ КМХ отримав повідомлення про вільне місце.')};
+  }
+  if(S.ss==='stud'){
+    m.innerHTML=`<h1 class="pt">Слухачі програми</h1><p class="muted" style="margin-top:6px">Ветерани, яких КМХ направив до вас. ${S.route==='A'?'За варіантом A документи надходять напряму вам.':'За варіантом B документи перевіряє КМХ — ви отримуєте вже перевірений пакет.'}</p>
+    <div class="table-x"><table class="t" style="margin-top:20px"><thead><tr><th>Кандидат</th><th>Кат.</th><th>Авто</th><th>Старт</th><th>Статус</th><th></th></tr></thead><tbody>
+    ${mine.map(c=>`<tr class="cl${c.me?' me':''}" data-c="${c.id}"><td><b>${c.name}</b></td><td>${c.cat}</td><td>${TYPE[c.type]}</td><td>${fmt(c.start)}</td><td>${stb(c.status)}</td><td>${c.status==='enrolled'?`<button class="btn xs ghost" data-fin="${c.id}">Позначити завершення</button>`:c.status==='review'&&S.route==='A'?`<button class="btn xs" data-rv="${c.id}">Перевірити документи</button>`:''}</td></tr>`).join('')}</tbody></table></div>`;
+    $$('[data-fin]').forEach(b=>b.onclick=()=>{finish(S.cands.find(c=>c.id===b.dataset.fin));renderAll()});
+    $$('[data-rv]').forEach(b=>b.onclick=()=>openCand(b.dataset.rv));
+  }
+}
+
+/* ================= РЕНДЕР ================= */
+function renderVet(){
+  ['page','form','my'].forEach(k=>$('#s-'+k).hidden=S.vs!==k);
+  $$('.vnav a').forEach(a=>a.classList.toggle('on',a.dataset.vs===S.vs||(S.vs==='form'&&a.dataset.vs==='my')));
+  const me=S.me;
+  $('#myTabSt').className='st '+(me?STS[me.status][1]:'grey');$('#myTabSt').textContent=me?STS[me.status][0]:'не подано';
+  $('#myBar').innerHTML=me?`<div class="mybar"><div class="t">Ваша заявка № ${me.no} · ${stb(me.status)}</div><button class="btn sm" data-vs="my">Відкрити заявку</button></div>`:'';
+  const q=S.cands.filter(c=>c.status==='queue').length;
+  $('#lvQueue').textContent=q;$('#lvSeats').textContent=S.seats.reduce((a,s)=>a+s.n,0)+SCH.reduce((a,s)=>a+s.starts.filter(x=>x>=TODAY&&x<'2027-01-01').length,0);
+  $('#lvDone').textContent=S.cands.filter(c=>c.status==='enrolled'||c.status==='done').length;$('#lvSch').textContent=SCH.length;
+  ['#ctaApply','#ctaApply2'].forEach(s=>$(s).textContent=me&&!['done','refused'].includes(me.status)?'Перейти до моєї заявки':'Стати в чергу на навчання');
+  if(S.vs==='form')renderForm();
+  if(S.vs==='my')renderMy();
+}
+function renderAll(){
+  $('#v-vet').hidden=S.role!=='vet';$('#v-kmx').hidden=S.role!=='kmx';$('#v-sch').hidden=S.role!=='sch';
+  $$('.mock [data-role]').forEach(b=>b.classList.toggle('on',b.dataset.role===S.role));
+  $('#uname').textContent={vet:'Бондар О.П.',kmx:'КМХ · Координатор',sch:'Автошкола «Кермо»'}[S.role];
+  syncStageSel();
+  renderVet();renderKmx();renderSch();renderWait();
+}
+$$('.mock [data-role]').forEach(b=>b.onclick=()=>{S.role=b.dataset.role;closeDrawer();renderAll();scrollTo(0,0)});
+$$('#v-kmx [data-ks]').forEach(b=>b.onclick=()=>{S.ks=b.dataset.ks;closeDrawer();renderKmx()});
+$$('#v-sch [data-ss]').forEach(b=>b.onclick=()=>{S.ss=b.dataset.ss;closeDrawer();renderSch()});
+$('#stageSel').onchange=e=>{S.role='vet';setStage(e.target.value);scrollTo(0,0)};
+$('#routeSel').onchange=e=>{S.route=e.target.value;renderAll();toast(S.route==='B'?'Варіант B: документи перевіряє КМХ.':'Варіант A: документи йдуть напряму в автошколу.')};
+$('#resetBtn').onclick=()=>{S=seed();$('#routeSel').value='B';closeDrawer();document.body.classList.remove('big');renderMapSec();renderFit();renderAll();scrollTo(0,0)};
+
+renderMapSec();renderFit();renderAll();
+/* посилання на стан: #stage=invited&role=kmx&ks=seats&seat=q1&route=A */
+(()=>{const h=new URLSearchParams(location.hash.slice(1));if(!h.toString())return;
+  if(h.get('route')){S.route=h.get('route');$('#routeSel').value=S.route}
+  if(h.get('stage'))setStage(h.get('stage'));
+  if(h.get('vs')==='form')openForm();
+  if(h.get('role'))S.role=h.get('role');if(h.get('ks'))S.ks=h.get('ks');if(h.get('ss'))S.ss=h.get('ss');if(h.get('seat'))S.matchSeat=h.get('seat');
+  renderAll();if(h.get('open'))openCand(h.get('open'));setTimeout(()=>$('#toast').classList.remove('on'),0)})();
+</script>
+</body>
+</html>
