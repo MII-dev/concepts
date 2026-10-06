@@ -212,7 +212,7 @@ h2.sh{font-size:24px;font-weight:700;color:#000;margin-bottom:6px;display:flex;a
 .cday .it:first-of-type{border-top:0}
 
 /* очікування */
-.waitw{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:stretch}
+.waitw{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
 .wres{border-radius:16px;background:#000;color:#fff;padding:24px 26px;display:flex;flex-direction:column;gap:10px}
 .wres .bigv{font-family:KyivTypeSans,Daikon,sans-serif;font-size:42px;line-height:1}
 .wres .r{display:flex;justify-content:space-between;font-size:14.5px;border-top:1px solid #333;padding-top:9px;color:#ccc}
@@ -487,12 +487,13 @@ body.tour-open .toast{right:414px}
         <div class="hero" style="grid-template-columns:1fr">
           <div>
             <h1 class="pt">Запис в автошколу для осіб з&nbsp;інвалідністю внаслідок війни I–II групи</h1>
-            <p class="lead">Безкоштовне навчання водінню за кошти міста. Повідомте, що хочете навчатися, — документи знадобляться лише тоді, коли для вас знайдеться місце в автошколі.</p>
+            <p class="lead">Безкоштовне навчання водінню на категорію B в автошколі — партнері програми. Повідомте, що хочете навчатися, — документи знадобляться лише тоді, коли для вас знайдеться місце в автошколі.</p>
             <div class="facts">
               <div class="fact"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Займе ~3 хвилини</div>
               <div class="fact"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M9 13l2 2 4-4"/></svg>Документи зараз не потрібні</div>
               <div class="fact"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg>Безкоштовно <span class="warnf" title="Умови програми ще підтверджуються">⚠ уточн.</span></div>
               <div class="fact"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>Вхід через Дію</div>
+              <div class="fact"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="8" width="18" height="9" rx="3"/><circle cx="7.5" cy="17" r="1.8"/><circle cx="16.5" cy="17" r="1.8"/></svg>Категорія B</div>
             </div>
             <div class="actions">
               <button class="btn" id="ctaApply">Повідомити про бажання навчатися</button>
@@ -510,8 +511,8 @@ body.tour-open .toast{right:414px}
             <div class="seg" data-fit="g"><button data-v="1">I група</button><button data-v="2">II група</button><button data-v="3">III група</button><button data-v="p">Ще оформлюю</button></div></div>
           <div class="fitq"><div class="q">Зареєстровані або живете в Києві?</div>
             <div class="seg" data-fit="k"><button data-v="y">Так</button><button data-v="n">Ні</button></div></div>
-          <div class="fitq"><div class="q">Посвідчення водія у вас уже є?</div>
-            <div class="seg" data-fit="l"><button data-v="n">Ні, вчуся вперше</button><button data-v="y">Так, потрібна нова категорія</button></div></div>
+          <div class="fitq"><div class="q">Посвідчення категорії B у вас уже є?</div>
+            <div class="seg" data-fit="l"><button data-v="n">Ні</button><button data-v="y">Так</button></div></div>
           <div class="fitres wait" id="fitRes"><div class="t">Дайте відповідь на питання вище.</div></div>
         </section>
 
@@ -524,13 +525,13 @@ body.tour-open .toast{right:414px}
               <div class="cap">Етап 1 · сьогодні, ~3 хв</div>
               <h4>Повідомлення про бажання навчатися</h4>
               <div class="stp"><div class="n">1</div><div><b>Вхід через Дію</b><span>ПІБ, податковий номер, пошта й адреса підтягнуться самі</span></div></div>
-              <div class="stp"><div class="n">2</div><div><b>Кілька побажань</b><span>Група, категорія, тип авто, зручні райони, телефон</span></div></div>
+              <div class="stp"><div class="n">2</div><div><b>Кілька побажань</b><span>Група інвалідності, тип авто, телефон</span></div></div>
               <div class="stp"><div class="n">3</div><div><b>Підпис</b><span>Статус «В черзі на навчання» — заявка в реєстрі КМХ</span></div></div>
             </div>
             <div class="stage s2">
               <div class="cap">Етап 2 · коли з’явиться місце</div>
               <h4>Відбір, документи, запис</h4>
-              <div class="stp"><div class="n">4</div><div><b>КМХ обирає вас під вільне місце</b><span>За категорією, типом авто, районом і датою подання</span></div></div>
+              <div class="stp"><div class="n">4</div><div><b>КМХ обирає вас під вільне місце</b><span>За типом авто, датою подання й групою</span></div></div>
               <div class="stp"><div class="n">5</div><div><b>Запрошення на пошту й у «Київ Цифровий»</b><span>10 днів, щоб підтвердити участь і додати документи</span></div></div>
               <div class="stp"><div class="n">6</div><div><b>Зарахування</b><span>Дата старту, адреса й контакти автошколи</span></div></div>
             </div>
@@ -538,28 +539,20 @@ body.tour-open .toast{right:414px}
           <div class="note"><b>Не можете зараз?</b> Відмовтеся від запрошення — ви залишитеся в черзі й зможете вказати, з якого місяця вам зручно.</div>
         </section>
 
-        <!-- КАРТА -->
+        <!-- АВТОШКОЛА -->
         <section class="sec" id="map">
-          <h2 class="sh">Автошколи-учасниці <span class="idea">ідея</span></h2>
-          <p class="sub">Подивіться, де є адаптовані авто, і позначте на карті зручні райони — ми підставимо їх у заявку.</p>
-          <div class="fbar">
-            <div><span class="lb">Категорія</span><div class="seg sm" data-mf="cat" style="display:inline-flex"><button data-v="" class="on">Усі</button><button data-v="A">A</button><button data-v="B">B</button><button data-v="C">C</button><button data-v="BE">BE</button></div></div>
-            <div><span class="lb">Авто</span><div class="seg sm" data-mf="type" style="display:inline-flex"><button data-v="" class="on">Будь-яке</button><button data-v="auto">Автомат</button><button data-v="hand">Ручне керування</button></div></div>
-          </div>
+          <h2 class="sh">Де проходить навчання</h2>
+          <p class="sub">Зараз програма працює з однією автошколою в Києві. Тут можна навчатися на звичайному авто, автоматі або авто з ручним керуванням.</p>
           <div class="mapbox">
-            <div>
-              <div id="pageMap"></div>
-              <div class="legend"><span><i style="background:var(--blue)"></i>Автошкола</span><span><i style="background:var(--pur)"></i>Є авто з ручним керуванням</span><span><i style="background:#9cc3ff;border-radius:3px"></i>Ваш зручний район</span></div>
-              <div class="selD" id="pageSelD"></div>
-            </div>
-            <div class="slist" id="schList"></div>
+            <div><div id="pageMap"></div></div>
+            <div id="schCard"></div>
           </div>
         </section>
 
         <!-- КАЛЕНДАР -->
         <section class="sec" id="cal">
           <h2 class="sh">Найближчі старти навчання <span class="idea">ідея</span></h2>
-          <p class="sub">Коли автошколи-учасниці набирають нові групи. Конкретне місце пропонує КМХ — календар показує, як часто воно з’являється. Фільтри — ті самі, що й на карті.</p>
+          <p class="sub">Коли автошкола набирає нові групи. Конкретне місце пропонує КМХ — календар показує, як часто воно з’являється.</p>
           <div class="calw">
             <div>
               <div class="calh"><button id="calPrev" aria-label="Попередній місяць">‹</button><b id="calTitle"></b><button id="calNext" aria-label="Наступний місяць">›</button></div>
@@ -572,12 +565,10 @@ body.tour-open .toast{right:414px}
         <!-- ОЧІКУВАННЯ -->
         <section class="sec" id="wait">
           <h2 class="sh">Скільки чекати саме мені <span class="idea">ідея</span></h2>
-          <p class="sub">Оцінка за кількістю автошкіл і стартів груп. Це не обіцянка — КМХ ухвалює рішення під кожне вільне місце.</p>
+          <p class="sub">Оцінка за типом авто й кількістю стартів груп. Це не обіцянка — КМХ ухвалює рішення під кожне вільне місце.</p>
           <div class="waitw">
             <div class="card ln">
-              <div class="field"><label>Категорія</label><select id="wCat"><option>B</option><option>A</option><option>C</option><option>BE</option></select></div>
-              <div class="field"><label>Тип авто</label><select id="wType"><option value="plain">Звичайне (механіка)</option><option value="auto">Автомат</option><option value="hand" selected>Ручне керування</option></select></div>
-              <div class="field" style="margin:0"><label>Район</label><select id="wDist"></select></div>
+              <div class="field" style="margin:0"><label>Тип авто</label><select id="wType"><option value="plain">Звичайне (механіка)</option><option value="auto">Автомат</option><option value="hand" selected>Ручне керування</option></select></div>
             </div>
             <div class="wres" id="wRes"></div>
           </div>
@@ -608,9 +599,10 @@ body.tour-open .toast{right:414px}
         <section class="sec" id="faq">
           <h2 class="sh">Часті питання</h2>
           <div class="faq">
-            <div class="q"><div class="h">Хто вирішує, кого запросити на вільне місце?</div><div class="b">Київ Мілітарі Хаб. Він бачить усіх кандидатів і обирає під конкретне місце: категорія, тип авто, район, дата подання, група інвалідності. ⚠ Точні правила відбору погоджуються.</div></div>
+            <div class="q"><div class="h">Хто вирішує, кого запросити на вільне місце?</div><div class="b">Київ Мілітарі Хаб. Він бачить усіх кандидатів і обирає під конкретне місце: тип авто, дата подання, група інвалідності. ⚠ Точні правила відбору погоджуються.</div></div>
             <div class="q"><div class="h">Що буде, якщо я не встигну відповісти на запрошення?</div><div class="b">Місце запропонують наступному кандидату, а ваша заявка залишиться в черзі. Нагадування прийде на 7-й день із 10.</div></div>
-            <div class="q"><div class="h">Чи можна змінити тип авто чи райони після подання?</div><div class="b">Так, у розділі «Моя заявка», поки статус — «В черзі на навчання».</div></div>
+            <div class="q"><div class="h">Чи можна змінити тип авто після подання?</div><div class="b">Так, у розділі «Моя заявка», поки статус — «В черзі на навчання».</div></div>
+            <div class="q"><div class="h">Чому лише одна автошкола і тільки категорія B?</div><div class="b">Зараз програма працює з однією автошколою-партнером і навчає на категорію B. Кожне повідомлення про бажання навчатися показує місту реальний попит — це аргумент, щоб розширювати програму.</div></div>
             <div class="q"><div class="h">Чи треба підтверджувати, що я досі чекаю?</div><div class="b">Можливо, раз на пів року система спитає, чи ви ще зацікавлені, — достатньо одного натискання. ⚠ Погоджується.</div></div>
             <div class="q"><div class="h">Мені складно заповнити заявку самому. Хто допоможе?</div><div class="b">Зверніться до Київ Мілітарі Хабу — фахівець допоможе подати заявку разом із вами. <span class="idea">ідея</span></div></div>
           </div>
@@ -626,7 +618,7 @@ body.tour-open .toast{right:414px}
       <nav class="anchors" id="anchors">
         <a data-jump="fit">Чи підходить мені</a>
         <a data-jump="how">Як це працює</a>
-        <a data-jump="map">Автошколи на карті</a>
+        <a data-jump="map">Автошкола</a>
         <a data-jump="cal">Старти навчання</a>
         <a data-jump="wait">Скільки чекати</a>
         <a data-jump="docs">Документи</a>
@@ -658,30 +650,13 @@ body.tour-open .toast{right:414px}
         <div class="opts c2" data-ff="grp"><button class="opt" data-v="I"><b>I група</b></button><button class="opt" data-v="II"><b>II група</b></button></div>
       </div>
       <div class="fsec">
-        <h3>Категорія посвідчення</h3>
-        <div class="hint">Найчастіше обирають B — легковий автомобіль.</div>
-        <div class="opts c4" data-ff="cat">
-          <button class="opt" data-v="A"><b>A</b><span>мотоцикли</span></button>
-          <button class="opt" data-v="B"><b>B</b><span>легкові авто</span></button>
-          <button class="opt" data-v="C"><b>C</b><span>вантажні</span></button>
-          <button class="opt" data-v="BE"><b>BE</b><span>легкові з причепом</span></button>
-        </div>
-      </div>
-      <div class="fsec">
-        <h3>Тип авто для навчання</h3>
+        <h3>Тип авто для навчання <span class="muted" style="font-size:14px;font-weight:400">категорія B</span></h3>
         <div class="opts c3" data-ff="type">
           <button class="opt" data-v="plain"><div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="6" cy="6" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="12" cy="18" r="2"/><path d="M6 8v8M12 8v8M18 8v4H6"/></svg></div><b>Звичайне</b><span>Механічна коробка передач</span></button>
           <button class="opt" data-v="auto"><div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="7" y="3" width="10" height="18" rx="3"/><path d="M12 7v5"/><circle cx="12" cy="15" r="1.5"/></svg></div><b>Автомат</b><span>Без педалі зчеплення</span></button>
           <button class="opt" data-v="hand"><div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/><path d="M12 3v6.5M4.5 16l5.4-2.6M19.5 16l-5.4-2.6"/></svg></div><b>Ручне керування</b><span>Адаптоване авто: газ і гальмо руками</span></button>
         </div>
-      </div>
-      <div class="fsec">
-        <h3>Зручні райони <span class="muted" style="font-size:14px;font-weight:400">до трьох</span></h3>
-        <div class="hint">Натисніть на район на карті або оберіть зі списку.</div>
-        <div class="fmap">
-          <div id="formMap"></div>
-          <div><div class="seg sm" id="formDist"></div><div class="selD" id="formSelD"></div></div>
-        </div>
+        <div class="selD" id="formEst"></div>
       </div>
       <div class="fsec">
         <h3>Контактний телефон</h3>
@@ -730,7 +705,7 @@ body.tour-open .toast{right:414px}
 <!-- ===================== АВТОШКОЛА ===================== -->
 <div id="v-sch" class="shell" hidden>
   <aside class="side">
-    <div class="who"><b>Автошкола «Кермо»</b>Дарницький район</div>
+    <div class="who"><b>Автошкола «Кермо»</b>Партнер програми</div>
     <div class="smenu">
       <div class="it on" data-ss="seats">Вільні місця</div>
       <div class="it" data-ss="stud">Слухачі програми <span class="cnt" id="scStud">0</span></div>
@@ -776,14 +751,8 @@ const DIST=[
 const DN=DIST.map(d=>d[0]);
 const TYPE={plain:'Звичайне',auto:'Автомат',hand:'Ручне керування'};
 const SCH=[
- {id:'s1',n:'«Кермо»',d:'Дарницький',a:'вул. Ревуцького, 9',cats:['B','C'],hand:1,auto:1,acc:'Пандус, ліфт, доступний клас',ph:'(044) 000-11-01',x:430,y:430,starts:['2026-10-19','2026-11-16','2026-12-14','2027-01-18']},
- {id:'s2',n:'«Магістраль»',d:'Оболонський',a:'просп. Оболонський, 21',cats:['A','B'],hand:0,auto:1,acc:'Вхід з рівня тротуару',ph:'(044) 000-11-02',x:250,y:42,starts:['2026-10-26','2026-12-07','2027-02-01']},
- {id:'s3',n:'«Перехрестя»',d:'Святошинський',a:'просп. Берестейський, 98',cats:['B','BE'],hand:1,auto:0,acc:'Пандус',ph:'(044) 000-11-03',x:90,y:215,starts:['2026-11-02','2026-12-21']},
- {id:'s4',n:'«Старт-Авто»',d:'Солом’янський',a:'вул. Ушинського, 4',cats:['A','B','C'],hand:0,auto:1,acc:'Клас на 2-му поверсі без ліфта',ph:'(044) 000-11-04',x:140,y:335,starts:['2026-10-12','2026-11-23','2027-01-11']},
- {id:'s5',n:'«Лівий берег»',d:'Дніпровський',a:'бульв. Перова, 36',cats:['B'],hand:1,auto:1,acc:'Пандус, ліфт',ph:'(044) 000-11-05',x:490,y:265,starts:['2026-10-29','2026-12-01','2027-01-25']},
- {id:'s6',n:'«Голосієве»',d:'Голосіївський',a:'просп. Голосіївський, 50',cats:['B','C','BE'],hand:0,auto:0,acc:'Вхід з рівня тротуару',ph:'(044) 000-11-06',x:215,y:465,starts:['2026-11-09','2027-01-04']},
- {id:'s7',n:'«Троєщина»',d:'Деснянський',a:'вул. Миколи Закревського, 47',cats:['A','B'],hand:1,auto:1,acc:'Пандус, доступний санвузол',ph:'(044) 000-11-07',x:505,y:62,starts:['2026-11-05','2026-12-10','2027-02-08']},
- {id:'s8',n:'«Поділ-Драйв»',d:'Подільський',a:'вул. Вікентія Хвойки, 15',cats:['B'],hand:0,auto:1,acc:'Ліфт',ph:'(044) 000-11-08',x:292,y:142,starts:['2026-10-22','2026-12-03']}
+ {id:'s1',n:'«Кермо»',d:'Дарницький',a:'вул. Ревуцького, 9',cats:['B'],hand:1,auto:1,acc:'Пандус, ліфт, доступний клас',ph:'(044) 000-11-01',x:430,y:430,cars:'3 авто з ручним керуванням, 4 автомати, 6 на механіці',
+  starts:['2026-10-19','2026-11-02','2026-11-16','2026-11-30','2026-12-14','2027-01-11','2027-01-25','2027-02-08','2027-02-22']}
 ];
 const SBYID=Object.fromEntries(SCH.map(s=>[s.id,s]));
 const STS={
@@ -815,27 +784,25 @@ function seed(){
   for(let i=0;i<SUR.length;i++){
     const date=addD('2026-02-02',Math.floor(r()*244));
     const t=r(),type=t<.42?'plain':t<.74?'auto':'hand';
-    const c=r(),cat=c<.78?'B':c<.88?'C':c<.95?'A':'BE';
-    const nd=1+Math.floor(r()*3),ds=new Set();while(ds.size<nd)ds.add(DN[Math.floor(r()*DN.length)]);
-    cands.push({id:'c'+i,name:SUR[i]+' '+INI[Math.floor(r()*INI.length)]+'. '+INI[Math.floor(r()*INI.length)]+'.',grp:r()<.35?'I':'II',cat,type,dists:[...ds],date,status:'queue',skips:r()<.14?1:0,phone:'+380 '+(50+Math.floor(r()*49))+' '+String(Math.floor(r()*9e6+1e6)).replace(/(\d{3})(\d{2})(\d{2})/,'$1 $2 $3'),needs:[],hist:[[date,'Заявку подано']]});
+    const cat='B',home=DN[Math.floor(r()*DN.length)];
+    cands.push({id:'c'+i,name:SUR[i]+' '+INI[Math.floor(r()*INI.length)]+'. '+INI[Math.floor(r()*INI.length)]+'.',grp:r()<.35?'I':'II',cat,type,home,date,status:'queue',skips:r()<.14?1:0,phone:'+380 '+(50+Math.floor(r()*49))+' '+String(Math.floor(r()*9e6+1e6)).replace(/(\d{3})(\d{2})(\d{2})/,'$1 $2 $3'),needs:[],hist:[[date,'Заявку подано']]});
   }
   cands.sort((a,b)=>a.date<b.date?-1:1);
-  const pick=c=>SCH.find(s=>s.cats.includes(c.cat)&&(c.type!=='hand'||s.hand)&&(c.type!=='auto'||s.auto))||SCH[0];
+  const pick=()=>SCH[0];
   const setS=(i,st)=>{const c=cands[i];c.status=st;const s=pick(c);c.sch=s.id;c.start=st==='done'?addD(c.date,52):s.starts[0];c.hist.push([addD(c.date,40),'Запрошено: '+s.n]);
     if(st!=='invited')c.hist.push([addD(c.date,46),'Документи додано']);
     if(st==='enrolled'||st==='done')c.hist.push([addD(c.date,50),'Зараховано']);
     if(st==='done')c.hist.push([addD(c.date,150),'Навчання завершено']);};
   [0,1,2,3].forEach(i=>setS(i,'done'));[4,5,6,7,8].forEach(i=>setS(i,'enrolled'));
   [9,10].forEach(i=>setS(i,'review'));setS(11,'fix');[12,13].forEach(i=>setS(i,'invited'));
-  cands[1].sch='s1';cands[5].sch='s1';cands[6].sch='s1';cands[9].sch='s1';
   return {role:'vet',vs:'page',ks:'reg',ss:'seats',route:'B',me:null,cands,
     seats:[
       {id:'q1',sch:'s1',cat:'B',type:'hand',n:1,start:'2026-11-16',rep:'2026-10-03',inv:[]},
-      {id:'q2',sch:'s5',cat:'B',type:'auto',n:2,start:'2026-10-29',rep:'2026-10-02',inv:[]},
-      {id:'q3',sch:'s4',cat:'C',type:'plain',n:1,start:'2026-11-23',rep:'2026-09-30',inv:[]}
+      {id:'q2',sch:'s1',cat:'B',type:'auto',n:2,start:'2026-11-02',rep:'2026-10-02',inv:[]},
+      {id:'q3',sch:'s1',cat:'B',type:'plain',n:1,start:'2026-11-30',rep:'2026-09-30',inv:[]}
     ],
-    pageD:[],mf:{cat:'',type:''},hlSch:null,fit:{},cal:{y:2026,m:9,sel:null},
-    form:{grp:'II',cat:'B',type:'hand',d:['Дарницький','Дніпровський']},rule:'date',matchSeat:null,filt:{st:'',cat:'',type:'',d:'',g:'',q:''}};
+    fit:{},cal:{y:2026,m:9,sel:null},
+    form:{grp:'II',type:'hand'},rule:'date',matchSeat:null,filt:{st:'',type:'',d:'',g:'',q:''}};
 }
 S=seed();
 
@@ -868,39 +835,24 @@ function mapSVG(ctx,{sel=[],pins=null,heat=null,hl=null,off=null}={}){
   (pins||[]).forEach(p=>{s+=`<g class="pin${p.hand?' hand':''}${hl===p.id?' hl':''}${off&&off.includes(p.id)?' off':''}" data-pin="${p.id}" transform="translate(${p.x},${p.y})"><circle r="${hl===p.id?11:8}"/><title>${p.n}</title></g>`});
   return s+'</svg>';
 }
-document.addEventListener('click',e=>{
-  const pin=e.target.closest('[data-pin]');
-  if(pin&&pin.closest('[data-map="page"]')){S.hlSch=S.hlSch===pin.dataset.pin?null:pin.dataset.pin;renderMapSec();const el=document.querySelector(`.sch[data-s="${S.hlSch}"]`);el&&el.scrollIntoView({block:'nearest',behavior:'smooth'});return}
-  const d=e.target.closest('[data-d]');if(!d)return;
-  const ctx=d.closest('[data-map]').dataset.map,n=d.dataset.d;
-  if(ctx==='page'){toggle(S.pageD,n,3);renderMapSec()}
-  if(ctx==='form'){toggle(S.form.d,n,3);renderFormDist()}
-});
-function toggle(arr,v,max){const i=arr.indexOf(v);if(i>=0)arr.splice(i,1);else{if(arr.length>=max){toast('Можна обрати до трьох районів');return}arr.push(v)}}
 
 /* ================= СТОРІНКА ПОСЛУГИ ================= */
-function schOff(){return SCH.filter(s=>(S.mf.cat&&!s.cats.includes(S.mf.cat))||(S.mf.type==='hand'&&!s.hand)||(S.mf.type==='auto'&&!s.auto)).map(s=>s.id)}
 function renderMapSec(){
-  const off=schOff();
-  $('#pageMap').innerHTML=mapSVG('page',{sel:S.pageD,pins:SCH,hl:S.hlSch,off});
-  $('#pageSelD').innerHTML=S.pageD.length?`Ваші зручні райони: <b>${S.pageD.join(', ')}</b> — підставимо в заявку. <a class="lnk" style="color:var(--blue);cursor:pointer" id="clrD">Очистити</a>`:'Натисніть на район, щоб позначити його зручним.';
-  const c=$('#clrD');c&&(c.onclick=()=>{S.pageD.length=0;renderMapSec()});
-  $('#schList').innerHTML=SCH.map(s=>{
-    const next=s.starts.find(x=>x>=TODAY);
-    return `<div class="sch${S.hlSch===s.id?' hl':''}${off.includes(s.id)?' off':''}" data-s="${s.id}">
-    <div class="nm">Автошкола ${s.n}</div><div class="ad">${s.d} р-н · ${s.a}</div>
-    <div class="bdg">${s.cats.map(c=>`<span>${c}</span>`).join('')}${s.hand?'<span class="h">Ручне керування</span>':''}${s.auto?'<span class="a">Автомат</span>':''}</div>
-    <div style="font-size:13.5px;color:var(--grey2);margin-top:8px">♿ ${s.acc} · старт групи ${next?fmtL(next):'—'}</div></div>`}).join('')+(off.length===SCH.length?'<div class="muted">Немає автошкіл з такими параметрами.</div>':'');
-  $$('#schList .sch').forEach(el=>el.onclick=()=>{S.hlSch=S.hlSch===el.dataset.s?null:el.dataset.s;renderMapSec()});
+  const s=SCH[0],next=s.starts.find(x=>x>=TODAY);
+  $('#pageMap').innerHTML=mapSVG('page',{sel:[s.d],pins:[s],hl:s.id});
+  $('#schCard').innerHTML=`<div class="card ln">
+    <div class="nm" style="font-size:20px;font-weight:700">Автошкола ${s.n}</div>
+    <div class="muted" style="margin:2px 0 14px">${s.d} р-н · ${s.a}</div>
+    <div class="bdg" style="margin-bottom:16px"><span>Категорія B</span><span class="a">Звичайне</span><span class="a">Автомат</span><span class="h">Ручне керування</span></div>
+    <div class="fld"><div class="l">Автопарк для програми</div><div class="v">${s.cars}</div></div>
+    <div class="fld"><div class="l">Доступність</div><div class="v">♿ ${s.acc}</div></div>
+    <div class="fld"><div class="l">Найближчий старт групи</div><div class="v">${next?fmtL(next):'—'}</div></div>
+    <div class="fld"><div class="l">Телефон</div><div class="v">${s.ph}</div></div>
+    <a class="btn grey sm" target="_blank" rel="noopener" href="https://www.google.com/maps/search/${encodeURIComponent('Київ, '+s.a)}">Прокласти маршрут ↗</a>
+    <p class="muted" style="font-size:13.5px;margin-top:14px">Демо-дані: назву, адресу й автопарк треба замінити на дані реальної автошколи.</p></div>`;
   renderCal();
 }
-$$('[data-mf]').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;g.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));S.mf[g.dataset.mf]=b.dataset.v;renderMapSec()}));
-
-function startsList(){
-  const off=schOff(),out=[];
-  SCH.filter(s=>!off.includes(s.id)).forEach(s=>s.starts.forEach(d=>out.push({d,s})));
-  return out;
-}
+function startsList(){return SCH[0].starts.map(d=>({d,s:SCH[0]}))}
 function renderCal(){
   const {y,m}=S.cal,first=new Date(y,m,1),dim=new Date(y,m+1,0).getDate(),lead=(first.getDay()+6)%7;
   $('#calTitle').textContent=MONN[m]+' '+y;
@@ -908,18 +860,18 @@ function renderCal(){
   for(let i=0;i<lead;i++)h+='<div class="d e"></div>';
   for(let d=1;d<=dim;d++){
     const ds=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,items=st.filter(x=>x.d===ds);
-    const cls=['d'];if(ds<TODAY)cls.push('past');if(ds===TODAY)cls.push('today');if(items.length&&ds>=TODAY){cls.push('has');if(items.some(x=>x.s.hand))cls.push('hand')}if(S.cal.sel===ds)cls.push('sel');
+    const cls=['d'];if(ds<TODAY)cls.push('past');if(ds===TODAY)cls.push('today');if(items.length&&ds>=TODAY)cls.push('has');if(S.cal.sel===ds)cls.push('sel');
     h+=`<div class="${cls.join(' ')}" data-cd="${ds}">${d}${items.length&&ds>=TODAY?`<span class="ct">${items.length>1?items.length+' гр':''}</span>`:''}</div>`;
   }
   $('#calGrid').innerHTML=h;
   $$('#calGrid .has').forEach(el=>el.onclick=()=>{S.cal.sel=el.dataset.cd;renderCal()});
   const sel=S.cal.sel,box=$('#calDay');
   if(sel){const items=st.filter(x=>x.d===sel);
-    box.innerHTML=`<b style="font-size:17px">${fmtL(sel)}</b><div class="muted" style="font-size:13.5px;margin-bottom:8px">старт груп</div>`+(items.length?items.map(x=>`<div class="it"><b>Автошкола ${x.s.n}</b><br><span class="muted">${x.s.d} р-н · ${x.s.cats.join(', ')}${x.s.hand?' · <span style="color:var(--pur-t);font-weight:600">ручне керування</span>':''}</span></div>`).join(''):'<div class="muted">Немає стартів за фільтрами.</div>');
+    box.innerHTML=`<b style="font-size:17px">${fmtL(sel)}</b><div class="muted" style="font-size:13.5px;margin-bottom:8px">старт груп</div>`+(items.length?items.map(x=>`<div class="it"><b>Автошкола ${x.s.n}</b><br><span class="muted">Нова група · категорія B · усі типи авто</span></div>`).join(''):'<div class="muted">Немає стартів.</div>');
   }else{
     const up=st.filter(x=>x.d>=TODAY).sort((a,b)=>a.d<b.d?-1:1).slice(0,4);
-    box.innerHTML=`<b style="font-size:17px">Найближчі старти</b><div class="muted" style="font-size:13.5px;margin-bottom:8px">натисніть дату в календарі</div>`+up.map(x=>`<div class="it"><b>${fmtL(x.d)}</b> · Автошкола ${x.s.n}<br><span class="muted">${x.s.d} р-н${x.s.hand?' · ручне керування':''}</span></div>`).join('')+`<button class="btn ghost sm" style="margin-top:10px" id="icsAll">Нагадувати про нові старти</button>`;
-    $('#icsAll').onclick=()=>toast('🔔 Готово: повідомимо в «Київ Цифровий», коли з’являться нові групи за вашими фільтрами.');
+    box.innerHTML=`<b style="font-size:17px">Найближчі старти</b><div class="muted" style="font-size:13.5px;margin-bottom:8px">натисніть дату в календарі</div>`+up.map(x=>`<div class="it"><b>${fmtL(x.d)}</b><br><span class="muted">Нова група · категорія B</span></div>`).join('')+`<button class="btn ghost sm" style="margin-top:10px" id="icsAll">Нагадувати про нові старти</button>`;
+    $('#icsAll').onclick=()=>toast('🔔 Готово: повідомимо в «Київ Цифровий», коли автошкола набиратиме нові групи.');
   }
 }
 $('#calPrev').onclick=()=>{let {y,m}=S.cal;m--;if(m<0){m=11;y--}if(y*12+m<2026*12+9)return;S.cal={y,m,sel:null};renderCal()};
@@ -932,30 +884,27 @@ function renderFit(){
   if(f.g==='3'){cls='bad';h='<div class="t"><b>Програма охоплює I–II групу.</b> Київ Мілітарі Хаб підкаже інші програми навчання та підтримки для вас.</div><button class="btn red sm">Контакти КМХ</button>'}
   else if(f.g==='p'){cls='bad';h='<div class="t"><b>Подати заявку можна після встановлення групи.</b> Хочете, нагадаємо про послугу?</div><button class="btn ghost sm" id="remind">Нагадати мені</button>'}
   else if(f.k==='n'){cls='bad';h='<div class="t"><b>Це міська програма Києва.</b> Перевірте програми вашої громади — або подайте заявку, щойно задекларуєте місце проживання в Києві.</div>'}
-  else if(f.g&&f.k){cls='ok';h=`<div class="t"><b>Послуга для вас.</b> Повідомити про бажання навчатися — близько трьох хвилин${f.l==='y'?'. Оберіть у ній потрібну нову категорію.':'.'}</div><button class="btn sm" data-apply>Повідомити про бажання</button>`}
+  else if(f.l==='y'){cls='bad';h='<div class="t"><b>Програма навчає лише на категорію B</b>, а посвідчення цієї категорії у вас уже є. Київ Мілітарі Хаб підкаже інші програми підтримки.</div>'}
+  else if(f.g&&f.k){cls='ok';h=`<div class="t"><b>Послуга для вас.</b> Повідомити про бажання навчатися — близько трьох хвилин.</div><button class="btn sm" data-apply>Повідомити про бажання</button>`}
   r.className='fitres '+cls;r.innerHTML=h;
   const rm=$('#remind');rm&&(rm.onclick=()=>toast('🔔 Нагадаємо в «Київ Цифровий», щойно в Дії з’явиться посвідчення.'));
 }
 $$('[data-fit]').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;S.fit[g.dataset.fit]=b.dataset.v;renderFit()}));
 
-function estimate(cat,type,dist){
-  const q=S.cands.filter(c=>c.status==='queue'&&c.cat===cat&&c.type===type).length;
-  const qd=S.cands.filter(c=>c.status==='queue'&&c.cat===cat&&c.type===type&&c.dists.includes(dist)).length;
-  const ok=s=>s.cats.includes(cat)&&(type!=='hand'||s.hand)&&(type!=='auto'||s.auto);
-  const schs=SCH.filter(ok),inD=schs.filter(s=>s.d===dist);
-  const groups=schs.reduce((a,s)=>a+s.starts.filter(x=>x>=TODAY&&x<'2027-01-06').length,0);
-  let lo=type==='hand'?3:type==='auto'?2:1;if(!inD.length)lo+=1;if(!schs.length)lo=null;
-  return {q,qd,schs,inD,groups,range:lo?`${lo}–${lo+2} міс.`:'немає місць'};
+function estimate(type){
+  const groups=SCH[0].starts.filter(x=>x>=TODAY&&x<'2027-01-06').length;
+  const lo=type==='hand'?3:type==='auto'?2:1;
+  return {groups,range:`${lo}–${lo+2} міс.`};
 }
 function renderWait(){
-  const e=estimate($('#wCat').value,$('#wType').value,$('#wDist').value);
+  const t=$('#wType').value,e=estimate(t);
   $('#wRes').innerHTML=`<div style="font-size:14px;color:#aaa">Орієнтовне очікування</div><div class="bigv">${e.range}</div>
-  <div class="r"><span>Автошкіл, що підходять</span><b>${e.schs.length}${e.inD.length?' (у районі — '+e.inD.length+')':''}</b></div>
+  <div class="r"><span>Автошкола</span><b>${SCH[0].n}, ${SCH[0].d} р-н</b></div>
+  <div class="r"><span>Тип авто</span><b>${TYPE[t]}</b></div>
   <div class="r"><span>Стартів груп за 3 місяці</span><b>${e.groups}</b></div>
-  <div class="tip">${!e.schs.length?'Таких автошкіл поки немає — заявка все одно покаже місту попит.':!e.inD.length?'💡 У цьому районі немає відповідної автошколи. Додайте сусідній район — це може скоротити очікування.':'💡 Що більше зручних районів, то більше місць вам можуть запропонувати.'}</div>`;
+  <div class="tip">💡 ${t==='hand'?'Авто з ручним керуванням менше, тому чекати довше.':'Строк залежить від того, скільки місць автошкола відкриє для програми.'} Кожне повідомлення показує місту попит — це аргумент розширювати програму.</div>`;
 }
-['#wCat','#wType','#wDist'].forEach(s=>$(s).onchange=renderWait);
-$('#wDist').innerHTML=DN.map(d=>`<option${d==='Дарницький'?' selected':''}>${d}</option>`).join('');
+$('#wType').onchange=renderWait;
 
 $('#stList').innerHTML=Object.keys(STS).map(k=>`<div class="r">${stb(k)}<span>${STS[k][2]}</span></div>`).join('');
 $$('.faq .q').forEach(q=>q.onclick=()=>q.classList.toggle('open'));
@@ -972,24 +921,16 @@ $$('#s-page section[id]').forEach(s=>io.observe(s));
 /* ================= ФОРМА ================= */
 function openForm(){
   if(S.me&&S.me.status!=='refused'&&S.me.status!=='done'){S.vs='my';renderVet();scrollTo(0,0);toast('У вас уже є активна заявка.');return}
-  if(S.pageD.length)S.form.d=[...S.pageD];
   S.vs='form';renderVet();scrollTo(0,0);
 }
 function renderForm(){
   $$('[data-ff]').forEach(g=>g.querySelectorAll('.opt').forEach(b=>b.classList.toggle('on',S.form[g.dataset.ff]===b.dataset.v)));
-  renderFormDist();
+  $('#formEst').innerHTML=`<span class="idea">ідея</span> Орієнтовне очікування для «${TYPE[S.form.type]}»: <b>${estimate(S.form.type).range}</b>`;
 }
-function renderFormDist(){
-  $('#formMap').innerHTML=mapSVG('form',{sel:S.form.d,pins:SCH.filter(s=>(S.form.type!=='hand'||s.hand)&&(S.form.type!=='auto'||s.auto)&&s.cats.includes(S.form.cat))});
-  $('#formDist').innerHTML=DN.map(d=>`<button data-v="${d}" class="${S.form.d.includes(d)?'on':''}">${d}</button>`).join('');
-  const e=estimate(S.form.cat,S.form.type,S.form.d[0]||'Дарницький');
-  $('#formSelD').innerHTML=S.form.d.length?`Обрано: <b>${S.form.d.join(', ')}</b><br><span class="idea" style="margin-top:8px">ідея</span> Автошкіл з вашими параметрами в цих районах: <b>${SCH.filter(s=>S.form.d.includes(s.d)&&s.cats.includes(S.form.cat)&&(S.form.type!=='hand'||s.hand)&&(S.form.type!=='auto'||s.auto)).length}</b> · орієнтовне очікування <b>${e.range}</b>`:'Оберіть хоча б один район.';
-}
-$('#formDist').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;toggle(S.form.d,b.dataset.v,3);renderFormDist()});
 $$('[data-ff]').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b)return;S.form[g.dataset.ff]=b.dataset.v;renderForm()}));
 $('#fSign').onclick=()=>{
   const f=S.form,err=[];
-  if(!f.grp)err.push('групу');if(!f.cat)err.push('категорію');if(!f.type)err.push('тип авто');if(!f.d.length)err.push('хоча б один район');
+  if(!f.grp)err.push('групу');if(!f.type)err.push('тип авто');
   if(!/\d{2}.*\d{3}.*\d{2}.*\d{2}/.test($('#fPhone').value))err.push('телефон');
   if(!$('#fAgree').checked)err.push('згоду на обробку даних');
   if(err.length){$('#fErr').textContent='Вкажіть: '+err.join(', ')+'.';return}
@@ -998,7 +939,7 @@ $('#fSign').onclick=()=>{
   setTimeout(()=>{closeModal();submitMe();},1500);
 };
 function newMe(){
-  return {id:'me',me:1,name:'Бондар О. П.',grp:S.form.grp,cat:S.form.cat,type:S.form.type,dists:[...S.form.d],date:TODAY,status:'queue',skips:0,phone:$('#fPhone').value,
+  return {id:'me',me:1,name:'Бондар О. П.',grp:S.form.grp,cat:'B',type:S.form.type,home:'Дарницький',date:TODAY,status:'queue',skips:0,phone:$('#fPhone').value,
     from:$('#fFrom').value,needs:$$('[data-need]').filter(x=>x.checked).map(x=>x.dataset.need),hist:[[TODAY,'Повідомлено про бажання навчатися (підписано через Дію)']],no:'АШ-2026-0'+(400+S.cands.length),docs:{}};
 }
 function submitMe(){
@@ -1024,7 +965,7 @@ function renderMy(){
   const sch=me.sch?SBYID[me.sch]:null;
   let main='';
   if(me.status==='queue'){
-    const e=estimate(me.cat,me.type,me.dists[0]);
+    const e=estimate(me.type);
     main=`<div class="card"><h3>Ваше бажання навчатися зафіксовано</h3>
       <div class="grid g2" style="margin:6px 0 4px">
         <div class="fld"><div class="l">Повідомлено</div><div class="v">${fmt(me.date)}</div></div>
@@ -1038,7 +979,7 @@ function renderMy(){
   if(me.status==='invited'){
     const dl=addD(me.invDate,10),left=Math.max(0,daysBetween(TODAY,dl)),used=10-Math.min(10,left);
     main=`<div class="inv"><div class="cap">Запрошення · від ${fmt(me.invDate)}</div><h3>Для вас є місце в автошколі ${sch.n}</h3>
-      <div class="g"><div>Адреса<b>${sch.a}</b></div><div>Старт навчання<b>${fmtL(me.start)}</b></div><div>Авто<b>${TYPE[me.type]}, ${me.cat}</b></div></div>
+      <div class="g"><div>Адреса<b>${sch.a}</b></div><div>Старт навчання<b>${fmtL(me.start)}</b></div><div>Авто<b>${TYPE[me.type]}, кат. B</b></div></div>
       <div class="dl"><div class="bar"><i style="width:${used*10}%"></i></div><div class="t"><span>Підтвердити й додати документи до <b>${fmt(dl)}</b></span><span>залишилось ${left} дн.</span></div></div>
       <div class="actions"><button class="btn" id="goDocs">Іду навчатися — додати документи</button><button class="btn tr" id="decline">Не можу зараз</button></div></div>
       <div class="card" style="margin-top:20px"><h3>Про автошколу <span class="idea">ідея</span></h3>
@@ -1070,7 +1011,7 @@ function renderMy(){
     main=`<div class="card"><h3>Навчання завершено 🎉</h3><p style="font-size:15.5px">Автошкола ${sch?sch.n:''} підтвердила завершення навчання ${fmt(me.doneDate||'2027-03-12')}.</p>
       <div class="note"><b>Що далі:</b> іспит у сервісному центрі МВС — теорія та практика. Запис на іспит — через сайт сервісних центрів МВС.</div>
       <h4 style="margin-top:18px">Оцініть навчання <span class="idea">ідея</span></h4><div class="stars" id="stars">${[1,2,3,4,5].map(i=>`<button data-r="${i}" class="${(me.rate||0)>=i?'on':''}">★</button>`).join('')}</div>
-      <p class="muted" style="font-size:13.5px;margin-top:6px">Оцінка допоможе місту обирати автошколи-учасниці.</p></div>`;
+      <p class="muted" style="font-size:13.5px;margin-top:6px">Оцінка допоможе місту покращувати програму.</p></div>`;
   }
   if(me.status==='refused'){
     main=`<div class="card"><h3>У записі відмовлено</h3><p style="font-size:15.5px">Причина: <b>${me.refNote||'документ про групу інвалідності не підтверджує I–II групу внаслідок війни.'}</b></p>
@@ -1086,8 +1027,8 @@ function renderMy(){
 }
 function paramsCard(me){
   return `<div class="card" style="margin-top:20px"><h3>Ваші параметри</h3><div class="grid g2">
-   <div class="fld"><div class="l">Група</div><div class="v">${me.grp}</div></div><div class="fld"><div class="l">Категорія</div><div class="v">${me.cat}</div></div>
-   <div class="fld"><div class="l">Тип авто</div><div class="v">${TYPE[me.type]}</div></div><div class="fld"><div class="l">Зручні райони</div><div class="v">${me.dists.join(', ')}</div></div>
+   <div class="fld"><div class="l">Група</div><div class="v">${me.grp}</div></div><div class="fld"><div class="l">Категорія</div><div class="v">B</div></div>
+   <div class="fld"><div class="l">Тип авто</div><div class="v">${TYPE[me.type]}</div></div><div class="fld"><div class="l">Район проживання (з Дії)</div><div class="v">${me.home}</div></div>
    <div class="fld"><div class="l">Телефон</div><div class="v">${me.phone}</div></div><div class="fld"><div class="l">Почати</div><div class="v">${me.from||'Будь-коли'}</div></div></div>
    ${me.needs&&me.needs.length?`<div class="fld"><div class="l">Важливо в автошколі</div><div class="v">${me.needs.join(', ')}</div></div>`:''}</div>`;
 }
@@ -1110,7 +1051,7 @@ function docsCard(me,ro){
 }
 function bindMy(){
   const me=S.me,on=(id,f)=>{const el=document.getElementById(id);el&&(el.onclick=f)};
-  on('editMe',()=>{S.form={grp:me.grp,cat:me.cat,type:me.type,d:[...me.dists]};S.vs='form';renderVet();scrollTo(0,0);toast('Змініть параметри й підпишіть заявку ще раз.')});
+  on('editMe',()=>{S.form={grp:me.grp,type:me.type};S.vs='form';renderVet();scrollTo(0,0);toast('Змініть параметри й підпишіть заявку ще раз.')});
   on('pauseMe',()=>modal(`<h3>Пауза в черзі</h3><p class="muted" style="font-size:15px">Ви залишаєтесь у черзі, але КМХ не запрошуватиме вас до обраного місяця.</p><div class="field" style="margin-top:14px"><label>Не запрошувати до</label><select id="pm"><option>Грудень 2026</option><option>Січень 2027</option><option>Лютий 2027</option><option>Березень 2027</option></select></div><div class="actions"><button class="btn" id="pmOk">Зберегти</button><button class="btn grey" onclick="closeModal()">Скасувати</button></div>`)||(document.getElementById('pmOk').onclick=()=>{me.from=$('#pm').value;me.hist.push([TODAY,'Пауза до: '+me.from]);closeModal();renderAll();notify('Пауза збережена: запрошення — не раніше ніж '+me.from+'.')}));
   on('withdraw',()=>modal(`<h3>Відкликати заявку?</h3><p class="muted" style="font-size:15px">Ви вийдете з черги. Подати нову заявку можна будь-коли, але черга почнеться з нової дати.</p><div class="actions"><button class="btn red" id="wOk">Відкликати</button><button class="btn grey" onclick="closeModal()">Залишитись у черзі</button></div>`)||(document.getElementById('wOk').onclick=()=>{S.cands=S.cands.filter(c=>c.id!=='me');S.me=null;closeModal();S.vs='page';syncStageSel();renderAll();toast('Заявку відкликано.')}));
   on('goDocs',()=>document.getElementById('docBox').scrollIntoView({behavior:'smooth'}));
@@ -1159,9 +1100,9 @@ function syncStageSel(){$('#stageSel').value=S.me?S.me.status:'none'}
 /* ================= КМХ ================= */
 function kpiBox(){const c=S.cands,n=s=>c.filter(x=>x.status===s).length;
   return `<div class="kpis"><div class="kpi"><div class="v">${n('queue')}</div><div class="l">У черзі</div></div><div class="kpi"><div class="v">${n('invited')}</div><div class="l">Запрошено, чекаємо</div></div><div class="kpi"><div class="v">${n('review')+n('fix')}</div><div class="l">Документи</div></div><div class="kpi"><div class="v">${n('enrolled')}</div><div class="l">Навчаються</div></div><div class="kpi"><div class="v">${n('done')}</div><div class="l">Завершили</div></div></div>`}
-function filtered(){const f=S.filt;return S.cands.filter(c=>(!f.st||c.status===f.st)&&(!f.cat||c.cat===f.cat)&&(!f.type||c.type===f.type)&&(!f.d||c.dists.includes(f.d))&&(!f.g||c.grp===f.g)&&(!f.q||c.name.toLowerCase().includes(f.q.toLowerCase())))}
+function filtered(){const f=S.filt;return S.cands.filter(c=>(!f.st||c.status===f.st)&&(!f.type||c.type===f.type)&&(!f.d||c.home===f.d)&&(!f.g||c.grp===f.g)&&(!f.q||c.name.toLowerCase().includes(f.q.toLowerCase())))}
 function candRow(c,extra=''){
-  return `<tr class="cl${c.me?' me':''}" data-c="${c.id}"><td class="mono">${fmt(c.date)}</td><td><b>${c.name}</b>${c.me?' <span class="st pur" style="font-size:11px;padding:2px 8px">демо-ветеран</span>':''}</td><td>${c.grp}</td><td>${c.cat}</td><td><div class="tags"><span class="${c.type==='hand'?'h':''}">${TYPE[c.type]}</span></div></td><td><div class="tags">${c.dists.map(d=>`<span>${d}</span>`).join('')}</div></td>${extra||`<td>${stb(c.status)}</td><td class="mono">${c.skips||'—'}</td>`}</tr>`}
+  return `<tr class="cl${c.me?' me':''}" data-c="${c.id}"><td class="mono">${fmt(c.date)}</td><td><b>${c.name}</b>${c.me?' <span class="st pur" style="font-size:11px;padding:2px 8px">демо-ветеран</span>':''}</td><td>${c.grp}</td><td><div class="tags"><span class="${c.type==='hand'?'h':''}">${TYPE[c.type]}</span></div></td><td>${c.home}</td>${extra||`<td>${stb(c.status)}</td><td class="mono">${c.skips||'—'}</td>`}</tr>`}
 function renderKmx(){
   $('#kcReg').textContent=S.cands.filter(c=>c.status==='queue').length;
   $('#kcSeats').textContent=S.seats.filter(q=>q.n>0).length;
@@ -1173,23 +1114,22 @@ function renderKmx(){
     m.innerHTML=`<h1 class="pt">Реєстр заявок</h1><p class="muted" style="margin-top:6px">Усі кандидати на навчання в одному місці. Натисніть рядок, щоб відкрити картку.</p>${kpiBox()}
     <div class="ctrls">
       <select data-f="st">${opt([['','Усі статуси'],...Object.keys(STS).map(k=>[k,STS[k][0]])],f.st)}</select>
-      <select data-f="cat">${opt([['','Категорія'],['A','A'],['B','B'],['C','C'],['BE','BE']],f.cat)}</select>
       <select data-f="type">${opt([['','Тип авто'],...Object.entries(TYPE)],f.type)}</select>
-      <select data-f="d">${opt([['','Район'],...DN.map(d=>[d,d])],f.d)}</select>
+      <select data-f="d">${opt([['','Район проживання'],...DN.map(d=>[d,d])],f.d)}</select>
       <select data-f="g">${opt([['','Група'],['I','I група'],['II','II група']],f.g)}</select>
       <input data-f="q" placeholder="Пошук за прізвищем" value="${f.q}">
       <button class="btn grey sm sp" id="csv">Вивантажити CSV</button>
     </div>
-    <div class="table-x"><table class="t"><thead><tr><th>Подано</th><th>Кандидат</th><th>Група</th><th>Кат.</th><th>Авто</th><th>Зручні райони</th><th>Статус</th><th>Пропуски</th></tr></thead><tbody>${list.map(c=>candRow(c)).join('')}</tbody></table></div>
+    <div class="table-x"><table class="t"><thead><tr><th>Подано</th><th>Кандидат</th><th>Група</th><th>Авто</th><th>Район проживання</th><th>Статус</th><th>Пропуски</th></tr></thead><tbody>${list.map(c=>candRow(c)).join('')}</tbody></table></div>
     <div class="muted" style="margin-top:12px;font-size:14px">Показано ${list.length} з ${S.cands.length}</div>`;
     $$('#kMain [data-f]').forEach(el=>{el.oninput=el.onchange=()=>{S.filt[el.dataset.f]=el.value;const pos=el.selectionStart;renderKmx();if(el.dataset.f==='q'){const n=$('#kMain [data-f="q"]');n.focus();n.setSelectionRange(pos,pos)}}});
-    $('#csv').onclick=()=>download('reiestr-avtoshkola.csv','﻿'+[['Дата подання','Кандидат','Група','Категорія','Тип авто','Райони','Статус','Пропуски'].join(';'),...list.map(c=>[fmt(c.date),c.name,c.grp,c.cat,TYPE[c.type],c.dists.join(', '),STS[c.status][0],c.skips].join(';'))].join('\n'),'text/csv');
+    $('#csv').onclick=()=>download('reiestr-avtoshkola.csv','﻿'+[['Дата подання','Кандидат','Група','Тип авто','Район проживання','Статус','Пропуски'].join(';'),...list.map(c=>[fmt(c.date),c.name,c.grp,TYPE[c.type],c.home,STS[c.status][0],c.skips].join(';'))].join('\n'),'text/csv');
   }
   if(S.ks==='seats'){
     const seat=S.seats.find(q=>q.id===S.matchSeat);
-    m.innerHTML=`<h1 class="pt">Вільні місця</h1><p class="muted" style="margin-top:6px">Автошколи повідомляють про місця — ви підбираєте кандидата і запрошуєте його.</p>
+    m.innerHTML=`<h1 class="pt">Вільні місця</h1><p class="muted" style="margin-top:6px">Автошкола повідомляє про місця — ви підбираєте кандидата і запрошуєте його.</p>
     <div class="grid" style="grid-template-columns:minmax(0,330px) 1fr;gap:24px;margin-top:24px;align-items:start">
-      <div>${S.seats.map(q=>{const s=SBYID[q.sch];return `<div class="seat${q.id===S.matchSeat?' on':''}"><div><div class="nm">${s.n} · ${s.d}</div><div class="ds">Кат. ${q.cat} · ${TYPE[q.type]} · старт ${fmt(q.start)}</div><div class="ds">Вільно: <b>${q.n}</b> · запрошено: ${q.inv.length} · повідомлено ${fmt(q.rep)}</div></div><button class="btn sm${q.n?'':' grey'}" data-ms="${q.id}"${q.n?'':' disabled'}>${q.n?'Підібрати':'Заповнено'}</button></div>`}).join('')}</div>
+      <div>${S.seats.map(q=>{const s=SBYID[q.sch];return `<div class="seat${q.id===S.matchSeat?' on':''}"><div><div class="nm">${TYPE[q.type]}</div><div class="ds">${s.n} · кат. B · старт ${fmt(q.start)}</div><div class="ds">Вільно: <b>${q.n}</b> · запрошено: ${q.inv.length} · повідомлено ${fmt(q.rep)}</div></div><button class="btn sm${q.n?'':' grey'}" data-ms="${q.id}"${q.n?'':' disabled'}>${q.n?'Підібрати':'Заповнено'}</button></div>`}).join('')}</div>
       <div>${seat?matchPanel(seat):'<div class="card ln" style="text-align:center;padding:50px 30px"><div class="muted">Оберіть вільне місце ліворуч — система покаже кандидатів, які йому відповідають.</div></div>'}</div>
     </div>`;
     $$('[data-ms]').forEach(b=>b.onclick=()=>{S.matchSeat=b.dataset.ms;renderKmx()});
@@ -1197,15 +1137,15 @@ function renderKmx(){
     $$('[data-inv]').forEach(b=>b.onclick=e=>{e.stopPropagation();invite(S.cands.find(c=>c.id===b.dataset.inv),seat);renderAll()});
   }
   if(S.ks==='an'){
-    const q=S.cands.filter(c=>c.status==='queue'),heat={};q.forEach(c=>c.dists.forEach(d=>heat[d]=(heat[d]||0)+1));
-    const byT=t=>q.filter(c=>c.type===t).length,cap=t=>SCH.filter(s=>t==='hand'?s.hand:t==='auto'?s.auto:1).reduce((a,s)=>a+s.starts.filter(x=>x>=TODAY&&x<'2027-01-06').length,0);
+    const q=S.cands.filter(c=>c.status==='queue'),heat={};q.forEach(c=>heat[c.home]=(heat[c.home]||0)+1);
+    const byT=t=>q.filter(c=>c.type===t).length,cap=t=>S.seats.filter(x=>x.type===t).reduce((a,x)=>a+x.n,0);
     const mx=Math.max(...['plain','auto','hand'].map(byT),1);
     const n=s=>S.cands.filter(c=>c.status===s).length,tot=S.cands.length;
-    m.innerHTML=`<h1 class="pt">Аналітика попиту <span class="idea" style="vertical-align:middle">ідея</span></h1><p class="muted" style="margin-top:6px">Що місто бачить завдяки черзі без документів: реальний попит за районами й типами авто.</p>
+    m.innerHTML=`<h1 class="pt">Аналітика попиту <span class="idea" style="vertical-align:middle">ідея</span></h1><p class="muted" style="margin-top:6px">Що місто бачить завдяки черзі без документів: реальний попит за типами авто і звідки людям доведеться їздити.</p>
     <div class="grid g2" style="margin-top:24px">
-      <div class="card"><h3>Де хочуть навчатися <span class="muted" style="font-size:14px;font-weight:400">заявки в черзі за зручними районами</span></h3>${mapSVG('an',{heat,pins:SCH})}<div class="legend"><span><i style="background:var(--blue)"></i>Автошкола</span><span><i style="background:var(--pur)"></i>з ручним керуванням</span></div></div>
+      <div class="card"><h3>Де живуть кандидати <span class="muted" style="font-size:14px;font-weight:400">заявки в черзі за районом проживання з Дії</span></h3>${mapSVG('an',{heat,pins:SCH})}<div class="legend"><span><i style="background:var(--pur)"></i>Автошкола-партнер</span></div></div>
       <div>
-        <div class="card"><h3>Попит і місця за типом авто</h3><div class="bars">${['plain','auto','hand'].map(t=>`<div class="r"><span>${TYPE[t]}</span><div class="tr"><i class="${t==='hand'?'h':''}" style="width:${byT(t)/mx*100}%"></i></div><b>${byT(t)} у черзі</b></div><div class="r" style="padding-top:0"><span class="muted" style="font-size:13px">стартів груп до січня</span><div class="tr"><i class="c" style="width:${Math.min(100,cap(t)/mx*100)}%"></i></div><span class="muted">${cap(t)}</span></div>`).join('')}</div>
+        <div class="card"><h3>Попит і місця за типом авто</h3><div class="bars">${['plain','auto','hand'].map(t=>`<div class="r"><span>${TYPE[t]}</span><div class="tr"><i class="${t==='hand'?'h':''}" style="width:${byT(t)/mx*100}%"></i></div><b>${byT(t)} у черзі</b></div><div class="r" style="padding-top:0"><span class="muted" style="font-size:13px">вільних місць зараз</span><div class="tr"><i class="c" style="width:${Math.min(100,cap(t)/mx*100)}%"></i></div><span class="muted">${cap(t)}</span></div>`).join('')}</div>
         ${gapNote(q)}</div>
         <div class="card" style="margin-top:20px"><h3>Воронка програми</h3><div class="funnel">${[['Усі заявки',tot],['Запрошено',tot-n('queue')],['Зараховано',n('enrolled')+n('done')],['Завершили',n('done')]].map(([l,v])=>`<div class="r"><div class="b" style="width:${Math.max(14,v/tot*100)}%">${v}</div><span class="l">${l}</span></div>`).join('')}</div></div>
       </div>
@@ -1213,37 +1153,33 @@ function renderKmx(){
   }
 }
 function gapNote(q){
-  const hd={};q.filter(c=>c.type==='hand').forEach(c=>c.dists.forEach(d=>hd[d]=(hd[d]||0)+1));
-  const gap=Object.entries(hd).filter(([d])=>!SCH.some(s=>s.hand&&s.d===d)).sort((a,b)=>b[1]-a[1]);
-  if(!gap.length)return '<div class="note ok" style="margin-bottom:0">Для кожного району з попитом на ручне керування є автошкола з адаптованим авто.</div>';
-  return `<div class="note warn" style="margin-bottom:0"><b>Сигнал:</b> ${gap.slice(0,2).map(([d,n])=>`${d} — ${n} заяв.`).join(', ')} на ручне керування, але в ${gap.length>1?'цих районах':'цьому районі'} немає автошколи з адаптованим авто. Привід домовитися з ще однією автошколою.</div>`;
+  const s=SCH[0],LB=['Дарницький','Дніпровський','Деснянський'],rb=q.filter(c=>!LB.includes(c.home)).length,rbh=q.filter(c=>c.type==='hand'&&!LB.includes(c.home)).length;
+  return `<div class="note warn" style="margin-bottom:0"><b>Сигнал:</b> ${rb} з ${q.length} кандидатів живуть на правому березі (з них ${rbh} — на ручне керування), а єдина автошкола — у ${s.d.replace('ий','ому')} районі. Для людей з інвалідністю дорога — бар’єр: привід шукати другу автошколу на правому березі або компенсувати поїздки.</div>`;
 }
 function matchPanel(seat){
   const s=SBYID[seat.sch];
-  let c=S.cands.filter(x=>x.status==='queue'&&x.cat===seat.cat&&x.type===seat.type);
-  c.forEach(x=>x._d=x.dists.includes(s.d));
-  c.sort((a,b)=>(b._d-a._d)||(S.rule==='group'?(a.grp<b.grp?-1:a.grp>b.grp?1:0):0)||(a.date<b.date?-1:1));
-  return `<div class="card"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap"><div><h3 style="margin-bottom:2px">Кандидати під місце в ${s.n}</h3><div class="muted" style="font-size:14px">Кат. ${seat.cat} · ${TYPE[seat.type]} · ${s.d} р-н · старт ${fmt(seat.start)}</div></div>
+  let c=S.cands.filter(x=>x.status==='queue'&&x.type===seat.type);
+  c.sort((a,b)=>(S.rule==='group'?(a.grp<b.grp?-1:a.grp>b.grp?1:0):0)||(a.date<b.date?-1:1));
+  return `<div class="card"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap"><div><h3 style="margin-bottom:2px">Кандидати під місце: ${TYPE[seat.type]}</h3><div class="muted" style="font-size:14px">${s.n} · кат. B · старт ${fmt(seat.start)}</div></div>
    <div><div class="muted" style="font-size:12.5px;margin-bottom:4px">Правило сортування <span class="warnf">⚠ рішення керівництва</span></div><div class="seg sm"><button data-rule="date" class="${S.rule==='date'?'on':''}">За датою</button><button data-rule="group" class="${S.rule==='group'?'on':''}">I група першою</button></div></div></div>
-   ${c.length?`<div class="table-x"><table class="t" style="margin-top:14px"><thead><tr><th>Подано</th><th>Кандидат</th><th>Група</th><th>Райони</th><th>Збіг</th><th></th></tr></thead><tbody>
-   ${c.map(x=>`<tr class="cl${x.me?' me':''}" data-c="${x.id}"><td class="mono">${fmt(x.date)}</td><td><b>${x.name}</b>${x.me?'<br><span class="st pur" style="font-size:11px;padding:2px 8px">демо-ветеран</span>':''}</td><td>${x.grp}</td><td><div class="tags">${x.dists.map(d=>`<span>${d}</span>`).join('')}</div></td><td><span class="mt${x._d?'':' no'}">${x._d?'район ✓':'інший район'}</span>${x.skips?` <span class="mt no">пропуск ${x.skips}</span>`:''}</td><td><button class="btn xs" data-inv="${x.id}">Запросити</button></td></tr>`).join('')}</tbody></table></div>`:'<div class="note" style="margin-bottom:0">Немає кандидатів у черзі з такими параметрами.</div>'}</div>`;
+   ${c.length?`<div class="table-x"><table class="t" style="margin-top:14px"><thead><tr><th>Подано</th><th>Кандидат</th><th>Група</th><th>Район проживання</th><th>Пропуски</th><th></th></tr></thead><tbody>
+   ${c.map(x=>`<tr class="cl${x.me?' me':''}" data-c="${x.id}"><td class="mono">${fmt(x.date)}</td><td><b>${x.name}</b>${x.me?'<br><span class="st pur" style="font-size:11px;padding:2px 8px">демо-ветеран</span>':''}</td><td>${x.grp}</td><td>${x.home}</td><td class="mono">${x.skips||'—'}</td><td><button class="btn xs" data-inv="${x.id}">Запросити</button></td></tr>`).join('')}</tbody></table></div>`:'<div class="note" style="margin-bottom:0">Немає кандидатів у черзі з таким типом авто.</div>'}</div>`;
 }
 document.addEventListener('click',e=>{const r=e.target.closest('tr[data-c]');if(!r||e.target.closest('button'))return;openCand(r.dataset.c)});
 function openCand(id){
   const c=S.cands.find(x=>x.id===id);if(!c)return;
-  const open=S.seats.filter(q=>q.n>0&&q.cat===c.cat&&q.type===c.type);
+  const open=S.seats.filter(q=>q.n>0&&q.type===c.type);
   const canReview=c.status==='review'&&((S.role==='kmx'&&S.route==='B')||(S.role==='sch'&&S.route==='A'));
   drawer(`<div class="muted" style="font-size:13.5px">Картка кандидата</div><h2 style="font-size:24px;margin:4px 0 10px">${c.name}</h2>${stb(c.status)}
    <div class="grid g2" style="margin-top:20px;gap:0 20px">
     <div class="fld"><div class="l">Подано</div><div class="v">${fmt(c.date)}</div></div><div class="fld"><div class="l">Група</div><div class="v">${c.grp}</div></div>
-    <div class="fld"><div class="l">Категорія</div><div class="v">${c.cat}</div></div><div class="fld"><div class="l">Тип авто</div><div class="v">${TYPE[c.type]}</div></div>
+    <div class="fld"><div class="l">Район проживання</div><div class="v">${c.home}</div></div><div class="fld"><div class="l">Тип авто</div><div class="v">${TYPE[c.type]}</div></div>
     <div class="fld"><div class="l">Телефон</div><div class="v">${c.phone}</div></div><div class="fld"><div class="l">Пропущено запрошень</div><div class="v">${c.skips||0}</div></div>
    </div>
-   <div class="fld"><div class="l">Зручні райони</div><div class="v">${c.dists.join(', ')}</div></div>
    ${c.from&&c.from!=='Будь-коли'?`<div class="fld"><div class="l">Зручно почати</div><div class="v">${c.from}</div></div>`:''}
    ${c.needs&&c.needs.length?`<div class="fld"><div class="l">Потреби</div><div class="v">${c.needs.join(', ')}</div></div>`:''}
    ${c.sch?`<div class="fld"><div class="l">Автошкола</div><div class="v">${SBYID[c.sch].n}, старт ${fmt(c.start)}</div></div>`:''}
-   ${c.status==='queue'&&S.role==='kmx'?`<h4 style="margin:18px 0 8px">Запросити на навчання</h4>${open.length?open.map(q=>`<div class="seat"><div><div class="nm">${SBYID[q.sch].n}</div><div class="ds">${SBYID[q.sch].d} · старт ${fmt(q.start)} · вільно ${q.n}</div></div><button class="btn sm" data-dinv="${q.id}">Запросити</button></div>`).join(''):'<div class="note" style="margin:0">Зараз немає вільних місць під параметри кандидата.</div>'}`:''}
+   ${c.status==='queue'&&S.role==='kmx'?`<h4 style="margin:18px 0 8px">Запросити на навчання</h4>${open.length?open.map(q=>`<div class="seat"><div><div class="nm">${SBYID[q.sch].n}</div><div class="ds">${TYPE[q.type]} · старт ${fmt(q.start)} · вільно ${q.n}</div></div><button class="btn sm" data-dinv="${q.id}">Запросити</button></div>`).join(''):'<div class="note" style="margin:0">Зараз немає вільних місць під параметри кандидата.</div>'}`:''}
    ${canReview?`<h4 style="margin:18px 0 8px">Перевірка документів</h4>${DOCS.filter(d=>d[3]!=='na').map(([k,n])=>`<div class="doc"><div class="ic ${c.docs&&c.docs[k]===null?'bad':'done'}">✓</div><div><div class="nm" style="font-size:14.5px">${n}</div><div class="ds">${c.docs&&c.docs[k]||'додано'}</div></div><span></span></div>`).join('')}
      <div class="actions"><button class="btn" id="dAcc">Документи в порядку — зарахувати</button><button class="btn red sm" id="dFix">Повернути на доопрацювання</button></div>`:''}
    ${c.status==='invited'&&S.role==='kmx'?`<div class="actions"><button class="btn red sm" id="dNo">Позначити: не відповів (місце — наступному)</button></div>`:''}
@@ -1265,19 +1201,19 @@ function renderSch(){
     m.innerHTML=`<h1 class="pt">Вільні місця</h1><p class="muted" style="margin-top:6px">Повідомте КМХ про місце — і він запросить кандидата з реєстру.</p>
     <div class="grid g2" style="margin-top:24px;align-items:start">
       <div class="card"><h3>Повідомити про вільне місце</h3>
-        <div class="grid g2" style="gap:0 16px"><div class="field"><label>Категорія</label><select id="nCat"><option>B</option><option>C</option></select></div>
+        <div class="grid g2" style="gap:0 16px">
         <div class="field"><label>Тип авто</label><select id="nType"><option value="hand">Ручне керування</option><option value="auto">Автомат</option><option value="plain">Звичайне</option></select></div>
         <div class="field"><label>Кількість місць</label><select id="nN"><option>1</option><option>2</option><option>3</option></select></div>
         <div class="field"><label>Старт групи</label><select id="nStart">${SBYID.s1.starts.filter(x=>x>=TODAY).map(x=>`<option value="${x}">${fmt(x)}</option>`).join('')}</select></div></div>
         <button class="btn" id="nSend">Повідомити КМХ</button></div>
-      <div class="card"><h3>Мої повідомлення</h3>${my.length?my.map(q=>`<div class="seat"><div><div class="nm">Кат. ${q.cat} · ${TYPE[q.type]}</div><div class="ds">Старт ${fmt(q.start)} · вільно ${q.n} · запрошено ${q.inv.length}</div></div>${q.n?'<span class="st info">Відкрите</span>':'<span class="st ok">Заповнене</span>'}</div>`).join(''):'<div class="muted">Ще немає.</div>'}</div>
+      <div class="card"><h3>Мої повідомлення</h3>${my.length?my.map(q=>`<div class="seat"><div><div class="nm">${TYPE[q.type]}</div><div class="ds">Старт ${fmt(q.start)} · вільно ${q.n} · запрошено ${q.inv.length}</div></div>${q.n?'<span class="st info">Відкрите</span>':'<span class="st ok">Заповнене</span>'}</div>`).join(''):'<div class="muted">Ще немає.</div>'}</div>
     </div>`;
-    $('#nSend').onclick=()=>{S.seats.unshift({id:'q'+Date.now(),sch:'s1',cat:$('#nCat').value,type:$('#nType').value,n:+$('#nN').value,start:$('#nStart').value,rep:TODAY,inv:[]});renderAll();toast('✓ КМХ отримав повідомлення про вільне місце.')};
+    $('#nSend').onclick=()=>{S.seats.unshift({id:'q'+Date.now(),sch:'s1',cat:'B',type:$('#nType').value,n:+$('#nN').value,start:$('#nStart').value,rep:TODAY,inv:[]});renderAll();toast('✓ КМХ отримав повідомлення про вільне місце.')};
   }
   if(S.ss==='stud'){
     m.innerHTML=`<h1 class="pt">Слухачі програми</h1><p class="muted" style="margin-top:6px">Ветерани, яких КМХ направив до вас. ${S.route==='A'?'За варіантом A документи надходять напряму вам.':'За варіантом B документи перевіряє КМХ — ви отримуєте вже перевірений пакет.'}</p>
-    <div class="table-x"><table class="t" style="margin-top:20px"><thead><tr><th>Кандидат</th><th>Кат.</th><th>Авто</th><th>Старт</th><th>Статус</th><th></th></tr></thead><tbody>
-    ${mine.map(c=>`<tr class="cl${c.me?' me':''}" data-c="${c.id}"><td><b>${c.name}</b></td><td>${c.cat}</td><td>${TYPE[c.type]}</td><td>${fmt(c.start)}</td><td>${stb(c.status)}</td><td>${c.status==='enrolled'?`<button class="btn xs ghost" data-fin="${c.id}">Позначити завершення</button>`:c.status==='review'&&S.route==='A'?`<button class="btn xs" data-rv="${c.id}">Перевірити документи</button>`:''}</td></tr>`).join('')}</tbody></table></div>`;
+    <div class="table-x"><table class="t" style="margin-top:20px"><thead><tr><th>Кандидат</th><th>Авто</th><th>Старт</th><th>Статус</th><th></th></tr></thead><tbody>
+    ${mine.map(c=>`<tr class="cl${c.me?' me':''}" data-c="${c.id}"><td><b>${c.name}</b></td><td>${TYPE[c.type]}</td><td>${fmt(c.start)}</td><td>${stb(c.status)}</td><td>${c.status==='enrolled'?`<button class="btn xs ghost" data-fin="${c.id}">Позначити завершення</button>`:c.status==='review'&&S.route==='A'?`<button class="btn xs" data-rv="${c.id}">Перевірити документи</button>`:''}</td></tr>`).join('')}</tbody></table></div>`;
     $$('[data-fin]').forEach(b=>b.onclick=()=>{finish(S.cands.find(c=>c.id===b.dataset.fin));renderAll()});
     $$('[data-rv]').forEach(b=>b.onclick=()=>openCand(b.dataset.rv));
   }
@@ -1329,17 +1265,16 @@ const FLOWS=[
    {t:'Перший екран відповідає на головне: послуга безкоштовна, займе близько трьох хвилин, документи зараз не потрібні, вхід через Дію.',sel:'#s-page .facts',manual:true},
    {t:'Блок «Чи підходить мені?» замінює абзаци умов. Обери <b>«II група»</b>.',sel:'[data-fit="g"]',done:()=>S.fit.g==='2',act(){S.fit.g='2';renderFit()}},
    {t:'Тепер <b>«Так»</b> — живу в Києві. Відповідь одразу показує, чи можна подаватися.',sel:'[data-fit="k"]',done:()=>S.fit.k==='y',act(){S.fit.k='y';renderFit()}},
-   {t:'Карта автошкіл-учасниць. Обери фільтр <b>«Ручне керування»</b> — лишаться школи з адаптованими авто.',sel:'[data-mf="type"]',done:()=>S.mf.type==='hand',act(){$('[data-mf="type"] [data-v="hand"]').click()}},
-   {t:'Натисни на <b>Дарницький</b> район. Він стане «зручним» і сам підставиться в заявку.',sel:'#pageMap',done:()=>S.pageD.includes('Дарницький'),act(){S.pageD.push('Дарницький');renderMapSec()}},
+   {t:'Програма працює з однією автошколою: адреса, доступність, автопарк і маршрут. Категорія — лише B.',sel:'#schCard',manual:true},
    {t:'Календар стартів груп з тими самими фільтрами. Натисни будь-яку виділену дату.',sel:'#calGrid',done:()=>!!S.cal.sel,act(){const d=$('#calGrid .has');if(d)d.click();else{$('#calNext').click();setTimeout(()=>{const x=$('#calGrid .has');x&&x.click()},50)}}},
-   {t:'«Скільки чекати саме мені» — орієнтовний строк за кількістю автошкіл і стартів груп, без розміру черги. Підказка нижче радить додати сусідній район, якщо там немає потрібної автошколи.',sel:'#wRes',manual:true}
+   {t:'«Скільки чекати саме мені» — орієнтовний строк за кількістю автошкіл і стартів груп, без розміру черги. Розміру черги ветеран не бачить.',sel:'#wRes',manual:true}
   ]},
  {id:'apply',name:'Повідомити про бажання навчатися',ds:'Дія, кілька побажань, підпис — 3 хвилини',min:1,
   start(){resetDemo()},
   steps:[
    {t:'Натисни <b>«Повідомити про бажання навчатися»</b>. Людина не «стає в чергу» і не подає документи — лише каже місту, що хоче навчатися.',sel:'#ctaApply',done:()=>S.vs==='form'},
-   {t:'ПІБ, податковий номер, пошта й адреса вже підтягнуті з Дії, система перевірила, що людина ще не в черзі. Група, категорія й тип авто для демо обрані — це картки, а не списки.',sel:'#s-form .prefill',manual:true},
-   {t:'Зручні райони — на карті або кнопками, до трьох. Під картою одразу видно, скільки автошкіл підходить і скільки орієнтовно чекати.',sel:'#s-form .fmap',manual:true},
+   {t:'ПІБ, податковий номер, пошта й адреса вже підтягнуті з Дії, система перевірила, що людина ще не в черзі. Група й тип авто для демо обрані — це картки, а не списки. Категорія завжди B, тому її не питаємо.',sel:'#s-form .prefill',manual:true},
+   {t:'Під вибором типу авто одразу видно орієнтовне очікування. Район проживання беремо з Дії — окремо питати не треба.',sel:'#formEst',manual:true},
    {t:'Постав галочку згоди на обробку персональних даних.',sel:'label.chk:has(#fAgree)',done:()=>$('#fAgree').checked,act(){$('#fAgree').checked=true}},
    {t:'Натисни <b>«Підписати через Дію і надіслати»</b>.',sel:'#fSign',done:()=>ME().status==='queue'},
    {t:'Готово: бажання зафіксовано, статус — «В черзі на навчання». Трекер показує весь шлях, праворуч — історія, де кожна подія продубльована на пошту й у «Київ Цифровий».',sel:'#s-my .trk',manual:true}
@@ -1350,7 +1285,7 @@ const FLOWS=[
    {t:'Реєстр Київ Мілітарі Хабу: усі заявки з датою подання, фільтри, вивантаження в CSV. Наша демо-заявка підсвічена жовтим.',sel:'#kMain .kpis',manual:true},
    {t:'Автошкола «Кермо» повідомила про вільне місце. Відкрий <b>«Вільні місця»</b>.',sel:'#v-kmx [data-ks="seats"]',done:()=>S.ks==='seats'},
    {t:'Натисни <b>«Підібрати»</b> біля «Кермо» (кат. B, ручне керування).',sel:'[data-ms="q1"]',done:()=>S.matchSeat==='q1'},
-   {t:'Система лишила тільки тих, кому підходить категорія й тип авто; збіг району — вгорі. Правило сортування перемикається, бо його ще затверджує керівництво. Натисни <b>«Запросити»</b> біля «Бондар О. П.».',sel:'[data-inv="me"]',done:()=>ME().status==='invited'},
+   {t:'Система лишила тільки тих, кому підходить тип авто; поруч — район проживання. Правило сортування перемикається, бо його ще затверджує керівництво. Натисни <b>«Запросити»</b> біля «Бондар О. П.».',sel:'[data-inv="me"]',done:()=>ME().status==='invited'},
    {t:'Ветерану пішло повідомлення. Переключись на роль <b>«Ветеран»</b> у верхній панелі.',sel:'.mock [data-role="vet"]',done:()=>S.role==='vet'},
    {t:'Запрошення: автошкола, дата старту, авто і відлік 10 днів на документи. Нижче — доступність школи, маршрут і документи.',sel:'#s-my .inv',manual:true}
   ]},
@@ -1382,7 +1317,7 @@ const FLOWS=[
    {t:'Переключись на <b>«Київ Мілітарі Хаб»</b>.',sel:'.mock [data-role="kmx"]',done:()=>S.role==='kmx'},
    {t:'Відкрий <b>«Вільні місця»</b> — нове місце вже там.',sel:'#v-kmx [data-ks="seats"]',done:()=>S.ks==='seats'},
    {t:'Тепер <b>«Аналітика попиту»</b>.',sel:'#v-kmx [data-ks="an"]',done:()=>S.ks==='an'},
-   {t:'Черга без документів дає місту реальну картину попиту: де хочуть навчатися, на яких авто, і де бракує автошкіл з адаптованими авто.',sel:'#kMain .note',manual:true}
+   {t:'Черга без документів дає місту реальну картину попиту: на яких авто хочуть навчатися і звідки людям доведеться їхати до єдиної автошколи.',sel:'#kMain .note',manual:true}
   ]},
  {id:'routeA',name:'Варіант A: документи напряму в автошколу',ds:'Як виглядає маршрут, альтернативний рекомендованому',min:1,
   start(){resetDemo();S.route='A';$('#routeSel').value='A';setStage('review');S.ss='stud';setRole('sch')},
