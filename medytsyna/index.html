@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Здоров’я — Портал послуг</title>
+<link rel="preload" href="fonts/Daikon-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/KyivTypeSans-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:Daikon;font-weight:400;font-style:normal;font-display:swap;src:url(fonts/Daikon-Regular.woff2) format("woff2")}
+@font-face{font-family:Daikon;font-weight:600;font-style:normal;font-display:swap;src:url(fonts/Daikon-SemiBold.woff2) format("woff2")}
+@font-face{font-family:Daikon;font-weight:700;font-style:normal;font-display:swap;src:url(fonts/Daikon-Bold.woff2) format("woff2")}
+@font-face{font-family:KyivTypeSans;font-weight:700;font-style:normal;font-display:swap;src:url(fonts/KyivTypeSans-Bold.woff2) format("woff2")}
+:root{
+  --blue:#0068ff;--blue-d:#0052cc;--blue-l:#f1f7ff;--blue-b:#e2f1fb;
+  --black:#000;--ink:#1d1d1f;--ink2:#323232;--grey:#888888;--grey2:#6e6e6e;--nav:#444444;
+  --line:#e5e5ea;--side:#f7f7f7;--foot:#17273f;--unread:#fdf8e4;
+  --ok:#1f7a2e;--ok-b:#e8f7ea;--warn:#8a5a00;--warn-b:#fff4e0;--bad:#a3251a;--bad-b:#ffeceb;
+  --pur:#7b2ff7;--pur-b:#f3e8ff;--pur-t:#5b12b5;--red:#c62828;
+  --shadow:0 2px 12px rgba(20,30,50,.08),0 0 0 1px rgba(20,30,50,.035);
+  --mock:#2b2f36;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:Daikon,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#fff;font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{margin:0;font-weight:700}
+p{margin:0}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;color:inherit}
+input,select,textarea{font:inherit;color:var(--ink)}
+svg{display:block}
+
+/* ---------- службова панель макета ---------- */
+.mock{background:var(--mock);color:#b8bec8;display:flex;align-items:center;gap:6px;padding:0 16px;min-height:44px;font-size:13px;font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;flex-wrap:wrap;position:sticky;top:0;z-index:40}
+.mock .lbl{font-weight:700;color:#fff;margin-right:6px;white-space:nowrap}
+.mock .tab{background:transparent;border:1px solid #454b55;color:#c9ced6;border-radius:8px;padding:5px 13px;font-weight:600;white-space:nowrap}
+.mock .tab:hover{color:#fff;border-color:#6b727d}
+.mock .tab.on{background:#fff;color:#1d1d1f;border-color:#fff}
+.mock .sep{width:1px;height:22px;background:#454b55;margin:0 6px}
+.mock .scn{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.mock select{background:#1f2227;color:#fff;border:1px solid #454b55;border-radius:8px;padding:4px 8px;font-size:13px}
+.mock .hint{margin-left:auto;opacity:.75;white-space:nowrap}
+.mock .hint b{color:#c39bff}
+
+/* ---------- шапка порталу ---------- */
+.hdr{background:var(--blue);color:#fff;height:68px;display:flex;align-items:center;padding:0 24px;position:relative}
+.hdr .logo img{height:40px;width:auto}
+.hnav{position:absolute;left:calc(50% + 70px);transform:translateX(-50%);display:flex;gap:82px;font-size:15px;font-weight:700;letter-spacing:.01em}
+.hnav a{white-space:nowrap}
+.hnav a.on{box-shadow:0 2px 0 #fff}
+.uchip{margin-left:auto;display:flex;align-items:center;gap:12px;font-size:15px;font-weight:700;white-space:nowrap}
+
+/* ---------- загальне ---------- */
+.wrap{max-width:1240px;margin:0 auto;padding:30px 32px 90px}
+h1.pt{font-family:KyivTypeSans,Daikon,sans-serif;font-size:34px;line-height:1.18;color:#000;letter-spacing:.005em}
+h2.sh{font-size:24px;font-weight:700;color:#000;margin-bottom:6px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sub{font-size:15.5px;color:var(--grey2);margin-bottom:20px;max-width:760px}
+.crumbs{font-size:13.5px;color:var(--grey);margin-bottom:12px}
+.crumbs a{color:var(--blue);cursor:pointer}
+.lead{font-size:17px;color:var(--ink2);margin:14px 0 0;max-width:760px}
+.idea{display:inline-block;background:var(--pur-b);color:var(--pur-t);font-family:Daikon,sans-serif;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:99px;letter-spacing:.05em;text-transform:uppercase;vertical-align:middle;white-space:nowrap}
+.phs{display:inline-block;background:#eef0f3;color:#5a6270;font-family:Daikon,sans-serif;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:99px;letter-spacing:.05em;text-transform:uppercase;vertical-align:middle;white-space:nowrap}
+.warnf{display:inline-block;background:var(--warn-b);color:var(--warn);font-size:12px;font-weight:600;padding:2px 9px;border-radius:99px;white-space:nowrap}
+.card{background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:26px 28px}
+.card.ln{box-shadow:none;border:1.5px solid var(--line)}
+.card h3{font-size:19px;font-weight:600;margin-bottom:12px}
+.sec{margin-top:56px;scroll-margin-top:60px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--blue);color:#fff;border:0;border-radius:12px;height:48px;padding:0 24px;font-size:15px;font-weight:700;white-space:nowrap}
+.btn:hover{background:var(--blue-d)}
+.btn.sm{height:38px;padding:0 16px;font-size:14px;border-radius:10px}
+.btn.xs{height:32px;padding:0 12px;font-size:13px;border-radius:9px}
+.btn.ghost{background:#fff;color:var(--blue);box-shadow:inset 0 0 0 1.5px var(--blue)}
+.btn.ghost:hover{background:var(--blue-l)}
+.btn.grey{background:#f3f3f5;color:var(--ink)}
+.btn.grey:hover{background:#e8e8ec}
+.btn.red{background:#fff;color:var(--bad);box-shadow:inset 0 0 0 1.5px #f0b9b3}
+.btn.red:hover{background:var(--bad-b)}
+.btn.dark{background:#000}
+.btn.dark:hover{background:#222}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;align-items:center}
+.st{display:inline-block;font-size:13px;font-weight:600;border-radius:99px;padding:4px 12px;white-space:nowrap}
+.st.ok{background:var(--ok-b);color:var(--ok)}
+.st.wait{background:var(--warn-b);color:var(--warn)}
+.st.bad{background:var(--bad-b);color:var(--bad)}
+.st.info{background:var(--blue-b);color:#00598e}
+.st.pur{background:var(--pur-b);color:var(--pur-t)}
+.st.grey{background:#f0f0f2;color:#555}
+.st.y{background:#fff6cc;color:#6f5800}
+.note{background:var(--blue-l);border-radius:14px;padding:16px 20px;font-size:15px;color:#1b4d8c;margin:18px 0}
+.note b{color:#0b3a73}
+.note.warn{background:var(--warn-b);color:#6b4600}
+.note.warn b{color:#4d3200}
+.note.ok{background:var(--ok-b);color:#185c23}
+.note.ok b{color:#0f4417}
+.note.bad{background:var(--bad-b);color:#7d1c13}
+.note.bad b{color:#5c120b}
+.note.grey{background:#f3f3f5;color:var(--ink2)}
+.muted{color:var(--grey)}
+.mono{font-variant-numeric:tabular-nums}
+.grid{display:grid;gap:20px}
+.grid>*{min-width:0}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.toast{position:fixed;right:24px;bottom:24px;background:#1d1d1f;color:#fff;border-radius:14px;padding:15px 20px;font-size:14.5px;box-shadow:0 12px 40px rgba(0,0,0,.3);opacity:0;transform:translateY(14px);transition:.25s;z-index:99;max-width:420px;pointer-events:none}
+.toast.on{opacity:1;transform:none}
+.toast b{color:#8ec5ff}
+.fld{margin-bottom:14px}
+.fld .l{font-size:14px;color:var(--grey);margin-bottom:3px}
+.fld .v{font-size:16px;color:var(--ink)}
+.field{margin-bottom:18px}
+.field>label{display:block;font-size:14.5px;color:var(--grey);margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:11px 15px;background:#fff;font-size:16px}
+.field textarea{min-height:84px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue)}
+.chk{display:flex;align-items:flex-start;gap:10px;padding:6px 0;font-size:15.5px;cursor:pointer}
+.chk input{width:18px;height:18px;accent-color:var(--blue);margin-top:2px;flex:none}
+.err{color:#d83020;font-weight:600;font-size:14px;min-height:20px;margin-top:8px}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg button{background:#f3f3f5;border:1.5px solid transparent;border-radius:11px;padding:9px 16px;font-size:15px;font-weight:600}
+.seg button:hover{background:#ebebef}
+.seg button.on{background:var(--blue-l);border-color:var(--blue);color:var(--blue)}
+.seg.sm button{padding:6px 12px;font-size:13.5px;border-radius:9px}
+.fbar{display:flex;gap:14px 22px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.fbar select{background:#f3f3f5;border:0;border-radius:11px;height:38px;padding:0 12px;font-size:14px}
+.fbar .chk{font-size:14.5px;padding:0}
+
+/* ---------- навігація розділу ---------- */
+.vnav{display:flex;gap:28px;border-bottom:1px solid var(--line);padding:0 32px;max-width:1240px;margin:0 auto;overflow-x:auto}
+.vnav a{padding:16px 0 14px;font-size:15px;font-weight:600;color:var(--grey);cursor:pointer;display:flex;align-items:center;gap:8px;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+.vnav a.on{color:var(--ink);border-color:var(--blue)}
+
+/* ---------- «моє здоров’я» ---------- */
+.fam{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;align-items:center}
+.fam .p{display:flex;align-items:center;gap:10px;background:#f3f3f5;border-radius:99px;padding:5px 14px 5px 5px;font-size:14.5px;font-weight:600}
+.fam .p span{font-weight:400;color:var(--grey2)}
+.av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;font-style:normal;color:#fff;background:var(--blue);flex:none}
+.av.s{background:#d6457f}.av.m{background:#16a06c}
+.att{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:16px;align-items:center;padding:16px 20px;border-radius:14px;background:#fff;box-shadow:var(--shadow);margin-bottom:12px}
+.att .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--blue-l);color:var(--blue)}
+.att .ic.pur{background:var(--pur-b);color:var(--pur)}.att .ic.warn{background:var(--warn-b);color:var(--warn)}.att .ic.ok{background:var(--ok-b);color:var(--ok)}
+.att .t{font-weight:700;font-size:16px}
+.att .d{font-size:14.5px;color:var(--grey2);margin-top:2px}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tile{border:1.5px solid var(--line);border-radius:16px;padding:20px 22px;cursor:pointer;background:#fff;text-align:left;display:flex;flex-direction:column;gap:6px}
+.tile:hover{border-color:#b9d3fb;background:#fbfdff}
+.tile .ic{color:var(--blue);margin-bottom:6px}
+.tile b{font-size:17px}
+.tile span{font-size:14px;color:var(--grey2)}
+.b103{display:flex;align-items:center;gap:16px;background:var(--red);color:#fff;border-radius:14px;padding:14px 20px;font-size:16px;font-weight:700;margin:22px 0;flex-wrap:wrap}
+.b103 .t{flex:1;min-width:220px}
+.b103 .t span{display:block;font-weight:400;font-size:14px;opacity:.9}
+.b103 a{font-family:KyivTypeSans,Daikon,sans-serif;font-size:30px;line-height:1;background:#fff;color:var(--red);border-radius:12px;padding:8px 18px}
+.b103.sm{font-size:14.5px;padding:10px 16px}.b103.sm a{font-size:20px;padding:6px 12px}
+
+/* ---------- карта та списки ---------- */
+.mapbox{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+.kmap{width:100%;height:auto;background:#fbfcfe;border-radius:16px}
+.kmap .dist{fill:#e9eff8;stroke:#fff;stroke-width:3;transition:fill .15s}
+.kmap .dist.sel{fill:#cfe0fb}
+.kmap .river{fill:none;stroke:#bfe0f7;stroke-width:16;stroke-linecap:round;pointer-events:none}
+.kmap .dl{font-size:12px;fill:#4a5361;text-anchor:middle;pointer-events:none;font-weight:600}
+.kmap .pin{cursor:pointer}
+.kmap .pin circle{fill:var(--blue);stroke:#fff;stroke-width:3}
+.kmap .pin.yes circle{fill:#22a447}.kmap .pin.low circle{fill:#f0a500}.kmap .pin.no circle{fill:#d83020}.kmap .pin.soon circle{fill:#0068ff}.kmap .pin.na circle{fill:#9aa0a8}.kmap .pin.home circle{fill:#000}
+.kmap .pin.hl circle{stroke:#000;stroke-width:3}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--grey2);margin-top:10px;flex-wrap:wrap}
+.legend i,.sd{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:0}
+.sd.yes{background:#22a447}.sd.low{background:#f0a500}.sd.no{background:#d83020}.sd.soon{background:#0068ff}.sd.na{background:#b4b9c0}
+.slist{display:flex;flex-direction:column;gap:10px;max-height:560px;overflow:auto;padding:2px}
+.sch{border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;transition:border-color .15s;background:#fff}
+.sch:hover{border-color:#b9d3fb}
+.sch.hl{border-color:var(--blue);background:var(--blue-l)}
+.sch.dim{opacity:.55}
+.sch .nm{font-weight:700;font-size:16px}
+.sch .ad{font-size:14px;color:var(--grey2);margin:2px 0 8px}
+.sch .row{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.bdg{display:flex;gap:6px;flex-wrap:wrap}
+.bdg span{font-size:12.5px;background:#f0f0f2;border-radius:7px;padding:3px 8px;color:#444}
+.bdg span.g{background:var(--ok-b);color:var(--ok);font-weight:600}
+.bdg span.r{background:var(--bad-b);color:var(--bad);font-weight:600}
+.bdg span.o{background:var(--warn-b);color:var(--warn);font-weight:600}
+.bdg span.a{background:var(--blue-b);color:#00598e}
+.bdg span.h{background:var(--pur-b);color:var(--pur-t);font-weight:600}
+.duty{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;border:1.5px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:12px}
+.duty .nm{font-weight:700;font-size:17px}
+.duty .tel{font-size:20px;font-weight:700;white-space:nowrap;color:#000}
+.meta{font-size:14px;color:var(--grey2);display:flex;gap:6px 18px;flex-wrap:wrap;margin:4px 0 18px}
+.meta b{color:var(--ink)}
+
+/* ---------- форма ---------- */
+.form{max-width:880px}
+.fsec{padding:26px 0;border-top:1px solid var(--line)}
+.fsec:first-of-type{border-top:0}
+.fsec h3{font-size:18px;font-weight:700;margin-bottom:4px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.fsec .hint{font-size:14.5px;color:var(--grey2);margin-bottom:14px}
+.prefill{display:grid;grid-template-columns:1fr 1fr;gap:4px 24px;background:#f7f7f9;border-radius:14px;padding:18px 20px}
+.opts{display:grid;gap:12px}
+.opts.c2{grid-template-columns:repeat(2,1fr)}
+.opts.c3{grid-template-columns:repeat(3,1fr)}
+.opt{border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;background:#fff;text-align:left}
+.opt:hover{border-color:#b9d3fb}
+.opt.on{border-color:var(--blue);background:var(--blue-l)}
+.opt b{display:block;font-size:16px}
+.opt span{font-size:13.5px;color:var(--grey2)}
+.opt .tg{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+.opt[disabled]{opacity:.45;pointer-events:none}
+.slots{display:flex;gap:8px;flex-wrap:wrap}
+.slots button{background:#f3f3f5;border:1.5px solid transparent;border-radius:10px;padding:8px 14px;font-weight:600;font-size:14.5px}
+.slots button.on{background:var(--blue-l);border-color:var(--blue);color:var(--blue)}
+.slots button:disabled{opacity:.35;text-decoration:line-through;cursor:default}
+.dayh{font-size:13.5px;color:var(--grey);margin:14px 0 6px;font-weight:600}
+.chkl .r{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line);font-size:15px}
+.chkl .r:first-child{border-top:0}
+.chkl .r .i{width:22px;flex:none;font-weight:700;text-align:center}
+.chkl .ok .i{color:var(--ok)}.chkl .q .i{color:var(--warn)}.chkl .no .i{color:var(--bad)}
+.chkl .r small{display:block;color:var(--grey2);font-size:13.5px}
+
+/* ---------- трекер ---------- */
+.trk{display:flex;margin:10px 0 24px}
+.trk .s{flex:1;position:relative;text-align:center;font-size:13.5px;color:var(--grey);padding-top:34px}
+.trk .s:before{content:"";position:absolute;top:11px;left:-50%;right:50%;height:3px;background:var(--line)}
+.trk .s:first-child:before{display:none}
+.trk .s i{position:absolute;top:0;left:50%;transform:translateX(-50%);width:25px;height:25px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 3px var(--line);z-index:1}
+.trk .s.done{color:var(--ink)}
+.trk .s.done i{background:var(--blue);box-shadow:none}
+.trk .s.done:before,.trk .s.cur:before{background:var(--blue)}
+.trk .s.cur{color:#000;font-weight:700}
+.trk .s.cur i{box-shadow:inset 0 0 0 3px var(--blue),0 0 0 5px rgba(0,104,255,.15)}
+.trk .s.cur.alert i{box-shadow:inset 0 0 0 3px #d83020,0 0 0 5px rgba(216,48,32,.15)}
+.inv{border-radius:18px;background:linear-gradient(140deg,#0068ff,#4b39ef);color:#fff;padding:24px 26px}
+.inv .cap{font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.85;font-weight:700}
+.inv h3{font-size:24px;margin:6px 0 14px;font-weight:700}
+.inv .g{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.inv .g div{background:rgba(255,255,255,.14);border-radius:12px;padding:10px 14px;font-size:13.5px}
+.inv .g b{display:block;font-size:15.5px}
+.inv ul{margin:14px 0 0;padding-left:20px;font-size:14.5px}
+.inv .btn{background:#fff;color:#000}
+.inv .btn.tr{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.6)}
+.tl{position:relative;padding-left:26px;margin-top:8px}
+.tl:before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl .ev{position:relative;padding:0 0 14px}
+.tl .ev:before{content:"";position:absolute;left:-25px;top:5px;width:10px;height:10px;border-radius:50%;background:#fff;border:3px solid var(--blue)}
+.tl .dt{font-size:13px;color:var(--grey)}
+.tl .tx{font-size:15px}
+.stl{display:grid;grid-template-columns:repeat(2,1fr);gap:0 28px}
+.stl .r{display:flex;gap:14px;align-items:baseline;padding:11px 0;border-top:1px solid var(--line);font-size:14.5px}
+.stl .r .st{flex:none;min-width:150px;text-align:center}
+
+/* ---------- довідки ---------- */
+.cert{border:1.5px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:12px;background:#fff}
+.cert.exp{border-color:#f3c98b;background:#fffaf1}
+.cert.old{opacity:.6}
+.cert .hd{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+.cert .nm{font-weight:700;font-size:16.5px}
+.cert .mt{font-size:14px;color:var(--grey2);margin-top:3px}
+.cert .snt{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+.cert .snt span{font-size:13px;background:var(--blue-l);color:#1b4d8c;border-radius:8px;padding:4px 10px}
+.cert .snt span.rv{background:#f0f0f2;color:#888;text-decoration:line-through}
+.cert .actions{margin-top:14px}
+.pgrp{display:flex;align-items:center;gap:10px;margin:28px 0 12px;font-size:18px;font-weight:700}
+.pgrp span{font-weight:400;color:var(--grey2);font-size:14.5px}
+.pdf{border:1px solid #d9dce1;border-radius:6px;padding:20px 22px;background:#fff;font-size:14px;line-height:1.5;box-shadow:0 6px 24px rgba(0,0,0,.06)}
+.pdf .org{font-size:12px;color:#666;border-bottom:1px solid #e5e5ea;padding-bottom:8px;margin-bottom:12px}
+.pdf h4{font-size:15.5px;text-align:center;margin:2px 0 14px;letter-spacing:.02em}
+.pdf .r{display:grid;grid-template-columns:150px 1fr;gap:10px;padding:5px 0;border-bottom:1px dashed #eceef1}
+.pdf .r span{color:#777}
+.pdf .sig{display:flex;gap:14px;align-items:center;margin-top:16px;background:#f2fbf3;border-radius:8px;padding:10px 12px;font-size:13px;color:#185c23}
+.qrm{width:64px;height:64px;flex:none;border-radius:6px;background:conic-gradient(from 90deg at 8px 8px,#000 25%,#fff 0) 0 0/16px 16px;opacity:.85}
+.alog{font-size:13.5px;margin-top:14px}
+.alog .r{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+
+/* ---------- кабінети ---------- */
+.shell{display:flex;align-items:stretch;min-height:calc(100vh - 112px)}
+.side{width:280px;flex:none;background:var(--side);padding:30px 0 40px}
+.side .who{padding:0 24px 22px;font-size:14px;color:var(--grey2)}
+.side .who b{display:block;color:#000;font-size:16px}
+.smenu .it{display:flex;align-items:center;gap:14px;min-height:50px;padding:10px 24px;font-size:14.5px;font-weight:700;color:var(--black);cursor:pointer;position:relative}
+.smenu .it:hover{background:#efeff1}
+.smenu .it.on{background:#fff;margin:0 12px;padding-left:12px}
+.smenu .it.on:before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--blue)}
+.smenu .it small{display:block;font-weight:400;color:var(--grey2);font-size:12.5px}
+.smenu .cap{padding:18px 24px 6px;font-size:12px;font-weight:700;color:var(--grey);letter-spacing:.05em;text-transform:uppercase}
+.cnt{margin-left:auto;background:var(--blue);color:#fff;border-radius:99px;min-width:25px;height:25px;display:inline-flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:400;padding:0 7px;flex:none}
+.cnt.warn{background:#e08a00}.cnt.bad{background:#d83020}
+.main{flex:1;min-width:0;padding:34px 32px 90px;background:#fff}
+.main h1.pt{font-size:28px}
+.mis{background:#fff8e6;border:1px dashed #e0b85a;color:#6b4a00;border-radius:12px;padding:10px 14px;font-size:13.5px;margin-bottom:22px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0}
+.kpis.k5{grid-template-columns:repeat(5,1fr)}
+.kpi{background:#f7f7f9;border-radius:14px;padding:14px 16px}
+.kpi .v{font-size:28px;font-weight:700;line-height:1.1}
+.kpi .l{font-size:13.5px;color:var(--grey2)}
+.kpi.warn{background:var(--warn-b)}.kpi.bad{background:var(--bad-b)}.kpi.ok{background:var(--ok-b)}
+.ctrls{display:flex;align-items:center;gap:10px;margin:0 0 14px;flex-wrap:wrap}
+.ctrls .sp{margin-left:auto}
+.table-x{overflow-x:auto}
+table.t{width:100%;border-collapse:collapse}
+table.t th{text-align:left;font-size:13.5px;font-weight:700;color:var(--ink);padding:14px 10px 12px;border-top:1px solid #d6d6da;border-bottom:1px solid #d6d6da;white-space:nowrap}
+table.t td{padding:12px 10px;border-bottom:1px solid #e3e3e7;font-size:14.5px;color:var(--ink);vertical-align:middle}
+table.t tr.cl{cursor:pointer}
+table.t tr.cl:hover td{background:#f4f8ff}
+table.t tr.me td{background:var(--unread)}
+table.t td.num{text-align:right;font-variant-numeric:tabular-nums}
+table.t th.num{text-align:right}
+.pm{display:inline-flex;gap:6px;align-items:center}
+.pm button{width:28px;height:28px;border-radius:8px;border:0;background:#f0f0f2;font-weight:700}
+.bars .r{display:grid;grid-template-columns:200px 1fr 90px;gap:12px;align-items:center;padding:7px 0;font-size:14.5px}
+.bars .tr{height:12px;border-radius:7px;background:#f0f0f2;overflow:hidden;position:relative}
+.bars .tr i{position:absolute;left:0;top:0;bottom:0;background:var(--blue);border-radius:7px}
+.bars .tr i.w{background:#e08a00}.bars .tr i.b{background:#d83020}.bars .tr i.g{background:#22a447}
+.meter{height:10px;border-radius:6px;background:#f0f0f2;overflow:hidden;margin:8px 0}
+.meter i{display:block;height:100%;background:#e08a00}
+
+/* drawer & modal */
+.drawer{position:fixed;top:0;right:0;bottom:0;width:500px;max-width:100%;background:#fff;box-shadow:-20px 0 60px rgba(0,0,0,.18);z-index:60;transform:translateX(105%);transition:transform .25s;overflow:auto;padding:28px 30px 40px}
+.drawer.on{transform:none}
+.drawer .x{position:absolute;right:18px;top:18px;width:36px;height:36px;border-radius:50%;border:0;background:#f3f3f5;font-size:20px}
+.drawer h3{font-size:21px;margin:0 40px 6px 0}
+.drawer h4{font-size:16px;margin:22px 0 10px}
+.overlay{position:fixed;inset:0;background:rgba(12,17,22,.55);z-index:70;display:grid;place-items:center;padding:20px}
+.overlay[hidden]{display:none}
+.mdl{background:#fff;border-radius:20px;padding:28px 30px;width:540px;max-width:100%;max-height:calc(100vh - 40px);overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.3)}
+.mdl h3{font-size:21px;margin-bottom:10px}
+.spin{width:44px;height:44px;border-radius:50%;border:4px solid #e6e6ea;border-top-color:#000;animation:sp 1s linear infinite;margin:20px auto}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* футер */
+.foot{background:var(--foot);color:#fff;padding:48px 40px 34px}
+.foot .cols{display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap}
+.foot .c1{width:260px}
+.foot .cap{font-size:13px;color:#aab3c2;margin-bottom:22px}
+.foot .c1 a{display:block;font-size:14.5px;font-weight:700;margin-bottom:17px}
+.foot .lg{margin-left:auto}
+.foot .lg img{height:40px}
+.foot hr{border:0;border-top:1px solid #33435c;margin:34px 0 26px}
+.foot .bot{display:flex;justify-content:space-between;gap:24px;font-size:14.5px;color:#c6ccd6;line-height:1.55;flex-wrap:wrap}
+.foot .bot b{color:#fff}
+
+/* ---------- путівник ---------- */
+.mock .tourbtn{border-color:#8b5cf6;color:#e4d2ff}
+.mock .tourbtn.on,.mock .tourbtn:hover{background:#7b2ff7;border-color:#7b2ff7;color:#fff}
+.tour{position:fixed;right:22px;bottom:22px;width:370px;max-height:calc(100vh - 80px);display:flex;flex-direction:column;background:#fff;border-radius:18px;
+  box-shadow:0 18px 60px rgba(12,17,22,.28),0 0 0 1px rgba(12,17,22,.06);z-index:80;overflow:hidden;font:14px/1.45 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#1d1d1f}
+.tour .th{background:#2b2f36;color:#fff;padding:13px 14px 13px 18px;display:flex;align-items:center;gap:10px;flex:none}
+.tour .th b{font-size:15px}
+.tour .th .pr{font-size:12.5px;color:#b8bec8;margin-left:auto}
+.tour .th button{background:transparent;border:0;color:#b8bec8;font-size:20px;line-height:1;padding:2px 6px;border-radius:8px}
+.tour .th button:hover{color:#fff;background:#3a3f48}
+.tour .tb{padding:18px 20px 20px;overflow:auto}
+.tour .intro{color:#323232;margin:0 0 14px}
+.tour .fl{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:1px solid #e5e5ea;border-radius:12px;padding:10px 12px;margin-bottom:8px;font:inherit}
+.tour .fl:hover{border-color:#7b2ff7;background:#faf6ff}
+.tour .fl .no{width:26px;height:26px;border-radius:50%;background:#f3e8ff;color:#5b12b5;font-weight:800;font-size:12.5px;display:grid;place-items:center;flex:none}
+.tour .fl.ok .no{background:#e8f7ea;color:#1f7a2e}
+.tour .fl .nm{font-weight:700;font-size:14px;line-height:1.3;display:block}
+.tour .fl .ds{font-size:12.5px;color:#6e6e6e;margin-top:2px;line-height:1.35;display:block}
+.tour .fl .rl{margin-left:auto;font-size:12px;color:#6e6e6e;white-space:nowrap}
+.tour .kick{font-size:12px;font-weight:800;color:#7b2ff7;letter-spacing:.04em;text-transform:uppercase}
+.tour h4{font-size:17px;margin:4px 0 12px}
+.tour .bar{display:flex;gap:4px;margin-bottom:16px}
+.tour .bar i{flex:1;height:4px;border-radius:4px;background:#e5e5ea}
+.tour .bar i.d{background:#35ac46}
+.tour .bar i.c{background:#7b2ff7}
+.tour .txt{font-size:14.5px;line-height:1.55}
+.tour .ok-msg{background:#e8f7ea;color:#1f7a2e;border-radius:10px;padding:10px 12px;font-weight:700;font-size:13.5px;margin-top:14px}
+.tour .ta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tour .ta .btn{height:auto;padding:10px 16px;font:700 13.5px/1.2 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;border-radius:10px}
+.tour .ta .btn.pur{background:#7b2ff7;color:#fff}
+.tour .ta .btn.pur:hover{background:#6420d4}
+.tour .ta .lnk{background:none;border:0;color:#6e6e6e;font-size:13.5px}
+.tour .tlinks{display:flex;gap:18px;margin-top:12px}
+.tour .tlinks button{background:none;border:0;padding:0;color:#6e6e6e;font-size:13px}
+.tour .tlinks button:hover{color:#1d1d1f}
+.tour-hl{outline:3px solid #7b2ff7!important;outline-offset:4px;border-radius:12px;animation:tpulse 1.6s ease-out infinite}
+@keyframes tpulse{0%{box-shadow:0 0 0 0 rgba(123,47,247,.45)}70%{box-shadow:0 0 0 14px rgba(123,47,247,0)}100%{box-shadow:0 0 0 0 rgba(123,47,247,0)}}
+body.tour-open .toast{right:414px}
+@media(min-width:1200px){body.tour-open .portal{margin-right:392px}body.tour-open .drawer.on{right:392px}}
+
+[hidden]{display:none!important}
+.mapbox>*,.g2>*,.g3>*{min-width:0}
+
+@media(max-width:1100px){
+  .mapbox{grid-template-columns:1fr}
+  .kpis,.kpis.k5{grid-template-columns:repeat(2,1fr)}
+  .tiles{grid-template-columns:repeat(2,1fr)}
+  .shell{flex-direction:column}.side{width:auto;padding:12px 0}.smenu{display:flex;overflow-x:auto}.side .who,.smenu .cap{display:none}.smenu .it small{display:none}.smenu .it{white-space:nowrap}
+  .hnav{display:none}
+}
+@media(max-width:700px){
+  .wrap,.main{padding:20px 16px 60px}.vnav{padding:0 16px}
+  h1.pt{font-size:26px}
+  .g2,.g3,.stl,.opts.c2,.opts.c3,.prefill,.inv .g,.tiles{grid-template-columns:1fr}
+  .att{grid-template-columns:44px 1fr}.att>.btn{grid-column:1/-1}
+  .duty{grid-template-columns:1fr}
+  .bars .r{grid-template-columns:110px 1fr 70px}
+  .pdf .r{grid-template-columns:1fr}
+  .mock .hint{display:none}
+  .uchip span{display:none}
+  .trk .s{font-size:11.5px}
+  .foot{padding:36px 16px}
+  .tour{left:10px;right:10px;width:auto;bottom:10px;max-height:55vh}body.tour-open .toast{right:24px;bottom:auto;top:60px}
+}
+</style>
+</head>
+<body>
+
+<div class="mock">
+  <span class="lbl">Макет · Здоров’я</span>
+  <button class="tab on" data-role="res">Мешканка</button>
+  <button class="tab" data-role="doc">Лікар · МІС</button>
+  <button class="tab" data-role="hosp">Лікарня</button>
+  <button class="tab" data-role="edu">Заклад освіти</button>
+  <button class="tab" data-role="doz">ДОЗ</button>
+  <span class="sep"></span>
+  <label class="scn">Дані про чергування: <select id="staleSel" data-c="stale">
+    <option value="0">актуальні</option>
+    <option value="1">застарілі</option>
+  </select></label>
+  <button class="tab" id="resetBtn">Скинути</button>
+  <button class="tab tourbtn" id="tourbtn">🧭 Путівник</button>
+  <span class="hint">Позначка <b>ідея</b> — понад аналіз ДОЗ · дані демонстраційні</span>
+</div>
+
+<div class="portal">
+<div class="hdr">
+  <a class="logo" href="#"><img src="img/logo.svg" alt="Портал послуг Kyiv.Digital"></a>
+  <div class="hnav"><a href="#" class="on">Здоров’я</a><a href="#">Освіта</a><a href="#">Транспорт</a></div>
+  <div class="uchip"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="10" r="3.2"/><path d="M6.4 18.3c1.3-2.3 3.2-3.4 5.6-3.4s4.3 1.1 5.6 3.4"/></svg><span id="uname">Мельник І. О.</span></div>
+</div>
+
+<!-- ===================== МЕШКАНКА ===================== -->
+<div id="v-res">
+  <div class="vnav" id="rNav">
+    <a data-a="go" data-v="home">Моє здоров’я</a>
+    <a data-a="go" data-v="hosp">Госпіталізація</a>
+    <a data-a="go" data-v="duty">Чергові лікарні</a>
+    <a data-a="go" data-v="rx">Ліки за програмою</a>
+    <a data-a="go" data-v="vac">Щеплення</a>
+    <a data-a="go" data-v="cert">Медичні довідки</a>
+  </div>
+  <div class="wrap" id="rMain"></div>
+</div>
+
+<!-- ===================== ЛІКАР · МІС ===================== -->
+<div id="v-doc" class="shell" hidden>
+  <aside class="side">
+    <div class="who"><b>Ковальчук О. В.</b>Сімейна лікарка · КНП «ЦПМСД № 3 Дніпровського р-ну»</div>
+    <div class="smenu" id="dMenu"></div>
+  </aside>
+  <div class="main" id="dMain"></div>
+</div>
+
+<!-- ===================== ЛІКАРНЯ ===================== -->
+<div id="v-hosp" class="shell" hidden>
+  <aside class="side">
+    <div class="who"><b>Лікарня Лівого берега</b>Приймальне відділення · завідувачі відділень</div>
+    <div class="smenu" id="hMenu"></div>
+  </aside>
+  <div class="main" id="hMain"></div>
+</div>
+
+<!-- ===================== ЗАКЛАД ОСВІТИ ===================== -->
+<div id="v-edu" class="shell" hidden>
+  <aside class="side">
+    <div class="who"><b>Кабінет закладу освіти</b>Медична сестра або відповідальна особа</div>
+    <div class="smenu" id="eMenu"></div>
+  </aside>
+  <div class="main" id="eMain"></div>
+</div>
+
+<!-- ===================== ДОЗ ===================== -->
+<div id="v-doz" class="shell" hidden>
+  <aside class="side">
+    <div class="who"><b>Департамент охорони здоров’я</b>Панель міста</div>
+    <div class="smenu" id="zMenu"></div>
+  </aside>
+  <div class="main" id="zMain"></div>
+</div>
+
+<footer class="foot">
+  <div class="cols">
+    <div class="c1"><div class="cap">Міська платформа</div><a href="#">Каталог сервісів</a><a href="#">Часті питання</a><a href="#">Новини міста</a></div>
+    <div class="lg"><img src="img/logo.svg" alt="Портал послуг"></div>
+  </div>
+  <hr>
+  <div class="bot"><div>Веб-портал надання електронних послуг<br>2026 © Київська міська державна адміністрація, Київська міська рада</div>
+  <div>E-mail: <b>support.my@kyivcity.gov.ua</b><br>Тел. <b>(044) 366-80-27</b></div></div>
+</footer>
+</div>
+
+<div class="drawer" id="drawer"><button class="x" id="drX" aria-label="Закрити">×</button><div id="drBody"></div></div>
+<div class="overlay" id="ovl" hidden><div class="mdl" id="mdl"></div></div>
+<div class="toast" id="toast"></div>
+<div class="tour" id="tour" hidden>
+  <div class="th"><b>🧭 Путівник</b><span class="pr" id="tour-pr"></span><button id="tour-x" title="Згорнути">×</button></div>
+  <div class="tb" id="tour-body"></div>
+</div>
+
+<script>
+/* ================= ДАНІ ================= */
+const TODAY='2026-10-20',NOW='09:40';
+const DIST=[
+ ['Оболонський','130,25 298,12 306,118 205,150 122,108',214,78],
+ ['Святошинський','22,125 122,108 205,150 192,250 40,262',112,192],
+ ['Подільський','205,150 306,118 318,188 252,214 196,206',257,172],
+ ['Шевченківський','196,206 252,214 318,188 326,252 270,292 192,250',258,248],
+ ['Печерський','270,292 326,252 342,342 300,352',314,316],
+ ['Солом’янський','40,262 192,250 270,292 300,352 222,382 62,352',170,316],
+ ['Голосіївський','62,352 222,382 300,352 342,342 348,505 205,512 112,445',245,440],
+ ['Деснянський','322,12 540,40 572,170 420,190 326,140',452,100],
+ ['Дніпровський','326,140 420,190 572,170 562,300 356,300 340,205',458,240],
+ ['Дарницький','356,300 562,300 542,470 382,500 352,400',458,400]
+];
+const DN=DIST.map(d=>d[0]);
+const DC=Object.fromEntries(DIST.map(d=>[d[0],[d[2],d[3]]]));
+
+const PPL={
+ iryna:{n:'Ірина',gen:'вас',full:'Мельник Ірина Олександрівна',sh:'Мельник І. О.',b:'1988-04-09',age:'38 р.',av:'',rel:'я'},
+ sofia:{n:'Софія',gen:'Софії',full:'Мельник Софія Андріївна',sh:'Мельник С. А.',b:'2018-05-14',age:'8 р.',av:'s',rel:'донька',kid:1},
+ marko:{n:'Марко',gen:'Марка',full:'Мельник Марко Андрійович',sh:'Мельник М. А.',b:'2020-03-02',age:'6 р.',av:'m',rel:'син',kid:1}
+};
+const LAST_EXAM={sofia:'2026-08-20',marko:'2025-11-05',iryna:null};
+const DOC='Ковальчук О. В.',DOCF='Ковальчук Олена Вікторівна',ORG='КНП «ЦПМСД № 3 Дніпровського району»';
+
+const HOSP=[
+ {id:'h1',n:'Лікарня Лівого берега',d:'Дніпровський',a:'просп. Соборності, 17',x:478,y:262,svc:['Хірургія','Терапія','Травматологія'],int:1,upd:'08:15',ph:'(044) 000-21-01',acc:'Пандус, ліфт, доступний санвузол',
+  deps:[{n:'Хірургія № 1',p:'Хірургія',total:40,occ:36,docs:['Савчук П. Р.','Лисенко А. М.']},{n:'Хірургія № 2',p:'Хірургія',total:30,occ:28,docs:['Мороз О. І.']},{n:'Терапія',p:'Терапія',total:60,occ:57,docs:['Гуменюк Л. С.']},{n:'Травматологія',p:'Травматологія',total:35,occ:33,docs:['Дячук В. В.']}]},
+ {id:'h2',n:'Центральна міська лікарня',d:'Шевченківський',a:'вул. Січових Стрільців, 40',x:292,y:224,svc:['Хірургія','Терапія','Неврологія'],int:1,upd:'07:50',ph:'(044) 000-21-02',acc:'Пандус, ліфт',
+  deps:[{n:'Хірургія',p:'Хірургія',free:0,docs:['Петренко Ю. А.']},{n:'Терапія',p:'Терапія',free:5},{n:'Неврологія',p:'Неврологія',free:1}]},
+ {id:'h3',n:'Лікарня Оболоні',d:'Оболонський',a:'просп. Володимира Івасюка, 12',x:214,y:100,svc:['Хірургія','Терапія','Травматологія'],int:1,upd:'09:05',ph:'(044) 000-21-03',acc:'Пандус',
+  deps:[{n:'Хірургія',p:'Хірургія',free:2,docs:['Марченко Д. О.']},{n:'Терапія',p:'Терапія',free:4},{n:'Травматологія',p:'Травматологія',free:1}]},
+ {id:'h4',n:'Лікарня Святошина',d:'Святошинський',a:'просп. Берестейський, 98',x:76,y:166,svc:['Хірургія','Терапія'],int:0,ph:'(044) 000-21-04',acc:'Ліфт',
+  deps:[{n:'Хірургія',p:'Хірургія'},{n:'Терапія',p:'Терапія'}]},
+ {id:'h5',n:'Лікарня Голосієва',d:'Голосіївський',a:'просп. Голосіївський, 59',x:226,y:476,svc:['Хірургія','Урологія','Терапія'],int:1,upd:'06:40',ph:'(044) 000-21-05',acc:'Пандус, ліфт',
+  deps:[{n:'Хірургія',p:'Хірургія',free:4,docs:['Кузьменко С. І.']},{n:'Урологія',p:'Урологія',free:2},{n:'Терапія',p:'Терапія',free:3}]},
+ {id:'h6',n:'Кардіологічний центр',d:'Печерський',a:'вул. Мечникова, 9',x:312,y:322,svc:['Кардіологія','Кардіохірургія'],int:1,upd:'08:30',ph:'(044) 000-21-06',acc:'Пандус, ліфт',
+  deps:[{n:'Кардіологія',p:'Кардіологія',free:3}]},
+ {id:'h7',n:'Дитяча лікарня Дарниці',d:'Дарницький',a:'вул. Ревуцького, 21',x:496,y:440,svc:['Хірургія (діти)','Травматологія (діти)','Педіатрія'],int:1,ped:1,ph:'(044) 000-21-07',acc:'Пандус, ліфт',deps:[]},
+ {id:'h8',n:'Перинатальний центр Лівобережний',d:'Деснянський',a:'просп. Лісовий, 30',x:384,y:120,svc:['Акушерство і гінекологія'],int:1,ph:'(044) 000-21-08',acc:'Пандус, ліфт',deps:[]},
+ {id:'h9',n:'Міська інфекційна лікарня',d:'Солом’янський',a:'просп. Повітряних Сил, 52',x:104,y:300,svc:['Інфекційні хвороби'],int:1,ph:'(044) 000-21-09',acc:'Пандус',deps:[]},
+ {id:'h10',n:'Дитяча лікарня Правого берега',d:'Солом’янський',a:'вул. Чоколівська, 14',x:204,y:292,svc:['Педіатрія','Інфекційні хвороби (діти)','Терапія (діти)'],int:1,ped:1,ph:'(044) 000-21-10',acc:'Пандус, ліфт',deps:[]}
+];
+const H=id=>HOSP.find(h=>h.id===id);
+const DPROF=['Хірургія','Терапія','Травматологія','Акушерство і гінекологія','Інфекційні хвороби'];
+const DUTY={
+ 'Хірургія':{adult:['h1','h3'],child:['h7']},
+ 'Терапія':{adult:['h2','h5'],child:['h10']},
+ 'Травматологія':{adult:['h1','h3'],child:['h7']},
+ 'Акушерство і гінекологія':{adult:['h8'],child:[]},
+ 'Інфекційні хвороби':{adult:['h9'],child:['h10']}
+};
+
+const KDC={kd1:'КДЦ Дніпровського р-ну',kd2:'КДЦ Шевченківського р-ну',kd3:'КДЦ Оболонського р-ну',kd4:'КДЦ Дарницького р-ну',kd5:'КДЦ Голосіївського р-ну',kd6:'КДЦ Святошинського р-ну'};
+const PH=[
+ {id:'p1',n:'Аптека КП «Фармація» № 45',own:'комунальна',d:'Дніпровський',a:'вул. Андрія Малишка, 3',x:506,y:212,kdc:'kd1',h:'08:00–21:00',open:1,st:'yes',upd:'09:10',erx:1},
+ {id:'p2',n:'Аптека КП «Фармація» № 12',own:'комунальна',d:'Дніпровський',a:'бульв. Перова, 26',x:420,y:200,kdc:'kd1',h:'10:00–20:00',open:0,st:'low',upd:'08:55',erx:1},
+ {id:'p3',n:'Аптека «Добра»',own:'приватна',d:'Деснянський',a:'просп. Червоної Калини, 17',x:506,y:140,kdc:'kd1',h:'цілодобово',open:1,st:'no',upd:'09:00',erx:1},
+ {id:'p4',n:'Аптека КП «Фармація» № 7',own:'комунальна',d:'Шевченківський',a:'вул. Богдана Хмельницького, 32',x:300,y:228,kdc:'kd2',h:'08:00–20:00',open:1,st:'yes',upd:'08:40',erx:1},
+ {id:'p5',n:'Аптека «Здорова родина»',own:'приватна',d:'Оболонський',a:'просп. Оболонський, 21',x:240,y:70,kdc:'kd3',h:'08:00–22:00',open:1,st:null,erx:1},
+ {id:'p6',n:'Аптека КП «Фармація» № 31',own:'комунальна',d:'Дарницький',a:'вул. Тростянецька, 6',x:430,y:440,kdc:'kd4',h:'08:00–20:00',open:1,st:'yes',upd:'09:20',erx:1},
+ {id:'p7',n:'Аптека КП «Фармація» № 3',own:'комунальна',d:'Голосіївський',a:'просп. Голосіївський, 120',x:262,y:410,kdc:'kd5',h:'09:00–19:00',open:0,st:'low',upd:'08:05',erx:1},
+ {id:'p8',n:'Аптека «Ліки поруч»',own:'приватна',d:'Святошинський',a:'вул. Якуба Коласа, 15',x:76,y:220,kdc:'kd6',h:'08:00–21:00',open:1,st:null,erx:0}
+];
+const ST={yes:['Є','g','yes'],low:['Мало','o','low'],no:['Немає','r','no'],soon:['Очікується','a','soon'],na:['Немає даних','','na']};
+
+const CL=[
+ {id:'c1',n:'ЦПМСД № 3 Дніпровського р-ну, АЗПСМ № 2',decl:1,d:'Дніпровський',a:'вул. Попудренка, 10',x:446,y:212,room:'Кабінет щеплень № 3'},
+ {id:'c2',n:'ЦПМСД № 1 Дніпровського р-ну, АЗПСМ № 5',d:'Дніпровський',a:'вул. Райдужна, 33',x:500,y:268,room:'Кабінет щеплень'},
+ {id:'c3',n:'ЦПМСД № 2 Деснянського р-ну',d:'Деснянський',a:'вул. Закревського, 81',x:396,y:62,room:'Кабінет щеплень'},
+ {id:'c4',n:'ЦПМСД № 1 Дарницького р-ну',d:'Дарницький',a:'вул. Вербицького, 5',x:448,y:350,room:'Кабінет щеплень'},
+ {id:'c5',n:'ЦПМСД № 1 Подільського р-ну',d:'Подільський',a:'вул. Межигірська, 28',x:236,y:192,room:'Кабінет щеплень'}
+];
+const VSTAT={c2:{'КПК':'yes','АДП':'yes','ОПВ':'yes','АДП-М':'yes'},c3:{'КПК':'soon','АДП':'yes','ОПВ':'low','АДП-М':'yes'},c4:{'КПК':'yes','АДП':'low','ОПВ':'yes','АДП-М':'no'},c5:{'КПК':'no','АДП':'yes','ОПВ':'yes','АДП-М':'yes'}};
+const VNAME={'КПК':'КПК — кір, паротит, краснуха','АДП':'АДП — дифтерія, правець','ОПВ':'Поліомієліт (ОПВ)','АДП-М':'АДП-М — для дорослих'};
+const VSLOTS={'2026-10-20':['14:30','15:00','15:40','16:20'],'2026-10-21':['09:00','09:20','11:40','13:00','15:20'],'2026-10-22':['09:40','10:00','14:30','16:00'],'2026-10-23':['09:00','11:00','12:20']};
+const VBUSY=['2026-10-20 15:00','2026-10-21 09:20','2026-10-22 10:00'];
+
+const STOCK=[
+ {id:'s1',vac:'КПК',ser:'KPK-2611',mfr:'Виробник А',got:100,used:93,exp:'2027-05-31',pl:'Холодильник 1, полиця 2'},
+ {id:'s2',vac:'АДП',ser:'ADP-1904',mfr:'Виробник Б',got:60,used:38,exp:'2026-11-14',pl:'Холодильник 1, полиця 1'},
+ {id:'s3',vac:'ОПВ',ser:'OPV-3310',mfr:'Виробник В',got:80,used:51,exp:'2027-02-28',pl:'Морозильна камера'},
+ {id:'s4',vac:'АКДП',ser:'AKDP-0712',mfr:'Виробник Б',got:50,used:41,exp:'2026-10-26',pl:'Холодильник 1, полиця 1'},
+ {id:'s5',vac:'Гепатит B',ser:'HBV-5521',mfr:'Виробник Г',got:40,used:12,exp:'2027-01-10',pl:'Холодильник 2'},
+ {id:'s6',vac:'Hib',ser:'HIB-2290',mfr:'Виробник А',got:30,used:17,exp:'2027-08-01',pl:'Холодильник 2'},
+ {id:'s7',vac:'АДП-М',ser:'ADPM-4410',mfr:'Виробник Б',got:40,used:22,exp:'2027-03-31',pl:'Холодильник 2'}
+];
+
+const VCAL={
+ marko:[
+  {v:'Гепатит B',dose:'1-ша доза',date:'2020-03-02',st:'done'},{v:'БЦЖ',dose:'',date:'2020-03-05',st:'done'},{v:'Гепатит B',dose:'2-га доза',date:'2020-04-03',st:'done'},
+  {v:'АКДП',dose:'1-ша доза',date:'2020-05-04',st:'done'},{v:'Поліомієліт (ІПВ)',dose:'1-ша доза',date:'2020-05-04',st:'done'},{v:'Hib',dose:'1-ша доза',date:'2020-05-04',st:'done'},
+  {v:'АКДП',dose:'2-га доза',date:'2020-07-06',st:'done'},{v:'Поліомієліт (ІПВ)',dose:'2-га доза',date:'2020-07-06',st:'done'},
+  {v:'АКДП',dose:'3-тя доза',date:'2020-09-07',st:'done'},{v:'Поліомієліт (ОПВ)',dose:'3-тя доза',date:'2020-09-07',st:'done'},{v:'Гепатит B',dose:'3-тя доза',date:'2020-09-07',st:'done'},
+  {v:'КПК',dose:'1-ша доза',date:'2021-03-15',st:'done'},{v:'Hib',dose:'3-тя доза',date:'2021-03-15',st:'done'},
+  {v:'АКДП',dose:'4-та доза',date:'2021-09-06',st:'done'},{v:'Поліомієліт (ОПВ)',dose:'4-та доза',date:'2021-09-06',st:'done'},
+  {v:'КПК',k:'КПК',dose:'2-га доза',date:'2026-03-02',st:'due'},{v:'АДП',k:'АДП',dose:'ревакцинація',date:'2026-03-02',st:'due'},{v:'Поліомієліт (ОПВ)',k:'ОПВ',dose:'5-та доза',date:'2026-03-02',st:'due'}
+ ],
+ sofia:[
+  {v:'Гепатит B',dose:'1-ша доза',date:'2018-05-14',st:'nodata'},{v:'БЦЖ',dose:'',date:'2018-05-17',st:'nodata'},{v:'АКДП',dose:'1-ша доза',date:'2018-07-16',st:'nodata'},
+  {v:'Поліомієліт (ІПВ)',dose:'1-ша доза',date:'2018-07-16',st:'nodata'},{v:'Hib',dose:'1-ша доза',date:'2018-07-16',st:'nodata'},
+  {v:'КПК',dose:'1-ша доза',date:'2019-05-20',st:'done'},{v:'Hib',dose:'3-тя доза',date:'2019-05-20',st:'done'},
+  {v:'АКДП',dose:'4-та доза',date:'2019-11-18',st:'done'},{v:'Поліомієліт (ОПВ)',dose:'4-та доза',date:'2019-11-18',st:'done'},
+  {v:'КПК',dose:'2-га доза',date:'2024-06-10',st:'done'},{v:'АДП',dose:'ревакцинація',date:'2024-06-10',st:'done'},{v:'Поліомієліт (ОПВ)',dose:'5-та доза',date:'2024-06-10',st:'done'},
+  {v:'АДП-М',dose:'ревакцинація у 16 років',date:'2034-05-14',st:'plan'}
+ ],
+ iryna:[
+  {v:'АДП-М',dose:'ревакцинація',date:'2014-04-09',st:'nodata'},
+  {v:'COVID-19',dose:'1-ша доза',date:'2021-06-10',st:'done'},{v:'COVID-19',dose:'2-га доза',date:'2021-07-08',st:'done'},
+  {v:'АДП-М',k:'АДП-М',dose:'ревакцинація кожні 10 років',date:'2024-04-09',st:'missed'}
+ ]
+};
+const VST={done:['Виконано','ok'],due:['Настав час','pur'],booked:['Заплановано','info'],missed:['Пропущено','wait'],nodata:['Немає даних','grey'],plan:['За календарем','grey']};
+
+const EDU={
+ e1:{n:'ЗДО № 587',full:'Заклад дошкільної освіти (ясла-садок) № 587',kind:'Садок',grp:'Група «Сонечко», старша',kid:'marko',size:18,seed:3},
+ e2:{n:'Ліцей № 142',full:'Ліцей № 142 Дніпровського району',kind:'Школа',grp:'3-Б клас',kid:'sofia',size:24,seed:7},
+ e3:{n:'ЦПО «Дніпровський» · гурток «Плавання»',full:'Центр позашкільної освіти «Дніпровський»',kind:'Гурток',grp:'Гурток «Плавання», група початківців, пн і ср о 17:00',kid:'sofia',size:12,seed:11},
+ e4:{n:'ДЮСШ № 7 · секція гімнастики',full:'Дитячо-юнацька спортивна школа № 7',kind:'Секція',size:0},
+ e5:{n:'Приватна школа «Ерудит»',full:'Приватна школа «Ерудит»',kind:'Школа',size:0,off:1}
+};
+const KIDEDU={sofia:['e2','e3'],marko:['e1']};
+
+const CT={
+ '086':{f:'086/о',n:'Медична довідка для закладу освіти',for:'Садок, школа, гурток, секція',who:'kid',v:'exam'},
+ '063':{f:'063/о',n:'Карта профілактичних щеплень',for:'Садок, школа, табір',who:'kid',v:'no'},
+ 'vac':{f:'Довідка',n:'Довідка про проведення щеплення',for:'Садок, школа, робота',who:'all',v:'no'},
+ 'icv':{f:'МСВ',n:'Міжнародне свідоцтво про вакцинацію',for:'Подорожі',who:'all',v:'no',w:1},
+ 'camp':{f:'Табір',n:'Довідка для табору',for:'Табір, оздоровлення',who:'kid',v:'yes',w:1},
+ '027':{f:'027/о',n:'Виписка з медичної карти',for:'Інший лікар, робота',who:'adult',v:'mis'},
+ '028':{f:'028/о',n:'Консультативний висновок спеціаліста',for:'Сімейний лікар, заклад',who:'adult',v:'mis'},
+ '070':{f:'070/о',n:'Довідка для санаторно-курортної путівки',for:'Санаторій',who:'adult',v:'yes'},
+ '095':{f:'095/о',n:'Довідка про непрацездатність студента',for:'Коледж, університет',who:'adult',v:'yes'}
+};
+const CSLOTS=['2026-10-20 11:20','2026-10-20 15:40','2026-10-21 10:20','2026-10-22 09:40'];
+
+const RX_DRUGS={
+ mtx:{n:'Метотрексат',f:'табл. 2,5 мг № 50',inn:'Methotrexatum'},
+ enal:{n:'Еналаприл',f:'табл. 10 мг № 30',inn:'Enalaprilum'},
+ fol:{n:'Фолієва кислота',f:'табл. 5 мг № 50',inn:'Acidum folicum'}
+};
+
+const HREQ_DEMO=[
+ {id:'r1',pt:'Гончаренко В. П.',age:67,dep:'Хірургія № 1',from:'2026-10-26',to:'2026-11-06',at:'2026-10-19',sla:'2026-10-21',st:'sent'},
+ {id:'r2',pt:'Литвин О. С.',age:54,dep:'Травматологія',from:'2026-10-22',to:'2026-10-30',at:'2026-10-16',sla:'2026-10-20',st:'sent'},
+ {id:'r3',pt:'Остапчук Н. В.',age:45,dep:'Хірургія № 2',from:'2026-10-27',to:'2026-11-03',at:'2026-10-15',sla:'2026-10-17',st:'confirmed',date:'2026-10-28',time:'08:00'},
+ {id:'r4',pt:'Білик Т. М.',age:71,dep:'Терапія',from:'2026-10-21',to:'2026-10-25',at:'2026-10-14',sla:'2026-10-16',st:'confirmed',date:'2026-10-23',time:'09:00'},
+ {id:'r5',pt:'Сорока І. Д.',age:39,dep:'Хірургія № 1',from:'2026-10-20',to:'2026-10-31',at:'2026-10-13',sla:'2026-10-15',st:'declined',reason:'Послуга не профільна для відділення'},
+ {id:'r6',pt:'Кириленко М. О.',age:58,dep:'Хірургія № 1',from:'2026-11-02',to:'2026-11-20',at:'2026-10-20',sla:'2026-10-22',st:'sent'}
+];
+const CREQ_DEMO=[
+ {id:'q91',pt:'Ткаченко Даниїл',age:'7 р.',t:'086',deliver:'Ліцей № 142',at:'2026-10-19',exam:'2026-10-20 09:00',st:'pending'},
+ {id:'q92',pt:'Руденко Аліна',age:'19 р.',t:'095',deliver:'Посилання для університету',at:'2026-10-19',st:'pending'},
+ {id:'q93',pt:'Бойко Мирослава',age:'5 р.',t:'063',deliver:'ЗДО № 587',at:'2026-10-20',st:'pending'}
+];
+const VDAY=[
+ {t:'10:00',pt:'Гриценко Ярослав, 1 р.',v:'КПК (1-ша), Hib (3-тя)',st:'done'},
+ {t:'11:30',pt:'Павленко Олена, 45 р.',v:'АДП-М',st:'done'},
+ {t:'13:00',pt:'Ярошенко Лука, 4 міс.',v:'АКДП (2-га), ІПВ (2-га)',st:'done'},
+ {t:'15:40',pt:'Соловйов Ілля, 18 міс.',v:'АКДП (4-та), ОПВ (4-та)',st:'booked'}
+];
+
+function seed(){
+  const J=x=>JSON.parse(JSON.stringify(x));
+  return {
+    role:'res',rv:'home',docv:'cert',hv:'req',edu:'e1',zv:'home',stale:false,
+    ref:{no:'0571-3920-4416-8803',svc:'Хірургічні операції дорослим у стаціонарі',prof:'Хірургія',created:'2026-10-14',by:DOC,until:'2027-10-14'},
+    hf:{d:'',free:false,all:false},hsel:null,hform:{dep:null,doc:'',from:'2026-11-01',to:'2026-11-15',note:''},
+    hreq:null,hreqs:J(HREQ_DEMO),
+    beds:J(HOSP[0].deps).map(d=>({...d,res:0,src:'МІС',upd:'08:15'})),dutyConf:false,
+    dprof:'Хірургія',dage:'adult',ddist:'Дніпровський',
+    rx:[{id:'x0',drug:'Метотрексат',form:'табл. 2,5 мг № 50',date:'2026-09-16',until:'2026-10-16',status:'used',usedAt:'2026-09-17',ph:'p1',no:'3K7P-0M2X-91QA-55T0'},
+        {id:'x1',drug:'Метотрексат',form:'табл. 2,5 мг № 50',dose:'по 4 табл. 1 раз на тиждень',date:'2026-10-15',until:'2026-11-14',status:'active',no:'4A7K-2M9P-8XQ3-11F0',code:'4821'}],
+    rxCode:false,phAll:false,phNow:false,phSel:null,rxf:{drug:'',nos:false,remote:false},
+    vp:'marko',vq:'',vbook:null,vsel:{c:null,d:'2026-10-20',t:'14:30'},vcal:J(VCAL),stock:J(STOCK),redis:null,vnote:[],
+    certs:[
+      {id:'k1',p:'sofia',t:'086',date:'2026-08-20',until:'2027-08-20',concl:'Може відвідувати заклад освіти',pe:'Основна',sent:[{e:'e2',at:'2026-08-21',seen:'2026-08-24'}]},
+      {id:'k2',p:'sofia',t:'063',date:'2026-08-20',sent:[{e:'e2',at:'2026-08-21',seen:'2026-08-24'}]},
+      {id:'k3',p:'marko',t:'086',date:'2025-11-05',until:'2026-11-05',concl:'Може відвідувати заклад освіти',pe:'Основна',sent:[{e:'e1',at:'2025-11-06',seen:'2025-11-07'}]},
+      {id:'k4',p:'marko',t:'063',date:'2025-11-05',auto:true,sent:[{e:'e1',at:'2025-11-06',seen:'2025-11-07'}]},
+      {id:'k5',p:'iryna',t:'vac',date:'2021-07-08',note:'COVID-19, 2 дози',sent:[]}
+    ],
+    creq:[],creqDemo:J(CREQ_DEMO),cf:null,share:null,vday:J(VDAY),reminded:{}
+  };
+}
+let S=seed();
+
+/* ================= УТИЛІТИ ================= */
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+const iso=d=>d.toISOString().slice(0,10);
+const addD=(s,n)=>{const d=new Date(s+'T12:00:00');d.setDate(d.getDate()+n);return iso(d)};
+const fmt=s=>s?s.slice(8,10)+'.'+s.slice(5,7)+'.'+s.slice(0,4):'—';
+const MON=['січня','лютого','березня','квітня','травня','червня','липня','серпня','вересня','жовтня','листопада','грудня'];
+const fmtL=s=>+s.slice(8,10)+' '+MON[+s.slice(5,7)-1];
+const WD=['неділя','понеділок','вівторок','середа','четвер','пʼятниця','субота'];
+const wdL=s=>WD[new Date(s+'T12:00:00').getDay()];
+const dayL=s=>s===TODAY?'сьогодні':s===addD(TODAY,1)?'завтра':wdL(s);
+const daysBetween=(a,b)=>Math.round((new Date(b+'T12:00:00')-new Date(a+'T12:00:00'))/864e5);
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+let tT;function toast(h){const t=$('#toast');t.innerHTML=h;t.classList.add('on');clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('on'),4200)}
+function notify(txt){toast('📩 <b>«Київ Цифровий» + SMS</b><br>'+txt)}
+function modal(h){$('#mdl').innerHTML=h;$('#ovl').hidden=false}
+function closeModal(){$('#ovl').hidden=true}
+$('#ovl').addEventListener('click',e=>{if(e.target.id==='ovl')closeModal()});
+function drawer(h){$('#drBody').innerHTML=h;$('#drawer').classList.add('on')}
+function closeDrawer(){$('#drawer').classList.remove('on')}
+$('#drX').onclick=closeDrawer;
+function download(name,txt,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
+function ics(name,title,date,time,loc){
+  const dt=date.replace(/-/g,'')+'T'+time.replace(':','')+'00';
+  download(name,['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Kyiv portal demo//UA','BEGIN:VEVENT','UID:'+Date.now()+'@demo','DTSTAMP:20261020T094000Z','DTSTART;TZID=Europe/Kyiv:'+dt,'SUMMARY:'+title,'LOCATION:'+loc,'BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY','DESCRIPTION:'+title,'END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n'),'text/calendar');
+}
+function signing(txt,cb){modal(`<h3>${txt}</h3><div class="spin"></div><p class="muted" style="text-align:center;font-size:14px">Кваліфікований електронний підпис · демо</p>`);setTimeout(()=>{closeModal();cb()},900)}
+const route=a=>`https://www.google.com/maps/search/${encodeURIComponent('Київ, '+a)}`;
+const kmFrom=(d,x,y)=>{const c=DC[d];return (Math.hypot(c[0]-x,c[1]-y)*0.055).toFixed(1).replace('.',',')};
+const avatar=p=>`<i class="av ${PPL[p].av}">${PPL[p].n[0]}</i>`;
+
+const IC={
+ bed:'<path d="M3 18V7M3 14h18v4M21 14v-2a3 3 0 00-3-3h-7v5"/><circle cx="7" cy="11" r="1.8"/>',
+ siren:'<path d="M7 18v-6a5 5 0 0110 0v6"/><path d="M5 21h14M12 3v2M4.2 6.2l1.4 1.4M19.8 6.2l-1.4 1.4"/>',
+ pill:'<rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-45 12 12)"/><path d="M9.2 9.2l5.6 5.6"/>',
+ syr:'<path d="M18 2l4 4M17 7l3-3M19 9L9 19l-4 1 1-4L16 6zM14 8l2 2M11 11l2 2"/>',
+ doc:'<path d="M6 3h8l4 4v14H6z"/><path d="M9 12h6M9 16h4"/>',
+ steth:'<path d="M6 3v6a4 4 0 008 0V3"/><path d="M10 13v3a5 5 0 0010 0v-2"/><circle cx="20" cy="12" r="2"/>',
+ school:'<path d="M3 10l9-5 9 5-9 5z"/><path d="M7 12v5c3 2 7 2 10 0v-5"/>',
+ check:'<path d="M5 12l5 5 9-10"/>'
+};
+const ic=(k,s=22)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${IC[k]}</svg>`;
+
+/* ================= КАРТА ================= */
+function mapSVG({sel=[],pins=[],hl=null,heat=null}={}){
+  let s=`<svg class="kmap" viewBox="0 0 590 520" role="img" aria-label="Схема районів Києва">`;
+  DIST.forEach(([n,p])=>{s+=`<polygon class="dist${sel.includes(n)?' sel':''}" points="${p}"${heat&&heat[n]?` style="fill:${heat[n]}"`:''}><title>${n}</title></polygon>`});
+  s+=`<path class="river" d="M300,0 C312,70 300,120 318,170 S352,260 348,330 S340,430 365,520"/>`;
+  DIST.forEach(([n,,cx,cy])=>{s+=`<text class="dl" x="${cx}" y="${cy}">${n}</text>`});
+  pins.forEach(p=>{s+=`<g class="pin ${p.cls||''}${hl===p.id?' hl':''}"${p.a?` data-a="${p.a}" data-id="${p.id}"`:''} transform="translate(${p.x},${p.y})"><circle r="${hl===p.id?11:8}"/><title>${p.n}</title></g>`});
+  return s+'</svg>';
+}
+
+/* ================= МЕШКАНКА ================= */
+function attn(){
+  const a=[],q=S.hreq;
+  if(!q||['cancelled','declined'].includes(q.status))a.push({ic:'bed',t:q&&q.status==='declined'?'Лікарня відхилила заявку — оберіть іншу':'Е-направлення на госпіталізацію: оберіть лікарню',d:`№ ${S.ref.no} · ${S.ref.svc} · чинне до ${fmt(S.ref.until)}`,b:'Обрати лікарню',v:'hosp'});
+  else if(q.status==='sent')a.push({ic:'bed',t:'Заявка на госпіталізацію на розгляді',d:`${H(q.hosp).n} · відповідь до ${fmt(q.sla)}`,b:'Відкрити',v:'hosp'});
+  else if(q.status==='confirmed')a.push({ic:'bed',c:'ok',t:`Госпіталізація: ${wdL(q.date)}, ${fmtL(q.date)}, ${q.time}`,d:`${H(q.hosp).n} · ${q.place}`,b:'Що взяти з собою',v:'hosp'});
+  const vb=S.vbook;
+  if(vb&&vb.status==='booked')a.push({ic:'syr',c:'pur',t:`Щеплення (${PPL[vb.p].n}): ${dayL(vb.d)}, ${fmtL(vb.d)}, ${vb.t}`,d:`${CL.find(c=>c.id===vb.c).n} · ${vb.list.join(', ')}`,b:'Деталі',v:'vac'});
+  else{const due=S.vcal.marko.filter(x=>x.st==='due');if(due.length)a.push({ic:'syr',c:'pur',t:'Марку час щеплень за віком 6 років',d:due.map(x=>x.v+' ('+x.dose+')').join(' · ')+' · за календарем з '+fmt(due[0].date),b:'Записатися',v:'vac'})}
+  S.certs.filter(c=>!c.repl&&c.until).forEach(c=>{const d=daysBetween(TODAY,c.until);if(d>=0&&d<=30)a.push({ic:'doc',c:'warn',t:`${PPL[c.p].n}: довідка ${CT[c.t].f} спливає через ${d} дн.`,d:`Передана в ${c.sent.filter(s=>!s.rev).map(s=>EDU[s.e].n).join(', ')||'—'} · чинна до ${fmt(c.until)}`,b:'Оформити нову',act:'cRenew',id:c.id})});
+  S.creq.filter(r=>r.st!=='signed').forEach(r=>a.push({ic:'doc',t:`Запит на довідку ${CT[r.t].f} для ${PPL[r.p].gen}`,d:r.st==='exam'?`Огляд ${dayL(r.slot.slice(0,10))} о ${r.slot.slice(11)} · ${DOC}`:'У лікарки на підписі',b:'Відкрити',v:'cert'}));
+  S.rx.filter(r=>r.status==='active').forEach(r=>a.push({ic:'pill',c:'ok',t:`Е-рецепт: ${r.drug}, ${r.form}`,d:`Міська програма Києва · 100 % · дійсний до ${fmt(r.until)}`,b:'Де отримати',v:'rx'}));
+  return a;
+}
+function rHome(){
+  const a=attn();
+  return `<div class="crumbs"><a>Головна</a> · Здоров’я</div>
+  <h1 class="pt">Моє здоров’я</h1>
+  <p class="lead">Направлення, рецепти, щеплення й медичні довідки — ваші і дітей — в одному місці. Медичні записи беруться з ЕСОЗ через вашого лікаря. Діагнози тут не показуються.</p>
+  <div class="fam">${['iryna','sofia','marko'].map(p=>`<div class="p">${avatar(p)}${PPL[p].n} <span>${p==='iryna'?'я':PPL[p].age}</span></div>`).join('')}<span class="muted" style="font-size:13.5px">Діти — за деклараціями з лікарем, де ви законна представниця</span></div>
+  <section class="sec" id="attn" style="margin-top:36px"><h2 class="sh">Потребує уваги</h2><p class="sub">Портал сам стежить за строками й нагадує в «Київ Цифровий».</p>
+   ${a.map(x=>`<div class="att"><div class="ic ${x.c||''}">${ic(x.ic)}</div><div><div class="t">${x.t}</div><div class="d">${x.d}</div></div><button class="btn sm${x.c==='warn'?'':' ghost'}" ${x.act?`data-a="${x.act}" data-id="${x.id}"`:`data-a="go" data-v="${x.v}"`}>${x.b}</button></div>`).join('')||'<div class="note ok">Усе гаразд — нічого не потребує уваги.</div>'}
+  </section>
+  <section class="sec" id="tiles"><h2 class="sh">Послуги</h2>
+   <div class="tiles">
+    <button class="tile" data-a="go" data-v="hosp"><div class="ic">${ic('bed',28)}</div><b>Планова госпіталізація</b><span>Лікарні для вашого е-направлення, вільні місця, заявка на дату</span></button>
+    <button class="tile" data-a="go" data-v="duty"><div class="ic">${ic('siren',28)}</div><b>Чергові лікарні сьогодні</b><span>Куди їхати з гострим станом — за профілем і віком</span></button>
+    <button class="tile" data-a="go" data-v="rx"><div class="ic">${ic('pill',28)}</div><b>Ліки за міською програмою</b><span>Е-рецепт, аптеки за договором і наявність препарату</span></button>
+    <button class="tile" data-a="go" data-v="vac"><div class="ic">${ic('syr',28)}</div><b>Щеплення</b><span>Календар з ЕСОЗ, пошук вакцини і запис</span></button>
+    <button class="tile" data-a="go" data-v="cert"><div class="ic">${ic('doc',28)}</div><b>Медичні довідки</b><span>Онлайн, з підписом КЕП, і одразу в садок чи школу</span></button>
+    <button class="tile" data-a="appt"><div class="ic">${ic('steth',28)}</div><b>Запис до лікаря <span class="phs">перша черга</span></b><span>Будується в першій черзі модернізації Порталу</span></button>
+   </div>
+  </section>
+  <div class="b103 sm"><div class="t">У разі загрози життю — телефонуйте 103<span>Цей номер працює завжди, незалежно від даних на Порталі</span></div><a href="tel:103">103</a></div>
+  <div class="note grey">Для кожного сценарію є офлайн-дубль: SMS, друкована довідка до е-рецепта, інформація в реєстратурі закладу.</div>`;
+}
+
+/* --- планова госпіталізація --- */
+function hFree(h,prof){
+  if(!h.int)return null;
+  if(h.id==='h1')return S.beds.filter(d=>d.p===prof).reduce((s,d)=>s+Math.max(0,d.total-d.occ-d.res),0);
+  return h.deps.filter(d=>d.p===prof).reduce((s,d)=>s+(d.free||0),0);
+}
+function freeBadge(h){
+  const p=S.ref.prof;if(!h.svc.includes(p))return '<span>Послуги з направлення немає</span>';
+  const f=hFree(h,p);
+  if(f===null)return '<span>Немає даних про місця — заявка в загальному режимі</span>';
+  if(f===0)return `<span class="r">${p}: місць немає · ${h.id==='h1'?S.beds[0].upd:h.upd}</span>`;
+  return `<span class="g">${p}: ${f} вільних · оновлено ${h.id==='h1'?S.beds[0].upd:h.upd}</span>`;
+}
+function hospList(){
+  const p=S.ref.prof;
+  return HOSP.filter(h=>(S.hf.all||h.svc.includes(p))&&(!S.hf.d||h.d===S.hf.d)&&(!S.hf.free||(hFree(h,p)||0)>0));
+}
+function hTrack(q){
+  const h=H(q.hosp),idx={sent:1,confirmed:2,admitted:3,declined:1}[q.status];
+  const steps=['Подано','На розгляді','Підтверджено','Госпіталізовано'];
+  const stb={sent:'<span class="st wait">На розгляді</span>',confirmed:'<span class="st ok">Підтверджено</span>',declined:'<span class="st bad">Відхилено</span>',admitted:'<span class="st ok">Госпіталізовано</span>'}[q.status];
+  let body='';
+  if(q.status==='sent')body=`<div class="note">Лікарня розглядає заявку. Відповідь — до <b>${fmt(q.sla)}</b> (2 робочі дні, SLA погоджується — рішення D-04). Ми повідомимо в «Київ Цифровий» і SMS.</div><div class="actions"><button class="btn red sm" data-a="hCancel">Скасувати заявку</button></div>`;
+  if(q.status==='confirmed')body=`<div class="inv"><div class="cap">Госпіталізацію підтверджено</div><h3>${wdL(q.date)}, ${fmtL(q.date)}, ${q.time}</h3>
+    <div class="g"><div><b>${q.dep}</b>Відділення</div><div><b>${q.place}</b>Куди прийти</div><div><b class="mono">${S.ref.no}</b>Е-направлення</div></div>
+    <ul>${q.instr.split('\n').map(x=>`<li>${x}</li>`).join('')}</ul>
+    <div class="actions"><button class="btn" data-a="hIcs">Додати в календар</button><a class="btn tr" target="_blank" rel="noopener" href="${route(h.a)}">Маршрут ↗</a><button class="btn tr" data-a="hCancel">Скасувати</button></div></div>`;
+  if(q.status==='declined')body=`<div class="note bad"><b>Лікарня відхилила заявку:</b> ${q.reason}. Направлення лишається чинним — оберіть іншу лікарню.</div><div class="actions"><button class="btn sm" data-a="hRetry">Обрати іншу лікарню</button></div>`;
+  return `<div class="card" id="hTrack" style="margin-top:28px">
+   <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center"><h3 style="margin:0">Заявка: ${h.n}</h3>${stb}</div>
+   <div class="trk">${steps.map((s,i)=>`<div class="s ${i<idx?'done':i===idx?'cur'+(q.status==='declined'?' alert':''):''}"><i></i>${s}</div>`).join('')}</div>
+   ${body}
+   <div class="tl" style="margin-top:20px">${q.hist.slice().reverse().map(e=>`<div class="ev"><div class="dt">${e[0]}</div><div class="tx">${e[1]}</div></div>`).join('')}</div></div>`;
+}
+function rHosp(){
+  const r=S.ref,q=S.hreq,list=hospList(),p=r.prof;
+  return `<div class="crumbs"><a data-a="go" data-v="home">Здоров’я</a> · Планова госпіталізація</div>
+  <h1 class="pt">Планова госпіталізація за е-направленням</h1>
+  <p class="lead">Оберіть лікарню, яка надає послугу з вашого е-направлення, подивіться вільні місця і подайте заявку на дату. Лікарня підтвердить її або запропонує інший день — без дзвінків і обходу.</p>
+  ${q&&q.status!=='cancelled'?hTrack(q):''}
+  <section class="sec" id="hRef" style="margin-top:36px"><h2 class="sh">Ваше направлення</h2>
+   <div class="card ln"><div class="prefill" style="background:none;padding:0">
+    <div class="fld"><div class="l">Номер е-направлення</div><div class="v mono">${r.no}</div></div>
+    <div class="fld"><div class="l">Послуга</div><div class="v">${r.svc}</div></div>
+    <div class="fld"><div class="l">Створено</div><div class="v">${fmt(r.created)} · ${r.by}</div></div>
+    <div class="fld"><div class="l">Чинне до</div><div class="v">${fmt(r.until)}</div></div></div>
+    <div class="note ok" style="margin-bottom:0">✓ Направлення ще не взяте в роботу — його можна використати в будь-якій комунальній лікарні з договором НСЗУ за цією послугою. Номер прочитано з ЕСОЗ через МІС вашої лікарки.</div></div>
+  </section>
+  <section class="sec" id="hList"><h2 class="sh">Лікарні для вашого направлення</h2>
+   <p class="sub">Показано лише лікарні, що надають послугу «${p}». Дані про місця довідкові й мають час оновлення — остаточне рішення завжди за лікарнею.</p>
+   <div class="fbar">
+    <select data-c="hfD"><option value="">Усі райони</option>${DN.map(d=>`<option${S.hf.d===d?' selected':''}>${d}</option>`).join('')}</select>
+    <label class="chk"><input type="checkbox" data-c="hfFree"${S.hf.free?' checked':''}>Лише з вільними місцями</label>
+    <label class="chk"><input type="checkbox" data-c="hfAll"${S.hf.all?' checked':''}>Показати всі лікарні</label>
+   </div>
+   <div class="mapbox">
+    <div>${mapSVG({sel:S.hf.d?[S.hf.d]:[],pins:list.map(h=>({...h,cls:(()=>{const f=hFree(h,p);return !h.svc.includes(p)?'na':f===null?'na':f===0?'no':'yes'})(),a:'hOpen'})),hl:S.hsel})}
+     <div class="legend"><span><i class="sd yes"></i>є місця</span><span><i class="sd no"></i>немає місць</span><span><i class="sd na"></i>немає даних</span></div></div>
+    <div class="slist">${list.map(h=>`<div class="sch${S.hsel===h.id?' hl':''}" data-a="hOpen" data-id="${h.id}"><div class="nm">${h.n}</div><div class="ad">${h.d} р-н · ${h.a}</div><div class="bdg">${freeBadge(h)}<span>♿ ${h.acc.split(',')[0]}</span></div></div>`).join('')||'<div class="note grey">За цими фільтрами лікарень немає.</div>'}</div>
+   </div>
+  </section>
+  <section class="sec"><h2 class="sh">Що означають статуси</h2>
+   <div class="stl">
+    <div class="r"><span class="st wait">На розгляді</span>Лікарня отримала заявку з вашим направленням</div>
+    <div class="r"><span class="st ok">Підтверджено</span>Дата, час і місце узгоджені — прийде нагадування напередодні</div>
+    <div class="r"><span class="st bad">Відхилено</span>Причину вказано, направлення лишається чинним</div>
+    <div class="r"><span class="st grey">Скасовано</span>Ви скасували заявку — направлення можна використати деінде</div>
+   </div>
+  </section>`;
+}
+function openHosp(id){
+  const h=H(id),p=S.ref.prof,deps=h.id==='h1'?S.beds:h.deps;S.hsel=id;renderRes();
+  const ok=h.svc.includes(p);
+  drawer(`<h3>${h.n}</h3><div class="muted">${h.d} р-н · ${h.a}</div>
+   <div class="note${h.int?'':' warn'}">${h.int?`Дані про місця довідкові, оновлено о ${h.id==='h1'?S.beds[0].upd:h.upd}. Остаточне рішення — за лікарнею.`:'Лікарня поки не передає даних про вільні місця. Заявку можна подати — її розглянуть у загальному режимі.'}</div>
+   ${deps.length?`<h4>Відділення</h4><table class="t"><thead><tr><th>Відділення</th><th>Профіль</th><th class="num">Вільно</th></tr></thead><tbody>${deps.map(d=>{const f=h.id==='h1'?Math.max(0,d.total-d.occ-d.res):d.free;return `<tr><td>${d.n}</td><td>${d.p}</td><td class="num">${h.int?f:'—'}</td></tr>`}).join('')}</tbody></table>`:''}
+   ${deps.some(d=>d.docs)?`<h4>Лікарі за спеціалізаціями</h4><div style="font-size:14.5px">${deps.filter(d=>d.docs).map(d=>`<div style="padding:4px 0"><b>${d.n}:</b> ${d.docs.join(', ')}</div>`).join('')}</div>`:''}
+   <h4>Контакти</h4>
+   <div class="fld"><div class="l">Приймальне відділення</div><div class="v">${h.ph} · цілодобово</div></div>
+   <div class="fld"><div class="l">Планова госпіталізація</div><div class="v">пн–пт, 08:00–14:00</div></div>
+   <div class="fld"><div class="l">Доступність</div><div class="v">♿ ${h.acc}</div></div>
+   <div class="actions"><button class="btn" id="hApply" data-a="hApply" data-id="${h.id}"${ok?'':' disabled'}>Подати заявку</button><a class="btn grey" target="_blank" rel="noopener" href="${route(h.a)}">Маршрут ↗</a></div>
+   ${ok?'':'<p class="muted" style="font-size:14px;margin-top:10px">Лікарня не надає послугу з вашого направлення.</p>'}`);
+}
+function rHospForm(){
+  const h=H(S.hsel),f=S.hform,p=S.ref.prof,deps=(h.id==='h1'?S.beds:h.deps).filter(d=>d.p===p);
+  return `<div class="crumbs"><a data-a="go" data-v="hosp">Планова госпіталізація</a> · Заявка</div>
+  <h1 class="pt">Заявка на госпіталізацію</h1>
+  <p class="lead">Лікарня отримає заявку разом із вашим е-направленням і підтвердить дату або запропонує іншу.</p>
+  <div class="form" style="margin-top:26px">
+   <div class="fsec"><h3>Лікарня і направлення</h3>
+    <div class="prefill"><div class="fld"><div class="l">Лікарня</div><div class="v">${h.n}</div></div><div class="fld"><div class="l">Адреса</div><div class="v">${h.a}</div></div>
+    <div class="fld"><div class="l">Е-направлення</div><div class="v mono">${S.ref.no}</div></div><div class="fld"><div class="l">Послуга</div><div class="v">${S.ref.svc}</div></div></div>
+    <div class="note ok" style="margin-bottom:0">✓ Перевірено: направлення чинне, не взяте в роботу, послуга відповідає профілю лікарні.</div></div>
+   <div class="fsec"><h3>Відділення</h3>
+    <div class="opts c2" id="hDeps">${deps.map(d=>{const fr=h.id==='h1'?Math.max(0,d.total-d.occ-d.res):d.free;return `<button class="opt${f.dep===d.n?' on':''}" data-a="hfDep" data-v="${d.n}"><b>${d.n}</b><span>${h.int?fr+' вільних місць':'немає даних про місця'}</span></button>`}).join('')}</div></div>
+   <div class="fsec"><h3>Лікар <span class="muted" style="font-size:14px;font-weight:400">необов’язково</span></h3>
+    <div class="field" style="max-width:420px;margin:8px 0 0"><select data-c="hfDoc"><option value="">Будь-який лікар відділення</option>${deps.flatMap(d=>d.docs||[]).map(x=>`<option${f.doc===x?' selected':''}>${x}</option>`).join('')}</select></div></div>
+   <div class="fsec"><h3>Бажаний період</h3>
+    <div class="grid g2" style="max-width:520px;margin-top:8px"><div class="field"><label>З</label><input type="date" data-c="hfFrom" value="${f.from}"></div><div class="field"><label>По</label><input type="date" data-c="hfTo" value="${f.to}"></div></div></div>
+   <div class="fsec"><h3>Коментар для лікарні</h3>
+    <div class="field" style="margin:8px 0 0"><textarea data-c="hfNote" placeholder="Наприклад: потрібен супровід, крісло колісне, алергії">${f.note}</textarea></div></div>
+   <div class="fsec"><h3>Куди повідомляти</h3><div class="hint">Push у «Київ Цифровий», SMS на +380 67 ••• •• 18, пошта i.melnyk@example.com</div>
+    <div class="note">Заявка — це запит, а не гарантоване бронювання. Лікарня відповідає протягом 2 робочих днів. Якщо скасуєте заявку, направлення лишиться чинним.</div>
+    <div class="err" id="hErr"></div>
+    <div class="actions" style="margin-top:8px"><button class="btn" id="hSend" data-a="hSend">Подати заявку</button><button class="btn grey" data-a="go" data-v="hosp">Скасувати</button></div></div>
+  </div>`;
+}
+
+/* --- чергові лікарні --- */
+function rDuty(){
+  const ids=(DUTY[S.dprof]||{})[S.dage]||[],list=ids.map(H);
+  return `<div class="crumbs"><a data-a="go" data-v="home">Здоров’я</a> · Чергові лікарні</div>
+  <div class="b103" id="b103"><div class="t">У разі загрози життю — телефонуйте 103<span>Банер показується завжди, навіть якщо дані на сторінці недоступні</span></div><a href="tel:103">103</a></div>
+  <h1 class="pt">Чергові лікарні сьогодні</h1>
+  <p class="lead">Куди їхати з гострим станом, якщо ви не викликаєте швидку. Інформація довідкова: вона не гарантує прийому, рішення ухвалює приймальне відділення. Бронювання тут немає — лише маршрут.</p>
+  <div style="margin-top:26px" class="grid">
+   <div><div class="muted" style="font-size:13.5px;margin-bottom:6px">Профіль</div><div class="seg" id="dProfs">${DPROF.map(p=>`<button class="${S.dprof===p?'on':''}" data-a="dProf" data-v="${p}">${p}</button>`).join('')}</div></div>
+   <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-end">
+    <div><div class="muted" style="font-size:13.5px;margin-bottom:6px">Для кого</div><div class="seg" id="dAges"><button class="${S.dage==='adult'?'on':''}" data-a="dAge" data-v="adult">Дорослі</button><button class="${S.dage==='child'?'on':''}" data-a="dAge" data-v="child">Діти</button></div></div>
+    <div class="fbar" style="margin:0"><span class="muted" style="font-size:13.5px">Мій район</span><select data-c="dDist">${DN.map(d=>`<option${S.ddist===d?' selected':''}>${d}</option>`).join('')}</select></div>
+   </div>
+  </div>
+  <div class="meta" id="dutyMeta" style="margin-top:22px">${S.stale?'<span><b>Чергування:</b> дані за пʼятницю, 17 жовтня</span><span class="st bad">не оновлювались 3 доби</span>':`<span><b>Чергування:</b> вівторок, 20 жовтня, 08:00 — середа, 21 жовтня, 08:00</span><span><b>Оновлено</b> о 07:42</span><span><b>Джерело:</b> графік Відділу госпіталізації Центру ЕМД <span class="warnf">⚠ D-02</span></span>`}</div>
+  ${S.stale?`<div class="note bad" id="dutyStale"><b>Дані про чергування застаріли, тому ми їх приховали.</b> Неправильна адреса в ургентній ситуації шкодить більше, ніж її відсутність. Телефонуйте 103 або у Відділ госпіталізації Центру ЕМД: <b>(044) 000-10-30</b> (цілодобово). <span class="idea">ідея</span></div>`:
+  `<div class="mapbox"><div id="dutyList">${list.length?list.map(h=>`<div class="duty"><div><div class="nm">${h.n}</div><div class="muted" style="font-size:14px">${h.d} р-н · ${h.a} · ≈ ${kmFrom(S.ddist,h.x,h.y)} км від вашого району</div><div class="bdg" style="margin-top:8px"><span class="a">Приймальне цілодобово</span><span>${S.dprof}${S.dage==='child'?' · діти':''}</span><span>♿ ${h.acc.split(',')[0]}</span></div></div>
+     <div style="text-align:right"><div class="muted" style="font-size:12.5px">Приймальне відділення</div><a class="tel" href="tel:${h.ph}">${h.ph}</a><div style="margin-top:8px"><a class="btn grey sm" target="_blank" rel="noopener" href="${route(h.a)}">Маршрут ↗</a></div></div></div>`).join(''):`<div class="note grey">Для ${S.dage==='child'?'дітей':'дорослих'} цей профіль у Києві не застосовується. Зателефонуйте 103.</div>`}</div>
+   <div>${mapSVG({sel:[S.ddist],pins:list.map(h=>({...h,cls:'yes'}))})}<div class="legend"><span><i class="sd yes"></i>чергує сьогодні</span><span><i class="sd" style="background:#cfe0fb"></i>ваш район</span></div></div></div>`}`;
+}
+
+/* --- ліки --- */
+function rxCard(r){
+  return `<div class="cert"><div class="hd"><div><div class="nm">${r.drug}, ${r.form}</div><div class="mt">Е-рецепт № <span class="mono">${r.no}</span> · виписано ${fmt(r.date)} · Гнатюк Р. М., лікар-ревматолог, ${KDC.kd1}</div></div><span class="st ok">Активний</span></div>
+   <div class="prefill" style="margin-top:14px"><div class="fld"><div class="l">Програма</div><div class="v">Міська програма Києва · ПКМУ № 1303 · безоплатно</div></div><div class="fld"><div class="l">Дійсний до</div><div class="v">${fmt(r.until)}</div></div>
+   <div class="fld"><div class="l">Як приймати</div><div class="v">${r.dose||'за призначенням лікаря'}</div></div><div class="fld"><div class="l">Код погашення</div><div class="v mono">${S.rxCode?r.code:'••••'} <button class="btn xs grey" data-a="rxCodeT">${S.rxCode?'Сховати':'Показати'}</button></div></div></div>
+   <div class="actions"><button class="btn sm" data-a="jump" data-v="rxPh">Де отримати</button><button class="btn sm grey" data-a="rxAsk">Наступний рецепт — дистанційно</button></div></div>`;
+}
+function phStatus(p){return p.st||'na'}
+function rRx(){
+  const act=S.rx.filter(r=>r.status==='active'),hist=S.rx.filter(r=>r.status==='used');
+  let ph=PH.filter(p=>S.phAll||p.kdc==='kd1');if(S.phNow)ph=ph.filter(p=>p.open);
+  return `<div class="crumbs"><a data-a="go" data-v="home">Здоров’я</a> · Ліки за міською програмою</div>
+  <h1 class="pt">Ліки за міською програмою</h1>
+  <p class="lead">Безоплатні та пільгові ліки за рецептом лікаря коштом бюджету Києва. Рецепт електронний, у кабінеті він без діагнозу, а аптеку видно на карті.</p>
+  <section class="sec" id="rxList" style="margin-top:32px"><h2 class="sh">Мої рецепти</h2>
+   ${act.length?act.map(rxCard).join(''):'<div class="note grey">Активних рецептів немає. Коли лікар випише е-рецепт міської програми, він з’явиться тут, а код погашення прийде SMS.</div>'}
+   ${hist.length?`<div class="muted" style="font-size:14px;margin-top:14px">Погашені: ${hist.map(r=>`${r.drug} — ${fmt(r.usedAt)}, ${PH.find(p=>p.id===r.ph).n}`).join('; ')}</div>`:''}
+  </section>
+  <section class="sec" id="rxRight"><h2 class="sh">Чи маю я право</h2><p class="sub">Формальні умови портал перевіряє сам. Категорію захворювання підтверджує лікар — діагноз на Портал не передається.</p>
+   <div class="card ln chkl" style="padding:12px 24px">
+    <div class="r ok"><span class="i">✓</span><div>Декларація з лікарем у комунальному закладі не менше 3 місяців<small>${ORG}, з 12.03.2019</small></div></div>
+    <div class="r ok"><span class="i">✓</span><div>Зареєстровані в Києві<small>Реєстр територіальної громади. Для ВПО — довідка ВПО <span class="warnf">⚠ джерело даних не визначене, D-09</span></small></div></div>
+    <div class="r q"><span class="i">?</span><div>Пільгова категорія або категорія захворювання за ПКМУ № 1303<small>Підтверджує лікар на прийомі у своїй системі</small></div></div>
+   </div>
+  </section>
+  <section class="sec" id="rxPh"><h2 class="sh">Де отримати</h2><p class="sub">Аптеки, з якими ваш ${KDC.kd1} має договір. Наявність — ознака «є / мало / немає» з часом оновлення, без точної кількості.</p>
+   <div class="fbar"><div class="seg sm" id="phLayer"><button class="${S.phAll?'':'on'}" data-a="phAll" data-v="0">За договором мого КДЦ</button><button class="${S.phAll?'on':''}" data-a="phAll" data-v="1">Усі аптеки програми</button></div>${S.phAll?'<span class="warnf">⚠ рішення D-05</span>':''}
+    <label class="chk"><input type="checkbox" data-c="phNow"${S.phNow?' checked':''}>Працює зараз</label></div>
+   <div class="mapbox"><div>${mapSVG({sel:['Дніпровський'],pins:ph.map(p=>({...p,cls:act.length?ST[phStatus(p)][2]:'',a:'phSel'})),hl:S.phSel})}
+     <div class="legend"><span><i class="sd yes"></i>є</span><span><i class="sd low"></i>мало</span><span><i class="sd no"></i>немає</span><span><i class="sd na"></i>немає даних</span><span class="phs">фаза 3</span></div></div>
+    <div class="slist">${ph.map(p=>{const s=ST[phStatus(p)];return `<div class="sch${S.phSel===p.id?' hl':''}" data-a="phSel" data-id="${p.id}"><div class="nm">${p.n}</div><div class="ad">${p.d} р-н · ${p.a}</div>
+      <div class="bdg">${act.length?`<span class="${s[1]}"><i class="sd ${s[2]}"></i>${act[0].drug} 2,5 мг: ${s[0]}${p.st?' · '+p.upd:''}</span>`:''}<span>${p.h==='цілодобово'?'Цілодобово':p.h}${p.open?'':' · зараз зачинено'}</span>${p.erx?'<span class="a">Погашає е-рецепт</span>':'<span class="r">Лише паперові рецепти</span>'}${p.kdc==='kd1'?'':`<span>${KDC[p.kdc]}</span>`}</div>
+      <div class="row"><span class="muted" style="font-size:13px">${p.own==='комунальна'?'Комунальна аптека':'Приватна аптека за договором'}</span><a class="btn grey xs" target="_blank" rel="noopener" href="${route(p.a)}">Маршрут ↗</a></div></div>`}).join('')||'<div class="note grey">Немає аптек за цими фільтрами.</div>'}</div></div>
+  </section>
+  <section class="sec"><h2 class="sh">Як це працює</h2>
+   <div class="grid g3">
+    <div class="card ln"><h3>1. Лікар виписує</h3><p class="muted" style="font-size:15px">На прийомі або дистанційно лікар обирає «Міська програма Києва». Система сама перевіряє право і не дає віднести на міський бюджет препарат із «Доступних ліків».</p></div>
+    <div class="card ln"><h3>2. Ви отримуєте</h3><p class="muted" style="font-size:15px">SMS з номером і кодом, рецепт у кабінеті. Без телефону — друкована довідка до е-рецепта в реєстратурі.</p></div>
+    <div class="card ln"><h3>3. Аптека видає</h3><p class="muted" style="font-size:15px">Аптека знаходить рецепт за номером, видає ліки за кодом. Місто бачить відпуск і розраховується з аптекою автоматично.</p></div>
+   </div>
+   <div class="note warn">Паперові рецепти ф-1 приймаються до дати переходу на електронні — її визначає ДОЗ (рішення D-08).</div>
+  </section>`;
+}
+
+/* --- щеплення --- */
+function clinicStat(cid,vac){
+  if(cid==='c1'){const rem=S.stock.filter(s=>s.vac===vac&&s.exp>=TODAY).reduce((a,s)=>a+s.got-s.used,0);return rem===0?(S.redis==='proposed'&&vac==='КПК'?'soon':'no'):rem<10?'low':'yes'}
+  return (VSTAT[cid]||{})[vac]||'na';
+}
+function rVac(){
+  const p=S.vp,cal=S.vcal[p],due=cal.filter(x=>['due','missed','booked'].includes(x.st)),vb=S.vbook;
+  const dueKeys=cal.filter(x=>['due','missed'].includes(x.st)&&x.k).map(x=>x.k);
+  const vq=S.vq;
+  return `<div class="crumbs"><a data-a="go" data-v="home">Здоров’я</a> · Щеплення</div>
+  <h1 class="pt">Щеплення</h1>
+  <p class="lead">Календар щеплень — ваш і дітей — з даних ЕСОЗ. Знайдіть, де є вакцина, і запишіться на зручний час. Після щеплення календар оновиться сам.</p>
+  ${vb?`<div class="card" id="vBook" style="margin-top:26px">${vb.status==='done'?
+    `<div class="note ok" style="margin:0"><b>Щеплення проведено ${fmtL(vb.d)}.</b> Календар (${PPL[vb.p].n}) оновлено автоматично з МІС: ${vb.list.join(', ')}. ${S.certs.find(c=>c.t==='063'&&c.p===vb.p&&!c.repl&&c.date===TODAY)?'Карту щеплень 063/о оновлено й передано в ЗДО № 587 — ви ввімкнули автоматичне оновлення.':''}</div>`:
+    `<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><div><div class="muted" style="font-size:13.5px">Запис на щеплення · ${PPL[vb.p].n}</div><h3 style="font-size:22px;margin:4px 0 6px">${dayL(vb.d)}, ${fmtL(vb.d)}, ${vb.t}</h3><div style="font-size:15px">${CL.find(c=>c.id===vb.c).n} · ${CL.find(c=>c.id===vb.c).room}</div><div class="muted" style="font-size:14.5px;margin-top:4px">${vb.list.join(' · ')} — одним візитом</div></div><span class="st info">Заплановано</span></div>
+     <div class="actions"><button class="btn sm" data-a="vIcs">Додати в календар</button><button class="btn sm grey" data-a="vBookOpen" data-id="${vb.c}">Перенести</button><button class="btn sm red" data-a="vCancel">Скасувати</button></div>
+     <p class="muted" style="font-size:13.5px;margin-top:12px">Нагадаємо напередодні та за 2 години. Візьміть із собою дитину і документ, що посвідчує особу батьків.</p>`}</div>`:''}
+  <div class="seg" style="margin-top:28px" id="vPers">${['marko','sofia','iryna'].map(x=>`<button class="${p===x?'on':''}" data-a="vP" data-v="${x}">${PPL[x].n}${x==='iryna'?' (я)':', '+PPL[x].age}</button>`).join('')}</div>
+  <section class="sec" style="margin-top:26px" id="vCal"><h2 class="sh">Календар щеплень — ${PPL[p].n}</h2>
+   ${due.length?`<div class="card ln" id="vDue" style="margin-bottom:18px"><h3>${due.some(x=>x.st==='booked')?'Заплановано':'Час зробити'}</h3>${due.map(x=>`<div style="display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid var(--line);font-size:15px"><span><b>${x.v}</b> · ${x.dose}</span><span class="st ${VST[x.st][1]}">${VST[x.st][0]}${x.st==='booked'?' · '+fmt(x.date):x.st==='due'?' з '+fmt(x.date):''}</span></div>`).join('')}
+     ${dueKeys.length?`<div class="actions" style="margin-top:14px"><button class="btn sm" id="vFindBtn" data-a="vFind" data-v="${dueKeys[0]}">Знайти вакцину й записатися</button></div>`:''}</div>`:''}
+   <div class="table-x"><table class="t"><thead><tr><th>Вакцина</th><th>Доза</th><th>Дата</th><th>Статус</th></tr></thead><tbody>
+    ${cal.filter(x=>!['due','booked'].includes(x.st)).slice().reverse().map(x=>`<tr><td>${x.v}</td><td>${x.dose||'—'}</td><td class="mono">${x.st==='plan'?x.date.slice(5,7)+'.'+x.date.slice(0,4):fmt(x.date)}</td><td><span class="st ${VST[x.st][1]}">${VST[x.st][0]}</span></td></tr>`).join('')}
+   </tbody></table></div>
+   ${cal.some(x=>x.st==='nodata')?'<div class="note grey"><b>«Немає даних» не означає «не зроблено».</b> Щеплення, зроблені до появи ЕСОЗ, могли записати лише на папері. Попросіть лікаря внести їх — тоді календар і карта 063/о будуть повними.</div>':''}
+  </section>
+  <section class="sec" id="vFind"><h2 class="sh">Знайти вакцину</h2><p class="sub">Для мешканців — статус, а не точна кількість доз. Портал нагадує про щеплення, але не показує рейтингів охоплення.</p>
+   <div class="fbar"><select data-c="vq"><option value="">Оберіть вакцину</option>${Object.keys(VNAME).map(k=>`<option value="${k}"${vq===k?' selected':''}>${VNAME[k]}</option>`).join('')}</select></div>
+   ${vq?`<div class="mapbox"><div class="slist" id="vList">${CL.map(c=>{const s=clinicStat(c.id,vq),L=ST[s];return `<div class="sch"><div class="nm">${c.n}${c.decl?' <span class="st info" style="font-size:11.5px;padding:2px 8px">за декларацією</span>':''}</div><div class="ad">${c.d} р-н · ${c.a}</div>
+      <div class="bdg"><span class="${L[1]}"><i class="sd ${L[2]}"></i>${vq}: ${L[0]}${s==='soon'?' · очікується 27.10':''}</span>${c.decl?'':'<span>Запис без декларації <b>⚠ D-12</b></span>'}</div>
+      <div class="row"><span class="muted" style="font-size:13px">${c.room}</span>${s==='yes'||s==='low'?`<button class="btn sm" data-a="vBookOpen" data-id="${c.id}">Записатися</button>`:`<button class="btn sm ghost" data-a="vNotify" data-id="${c.id}">${S.vnote.includes(c.id+vq)?'✓ Повідомимо':'Повідомити, коли з’явиться'}</button>`}</div></div>`}).join('')}</div>
+    <div>${mapSVG({sel:['Дніпровський'],pins:CL.map(c=>({...c,cls:ST[clinicStat(c.id,vq)][2]}))})}<div class="legend"><span><i class="sd yes"></i>є</span><span><i class="sd low"></i>мало</span><span><i class="sd soon"></i>очікується</span><span><i class="sd no"></i>немає</span></div></div></div>`:'<div class="note grey">Оберіть вакцину — покажемо заклади і статус наявності.</div>'}
+  </section>`;
+}
+function vBookModal(cid){
+  const c=CL.find(x=>x.id===cid),p=S.vp==='iryna'?'iryna':S.vp,sel=S.vsel;
+  if(sel.c!==cid){sel.c=cid}
+  const list=S.vcal[p].filter(x=>['due','missed','booked'].includes(x.st)&&x.k).map(x=>x.v+(x.dose?' ('+x.dose+')':''));
+  modal(`<h3>Запис на щеплення</h3><div class="muted" style="font-size:14.5px">${c.n} · ${c.room}</div>
+   <div class="note" style="margin:14px 0">${PPL[p].n}: ${list.join(', ')||VNAME[S.vq]} — одним візитом</div>
+   ${Object.keys(VSLOTS).map(d=>`<div class="dayh">${dayL(d)}, ${fmtL(d)}</div><div class="slots">${VSLOTS[d].map(t=>`<button class="${sel.d===d&&sel.t===t?'on':''}" data-a="vSlot" data-v="${d} ${t}"${VBUSY.includes(d+' '+t)?' disabled':''}>${t}</button>`).join('')}</div>`).join('')}
+   <div class="actions"><button class="btn" id="vBookOk" data-a="vBookOk">Записатися на ${dayL(sel.d)}, ${sel.t}</button><button class="btn grey" data-a="closeM">Скасувати</button></div>`);
+}
+
+/* --- довідки --- */
+function certState(c){
+  if(c.repl)return ['Замінена новою','grey'];
+  if(c.t==='063'){const later=S.vcal[c.p]&&S.vcal[c.p].some(x=>x.st==='done'&&x.date>c.date);return later?['Застаріла: були нові щеплення','wait']:['Актуальна','ok']}
+  if(!c.until)return ['Безстрокова','grey'];
+  const d=daysBetween(TODAY,c.until);
+  if(d<0)return ['Прострочена','bad'];
+  if(d<=30)return [`Спливає через ${d} дн.`,'wait'];
+  return [`Чинна до ${fmt(c.until)}`,'ok'];
+}
+function certCard(c){
+  const s=certState(c),t=CT[c.t],exp=s[1]==='wait'&&c.until;
+  return `<div class="cert${exp?' exp':''}${c.repl?' old':''}" id="cert-${c.id}"><div class="hd"><div><div class="nm">${t.f.includes('/о')?t.f+' · ':''}${t.n}</div><div class="mt">${c.note?c.note+' · ':''}Видана ${fmt(c.date)} · ${DOC} · КЕП ✓</div></div><span class="st ${s[1]}">${s[0]}</span></div>
+   ${c.sent.length?`<div class="snt">${c.sent.map(x=>`<span class="${x.rev?'rv':''}">${EDU[x.e].n} · ${x.seen?'переглянуто '+fmt(x.seen):'надіслано '+fmt(x.at)}</span>`).join('')}${c.auto?'<span>Оновлюється автоматично <b class="idea" style="margin-left:4px">ідея</b></span>':''}</div>`:''}
+   ${c.repl?'':`<div class="actions">${exp?`<button class="btn sm" data-a="cRenew" data-id="${c.id}">Оформити нову</button>`:''}<button class="btn sm ${exp?'grey':'ghost'}" data-a="cShare" data-id="${c.id}">Передати в заклад</button><button class="btn sm grey" data-a="cView" data-id="${c.id}">Переглянути</button></div>`}</div>`;
+}
+function rCert(){
+  const rq=S.creq.filter(r=>r.st!=='signed');
+  return `<div class="crumbs"><a data-a="go" data-v="home">Здоров’я</a> · Медичні довідки</div>
+  <h1 class="pt">Медичні довідки</h1>
+  <p class="lead">Оформлюйте довідки онлайн: частину — без візиту до лікаря. Довідки підписує лікар КЕП. Передавайте їх у садок, школу чи гурток одним натисканням — заклад отримає лише висновок, без діагнозів.</p>
+  <div class="actions"><button class="btn" id="cNew" data-a="cNew">Оформити довідку</button><button class="btn grey" data-a="jump" data-v="cHow">Як передати в заклад</button></div>
+  ${rq.length?`<section class="sec" style="margin-top:32px" id="cReq"><h2 class="sh">Запити в роботі</h2>${rq.map(r=>`<div class="cert"><div class="hd"><div><div class="nm">${CT[r.t].f} · ${CT[r.t].n} — ${PPL[r.p].n}</div><div class="mt">${r.st==='exam'?`Огляд: ${dayL(r.slot.slice(0,10))}, ${fmtL(r.slot.slice(0,10))}, ${r.slot.slice(11)} · ${DOC}. Після огляду лікарка підпише довідку.`:'У лікарки на підписі — зазвичай протягом робочого дня'}${r.deliver?` · одразу піде в ${EDU[r.deliver].n}`:''}</div></div><span class="st wait">${r.st==='exam'?'Очікує огляду':'На підписі'}</span></div></div>`).join('')}</section>`:''}
+  <section class="sec" id="cList" style="margin-top:${rq.length?40:32}px"><h2 class="sh">Мої довідки</h2>
+   ${['marko','sofia','iryna'].map(p=>{const cs=S.certs.filter(c=>c.p===p).sort((a,b)=>(a.repl?1:0)-(b.repl?1:0)||Object.keys(CT).indexOf(a.t)-Object.keys(CT).indexOf(b.t)||(a.date<b.date?1:-1));return `<div class="pgrp">${avatar(p)}${PPL[p].n} <span>${p==='iryna'?'я':PPL[p].age+(KIDEDU[p]?' · '+KIDEDU[p].map(e=>EDU[e].n).join(', '):'')}</span></div>${cs.map(certCard).join('')||'<div class="muted">Довідок немає.</div>'}`}).join('')}
+  </section>
+  <section class="sec" id="cHow"><h2 class="sh">Як передати довідку в заклад</h2>
+   <div class="grid g3">
+    <div class="card ln"><h3>1. Оберіть заклад</h3><p class="muted" style="font-size:15px">Садок, школа і гуртки дитини вже є в її освітньому профілі. Інший заклад можна знайти за назвою.</p></div>
+    <div class="card ln"><h3>2. Подивіться, що побачать</h3><p class="muted" style="font-size:15px">Висновок, групу для занять фізкультурою і дату наступного огляду. Діагнози не передаються.</p></div>
+    <div class="card ln"><h3>3. Керуйте доступом</h3><p class="muted" style="font-size:15px">Доступ діє до кінця строку довідки. Видно, хто і коли переглядав. Доступ можна відкликати.</p></div>
+   </div>
+  </section>
+  <section class="sec" id="cCheck"><h2 class="sh">Перевірити довідку <span class="idea">ідея</span></h2><p class="sub">Для закладів, яких немає на Порталі: за номером або QR-кодом видно, чи чинна довідка і хто її підписав.</p>
+   <div class="fbar"><div class="field" style="margin:0;width:300px"><input id="cCheckNo" value="086-2026-0820-7741"></div><button class="btn sm" data-a="cCheck">Перевірити</button></div><div id="cCheckRes"></div>
+  </section>`;
+}
+function visitInfo(p,t){
+  const v=CT[t].v;
+  if(v==='exam'){const l=LAST_EXAM[p];if(l&&daysBetween(TODAY,addD(l,365))>30)return {need:false,txt:`Огляд ${fmt(l)} чинний до ${fmt(addD(l,365))} — лікарка оформить довідку за його результатами. Візит не потрібен.`};
+    return {need:true,txt:l?`Останній профілактичний огляд — ${fmt(l)}, його результати діють лише до ${fmt(addD(l,365))}. Для нової довідки на рік потрібен новий огляд у сімейного лікаря або педіатра.`:'Даних про профілактичний огляд немає. Потрібен огляд у сімейного лікаря або педіатра.'}}
+  if(v==='no')return {need:false,txt:'Без візиту: дані вже є в ЕСОЗ. Лікарка сформує довідку й підпише КЕП.'};
+  if(v==='mis')return {need:false,txt:'Без візиту, якщо потрібні дані вже є в МІС. Якщо ні — лікарка запросить на прийом.'};
+  return {need:true,txt:'Для цієї довідки потрібен огляд.'};
+}
+function rCertNew(){
+  const f=S.cf,kid=!!PPL[f.p].kid,types=Object.keys(CT).filter(k=>CT[k].who==='all'||(kid?CT[k].who==='kid':CT[k].who==='adult'));
+  if(!types.includes(f.t))f.t=types[0];
+  const vi=visitInfo(f.p,f.t),eds=kid?KIDEDU[f.p]:[];
+  return `<div class="crumbs"><a data-a="go" data-v="cert">Медичні довідки</a> · Нова довідка</div>
+  <h1 class="pt">Оформити довідку</h1>
+  <p class="lead">Запит піде лікарці за декларацією — ${DOC}, ${ORG}. Готова довідка з’явиться в «Моїх довідках» з підписом КЕП.</p>
+  <div class="form" style="margin-top:26px">
+   <div class="fsec"><h3>Для кого</h3><div class="opts c3">${['marko','sofia','iryna'].map(p=>`<button class="opt${f.p===p?' on':''}" data-a="cfP" data-v="${p}"><b>${PPL[p].n}</b><span>${p==='iryna'?'я':PPL[p].rel+', '+PPL[p].age}</span></button>`).join('')}</div></div>
+   <div class="fsec"><h3>Яка довідка</h3><div class="opts c3" id="cTypes">${types.map(k=>{const t=CT[k],v=visitInfo(f.p,k);return `<button class="opt${f.t===k?' on':''}" data-a="cfT" data-v="${k}"><b>${t.f} · ${t.n}</b><span>${t.for}</span><div class="tg"><span class="st ${v.need?'wait':'ok'}" style="font-size:12px;padding:2px 9px">${v.need?'Потрібен огляд':'Без візиту'}</span>${t.w?'<span class="warnf">⚠ уточн.</span>':''}</div></button>`}).join('')}</div></div>
+   <div class="fsec" id="cVisit"><h3>Чи потрібен візит</h3><div class="note ${vi.need?'warn':'ok'}" style="margin-top:8px">${vi.txt}</div>
+    ${vi.need?`<div class="hint">Вільний час у ${DOC} · запис до лікаря з першої черги модернізації Порталу</div><div class="slots" id="cSlots">${CSLOTS.map(s=>`<button class="${f.slot===s?'on':''}" data-a="cfSlot" data-v="${s}">${dayL(s.slice(0,10))}, ${s.slice(11)}</button>`).join('')}</div>`:''}</div>
+   ${kid?`<div class="fsec" id="cDeliver"><h3>Куди одразу передати</h3><div class="hint">Заклади з освітнього профілю дитини. Заклад отримає висновок без діагнозів.</div>
+    <div class="opts c3">${eds.map(e=>`<button class="opt${f.deliver===e?' on':''}" data-a="cfDel" data-v="${e}"><b>${EDU[e].n}</b><span>${EDU[e].kind}</span></button>`).join('')}<button class="opt${!f.deliver?' on':''}" data-a="cfDel" data-v=""><b>Нікуди</b><span>Лише отримати довідку</span></button></div>
+    ${f.deliver?`<label class="chk" style="margin-top:12px"><input type="checkbox" data-c="cfAuto"${f.auto?' checked':''}>Замінити попередню довідку в закладі й надалі оновлювати автоматично <span class="idea">ідея</span></label>`:''}</div>`:''}
+   <div class="fsec"><div class="err" id="cErr"></div><div class="actions" style="margin-top:8px"><button class="btn" id="cSend" data-a="cSend">Надіслати запит лікарці</button><button class="btn grey" data-a="go" data-v="cert">Скасувати</button></div></div>
+  </div>`;
+}
+function pdfHTML(c,forEdu){
+  const t=CT[c.t],P=PPL[c.p];
+  let rows=`<div class="r"><span>Пацієнт</span><b>${P.full}, ${fmt(P.b)}</b></div><div class="r"><span>Дата</span>${fmt(c.date)}</div>`;
+  if(c.t==='086')rows+=`<div class="r"><span>Висновок</span>${c.concl}</div><div class="r"><span>Група для фізкультури</span>${c.pe}</div><div class="r"><span>Наступний огляд</span>до ${fmt(c.until)}</div>`;
+  if(c.t==='063'){const done=S.vcal[c.p].filter(x=>x.st==='done'&&x.date<=c.date).length,nd=S.vcal[c.p].filter(x=>x.st==='nodata').length;
+    rows+=forEdu?`<div class="r"><span>Відповідність календарю</span>${S.vcal[c.p].some(x=>x.st==='due'&&x.date<=c.date)?'Є щеплення, на які настав час':'Щеплено за віком'}</div>`:`<div class="r"><span>Записів про щеплення</span>${done} з ЕСОЗ${nd?`, ${nd} без даних`:''}</div>`}
+  if(c.t==='vac')rows+=`<div class="r"><span>Щеплення</span>${c.note}</div>`;
+  return `<div class="pdf"><div class="org">${ORG} · код ЄДРПОУ 00000000 (демо)</div><h4>${t.n.toUpperCase()}${t.f.includes('/о')?' · ФОРМА '+t.f:''}</h4>${rows}
+   <div class="sig"><div class="qrm"></div><div><b>Підписано КЕП</b><br>${DOCF}<br>${fmt(c.date)} · № ${c.t}-${c.date.replace(/-/g,'').slice(0,8)}-${c.id.toUpperCase()}<br>✓ підпис чинний</div></div></div>`;
+}
+function cViewModal(id){
+  const c=S.certs.find(x=>x.id===id);
+  modal(`<h3>${CT[c.t].f} · ${PPL[c.p].n}</h3>${pdfHTML(c,false)}
+   ${c.sent.length?`<div class="alog"><b>Доступ закладів</b>${c.sent.map(x=>`<div class="r"><span>${EDU[x.e].n}<br><span class="muted">надіслано ${fmt(x.at)}${x.seen?' · переглянуто '+fmt(x.seen):''}</span></span>${x.rev?'<span class="st grey">відкликано</span>':`<button class="btn xs red" data-a="cRevoke" data-id="${c.id}" data-v="${x.e}">Відкликати</button>`}</div>`).join('')}</div>`:''}
+   <div class="actions"><button class="btn sm" data-a="cPdf">Завантажити PDF</button><button class="btn sm grey" data-a="closeM">Закрити</button></div>`);
+}
+function shareModal(){
+  const sh=S.share,c=S.certs.find(x=>x.id===sh.id),kid=PPL[c.p].kid,eds=kid?KIDEDU[c.p]:[];
+  const q=(sh.q||'').toLowerCase(),found=q.length>1?Object.keys(EDU).filter(e=>!eds.includes(e)&&EDU[e].n.toLowerCase().includes(q)):[];
+  const sentTo=c.sent.filter(x=>!x.rev).map(x=>x.e);
+  modal(`<h3>Передати довідку в заклад</h3><div class="muted" style="font-size:14.5px">${CT[c.t].f} · ${CT[c.t].n} · ${PPL[c.p].n}</div>
+   ${eds.length?`<div class="dayh">З освітнього профілю ${PPL[c.p].gen}</div><div class="opts" id="shOpts">${eds.map(e=>`<button class="opt${sh.e===e?' on':''}" data-a="shE" data-v="${e}"${sentTo.includes(e)?' disabled':''}><b>${EDU[e].n}</b><span>${EDU[e].kind}${sentTo.includes(e)?' · вже передано':''}</span></button>`).join('')}</div>`:''}
+   <div class="dayh">Інший заклад</div><div class="field" style="margin:0"><input id="shQ" data-c="shQ" placeholder="Назва закладу, наприклад «ДЮСШ»" value="${sh.q||''}"></div>
+   <div id="shFound">${found.map(e=>`<button class="opt${sh.e===e?' on':''}" style="width:100%;margin-top:8px" data-a="shE" data-v="${e}"><b>${EDU[e].n}</b><span>${EDU[e].off?'Немає на Порталі — отримає посилання з QR на 30 днів':EDU[e].kind}</span></button>`).join('')}</div>
+   ${sh.e?`<div class="dayh" style="margin-top:18px">Що побачить ${EDU[sh.e].n}</div><div id="shPrev">${pdfHTML(c,true)}</div>
+    <label class="chk" style="margin-top:12px"><input type="checkbox" data-c="shAuto"${sh.auto?' checked':''}>Оновлювати автоматично, коли буде нова довідка <span class="idea">ідея</span></label>
+    <p class="muted" style="font-size:13.5px;margin-top:6px">Доступ діє ${c.until?'до '+fmt(c.until):'до відкликання'}. Ви бачитимете, хто і коли переглядав довідку.</p>`:''}
+   <div class="actions"><button class="btn" id="shOk" data-a="shOk"${sh.e?'':' disabled'}>Передати</button><button class="btn grey" data-a="closeM">Скасувати</button></div>`);
+}
+
+function renderRes(){
+  if(S.rv==='hospForm'&&!S.hsel)S.rv='hosp';
+  if(S.rv==='certNew'&&!S.cf)S.cf={p:'marko',t:'086',slot:null,deliver:'e1',auto:true};
+  $$('#rNav a').forEach(a=>a.classList.toggle('on',a.dataset.v===S.rv||(S.rv==='hospForm'&&a.dataset.v==='hosp')||(S.rv==='certNew'&&a.dataset.v==='cert')));
+  $('#rMain').innerHTML=({home:rHome,hosp:rHosp,hospForm:rHospForm,duty:rDuty,rx:rRx,vac:rVac,cert:rCert,certNew:rCertNew}[S.rv])();
+}
+
+/* ================= ЛІКАР · МІС ================= */
+function myCreqRows(){return S.creq.map(r=>({id:r.id,me:1,pt:PPL[r.p].full,age:PPL[r.p].age,t:r.t,deliver:r.deliver?EDU[r.deliver].n:'Лише отримати',at:r.at,exam:r.slot,st:r.st}))}
+function renderDoc(){
+  const cq=[...myCreqRows(),...S.creqDemo].filter(r=>r.st!=='signed').length;
+  const vb=S.vbook&&S.vbook.status==='booked'?1:0,warn=S.stock.filter(s=>{const d=daysBetween(TODAY,s.exp);return d<=30&&s.got-s.used>0}).length;
+  $('#dMenu').innerHTML=`<div class="cap">Сімейна медицина</div>
+   <div class="it${S.docv==='cert'?' on':''}" data-a="dNav" data-v="cert">Запити на довідки<span class="cnt">${cq}</span></div>
+   <div class="it${S.docv==='vac'?' on':''}" data-a="dNav" data-v="vac">Кабінет щеплень<span class="cnt">${S.vday.filter(x=>x.st==='booked').length+vb}</span></div>
+   <div class="it${S.docv==='stock'?' on':''}" data-a="dNav" data-v="stock">Облік вакцин (АРМ)<span class="cnt warn">${warn}</span></div>
+   <div class="cap">Інший заклад</div>
+   <div class="it${S.docv==='rx'?' on':''}" data-a="dNav" data-v="rx"><span>Е-рецепт міської програми<small>Прийом у ${KDC.kd1}</small></span></div>`;
+  $('#dMain').innerHTML=`<div class="mis"><b>Імітація МІС.</b> Це не інтерфейс Порталу: так має працювати медична інформаційна система закладу після доробок (Helsi і Health24 у першій черзі). Портал отримує з МІС лише події та документи.</div>`+({cert:dCert,rx:dRx,vac:dVac,stock:dStock}[S.docv])();
+}
+function dCert(){
+  const rows=[...myCreqRows(),...S.creqDemo];
+  return `<h1 class="pt">Запити на довідки з Порталу</h1><p class="sub" style="margin-top:6px">Як у «єДніпро»: довідка формується з даних, які вже є в МІС, лікар перевіряє й підписує КЕП. Якщо потрібен огляд, пацієнт записується на прийом у тому ж запиті.</p>
+   <div class="table-x"><table class="t"><thead><tr><th>Подано</th><th>Пацієнт</th><th>Довідка</th><th>Огляд</th><th>Куди передати</th><th>Статус</th></tr></thead><tbody>
+   ${rows.map(r=>`<tr class="cl${r.me?' me':''}" data-a="dReq" data-id="${r.id}"><td>${fmt(r.at)}</td><td><b>${r.pt}</b>, ${r.age}</td><td>${CT[r.t].f}</td><td>${r.exam?r.exam.slice(8,10)+'.'+r.exam.slice(5,7)+' '+r.exam.slice(11):'не потрібен'}</td><td>${r.deliver}</td><td>${r.st==='signed'?'<span class="st ok">Підписано</span>':r.st==='exam'?'<span class="st info">Очікує огляду</span>':'<span class="st wait">На підписі</span>'}</td></tr>`).join('')}
+   </tbody></table></div>`;
+}
+function openCReq(id){
+  const mine=S.creq.find(r=>r.id===id),demo=S.creqDemo.find(r=>r.id===id),r=mine?myCreqRows().find(x=>x.id===id):demo;
+  const t=r.t,done=r.st==='signed';
+  drawer(`<h3>Запит на довідку ${CT[t].f}</h3><div class="muted">з Порталу послуг · ${fmt(r.at)}</div>
+   <h4>Пацієнт</h4><div class="fld"><div class="v"><b>${r.pt}</b>, ${r.age}</div></div>
+   <div class="fld"><div class="l">Довідка</div><div class="v">${CT[t].n}</div></div>
+   <div class="fld"><div class="l">Куди передати після підпису</div><div class="v">${r.deliver}</div></div>
+   ${r.exam?`<div class="note">Огляд: ${fmt(r.exam.slice(0,10))} о ${r.exam.slice(11)}. Демо: вважаємо, що огляд проведено.</div>`:'<div class="note ok">Огляд не потрібен — дані вже є в МІС і ЕСОЗ.</div>'}
+   ${done?'<div class="note ok"><b>Підписано КЕП.</b> Довідка в кабінеті пацієнта на Порталі.</div>':`
+   <h4>Дані для довідки</h4>
+   ${t==='086'?`<div class="field"><label>Висновок</label><select id="dConcl"><option>Може відвідувати заклад освіти</option><option>Може відвідувати з обмеженнями</option><option>Тимчасово не може відвідувати</option></select></div>
+    <div class="field"><label>Група для занять фізкультурою</label><select id="dPe"><option>Основна</option><option>Підготовча</option><option>Спеціальна</option><option>Звільнений від занять</option></select></div>
+    <div class="fld"><div class="l">Наступний огляд</div><div class="v">через 12 місяців</div></div>
+    <p class="muted" style="font-size:13.5px">Хронічні захворювання вносяться лише за письмовою згодою батьків і на Портал не передаються.</p>`:
+   t==='063'?'<div class="fld"><div class="v">Сформовано з ЕСОЗ: записи про щеплення за календарем.</div></div>':'<div class="fld"><div class="v">Дані з МІС підставлено.</div></div>'}
+   <div class="actions"><button class="btn" id="dSign" data-a="dSign" data-id="${id}">Підписати КЕП</button></div>`}`);
+}
+function dRx(){
+  const f=S.rxf,d=f.drug;
+  const msg=!d?'':d==='enal'?'<div class="note bad" id="rxMsg"><b>Виписати за міською програмою не можна.</b> Еналаприл покривається програмою «Доступні ліки» — оформіть е-рецепт за державною програмою. Так колізія блокується в момент виписки, а не на звірці.</div>':
+    d==='fol'?'<div class="note warn" id="rxMsg"><b>Препарату немає в переліку міської програми.</b> Перелік і частку відшкодування веде ДОЗ в ЕСОЗ.</div>':
+    '<div class="note ok" id="rxMsg">✓ Препарат є в переліку міської програми. Програму фінансування обрано автоматично.</div>';
+  return `<h1 class="pt">Прийом · е-рецепт</h1><p class="sub" style="margin-top:6px">Лікар-ревматолог Гнатюк Р. М. · ${KDC.kd1}</p>
+   <div class="grid g2">
+    <div class="card ln chkl" id="rxPat"><h3>Пацієнтка: ${PPL.iryna.full}, ${PPL.iryna.age}</h3>
+     <div class="r ok"><span class="i">✓</span><div>Декларація ≥ 3 міс. у комунальному закладі<small>${ORG}, з 12.03.2019 · перевірено автоматично</small></div></div>
+     <div class="r ok"><span class="i">✓</span><div>Зареєстрована в Києві<small>РТГК · перевірено автоматично</small></div></div>
+     <div class="r ${f.nos?'ok':'q'}"><span class="i">${f.nos?'✓':'?'}</span><div>Категорія захворювання за дод. 2 ПКМУ № 1303<small>Підтверджує лікар. Діагноз за межі МІС не передається.</small>
+      <label class="chk" style="margin-top:6px"><input type="checkbox" id="rxNos" data-c="rxNos"${f.nos?' checked':''}>Підтверджую відповідність категорії</label></div></div></div>
+    <div class="card ln"><h3>Ліміт закладу на 2026 рік</h3><div style="font-size:15px">Договори з аптеками: використано <b>82 %</b></div><div class="meter"><i style="width:82%"></i></div>
+     <div class="muted" style="font-size:14px">Прогноз вичерпання — 12 грудня. Попередження бачить лікар під час виписки, а ДОЗ — у панелі.</div></div>
+   </div>
+   <div class="card ln" style="margin-top:20px"><h3>Препарат</h3>
+    <div class="opts c3" id="rxDrugs">${Object.entries(RX_DRUGS).map(([k,x])=>`<button class="opt${d===k?' on':''}" data-a="rxDrug" data-v="${k}"><b>${x.n}</b><span>${x.f} · ${x.inn}</span></button>`).join('')}</div>
+    ${msg}
+    ${d==='mtx'?`<div class="grid g3" style="margin-top:6px"><div class="field"><label>Програма фінансування</label><input value="Міська програма Києва · 100 %" disabled></div><div class="field"><label>Як приймати</label><input value="по 4 табл. 1 раз на тиждень"></div><div class="field"><label>Строк дії</label><input value="30 днів"></div></div>
+     <label class="chk"><input type="checkbox" data-c="rxRemote"${f.remote?' checked':''}>Дистанційна консультація без візиту (наказ МОЗ № 1333)</label>`:''}
+    <div class="err" id="rxErr"></div>
+    <div class="actions" style="margin-top:8px"><button class="btn" id="rxSign" data-a="rxSign">Підписати КЕП і створити е-рецепт</button></div></div>`;
+}
+function fefo(vac){return S.stock.filter(s=>s.vac===vac&&s.got-s.used>0&&s.exp>=TODAY).sort((a,b)=>a.exp<b.exp?-1:1)[0]}
+function dVac(){
+  const vb=S.vbook,rows=[...S.vday];
+  if(vb)rows.push({t:vb.t,pt:PPL[vb.p].full+', '+PPL[vb.p].age,v:vb.list.join(', '),st:vb.status,me:1});
+  rows.sort((a,b)=>a.t<b.t?-1:1);
+  return `<h1 class="pt">Кабінет щеплень · сьогодні, ${fmtL(TODAY)}</h1><p class="sub" style="margin-top:6px">${CL[0].n} · ${CL[0].room}. Записи приходять з Порталу. Щеплення фіксується один раз — доза списується зі складу сама.</p>
+   <div class="table-x"><table class="t"><thead><tr><th>Час</th><th>Пацієнт</th><th>Щеплення</th><th>Статус</th><th></th></tr></thead><tbody>
+   ${rows.map(r=>`<tr class="${r.me?'me':''}"><td class="mono">${r.t}</td><td><b>${r.pt}</b></td><td>${r.v}</td><td>${r.st==='done'?'<span class="st ok">Проведено</span>':'<span class="st info">Записано</span>'}</td><td>${r.st==='booked'&&r.me?`<button class="btn sm" data-a="dVacDo" data-id="me">Провести щеплення</button>`:''}</td></tr>`).join('')}
+   </tbody></table></div>
+   ${vb?'':'<div class="note grey">Запису від Мельник Марка ще немає — його створює мешканка на Порталі (сценарій «Щеплення»).</div>'}`;
+}
+function dVacModal(){
+  const vb=S.vbook;
+  modal(`<h3>Провести щеплення · ${PPL[vb.p].n}</h3><p class="muted" style="font-size:14.5px">Серії підставлено автоматично: спершу ті, у яких раніше спливає термін.</p>
+   <table class="t" style="margin-top:10px"><thead><tr><th>Вакцина</th><th>Серія</th><th>Термін</th></tr></thead><tbody>
+   ${vb.keys.map(k=>{const s=fefo(k);return `<tr><td><b>${k}</b></td><td class="mono">${s?s.ser:'— немає'}</td><td>${s?fmt(s.exp):''}</td></tr>`}).join('')}</tbody></table>
+   <div class="field" style="margin-top:14px"><label>Реакція після 30 хв спостереження</label><select><option>Без реакції</option><option>Місцева реакція</option></select></div>
+   <div class="actions"><button class="btn" id="dVacOk" data-a="dVacOk">Зафіксувати в МІС</button><button class="btn grey" data-a="closeM">Скасувати</button></div>`);
+}
+function expBadge(exp){const d=daysBetween(TODAY,exp);return d<0?'<span class="st bad">Прострочено</span>':d<=7?`<span class="st bad">${d} дн.</span>`:d<=30?`<span class="st wait">${d} дн.</span>`:d<=90?`<span class="st y">${d} дн.</span>`:`<span class="st grey">до ${fmt(exp)}</span>`}
+function dStock(){
+  const cnt=n=>S.stock.filter(s=>s.got-s.used>0&&daysBetween(TODAY,s.exp)<=n).length;
+  return `<h1 class="pt">Облік вакцин</h1><p class="sub" style="margin-top:6px">${CL[0].n}. АРМ замінює паперовий журнал: залишок змінюється сам, коли щеплення фіксують у МІС.</p>
+   ${S.redis==='proposed'?`<div class="note warn" id="stInBox"><b>ДОЗ пропонує переміщення:</b> 48 доз КПК від ЦПМСД № 1 Дніпровського р-ну (АЗПСМ № 5), серія KPK-2540, термін до 24.11.2026. <div class="actions" style="margin-top:10px"><button class="btn sm" id="stIn" data-a="stIn">Прийняти надходження</button></div></div>`:''}
+   <div class="kpis"><div class="kpi bad"><div class="v">${cnt(7)}</div><div class="l">серій спливають ≤ 7 днів</div></div><div class="kpi warn"><div class="v">${cnt(30)}</div><div class="l">≤ 30 днів</div></div><div class="kpi"><div class="v">${cnt(90)}</div><div class="l">≤ 90 днів</div></div><div class="kpi"><div class="v">${S.stock.reduce((a,s)=>a+s.got-s.used,0)}</div><div class="l">доз на складі</div></div></div>
+   <div class="table-x" id="stTbl"><table class="t"><thead><tr><th>Вакцина</th><th>Серія</th><th>Виробник</th><th class="num">Отримано</th><th class="num">Використано</th><th class="num">Залишок</th><th>Термін</th><th>Місце</th><th></th></tr></thead><tbody>
+   ${S.stock.map(s=>`<tr><td><b>${s.vac}</b></td><td class="mono">${s.ser}</td><td>${s.mfr}</td><td class="num">${s.got}</td><td class="num">${s.used}</td><td class="num"><b>${s.got-s.used}</b></td><td>${expBadge(s.exp)}</td><td>${s.pl}</td><td><button class="btn xs grey" data-a="stOff" data-id="${s.id}">Списати</button></td></tr>`).join('')}
+   </tbody></table></div>
+   <div class="note grey">Попередження за 90, 30 і 7 днів до кінця терміну бачить і заклад, і ДОЗ. Доки термін не сплив, ДОЗ пропонує перерозподіл.</div>`;
+}
+
+/* ================= ЛІКАРНЯ ================= */
+function allReqs(){const r=S.hreqs.slice();const q=S.hreq;if(q&&q.hosp==='h1'&&q.status!=='cancelled')r.unshift({id:'me',me:1,pt:'Мельник І. О.',age:38,dep:q.dep,from:q.from,to:q.to,at:q.at,sla:q.sla,st:q.status,date:q.date,time:q.time,reason:q.reason});return r}
+function renderHospRole(){
+  const rq=allReqs(),nw=rq.filter(r=>r.st==='sent').length;
+  $('#hMenu').innerHTML=`<div class="it${S.hv==='req'?' on':''}" data-a="hvNav" data-v="req">Заявки на госпіталізацію<span class="cnt">${nw}</span></div>
+   <div class="it${S.hv==='beds'?' on':''}" data-a="hvNav" data-v="beds">Ліжковий фонд</div>
+   <div class="it${S.hv==='duty'?' on':''}" data-a="hvNav" data-v="duty">Чергування</div>`;
+  $('#hMain').innerHTML=({req:hqList,beds:hqBeds,duty:hqDuty}[S.hv])();
+}
+const reqSt=r=>r.st==='sent'?(r.sla<=TODAY?'<span class="st bad">SLA сьогодні</span>':'<span class="st wait">Нова</span>'):r.st==='confirmed'?`<span class="st ok">Підтверджено · ${fmt(r.date)}</span>`:'<span class="st grey">Відхилено</span>';
+function hqList(){
+  const rq=allReqs();
+  return `<h1 class="pt">Заявки на госпіталізацію</h1><p class="sub" style="margin-top:6px">Заявки з Порталу разом із е-направленням. Відповісти треба протягом 2 робочих днів — інакше прийде нагадування (SLA, рішення D-04).</p>
+   <div class="kpis"><div class="kpi"><div class="v">${rq.filter(r=>r.st==='sent').length}</div><div class="l">нових заявок</div></div><div class="kpi bad"><div class="v">${rq.filter(r=>r.st==='sent'&&r.sla<=TODAY).length}</div><div class="l">SLA спливає сьогодні</div></div><div class="kpi ok"><div class="v">${rq.filter(r=>r.st==='confirmed').length}</div><div class="l">підтверджено</div></div><div class="kpi"><div class="v">${S.beds.reduce((a,d)=>a+Math.max(0,d.total-d.occ-d.res),0)}</div><div class="l">вільних ліжок</div></div></div>
+   <div class="table-x"><table class="t"><thead><tr><th>Подано</th><th>Пацієнт</th><th>Відділення</th><th>Бажаний період</th><th>Відповісти до</th><th>Статус</th></tr></thead><tbody>
+   ${rq.map(r=>`<tr class="cl${r.me?' me':''}" data-a="hqOpen" data-id="${r.id}"><td>${fmt(r.at)}</td><td><b>${r.pt}</b>, ${r.age} р.</td><td>${r.dep}</td><td>${fmt(r.from)} — ${fmt(r.to)}</td><td>${fmt(r.sla)}</td><td>${reqSt(r)}</td></tr>`).join('')}
+   </tbody></table></div>`;
+}
+function openReq(id){
+  const r=allReqs().find(x=>x.id===id),me=id==='me',q=S.hreq;
+  drawer(`<h3>Заявка на госпіталізацію</h3><div class="muted">з Порталу · подано ${fmt(r.at)}</div>
+   <h4>Пацієнт</h4><div class="fld"><div class="v"><b>${me?PPL.iryna.full:r.pt}</b>, ${r.age} р.</div></div>
+   <h4>Е-направлення · автоперевірка</h4>
+   <div class="chkl"><div class="r ok"><span class="i">✓</span><div>Чинне до ${fmt(S.ref.until)}<small>№ ${me?S.ref.no:'0571-••••-••••-'+String(1000+r.age*13).slice(0,4)}</small></div></div>
+   <div class="r ok"><span class="i">✓</span><div>Не взяте в роботу іншим закладом</div></div>
+   <div class="r ok"><span class="i">✓</span><div>Послуга відповідає профілю відділення «${r.dep}»</div></div></div>
+   <div class="fld" style="margin-top:12px"><div class="l">Бажаний період</div><div class="v">${fmt(r.from)} — ${fmt(r.to)}</div></div>
+   ${me&&q.note?`<div class="fld"><div class="l">Коментар пацієнтки</div><div class="v">${q.note}</div></div>`:''}
+   <div class="fld"><div class="l">Відповісти до</div><div class="v">${fmt(r.sla)}</div></div>
+   ${r.st==='sent'?`<h4>Рішення</h4>
+    <div class="grid g2"><div class="field"><label>Дата</label><input type="date" id="rqDate" value="${me?'2026-11-10':r.from}"></div><div class="field"><label>Час</label><select id="rqTime"><option>08:00</option><option>09:00</option><option>10:00</option></select></div></div>
+    <div class="field"><label>Куди прийти</label><input id="rqPlace" value="Приймальне відділення, корпус 2"></div>
+    <div class="field"><label>Інструкції для пацієнта</label><textarea id="rqInstr">Візьміть паспорт і номер е-направлення\nРезультати аналізів крові, не давніші за 14 днів, і ЕКГ\nНе їжте після 22:00 напередодні</textarea></div>
+    <div class="actions"><button class="btn" id="rqOk" data-a="rqOk" data-id="${id}">Підтвердити</button><button class="btn red" id="rqNo" data-a="rqNo" data-id="${id}">Відхилити</button></div>`:
+    `<div class="note ${r.st==='confirmed'?'ok':'grey'}">${r.st==='confirmed'?`Підтверджено на ${fmt(r.date)}, ${r.time}. Пацієнт отримав сповіщення.`:'Відхилено: '+r.reason}</div>`}`);
+}
+function hqBeds(){
+  return `<h1 class="pt">Ліжковий фонд</h1><p class="sub" style="margin-top:6px">Вільні місця по відділеннях бачать пацієнти на Порталі з міткою часу. Дані довідкові: остаточне рішення завжди за лікарнею.</p>
+   <div class="note warn">Як наповнювати реєстр — автоматично з МІС чи вручну — вирішує ДОЗ (рішення D-03). Якщо дані не оновлювались довше доби, Портал позначає їх як застарілі.</div>
+   <div class="table-x"><table class="t"><thead><tr><th>Відділення</th><th>Профіль</th><th class="num">Штатні ліжка</th><th class="num">Зайнято</th><th class="num">Заброньовано</th><th class="num">Вільно</th><th>Джерело</th><th>Оновлено</th></tr></thead><tbody>
+   ${S.beds.map((d,i)=>`<tr><td><b>${d.n}</b></td><td>${d.p}</td><td class="num">${d.total}</td><td class="num"><span class="pm"><button data-a="bedOcc" data-id="${i}" data-v="-1">−</button>${d.occ}<button data-a="bedOcc" data-id="${i}" data-v="1">+</button></span></td><td class="num">${d.res}</td><td class="num"><b>${Math.max(0,d.total-d.occ-d.res)}</b></td><td>${d.src}</td><td>${d.upd}</td></tr>`).join('')}
+   </tbody></table></div><p class="muted" style="font-size:13.5px;margin-top:10px">«Заброньовано» — підтверджені заявки з Порталу на найближчі 14 днів.</p>`;
+}
+function hqDuty(){
+  return `<h1 class="pt">Чергування</h1><p class="sub" style="margin-top:6px">Якщо джерелом обрано заклади (рішення D-02), лікарня щодня підтверджує чергування на наступну добу. Без підтвердження Портал покаже, що дані застаріли.</p>
+   <div class="grid g2"><div class="card ln"><h3>Сьогодні, 20 жовтня</h3><div class="bdg"><span class="g">Хірургія · дорослі</span><span class="g">Травматологія · дорослі</span></div><p class="muted" style="font-size:14px;margin-top:12px">Підтверджено вчора о 16:05 · відповідальна: Савчук П. Р.</p></div>
+   <div class="card ln"><h3>Завтра, 21 жовтня</h3>${['Хірургія','Терапія','Травматологія'].map((p,i)=>`<label class="chk"><input type="checkbox"${i!==1?' checked':''}>${p} · дорослі</label>`).join('')}
+    ${S.dutyConf?'<div class="note ok" style="margin-bottom:0">✓ Графік на 21 жовтня підтверджено о 09:41.</div>':'<div class="actions" style="margin-top:12px"><button class="btn sm" data-a="dutyConf">Підтвердити чергування на 21 жовтня</button></div>'}</div></div>`;
+}
+
+/* ================= ЗАКЛАД ОСВІТИ ================= */
+const FN=['Олександр','Анна','Максим','Дарина','Артем','Вікторія','Богдан','Злата','Матвій','Єва','Тимофій','Мілана','Давид','Соломія','Назар','Аліса','Іван','Емілія','Лев','Поліна','Михайло','Катерина','Роман','Олеся'];
+const SN=['Коваленко','Шевчук','Ткаченко','Кравченко','Олійник','Бойко','Лисенко','Савченко','Руденко','Гончаренко','Литвин','Марченко','Поліщук','Кузьменко','Павленко','Петренко','Захарченко','Ковальчук','Онищенко','Ярошенко','Гуменюк','Дячук','Василенко','Пономаренко'];
+function roster(e){
+  const E=EDU[e],r=rng(E.seed),a=[];
+  for(let i=0;i<E.size-1;i++){
+    const nm=SN[(i*7+E.seed)%SN.length]+' '+FN[(i*5+E.seed*3)%FN.length];
+    let until=null,pe='Основна',c063=true;
+    if(i%9===3)until=addD(TODAY,5+Math.floor(r()*24));
+    else if(i===7){until=null;c063=false}
+    else until=addD(TODAY,40+Math.floor(r()*300));
+    if(i%6===2)pe='Підготовча';if(i===10)pe='Спеціальна';
+    a.push({id:'d'+i,nm,until,pe,c063,at:until?addD(until,-364):null});
+  }
+  return a.sort((x,y)=>x.nm<y.nm?-1:1);
+}
+const ROSTER={e1:roster('e1'),e2:roster('e2'),e3:roster('e3')};
+function kidRow(e){
+  const k=EDU[e].kid,ok=c=>!c.repl&&c.p===k&&c.sent.some(s=>s.e===e&&!s.rev);
+  const c086=S.certs.filter(c=>c.t==='086'&&ok(c)).sort((a,b)=>a.date<b.date?1:-1)[0],c063=S.certs.filter(c=>c.t==='063'&&ok(c))[0];
+  return {id:k,me:1,nm:PPL[k].full.split(' ').slice(0,2).join(' '),until:c086?c086.until:null,pe:c086?c086.pe:null,c063:!!c063,at:c086?c086.sent.find(s=>s.e===e).at:null,cert:c086};
+}
+function eduSt(u){if(!u)return '<span class="st bad">Немає</span>';const d=daysBetween(TODAY,u);return d<0?'<span class="st bad">Прострочена</span>':d<=30?`<span class="st wait">Спливає ${fmt(u)}</span>`:`<span class="st ok">до ${fmt(u)}</span>`}
+function renderEdu(){
+  $('#eMenu').innerHTML=['e1','e2','e3'].map(e=>`<div class="it${S.edu===e?' on':''}" data-a="eNav" data-v="${e}"><span>${EDU[e].n}<small>${EDU[e].kind}</small></span></div>`).join('');
+  const e=S.edu,E=EDU[e],rows=[kidRow(e),...ROSTER[e]];
+  const exp=rows.filter(r=>r.until&&daysBetween(TODAY,r.until)<=30).length,none=rows.filter(r=>!r.until).length;
+  $('#eMain').innerHTML=`<h1 class="pt">${E.full}</h1><p class="sub" style="margin-top:6px">${E.grp} · медичні довідки дітей</p>
+   <div class="note">Заклад отримує довідки лише від батьків через Портал. Видно висновок, групу для занять фізкультурою і строк дії — без діагнозів. Доступ діє до кінця строку довідки.</div>
+   <div class="kpis"><div class="kpi"><div class="v">${rows.length}</div><div class="l">дітей</div></div><div class="kpi ok"><div class="v">${rows.length-exp-none}</div><div class="l">з чинною 086/о</div></div><div class="kpi warn"><div class="v">${exp}</div><div class="l">спливає ≤ 30 днів</div></div><div class="kpi bad"><div class="v">${none}</div><div class="l">без довідки</div></div></div>
+   <div class="ctrls"><span class="muted" style="font-size:14px">Батьки отримають push у «Київ Цифровий» з посиланням на оформлення довідки.</span><button class="btn sm sp" id="eRemind" data-a="eRemind"${S.reminded[e]?' disabled':''}>${S.reminded[e]?'✓ Нагадування надіслано':`Нагадати батькам (${exp+none})`} <span class="idea">ідея</span></button></div>
+   <div class="table-x" id="eTbl"><table class="t"><thead><tr><th>Дитина</th><th>086/о</th><th>Фізкультура</th><th>063/о</th><th>Отримано</th><th></th></tr></thead><tbody>
+   ${rows.map(r=>`<tr class="${r.me?'me':''}"><td><b>${r.nm}</b></td><td>${eduSt(r.until)}</td><td>${r.pe||'—'}</td><td>${r.c063?'✓':'—'}</td><td>${r.at?fmt(r.at):'—'}</td><td>${r.until?`<button class="btn xs grey" data-a="eView" data-id="${r.me?'me':r.id}">Переглянути</button>`:''}</td></tr>`).join('')}
+   </tbody></table></div>`;
+}
+
+/* ================= ДОЗ ================= */
+function renderDoz(){
+  const it=(v,n)=>`<div class="it${S.zv===v?' on':''}" data-a="zNav" data-v="${v}">${n}</div>`;
+  $('#zMenu').innerHTML=it('home','Огляд')+it('vac','Вакцини')+it('rx','Ліки за програмою')+it('hosp','Госпіталізація')+it('duty','Чергові лікарні')+it('cert','Медичні довідки');
+  $('#zMain').innerHTML=({home:zHome,vac:zVac,rx:zRx,hosp:zHosp,duty:zDuty,cert:zCert}[S.zv])();
+}
+function zHome(){
+  return `<h1 class="pt">Охорона здоров’я · огляд</h1><p class="sub" style="margin-top:6px">Панель будується з подій у МІС, ЕСОЗ і на Порталі. Окремо дані не збираються. Діагнозів у панелі немає.</p>
+   <div class="kpis k5"><div class="kpi"><div class="v">214</div><div class="l">заявок на госпіталізацію за тиждень</div></div><div class="kpi"><div class="v">2 143</div><div class="l">пацієнти отримали ліки в жовтні</div></div><div class="kpi warn"><div class="v">3</div><div class="l">серії вакцин спливають ≤ 30 днів</div></div><div class="kpi"><div class="v">1 870</div><div class="l">довідок онлайн у жовтні</div></div><div class="kpi ${S.stale?'bad':'ok'}"><div class="v">${S.stale?9:0}</div><div class="l">лікарень із застарілими даними про чергування</div></div></div>
+   <div class="grid g2"><div class="card ln"><h3>Потребує рішення</h3><div style="font-size:15px;line-height:1.7">• КПК: 48 доз у ЦПМСД № 1 Дніпровського р-ну спливають через 35 днів — <a style="color:var(--blue);cursor:pointer" data-a="zNav" data-v="vac">перерозподіл</a><br>• ${KDC.kd1}: ліміт ліків вичерпається 12 грудня — <a style="color:var(--blue);cursor:pointer" data-a="zNav" data-v="rx">бюджет</a><br>• Лікарня Святошина не передає даних про ліжковий фонд</div></div>
+   <div class="card ln"><h3>Відкриті рішення</h3><div style="font-size:15px;line-height:1.7">D-01 реєстрація міської програми в ЕСОЗ<br>D-02 джерело даних про чергування<br>D-05 правила участі аптек<br>D-13 е-довідка з КЕП у закладах освіти</div></div></div>`;
+}
+function zVac(){
+  const heat={};DN.forEach(d=>heat[d]='#d6f0d8');heat['Дніпровський']=S.redis==='done'?'#d6f0d8':'#ffe7a8';heat['Деснянський']='#ffe7a8';heat['Подільський']='#f8c9c3';
+  return `<h1 class="pt">Вакцини в Києві</h1><p class="sub" style="margin-top:6px">Облік доз — міська компетенція. Залишки видно в реальному часі, а не за звітом.</p>
+   <div class="grid g2"><div>${mapSVG({heat,pins:CL.map(c=>({...c,cls:ST[clinicStat(c.id,'КПК')][2]}))})}<div class="legend"><span><i class="sd" style="background:#9fd8a5"></i>достатній запас</span><span><i class="sd" style="background:#f3cf6b"></i>низький</span><span><i class="sd" style="background:#ee9a90"></i>дефіцит</span><span>· точки — КПК у закладах</span></div></div>
+   <div id="zVacBal"><h3 style="font-size:18px;margin-bottom:10px">Баланс по місту</h3><table class="t"><thead><tr><th>Вакцина</th><th class="num">Потреба</th><th class="num">Наявність</th><th class="num">Баланс</th></tr></thead><tbody>
+    ${[['КПК',2500,3100],['ІПВ',1800,1200],['АКДП',2000,2150],['АДП',1400,1650],['Гепатит B',1100,980]].map(([v,n,h])=>`<tr><td><b>${v}</b></td><td class="num">${n.toLocaleString('uk')}</td><td class="num">${h.toLocaleString('uk')}</td><td class="num"><span class="st ${h-n<0?'bad':'ok'}">${h-n>0?'+':'−'}${Math.abs(h-n)}</span></td></tr>`).join('')}</tbody></table>
+    <p class="muted" style="font-size:13.5px;margin-top:8px">Потреба — за календарем щеплень і кількістю дітей відповідного віку.</p></div></div>
+   <div class="card ln" id="zRedisCard" style="margin-top:24px"><h3>Пропозиція перерозподілу</h3>
+    <p style="font-size:15px">ЦПМСД № 1 Дніпровського р-ну (АЗПСМ № 5): <b>48 доз КПК</b>, серія KPK-2540, термін придатності спливає <b>24.11.2026</b> — через 35 днів. За нинішнього темпу (6 доз на тиждень) до кінця терміну використають близько 30 доз.</p>
+    <p style="font-size:15px;margin-top:8px">ЦПМСД № 3 Дніпровського р-ну: КПК лишилося <b>${S.stock.filter(s=>s.vac==='КПК').reduce((a,s)=>a+s.got-s.used,0)} доз</b>, а записів на щеплення за віком 6 років — 14 на два тижні.</p>
+    ${S.redis==='done'?'<div class="note ok" style="margin-bottom:0">✓ Переміщено 48 доз. Залишки оновлено в обох закладах, мешканці бачать «є».</div>':S.redis==='proposed'?'<div class="note" style="margin-bottom:0">Запропоновано. Чекаємо, поки ЦПМСД № 3 прийме надходження.</div>':'<div class="actions"><button class="btn" id="zRedis" data-a="zRedis">Запропонувати перерозподіл</button></div>'}</div>
+   <div class="card ln" style="margin-top:20px"><h3>Прогноз на 3 місяці · КПК <span class="phs">пізніший етап</span></h3>
+    <div class="bars"><div class="r"><span>Потреба</span><div class="tr"><i style="width:100%"></i></div><b class="mono">4 800</b></div><div class="r"><span>Наявність</span><div class="tr"><i class="g" style="width:81%"></i></div><b class="mono">3 900</b></div><div class="r"><span>Очікується поставка</span><div class="tr"><i class="g" style="width:10%"></i></div><b class="mono">500</b></div><div class="r"><span>Прогнозований дефіцит</span><div class="tr"><i class="b" style="width:8%"></i></div><b class="mono">400</b></div></div>
+    <p class="muted" style="font-size:13.5px;margin-top:8px">Прогноз: кількість дітей за віком, календар, історичне споживання, записи, сезонність і заплановані поставки.</p></div>`;
+}
+function zRx(){
+  const B=[['КДЦ Дніпровського р-ну',82,'12 грудня'],['КДЦ Деснянського р-ну',71,'—'],['КДЦ Дарницького р-ну',64,'—'],['КДЦ Шевченківського р-ну',58,'—'],['КДЦ Оболонського р-ну',90,'28 листопада'],['КДЦ Голосіївського р-ну',47,'—']];
+  return `<h1 class="pt">Ліки за міською програмою</h1><p class="sub" style="margin-top:6px">Захід 2.54 · ПКМУ № 1303. Вперше місто бачить пацієнтів, а не лише гроші. Пацієнт — знеособлений ідентифікатор з реєстру відпусків ЕСОЗ.</p>
+   <div class="kpis"><div class="kpi"><div class="v">2 143</div><div class="l">пацієнти отримали ліки (жовтень)</div></div><div class="kpi"><div class="v">3 410</div><div class="l">е-рецептів погашено</div></div><div class="kpi ok"><div class="v">37</div><div class="l">колізій із «Доступними ліками» заблоковано</div></div><div class="kpi warn"><div class="v">4</div><div class="l">розбіжності при звіренні рахунків</div></div></div>
+   <div class="card ln" id="zRxBud"><h3>Бюджет за договорами з аптеками</h3><div class="bars">${B.map(([n,p,f])=>`<div class="r"><span>${n}</span><div class="tr"><i class="${p>=80?'b':p>=65?'w':''}" style="width:${p}%"></i></div><b class="mono">${p} %</b></div>`).join('')}</div>
+    <p class="muted" style="font-size:13.5px;margin-top:10px">Прогноз вичерпання: ${B.filter(b=>b[2]!=='—').map(b=>b[0]+' — '+b[2]).join('; ')}. Лікар бачить попередження під час виписки.</p></div>
+   <div class="note warn">Чи показувати мешканцям наявність ліків і дефіцит — окреме рішення керівництва (D-10).</div>`;
+}
+function zHosp(){
+  const R=[['Лікарня Лівого берега','МІС',94,S.beds.filter(d=>d.p==='Хірургія').reduce((a,d)=>a+Math.max(0,d.total-d.occ-d.res),0)],['Центральна міська лікарня','МІС',81,0],['Лікарня Оболоні','вручну',88,2],['Лікарня Голосієва','МІС',76,4],['Лікарня Святошина','немає даних',null,null]];
+  return `<h1 class="pt">Планова госпіталізація</h1><p class="sub" style="margin-top:6px">Заявки з Портала, SLA лікарень і завантаженість за профілями.</p>
+   <div class="kpis"><div class="kpi"><div class="v">214</div><div class="l">заявок за тиждень</div></div><div class="kpi ok"><div class="v">87 %</div><div class="l">розглянуто в межах SLA</div></div><div class="kpi"><div class="v">9 %</div><div class="l">відхилено</div></div><div class="kpi"><div class="v">9 дн.</div><div class="l">від направлення до госпіталізації</div></div></div>
+   <div class="table-x"><table class="t"><thead><tr><th>Лікарня</th><th>Дані про місця</th><th class="num">SLA</th><th class="num">Вільно в хірургії</th></tr></thead><tbody>
+   ${R.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]==='немає даних'?'<span class="st bad">немає даних</span>':r[1]}</td><td class="num">${r[2]===null?'—':r[2]+' %'}</td><td class="num">${r[3]===null?'—':r[3]}</td></tr>`).join('')}</tbody></table></div>
+   <div class="card ln" style="margin-top:20px"><h3>Причини відхилень</h3><div class="bars"><div class="r"><span>Немає місць</span><div class="tr"><i style="width:61%"></i></div><b class="mono">61 %</b></div><div class="r"><span>Послуга не профільна</span><div class="tr"><i style="width:22%"></i></div><b class="mono">22 %</b></div><div class="r"><span>Інше</span><div class="tr"><i style="width:17%"></i></div><b class="mono">17 %</b></div></div></div>`;
+}
+function zDuty(){
+  const rows=[];DPROF.forEach(p=>['adult','child'].forEach(a=>(DUTY[p][a]||[]).forEach(id=>rows.push([H(id).n,p+(a==='child'?' · діти':'')]))));
+  return `<h1 class="pt">Чергові лікарні</h1><p class="sub" style="margin-top:6px">Для ургентного сценарію важливо, наскільки свіжі дані. Застарілі Портал приховує і показує телефон Відділу госпіталізації.</p>
+   <div class="table-x"><table class="t"><thead><tr><th>Лікарня</th><th>Профіль</th><th>Оновлено</th><th>Статус на Порталі</th></tr></thead><tbody>
+   ${rows.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${S.stale?'17.10, 07:40':'20.10, 07:42'}</td><td>${S.stale?'<span class="st bad">приховано · застаріло</span>':'<span class="st ok">показано</span>'}</td></tr>`).join('')}</tbody></table></div>
+   <div class="note warn">Джерело — графік Відділу госпіталізації Центру ЕМД або щоденне підтвердження закладами (рішення D-02).</div>`;
+}
+function zCert(){
+  return `<h1 class="pt">Медичні довідки</h1><p class="sub" style="margin-top:6px">Онлайн-довідки з підписом КЕП і їх передача в заклади освіти.</p>
+   <div class="kpis"><div class="kpi"><div class="v">1 870</div><div class="l">довідок оформлено онлайн (жовтень)</div></div><div class="kpi ok"><div class="v">64 %</div><div class="l">без візиту до лікаря</div></div><div class="kpi"><div class="v">1 240</div><div class="l">передано в заклади освіти</div></div><div class="kpi"><div class="v">5 год</div><div class="l">середній час до підпису</div></div></div>
+   <div class="card ln"><h3>За типами</h3><div class="bars"><div class="r"><span>086/о</span><div class="tr"><i style="width:100%"></i></div><b class="mono">812</b></div><div class="r"><span>063/о</span><div class="tr"><i style="width:68%"></i></div><b class="mono">553</b></div><div class="r"><span>Довідка про щеплення</span><div class="tr"><i style="width:22%"></i></div><b class="mono">181</b></div><div class="r"><span>095/о</span><div class="tr"><i style="width:27%"></i></div><b class="mono">219</b></div><div class="r"><span>Інші</span><div class="tr"><i style="width:13%"></i></div><b class="mono">105</b></div></div></div>
+   <div class="note">Метрика 1 вересня: скільки дітей прийшли в заклад без чинної довідки. Мета — зсунути огляди на літо й прибрати вересневі черги до педіатрів.</div>`;
+}
+
+/* ================= ДІЇ ================= */
+function renderAll(){
+  ['res','doc','hosp','edu','doz'].forEach(r=>$('#v-'+r).hidden=S.role!==r);
+  $$('.mock [data-role]').forEach(b=>b.classList.toggle('on',b.dataset.role===S.role));
+  $('#uname').textContent={res:'Мельник І. О.',doc:'МІС · Ковальчук О. В.',hosp:'Лікарня Лівого берега',edu:'Заклад освіти',doz:'ДОЗ · аналітик'}[S.role];
+  $('#staleSel').value=S.stale?'1':'0';
+  if(S.role==='res')renderRes();
+  if(S.role==='doc')renderDoc();
+  if(S.role==='hosp')renderHospRole();
+  if(S.role==='edu')renderEdu();
+  if(S.role==='doz')renderDoz();
+}
+function setRole(r){S.role=r;closeDrawer();closeModal();renderAll();scrollTo(0,0)}
+function go(v){S.rv=v;closeDrawer();renderRes();scrollTo(0,0)}
+function jump(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}
+const ACT={
+  go:d=>go(d.v),jump:d=>jump(d.v),closeM:()=>closeModal(),
+  appt:()=>toast('«Запис до лікаря» будується в першій черзі модернізації Порталу (захід 6.1). Цей макет його не дублює.'),
+  hOpen:d=>openHosp(d.id),
+  hApply:d=>{S.hsel=d.id;S.hform.dep=null;closeDrawer();go('hospForm')},
+  hfDep:d=>{S.hform.dep=d.v;renderRes()},
+  hSend:()=>{const f=S.hform;if(!f.dep){$('#hErr').textContent='Оберіть відділення.';return}
+    const h=H(S.hsel);S.hreq={hosp:S.hsel,dep:f.dep,doc:f.doc,from:f.from,to:f.to,note:f.note,status:'sent',at:TODAY,sla:'2026-10-22',hist:[[fmt(TODAY)+', 09:52','Заявку подано в '+h.n+' · '+f.dep]]};
+    S.hv='req';go('hosp');notify('Заявку подано в «'+h.n+'». Лікарня відповість до 22.10.')},
+  hCancel:()=>modal(`<h3>Скасувати заявку?</h3><p class="muted" style="font-size:15px">Направлення лишиться чинним — його можна використати в іншій лікарні.</p><div class="actions"><button class="btn red" data-a="hCancelOk">Скасувати заявку</button><button class="btn grey" data-a="closeM">Назад</button></div>`),
+  hCancelOk:()=>{const q=S.hreq;if(q.status==='confirmed'){const b=S.beds.find(x=>x.n===q.dep);if(b)b.res=Math.max(0,b.res-1)}q.status='cancelled';q.hist.push([fmt(TODAY),'Заявку скасовано пацієнткою']);closeModal();renderAll();toast('Заявку скасовано. Направлення чинне до '+fmt(S.ref.until)+'.')},
+  hRetry:()=>{S.hreq=null;S.hsel=null;renderRes();jump('hList')},
+  hIcs:()=>{const q=S.hreq,h=H(q.hosp);ics('gospitalizatsiya.ics','Госпіталізація: '+h.n,q.date,q.time,h.a+', '+q.place)},
+  dProf:d=>{S.dprof=d.v;renderRes()},dAge:d=>{S.dage=d.v;renderRes()},
+  rxCodeT:()=>{S.rxCode=!S.rxCode;renderRes()},
+  rxAsk:()=>toast('Запит лікарю надіслано. Якщо огляд не потрібен, лікар випише наступний рецепт дистанційно (наказ МОЗ № 1333, політика D-07).'),
+  phAll:d=>{S.phAll=d.v==='1';renderRes()},
+  phSel:d=>{S.phSel=d.id;renderRes()},
+  vP:d=>{S.vp=d.v;S.vq='';renderRes()},
+  vFind:d=>{S.vq=d.v;renderRes();setTimeout(()=>jump('vFind'),30)},
+  vBookOpen:d=>{S.vsel.c=d.id;vBookModal(d.id)},
+  vSlot:d=>{const[a,b]=d.v.split(' ');S.vsel.d=a;S.vsel.t=b;vBookModal(S.vsel.c)},
+  vBookOk:()=>{const p=S.vp,sel=S.vsel,due=S.vcal[p].filter(x=>['due','missed','booked'].includes(x.st)&&x.k);
+    if(S.vbook&&S.vbook.p!==p)ACT.vCancel(true);
+    S.vbook={p,c:sel.c,d:sel.d,t:sel.t,list:due.length?due.map(x=>x.v+(x.dose?' ('+x.dose+')':'')):[VNAME[S.vq]],keys:due.length?due.map(x=>x.k):[S.vq],status:'booked'};
+    due.forEach(x=>{if(!x.prev)x.prev={st:x.st,date:x.date};x.st='booked';x.date=sel.d});S.docv='vac';closeModal();renderRes();scrollTo(0,0);
+    notify(`Запис: ${dayL(sel.d)}, ${fmtL(sel.d)}, ${sel.t}. Нагадаємо напередодні.`)},
+  vCancel:quiet=>{S.vcal[S.vbook.p].filter(x=>x.st==='booked').forEach(x=>{Object.assign(x,x.prev);delete x.prev});S.vbook=null;if(quiet===true)return;renderRes();toast('Запис скасовано.')},
+  vIcs:()=>{const v=S.vbook,c=CL.find(x=>x.id===v.c);ics('shcheplennya.ics','Щеплення: '+PPL[v.p].n,v.d,v.t,c.a+', '+c.room)},
+  vNotify:d=>{const k=d.id+S.vq;if(!S.vnote.includes(k))S.vnote.push(k);renderRes();toast('🔔 Повідомимо в «Київ Цифровий», щойно вакцина '+S.vq+' з’явиться в закладі.')},
+  cNew:()=>{S.cf={p:'marko',t:'086',slot:null,deliver:'e1',auto:true};go('certNew')},
+  cRenew:d=>{const c=S.certs.find(x=>x.id===d.id),s=c.sent.find(x=>!x.rev);S.cf={p:c.p,t:c.t,slot:null,deliver:s?s.e:'',auto:true};go('certNew')},
+  cfP:d=>{S.cf.p=d.v;S.cf.slot=null;S.cf.deliver=PPL[d.v].kid?KIDEDU[d.v][0]:'';renderRes()},
+  cfT:d=>{S.cf.t=d.v;S.cf.slot=null;renderRes()},
+  cfSlot:d=>{S.cf.slot=d.v;renderRes()},
+  cfDel:d=>{S.cf.deliver=d.v;renderRes()},
+  cSend:()=>{const f=S.cf,vi=visitInfo(f.p,f.t);if(vi.need&&!f.slot){$('#cErr').textContent='Оберіть час огляду.';return}
+    const r={id:'q'+(S.creq.length+1),p:f.p,t:f.t,deliver:f.deliver||null,auto:f.auto,slot:vi.need?f.slot:null,st:vi.need?'exam':'pending',at:TODAY};
+    S.creq.push(r);S.docv='cert';go('cert');
+    toast(vi.need?`Запит надіслано. Огляд ${dayL(f.slot.slice(0,10))} о ${f.slot.slice(11)} — нагадаємо.`:'Запит надіслано лікарці. Довідка з’явиться тут після підпису КЕП.')},
+  cView:d=>cViewModal(d.id),
+  cShare:d=>{S.share={id:d.id,e:null,q:'',auto:false};shareModal()},
+  shE:d=>{S.share.e=d.v;shareModal()},
+  shOk:()=>{const sh=S.share,c=S.certs.find(x=>x.id===sh.id);c.sent.push({e:sh.e,at:TODAY,seen:null});if(sh.auto)c.auto=true;
+    if(['e1','e2','e3'].includes(sh.e))S.edu=sh.e;closeModal();renderRes();
+    toast(EDU[sh.e].off?'Посилання з QR-кодом створено — діє 30 днів.':`Довідку передано в ${EDU[sh.e].n}. Ви побачите, коли її переглянуть.`)},
+  cRevoke:d=>{const c=S.certs.find(x=>x.id===d.id),s=c.sent.find(x=>x.e===d.v&&!x.rev);s.rev=true;cViewModal(d.id);renderRes();toast('Доступ відкликано: '+EDU[d.v].n+' більше не бачить довідку.')},
+  cCheck:()=>{$('#cCheckRes').innerHTML=`<div class="note ok"><b>Довідка чинна.</b> 086/о · Мельник Софія Андріївна · видана 20.08.2026 · підпис КЕП: ${DOCF}, ${ORG} · чинна до 20.08.2027.</div>`},
+  cPdf:()=>toast('У робочій версії — PDF з накладеним КЕП і QR-кодом для перевірки.'),
+  dNav:d=>{S.docv=d.v;closeDrawer();renderDoc()},
+  dReq:d=>openCReq(d.id),
+  dSign:d=>{const mine=S.creq.find(r=>r.id===d.id);
+    if(!mine){signing('Підписання КЕП…',()=>{S.creqDemo.find(r=>r.id===d.id).st='signed';closeDrawer();renderDoc();toast('Довідку підписано й надіслано пацієнту на Портал.')});return}
+    const concl=$('#dConcl')?$('#dConcl').value:null,pe=$('#dPe')?$('#dPe').value:null;
+    signing('Підписання КЕП…',()=>{
+      const c={id:'k'+(S.certs.length+1),p:mine.p,t:mine.t,date:TODAY,sent:[],auto:mine.deliver&&mine.auto};
+      if(mine.t==='086'){c.until=mine.slot?addD(TODAY,365):addD(LAST_EXAM[mine.p]||TODAY,365);c.concl=concl;c.pe=pe}
+      if(mine.deliver){S.certs.filter(x=>x.p===c.p&&x.t===c.t&&!x.repl&&x.sent.some(s=>s.e===mine.deliver&&!s.rev)).forEach(x=>{if(mine.auto){x.repl=true;x.sent.forEach(s=>{if(s.e===mine.deliver)s.rev=true})}});c.sent.push({e:mine.deliver,at:TODAY,seen:null});S.edu=mine.deliver}
+      if(mine.t==='086'&&mine.slot)LAST_EXAM[mine.p]=TODAY;
+      S.certs.push(c);mine.st='signed';S.rv='cert';closeDrawer();renderDoc();
+      toast('Підписано КЕП. Довідка — у кабінеті мешканки'+(mine.deliver?' і в '+EDU[mine.deliver].n:'')+'.')})},
+  rxDrug:d=>{S.rxf.drug=d.v;renderDoc()},
+  rxSign:()=>{const f=S.rxf;if(f.drug!=='mtx'){$('#rxErr').textContent=f.drug?'Цей препарат не можна виписати за міською програмою.':'Оберіть препарат.';return}
+    if(!f.nos){$('#rxErr').textContent='Підтвердьте відповідність категорії захворювання.';return}
+    signing('Підписання КЕП і реєстрація в ЕСОЗ…',()=>{S.rx.push({id:'x'+S.rx.length,drug:'Метотрексат',form:'табл. 2,5 мг № 50',dose:'по 4 табл. 1 раз на тиждень',date:TODAY,until:addD(TODAY,30),status:'active',no:'7Q2M-4K8T-1XP0-63AB',code:'5307'});
+      S.rv='rx';S.rxf={drug:'',nos:false,remote:false};renderDoc();toast('📩 <b>SMS пацієнтці</b><br>Е-рецепт № 7Q2M-4K8T-1XP0-63AB, код погашення 5307. Рецепт також у кабінеті на Порталі.')})},
+  dVacDo:()=>dVacModal(),
+  dVacOk:()=>{const vb=S.vbook;vb.keys.forEach(k=>{const s=fefo(k);if(s)s.used++});vb.status='done';vb.d=TODAY;
+    S.vcal[vb.p].filter(x=>x.st==='booked').forEach(x=>{x.st='done';x.date=TODAY});
+    const old=S.certs.find(c=>c.p===vb.p&&c.t==='063'&&!c.repl);
+    if(old&&old.auto){old.repl=true;const to=old.sent.filter(s=>!s.rev).map(s=>s.e);old.sent.forEach(s=>s.rev=true);S.certs.push({id:'k'+(S.certs.length+1),p:vb.p,t:'063',date:TODAY,auto:true,sent:to.map(e=>({e,at:TODAY,seen:null}))})}
+    closeModal();renderDoc();toast('Щеплення зафіксовано в МІС → ЕСОЗ. Дози списано зі складу автоматично, календар пацієнта оновлено.')},
+  stIn:()=>{S.stock.unshift({id:'s8',vac:'КПК',ser:'KPK-2540',mfr:'Виробник А',got:48,used:0,exp:'2026-11-24',pl:'Холодильник 1, полиця 2'});S.redis='done';renderDoc();toast('Надходження прийнято: +48 доз КПК. ДОЗ бачить переміщення.')},
+  stOff:d=>{const s=S.stock.find(x=>x.id===d.id);modal(`<h3>Списати дози · ${s.vac}, ${s.ser}</h3><div class="field" style="margin-top:12px"><label>Причина</label><select><option>Закінчився термін придатності</option><option>Порушення холодового ланцюга</option><option>Пошкоджено флакон</option></select></div><div class="field"><label>Кількість доз</label><input id="offN" type="number" value="1" min="1" max="${s.got-s.used}"></div><div class="actions"><button class="btn red" data-a="stOffOk" data-id="${s.id}">Списати</button><button class="btn grey" data-a="closeM">Скасувати</button></div>`)},
+  stOffOk:d=>{const s=S.stock.find(x=>x.id===d.id),n=Math.min(Math.max(1,+$('#offN').value||1),s.got-s.used);s.used+=n;closeModal();renderDoc();toast(`Списано ${n} доз. Причину видно ДОЗ.`)},
+  hvNav:d=>{S.hv=d.v;closeDrawer();renderHospRole()},
+  hqOpen:d=>openReq(d.id),
+  rqOk:d=>{const date=$('#rqDate').value,time=$('#rqTime').value,place=$('#rqPlace').value,instr=$('#rqInstr').value;
+    if(d.id==='me'){const q=S.hreq;Object.assign(q,{status:'confirmed',date,time,place,instr});q.hist.push([fmt(TODAY)+', 10:05',`Лікарня підтвердила: ${fmt(date)}, ${time}`]);const b=S.beds.find(x=>x.n===q.dep);if(b)b.res++;S.rv='hosp'}
+    else Object.assign(S.hreqs.find(r=>r.id===d.id),{st:'confirmed',date,time});
+    closeDrawer();renderHospRole();toast('Підтверджено. Пацієнт отримав push і SMS з датою та інструкціями.')},
+  rqNo:d=>modal(`<h3>Відхилити заявку</h3><div class="field" style="margin-top:12px"><label>Причина — її побачить пацієнт</label><select id="rqWhy"><option>Немає місць у бажаний період</option><option>Послуга не профільна для відділення</option><option>Потрібне додаткове обстеження перед госпіталізацією</option></select></div><div class="actions"><button class="btn red" data-a="rqNoOk" data-id="${d.id}">Відхилити</button><button class="btn grey" data-a="closeM">Назад</button></div>`),
+  rqNoOk:d=>{const why=$('#rqWhy').value;if(d.id==='me'){const q=S.hreq;q.status='declined';q.reason=why;q.hist.push([fmt(TODAY),'Лікарня відхилила: '+why]);S.rv='hosp'}else Object.assign(S.hreqs.find(r=>r.id===d.id),{st:'declined',reason:why});closeModal();closeDrawer();renderHospRole();toast('Заявку відхилено. Пацієнт отримав сповіщення з причиною.')},
+  bedOcc:d=>{const b=S.beds[+d.id];b.occ=Math.min(b.total,Math.max(0,b.occ+(+d.v)));b.upd='щойно';b.src='вручну';renderHospRole()},
+  dutyConf:()=>{S.dutyConf=true;renderHospRole();toast('Графік на 21 жовтня підтверджено. Портал покаже його о 08:00.')},
+  eNav:d=>{S.edu=d.v;renderEdu()},
+  eView:d=>{const e=S.edu;
+    if(d.id==='me'){const r=kidRow(e),c=r.cert,s=c.sent.find(x=>x.e===e&&!x.rev);if(!s.seen)s.seen=TODAY;
+      modal(`<h3>Медична довідка · ${r.nm}</h3><div class="muted" style="font-size:14px;margin-bottom:12px">Отримано від батьків ${fmt(s.at)} · доступ до ${fmt(c.until)}</div>${pdfHTML(c,true)}<p class="muted" style="font-size:13.5px;margin-top:12px">Діагнози не передаються. Перегляд зафіксовано в журналі доступу — його бачать батьки.</p><div class="actions"><button class="btn grey" data-a="closeM">Закрити</button></div>`)}
+    else{const r=ROSTER[e].find(x=>x.id===d.id);modal(`<h3>Медична довідка · ${r.nm}</h3><div class="pdf"><div class="org">Демо-дані</div><h4>МЕДИЧНА ДОВІДКА · ФОРМА 086/о</h4><div class="r"><span>Висновок</span>Може відвідувати заклад освіти</div><div class="r"><span>Група для фізкультури</span>${r.pe}</div><div class="r"><span>Наступний огляд</span>до ${fmt(r.until)}</div><div class="sig"><div class="qrm"></div><div><b>Підписано КЕП</b><br>✓ підпис чинний</div></div></div><div class="actions"><button class="btn grey" data-a="closeM">Закрити</button></div>`)}},
+  eRemind:()=>{S.reminded[S.edu]=true;renderEdu();toast('Нагадування надіслано батькам у «Київ Цифровий».')},
+  zNav:d=>{S.zv=d.v;renderDoz()},
+  zRedis:()=>{S.redis='proposed';S.docv='stock';renderDoz();toast('Пропозицію надіслано обом закладам. ЦПМСД № 3 має прийняти надходження.')}
+};
+document.addEventListener('click',e=>{
+  if(e.target.closest('a[href^="http"],a[href^="tel:"]'))return;
+  const t=e.target.closest('[data-a]');if(!t||!t.dataset.a||t.disabled)return;
+  const f=ACT[t.dataset.a];if(f){e.preventDefault();f(t.dataset,t,e)}
+});
+const CH={
+  stale:t=>{S.stale=t.value==='1';renderAll()},
+  hfD:t=>{S.hf.d=t.value;renderRes()},hfFree:t=>{S.hf.free=t.checked;renderRes()},hfAll:t=>{S.hf.all=t.checked;renderRes()},
+  hfDoc:t=>{S.hform.doc=t.value},hfFrom:t=>{S.hform.from=t.value},hfTo:t=>{S.hform.to=t.value},hfNote:t=>{S.hform.note=t.value},
+  dDist:t=>{S.ddist=t.value;renderRes()},phNow:t=>{S.phNow=t.checked;renderRes()},vq:t=>{S.vq=t.value;renderRes()},
+  cfAuto:t=>{S.cf.auto=t.checked},shAuto:t=>{S.share.auto=t.checked},
+  shQ:t=>{S.share.q=t.value;const pos=t.selectionStart;shareModal();const n=$('#shQ');n.focus();n.setSelectionRange(pos,pos)},
+  rxNos:t=>{S.rxf.nos=t.checked;renderDoc()},rxRemote:t=>{S.rxf.remote=t.checked}
+};
+['change','input'].forEach(ev=>document.addEventListener(ev,e=>{const t=e.target.closest('[data-c]');if(!t)return;const k=t.dataset.c;
+  if(ev==='input'&&!['hfNote','shQ'].includes(k))return;if(ev==='change'&&k==='shQ')return;CH[k]&&CH[k](t)}));
+$$('.mock [data-role]').forEach(b=>b.onclick=()=>setRole(b.dataset.role));
+function resetDemo(){S=seed();Object.assign(LAST_EXAM,{sofia:'2026-08-20',marko:'2025-11-05',iryna:null});closeDrawer();closeModal();renderAll();scrollTo(0,0)}
+$('#resetBtn').onclick=resetDemo;
+renderAll();
+/* посилання на стан: #role=doz&zv=vac або #rv=cert */
+(()=>{const h=new URLSearchParams(location.hash.slice(1));if(!h.toString())return;
+  ['role','rv','docv','hv','zv','edu'].forEach(k=>{if(h.get(k))S[k]=h.get(k)});renderAll()})();
+
+/* ================= ПУТІВНИК ================= */
+const drOpen=()=>$('#drawer').classList.contains('on');
+const mdOpen=()=>!$('#ovl').hidden;
+const FLOWS=[
+ {id:'home',name:'«Моє здоров’я»',ds:'Що потребує уваги родини і шість послуг розділу',min:1,
+  start(){resetDemo()},
+  steps:[
+   {t:'Розділ починається не з каталогу послуг, а з того, що потребує уваги саме цієї родини: направлення без лікарні, щеплення, на яке настав час, довідка, що спливає, активний рецепт.',sel:'#attn',manual:true},
+   {t:'Кожна картка веде в послугу з уже підставленими даними. Діагнозів тут немає: портал показує події, а не медичну карту.',sel:'#attn .att',manual:true},
+   {t:'П’ять нових послуг і «Запис до лікаря» з першої черги модернізації — цей макет його не дублює, а будується поверх.',sel:'#tiles',manual:true}
+  ]},
+ {id:'hosp',name:'Планова госпіталізація',ds:'Лікарня за направленням, заявка, підтвердження лікарнею',min:3,
+  start(){resetDemo()},
+  steps:[
+   {t:'Натисни <b>«Обрати лікарню»</b> у картці е-направлення.',sel:'#attn [data-v="hosp"]',done:()=>S.rv==='hosp'},
+   {t:'Портал прочитав номер і послугу з ЕСОЗ через МІС лікарки. Направлення безадресне, тож лікарню обирає людина.',sel:'#hRef',manual:true},
+   {t:'Показано лише лікарні з цією послугою: в одній місць немає, ще одна не передає даних. Натисни <b>«Лікарня Лівого берега»</b>.',sel:'.sch[data-id="h1"]',done:()=>drOpen()&&S.hsel==='h1',act(){openHosp('h1')}},
+   {t:'Відділення, вільні місця з часом оновлення, лікарі, доступність. Натисни <b>«Подати заявку»</b>.',sel:'#hApply',done:()=>S.rv==='hospForm'},
+   {t:'Обери відділення <b>«Хірургія № 1»</b>.',sel:'[data-a="hfDep"][data-v="Хірургія № 1"]',done:()=>S.hform.dep==='Хірургія № 1',act(){S.hform.dep='Хірургія № 1';renderRes()}},
+   {t:'Натисни <b>«Подати заявку»</b>. Це запит, а не гарантоване бронювання.',sel:'#hSend',done:()=>S.hreq&&S.hreq.status==='sent'},
+   {t:'Тепер подивимося з боку лікарні. Переключись на роль <b>«Лікарня»</b>.',sel:'.mock [data-role="hosp"]',done:()=>S.role==='hosp'},
+   {t:'Заявка Мельник І. О. підсвічена жовтим. Відкрий її.',sel:'tr[data-id="me"]',done:()=>drOpen(),act(){openReq('me')}},
+   {t:'Направлення перевірено автоматично, дату й інструкції підставлено. Натисни <b>«Підтвердити»</b>.',sel:'#rqOk',done:()=>S.hreq.status==='confirmed'},
+   {t:'Повернись у роль <b>«Мешканка»</b>.',sel:'.mock [data-role="res"]',done:()=>S.role==='res'},
+   {t:'Підтверджено: дата, місце, що взяти з собою, файл у календар. Дзвінків і обходу лікарень не було. Місце в ліжковому фонді лікарні тепер заброньоване.',sel:'#hTrack',manual:true}
+  ]},
+ {id:'duty',name:'Чергові лікарні сьогодні',ds:'Маршрут за профілем, банер 103, застарілі дані',min:1,
+  start(){resetDemo();go('duty')},
+  steps:[
+   {t:'Банер «103» показується завжди, незалежно від даних на сторінці.',sel:'#b103',manual:true},
+   {t:'Обери профіль <b>«Травматологія»</b>.',sel:'[data-a="dProf"][data-v="Травматологія"]',done:()=>S.dprof==='Травматологія'},
+   {t:'Тепер <b>«Діти»</b>.',sel:'[data-a="dAge"][data-v="child"]',done:()=>S.dage==='child'},
+   {t:'Мітка оновлення і джерело даних. Бронювання тут немає — лише маршрут.',sel:'#dutyMeta',manual:true},
+   {t:'Що буде, якщо дані не оновили? У верхній панелі обери <b>«Дані про чергування: застарілі»</b>.',sel:'#staleSel',done:()=>S.stale,act(){S.stale=true;renderAll()}},
+   {t:'Сторінка не показує застарілий список і веде на 103 та Відділ госпіталізації. Неправильна адреса в ургентній ситуації шкодить більше, ніж її відсутність.',sel:'#dutyStale',manual:true}
+  ]},
+ {id:'rx',name:'Ліки за міською програмою',ds:'Е-рецепт у МІС, блокування колізії, аптеки на карті',min:2,
+  start(){resetDemo();S.rx=S.rx.filter(r=>r.status!=='active');S.docv='rx';setRole('doc')},
+  steps:[
+   {t:'Прийом у КДЦ. МІС сама перевірила декларацію і реєстрацію. Категорію захворювання підтверджує лікар — діагноз назовні не йде.',sel:'#rxPat',manual:true},
+   {t:'Спробуй обрати <b>«Еналаприл»</b>.',sel:'[data-a="rxDrug"][data-v="enal"]',done:()=>S.rxf.drug==='enal'},
+   {t:'Колізію заблоковано в момент виписки: препарат покривають «Доступні ліки», і міський бюджет за нього не платить.',sel:'#rxMsg',manual:true},
+   {t:'Тепер <b>«Метотрексат»</b>.',sel:'[data-a="rxDrug"][data-v="mtx"]',done:()=>S.rxf.drug==='mtx'},
+   {t:'Підтверди відповідність категорії захворювання.',sel:'label.chk:has(#rxNos)',done:()=>S.rxf.nos,act(){S.rxf.nos=true;renderDoc()}},
+   {t:'Натисни <b>«Підписати КЕП і створити е-рецепт»</b>.',sel:'#rxSign',done:()=>S.rx.some(r=>r.status==='active')},
+   {t:'Пацієнтка отримала SMS. Переключись на роль <b>«Мешканка»</b>.',sel:'.mock [data-role="res"]',done:()=>S.role==='res'},
+   {t:'Рецепт у кабінеті — без діагнозу, з кодом погашення під замком.',sel:'#rxList',manual:true},
+   {t:'Аптеки за договором КДЦ і наявність препарату. Перемкни на <b>«Усі аптеки програми»</b>.',sel:'[data-a="phAll"][data-v="1"]',done:()=>S.phAll},
+   {t:'Режим «усі аптеки» вимагає організаційного рішення (D-05). Ознака наявності — «є / мало / немає» з часом оновлення, це фаза 3.',sel:'#rxPh .slist',manual:true}
+  ]},
+ {id:'vac',name:'Щеплення: запис і облік доз',ds:'Календар з ЕСОЗ, запис, щеплення в МІС, списання дози',min:3,
+  start(){resetDemo();go('vac')},
+  steps:[
+   {t:'Календар Марка з ЕСОЗ: за віком 6 років настав час трьох щеплень.',sel:'#vDue',manual:true},
+   {t:'Натисни <b>«Знайти вакцину й записатися»</b>.',sel:'#vFindBtn',done:()=>S.vq==='КПК'},
+   {t:'Статус замість кількості доз. У закладі за декларацією КПК «мало». Натисни <b>«Записатися»</b> біля ЦПМСД № 3.',sel:'[data-a="vBookOpen"][data-id="c1"]',done:()=>mdOpen()},
+   {t:'Найближчий час — сьогодні, 14:30. Натисни <b>«Записатися…»</b>.',sel:'#vBookOk',done:()=>!!S.vbook},
+   {t:'Запис на всі три щеплення одним візитом. Тепер — кабінет щеплень. Переключись на <b>«Лікар · МІС»</b>.',sel:'.mock [data-role="doc"]',done:()=>S.role==='doc'},
+   {t:'Натисни <b>«Провести щеплення»</b> біля Мельник Марка.',sel:'[data-a="dVacDo"]',done:()=>mdOpen()},
+   {t:'Серії підставлено автоматично: спершу ті, у яких раніше спливає термін. Натисни <b>«Зафіксувати в МІС»</b>.',sel:'#dVacOk',done:()=>S.vbook.status==='done'},
+   {t:'Відкрий <b>«Облік вакцин (АРМ)»</b>.',sel:'[data-a="dNav"][data-v="stock"]',done:()=>S.docv==='stock'},
+   {t:'Дози списано автоматично: КПК тепер 6. Медсестра не веде окремого журналу. Терміни підсвічено за 90, 30 і 7 днів.',sel:'#stTbl',manual:true},
+   {t:'Повернись у роль <b>«Мешканка»</b>.',sel:'.mock [data-role="res"]',done:()=>S.role==='res'},
+   {t:'Календар оновився сам, а нова карта 063/о вже в садку — бо Ірина ввімкнула автоматичне оновлення.',sel:'#vBook',manual:true}
+  ]},
+ {id:'share',name:'Довідка в гурток без візиту',ds:'Наявна 086/о → гурток плавання, що бачить заклад',min:2,
+  start(){resetDemo();go('cert')},
+  steps:[
+   {t:'«Мої довідки»: усі довідки родини зі строком дії і статусом передачі.',sel:'#cList',manual:true},
+   {t:'Софія записалася на плавання. Натисни <b>«Передати в заклад»</b> на її 086/о.',sel:'#cert-k1 [data-a="cShare"]',done:()=>mdOpen()&&S.share},
+   {t:'Обери гурток <b>«Плавання»</b> з освітнього профілю Софії.',sel:'[data-a="shE"][data-v="e3"]',done:()=>S.share&&S.share.e==='e3'},
+   {t:'Ось що побачить гурток: висновок, групу для фізкультури і дату наступного огляду. Без діагнозів.',sel:'#shPrev',manual:true},
+   {t:'Натисни <b>«Передати»</b>.',sel:'#shOk',done:()=>S.certs.find(c=>c.id==='k1').sent.some(s=>s.e==='e3')},
+   {t:'Переключись на роль <b>«Заклад освіти»</b>.',sel:'.mock [data-role="edu"]',done:()=>S.role==='edu'},
+   {t:'Довідка Софії вже в списку гуртка. Натисни <b>«Переглянути»</b>.',sel:'tr.me [data-a="eView"]',done:()=>mdOpen()},
+   {t:'КЕП перевірено, доступ — до кінця строку. Перегляд записано в журнал: батьки побачать «переглянуто».',sel:'#mdl .pdf',manual:true}
+  ]},
+ {id:'renew',name:'Нова довідка з оглядом → садок',ds:'086/о спливає, огляд, підпис КЕП, заміна в садку',min:3,
+  start(){resetDemo();go('cert')},
+  steps:[
+   {t:'Довідка Марка для садка спливає за 16 днів. Натисни <b>«Оформити нову»</b>.',sel:'#cert-k3 [data-a="cRenew"]',done:()=>S.rv==='certNew'},
+   {t:'Портал знає дату останнього огляду: його результати діють лише до 5 листопада, тож для довідки на рік потрібен новий огляд. Обери час у лікарки.',sel:'#cSlots',done:()=>!!S.cf.slot,act(){S.cf.slot=CSLOTS[0];renderRes()}},
+   {t:'Довідку одразу передамо в ЗДО № 587 і замінимо стару.',sel:'#cDeliver',manual:true},
+   {t:'Натисни <b>«Надіслати запит лікарці»</b>.',sel:'#cSend',done:()=>S.creq.length>0},
+   {t:'Переключись на <b>«Лікар · МІС»</b>.',sel:'.mock [data-role="doc"]',done:()=>S.role==='doc'},
+   {t:'Запит з Порталу підсвічено. Відкрий його.',sel:'#dMain tr.me',done:()=>drOpen(),act(){openCReq(S.creq[0].id)}},
+   {t:'Огляд проведено, висновок і групу підставлено. Натисни <b>«Підписати КЕП»</b>.',sel:'#dSign',done:()=>S.creq[0].st==='signed'},
+   {t:'Переключись на <b>«Заклад освіти»</b>.',sel:'.mock [data-role="edu"]',done:()=>S.role==='edu'},
+   {t:'У ЗДО № 587 довідка Марка вже нова — до жовтня 2027. Батькам не довелося нести папір у садок.',sel:'#eTbl tr.me',manual:true}
+  ]},
+ {id:'doz',name:'Місто: перерозподіл вакцин і бюджет ліків',ds:'Баланс, терміни, перерозподіл, прогноз вичерпання',min:2,
+  start(){resetDemo();S.zv='vac';setRole('doz')},
+  steps:[
+   {t:'Баланс «потреба — наявність» по місту: залишки в реальному часі, а не за звітом.',sel:'#zVacBal',manual:true},
+   {t:'В одному закладі 48 доз КПК спливають через 35 днів, а в сусідньому вакцини мало. Натисни <b>«Запропонувати перерозподіл»</b>.',sel:'#zRedis',done:()=>S.redis==='proposed'},
+   {t:'Переключись на <b>«Лікар · МІС»</b> — там уже відкрито облік вакцин.',sel:'.mock [data-role="doc"]',done:()=>S.role==='doc'},
+   {t:'Натисни <b>«Прийняти надходження»</b>.',sel:'#stIn',done:()=>S.redis==='done'},
+   {t:'Повернись у роль <b>«ДОЗ»</b>.',sel:'.mock [data-role="doz"]',done:()=>S.role==='doz'},
+   {t:'Відкрий <b>«Ліки за програмою»</b>.',sel:'[data-a="zNav"][data-v="rx"]',done:()=>S.zv==='rx'},
+   {t:'Вперше місто бачить пацієнтів, а не лише гроші: бюджет за договорами, прогноз вичерпання, заблоковані колізії й розбіжності звірення.',sel:'#zRxBud',manual:true}
+  ]}
+];
+const TOUR={open:false,flow:null,step:0,done:[],hl:null,scrolled:-1,flash:false};
+try{TOUR.done=JSON.parse(localStorage.getItem('medTourDone')||'[]')}catch(e){}
+function tourSave(){try{localStorage.setItem('medTourDone',JSON.stringify(TOUR.done));localStorage.setItem('medTourSeen','1')}catch(e){}}
+const flowById=id=>FLOWS.find(f=>f.id===id);
+function tourTarget(){const f=flowById(TOUR.flow);if(!f)return null;const st=f.steps[TOUR.step];if(!st||!st.sel)return null;
+  let el=null;try{el=document.querySelector(st.sel)}catch(e){}return el&&el.getClientRects().length?el:null}
+function tourHL(el){if(TOUR.hl===el)return;if(TOUR.hl)TOUR.hl.classList.remove('tour-hl');TOUR.hl=el;if(el)el.classList.add('tour-hl')}
+function tourRender(){
+  const box=$('#tour');box.hidden=!TOUR.open;document.body.classList.toggle('tour-open',TOUR.open);$('#tourbtn').classList.toggle('on',TOUR.open);
+  if(!TOUR.open){tourHL(null);return}
+  $('#tour-pr').textContent=TOUR.done.length+' з '+FLOWS.length+' пройдено';
+  const f=flowById(TOUR.flow);let h='';
+  if(!f){
+    h='<p class="intro">Клікабельний макет розділу «Здоров’я» на Порталі послуг: мешканка з двома дітьми, МІС лікаря, лікарня, заклад освіти і ДОЗ.<br><br>Обери сценарій. Путівник підсвічує, куди натиснути, і сам переходить далі. Кожен сценарій починається з чистого демо.</p>'+
+      FLOWS.map((x,i)=>{const ok=TOUR.done.includes(x.id);return `<button class="fl${ok?' ok':''}" data-tflow="${x.id}"><span class="no">${ok?'✓':i+1}</span><span><span class="nm">${x.name}</span><span class="ds">${x.ds}</span></span><span class="rl">${x.min} хв</span></button>`}).join('');
+  }else if(TOUR.step>=f.steps.length){
+    const i=FLOWS.indexOf(f),next=FLOWS[i+1];
+    h=`<div class="kick">Сценарій ${i+1} з ${FLOWS.length}</div><h4>${f.name}</h4><div class="ok-msg" style="margin-top:0">Сценарій пройдено ✓</div><div class="ta">${next?`<button class="btn pur" data-tflow="${next.id}">Далі: ${next.name}</button>`:'<button class="btn pur" data-tlist="1">Усі сценарії пройдено</button>'}<button class="lnk" data-tlist="1">До списку</button></div>`;
+  }else{
+    const st=f.steps[TOUR.step],j=FLOWS.indexOf(f),last=TOUR.step===f.steps.length-1;
+    h=`<div class="kick">Сценарій ${j+1} · крок ${TOUR.step+1} із ${f.steps.length}</div><h4>${f.name}</h4><div class="bar">${f.steps.map((_,k)=>`<i class="${k<TOUR.step?'d':k===TOUR.step?'c':''}"></i>`).join('')}</div><div class="txt">${st.t}</div>${TOUR.flash?'<div class="ok-msg">Готово ✓</div>':''}<div class="ta">${st.manual?`<button class="btn pur" data-tnext="1">${last?'Завершити':'Далі'}</button>`:'<button class="btn grey" data-tdo="1">Зробити за мене</button>'}</div><div class="tlinks"><button data-trestart="1">↺ Почати заново</button><button data-tlist="1">☰ Усі сценарії</button></div>`;
+  }
+  $('#tour-body').innerHTML=h;
+}
+function tourStart(id){const f=flowById(id);if(!f)return;TOUR.flow=id;TOUR.step=0;TOUR.scrolled=-1;TOUR.flash=false;TOUR.open=true;tourHL(null);f.start();tourRender()}
+function tourAdvance(){const f=flowById(TOUR.flow);if(!f)return;TOUR.step++;TOUR.scrolled=-1;tourHL(null);
+  if(TOUR.step>=f.steps.length&&!TOUR.done.includes(f.id)){TOUR.done.push(f.id);tourSave()}
+  TOUR.flash=TOUR.step<f.steps.length;tourRender();clearTimeout(TOUR._f);TOUR._f=setTimeout(()=>{if(TOUR.flash){TOUR.flash=false;tourRender()}},1400)}
+function tourTick(){
+  if(!TOUR.open||!TOUR.flow)return;const f=flowById(TOUR.flow);if(!f||TOUR.step>=f.steps.length){tourHL(null);return}
+  const st=f.steps[TOUR.step];if(!st.manual&&st.done()){tourAdvance();return}
+  const el=tourTarget();tourHL(el);
+  if(el&&TOUR.scrolled!==TOUR.step){TOUR.scrolled=TOUR.step;const r=el.getBoundingClientRect(),inFixed=el.closest('.mdl,.drawer');if(!inFixed&&(r.top<70||r.bottom>innerHeight-20))el.scrollIntoView({behavior:'smooth',block:'center'});else if(inFixed)el.scrollIntoView({block:'nearest'})}
+}
+function tourDo(){const f=flowById(TOUR.flow);if(!f)return;const st=f.steps[TOUR.step];if(!st)return;if(st.act){st.act();return}const el=tourTarget();if(el)el.click()}
+document.addEventListener('click',e=>{let t;
+  if(e.target.closest('#tourbtn')){TOUR.open=!TOUR.open;if(TOUR.open)tourSave();tourRender();return}
+  if(e.target.closest('#tour-x')){TOUR.open=false;tourRender();return}
+  if(t=e.target.closest('[data-tflow]')){tourStart(t.dataset.tflow);return}
+  if(e.target.closest('[data-tlist]')){TOUR.flow=null;tourHL(null);tourRender();return}
+  if(e.target.closest('[data-tnext]')){tourAdvance();return}
+  if(e.target.closest('[data-trestart]')){tourStart(TOUR.flow);return}
+  if(e.target.closest('[data-tdo]')){tourDo();return}
+});
+setInterval(tourTick,300);
+(()=>{let seen=null;try{seen=localStorage.getItem('medTourSeen')}catch(e){}
+  const h=location.hash;if((!seen&&!/role=|rv=/.test(h))||/tour/.test(h)){TOUR.open=true}
+  const m=h.match(/tour=(\w+)/);if(m&&flowById(m[1]))tourStart(m[1]);else tourRender()})();
+</script>
+</body>
+</html>
