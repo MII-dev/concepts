@@ -1,0 +1,932 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Штаб, який рахує сам — Портал послуг «Київ Цифровий»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Onest:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --grey:#F2F5FA;
+  --grey-2:#E6EBF4;
+  --white:#FFFFFF;
+  --ink:#16181D;
+  --ink-2:#4B5566;
+  --ink-3:#828C9C;
+  --line:#E3E8F0;
+  --line-2:#CFD8E6;
+  --blue:#2B63F0;
+  --blue-deep:#2456DC;
+  --blue-ink:#1A46C0;
+  --blue-soft:#E7EEFF;
+  --ok:#0E7A55;
+  --ok-soft:#DFF1E9;
+  --warn:#8E6200;
+  --warn-soft:#F7EEDA;
+  --crit:#C0392B;
+  --crit-soft:#FBE6E3;
+  --shadow:0 1px 2px rgba(22,24,29,.04), 0 12px 30px -20px rgba(22,24,29,.3);
+  --shadow-lg:0 2px 4px rgba(22,24,29,.05), 0 30px 60px -30px rgba(22,24,29,.35);
+  --f:"Onest","Helvetica Neue",Arial,system-ui,sans-serif;
+  --fm:"Manrope","Onest",Arial,system-ui,sans-serif;
+  --r:16px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;background:var(--grey);color:var(--ink);
+  font-family:var(--f);font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;overflow:hidden;
+}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:6px}
+
+/* ---------- progress ---------- */
+.progress{position:fixed;inset:0 0 auto 0;height:3px;background:var(--grey-2);z-index:60}
+.progress .bar{height:100%;width:0;background:var(--blue);transition:width .35s cubic-bezier(.4,0,.2,1)}
+
+/* ---------- deck ---------- */
+.deck{height:100%;display:flex;align-items:center;justify-content:center;padding:44px 20px 84px}
+.slide{display:none;width:100%;max-width:1080px;max-height:100%;overflow-y:auto;overscroll-behavior:contain}
+.slide.active{display:block;animation:in .32s cubic-bezier(.2,.7,.3,1) both}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:clamp(22px,3.4vw,44px)}
+.card.hero{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 20px 50px -30px rgba(43,99,240,.9)}
+.card.hero .eyebrow{color:rgba(255,255,255,.72)}
+.card.hero .eyebrow .dim{color:rgba(255,255,255,.55)}
+.card.hero .lead{color:rgba(255,255,255,.88)}
+.card.hero .stat{border-top-color:rgba(255,255,255,.24)}
+.card.hero .stat span{color:rgba(255,255,255,.68)}
+.card.hero .hint{color:rgba(255,255,255,.72)}
+.card.hero kbd{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.3);color:#fff}
+.eyebrow{font-family:var(--fm);font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin:0 0 16px;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.eyebrow .dim{color:var(--ink-3)}
+h1,h2,h3{font-family:var(--fm)}
+h1{font-size:clamp(34px,5.8vw,64px);line-height:1.02;letter-spacing:-.035em;font-weight:800;margin:0 0 .4em;text-wrap:balance}
+h2{font-size:clamp(25px,3.7vw,42px);line-height:1.1;letter-spacing:-.03em;font-weight:800;margin:0 0 .35em;text-wrap:balance}
+h3{font-size:15.5px;font-weight:700;letter-spacing:-.01em;margin:0 0 8px}
+.lead{font-size:clamp(16px,1.8vw,20px);line-height:1.5;color:var(--ink-2);margin:0 0 4px;max-width:62ch}
+p{margin:0 0 1em;max-width:66ch}
+p:last-child{margin-bottom:0}
+.muted{color:var(--ink-2)}
+.small{font-size:14px}
+
+/* ---------- chips ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chip{font-family:var(--fm);font-size:11.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:6px 12px;border-radius:999px;white-space:nowrap}
+.chip.b{background:var(--blue-soft);color:var(--blue-ink)}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.chip.crit{background:var(--crit-soft);color:var(--crit)}
+.chip.plain{background:var(--grey);color:var(--ink-2)}
+
+/* ---------- title slide ---------- */
+.title-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:clamp(20px,3vw,44px);align-items:end}
+@media (max-width:820px){.title-grid{grid-template-columns:1fr}}
+.stat{display:flex;flex-direction:column;gap:2px;padding:14px 0;border-top:1px solid var(--line)}
+.stat b{font-family:var(--fm);font-size:30px;font-weight:800;letter-spacing:-.03em}
+.stat span{font-size:13px;color:var(--ink-3)}
+.hint{margin-top:26px;font-size:13px;color:var(--ink-3);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+kbd{font-family:var(--fm);font-size:11px;font-weight:600;background:var(--grey);border:1px solid var(--line-2);border-bottom-width:2px;border-radius:6px;padding:2px 7px;color:var(--ink-2)}
+
+/* ---------- axis ---------- */
+.axis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:26px 0 18px}
+@media (max-width:860px){.axis{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.axis{grid-template-columns:1fr}}
+.stage{
+  text-align:left;background:var(--grey);border:1px solid transparent;border-radius:12px;
+  padding:14px 14px 16px;display:flex;flex-direction:column;gap:5px;transition:.18s;
+}
+.stage:hover{background:var(--white);border-color:var(--line-2)}
+.stage[aria-pressed="true"]{background:var(--blue-soft);border-color:var(--blue)}
+.stage .age{font-family:var(--fm);font-size:11.5px;font-weight:600;color:var(--blue);letter-spacing:.04em}
+.stage .nm{font-weight:600;font-size:14.5px;letter-spacing:-.01em}
+.stage .dt{font-size:12.5px;color:var(--ink-3);line-height:1.4}
+.axis-out{background:var(--blue-soft);border-radius:12px;padding:16px 18px;min-height:76px;font-size:14.5px;color:var(--ink-2)}
+.axis-out b{color:var(--ink)}
+
+/* ---------- block slide ---------- */
+.block-head{display:flex;gap:18px;align-items:flex-start}
+.bignum{
+  flex:none;width:56px;height:56px;border-radius:50%;background:var(--blue);color:#fff;
+  display:grid;place-items:center;font-family:var(--fm);font-weight:800;font-size:21px;
+  letter-spacing:-.02em;margin-top:4px;
+}
+@media (max-width:640px){.bignum{width:44px;height:44px;font-size:17px}}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.6vw,34px);margin-top:24px}
+@media (max-width:820px){.cols2{grid-template-columns:1fr}}
+ul.list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+ul.list li{position:relative;padding-left:20px;font-size:15px;color:var(--ink-2);line-height:1.45}
+ul.list li::before{content:"";position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:2px;background:var(--blue)}
+ul.list li b{color:var(--ink);font-weight:600}
+ol.list{margin:0;padding-left:1.25em;display:flex;flex-direction:column;gap:8px}
+ol.list li{font-size:14.5px;color:var(--ink-2);line-height:1.45}
+ol.list li b{color:var(--ink)}
+.metric{margin-top:22px;background:var(--grey);border-radius:12px;padding:14px 18px;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.metric .lb{font-family:var(--fm);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);flex:none}
+.metric .vl{font-size:15px;font-weight:500}
+
+/* ---------- disclosure ---------- */
+.more{margin-top:20px}
+.more-btn{
+  background:var(--white);border:1px solid var(--line-2);border-radius:999px;padding:8px 16px;
+  font-size:13.5px;font-weight:500;display:inline-flex;align-items:center;gap:8px;transition:.16s;
+}
+.more-btn:hover{border-color:var(--blue);color:var(--blue-ink)}
+.more-btn .ar{flex:none;transition:transform .2s}
+.more-btn[aria-expanded="true"] .ar{transform:rotate(90deg)}
+.more-body{margin-top:16px;border-top:1px solid var(--line);padding-top:18px}
+.more-body[hidden]{display:none}
+
+/* ---------- waves ---------- */
+.wavebar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.wbtn{background:var(--white);border:1px solid var(--line-2);border-radius:999px;padding:7px 16px;font-size:13.5px;transition:.16s}
+.wbtn:hover{border-color:var(--blue)}
+.wbtn[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:860px){.wgrid{grid-template-columns:1fr}}
+.wcard{background:var(--grey);border-radius:14px;padding:20px;border:1px solid transparent;transition:.2s}
+.wcard.on{background:var(--white);border-color:var(--blue);box-shadow:var(--shadow)}
+.wcard.off{opacity:.42}
+.wcard .tag{font-family:var(--fm);font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:6px}
+.wcard h3{font-size:18px;margin-bottom:8px}
+.wcard p{font-size:13.5px;color:var(--ink-2);margin:0 0 12px}
+.wlist{display:flex;flex-wrap:wrap;gap:6px}
+.wlist span{font-size:12px;background:var(--white);border:1px solid var(--line);border-radius:6px;padding:3px 8px;color:var(--ink-2)}
+.wcard.on .wlist span{background:var(--blue-soft);border-color:transparent;color:var(--blue-ink)}
+
+/* ---------- risk grid ---------- */
+.rgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:8px}
+@media (max-width:820px){.rgrid{grid-template-columns:1fr}}
+.risk{background:var(--grey);border-radius:14px;padding:18px 20px}
+.risk h3{margin-bottom:4px}
+.risk p{font-size:13.5px;color:var(--ink-2);margin:0}
+.qlist{counter-reset:q;list-style:none;margin:22px 0 0;padding:0}
+.qlist li{counter-increment:q;position:relative;padding:12px 0 12px 38px;border-top:1px solid var(--line);font-size:15px}
+.qlist li::before{
+  content:counter(q);position:absolute;left:0;top:13px;width:22px;height:22px;border-radius:50%;
+  background:var(--blue-soft);color:var(--blue-ink);font-family:var(--fm);font-size:11.5px;font-weight:700;
+  display:grid;place-items:center;
+}
+
+/* ---------- steps (final) ---------- */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+@media (max-width:820px){.steps{grid-template-columns:1fr}}
+.step{background:var(--grey);border-radius:14px;padding:20px}
+.step .n{font-family:var(--fm);font-size:11.5px;font-weight:600;color:var(--blue);letter-spacing:.1em;display:block;margin-bottom:8px}
+.step h3{font-size:16px}
+.step p{font-size:13.5px;color:var(--ink-2);margin:0}
+.doclink{
+  display:inline-flex;align-items:center;gap:8px;margin-top:26px;
+  background:var(--blue);color:#fff;text-decoration:none;
+  font-size:14px;font-weight:600;font-family:var(--fm);
+  padding:11px 20px;border-radius:999px;transition:.16s;
+}
+.doclink:hover{background:var(--blue-deep)}
+
+/* ---------- controls ---------- */
+.controls{
+  position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:50;
+  display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.92);
+  backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:999px;
+  padding:6px;box-shadow:var(--shadow);
+}
+.ctl{width:34px;height:34px;border:0;background:transparent;border-radius:999px;display:grid;place-items:center;color:var(--ink-2);transition:.15s}
+.ctl:hover:not(:disabled){background:var(--grey);color:var(--ink)}
+.ctl:disabled{opacity:.3;cursor:default}
+.ctl svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.counter{font-family:var(--fm);font-size:12.5px;font-weight:600;color:var(--ink-2);padding:0 8px;min-width:58px;text-align:center;font-variant-numeric:tabular-nums}
+.sep{width:1px;height:20px;background:var(--line);margin:0 2px}
+.ctl.wide{width:auto;padding:0 14px;font-size:12px;font-family:var(--fm);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.ctl.wide:hover{background:var(--blue-soft);color:var(--blue-ink)}
+
+/* ---------- dots ---------- */
+.dots{position:fixed;left:0;right:0;bottom:0;height:4px;display:flex;gap:2px;padding:0 10px 4px;z-index:40;pointer-events:none}
+
+/* ---------- overview ---------- */
+.overview{position:fixed;inset:0;background:rgba(242,245,250,.97);z-index:70;overflow-y:auto;padding:28px 20px 40px}
+.overview[hidden]{display:none}
+.ov-head{max-width:1180px;margin:0 auto 20px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.ov-head h2{font-size:20px;margin:0}
+.ov-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.ov-card{
+  background:var(--white);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:left;
+  display:flex;flex-direction:column;gap:6px;min-height:106px;transition:.16s;
+}
+.ov-card:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:var(--shadow)}
+.ov-card.current{border-color:var(--blue);background:var(--blue-soft)}
+.ov-card .i{font-family:var(--fm);font-size:11.5px;font-weight:700;color:var(--blue)}
+.ov-card .t{font-weight:600;font-size:14.5px;line-height:1.3;letter-spacing:-.01em}
+.ov-card .k{font-size:12px;color:var(--ink-3);margin-top:auto}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:640px){
+  .deck{padding:34px 12px 78px}
+  .card{border-radius:12px}
+  .block-head{gap:12px}
+}
+
+/* ---------- shtab: timeline ---------- */
+.axis.six{grid-template-columns:repeat(6,1fr)}
+@media (max-width:980px){.axis.six{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:520px){.axis.six{grid-template-columns:1fr 1fr}}
+.lanes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:640px){.lanes{grid-template-columns:1fr}}
+.lane{background:var(--white);border-radius:10px;padding:12px 14px}
+.lane .who{font-family:var(--fm);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:4px}
+.lane.me .who{color:var(--ok)}
+
+/* ---------- shtab: routes ---------- */
+.routes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+@media (max-width:860px){.routes{grid-template-columns:1fr}}
+.route{background:var(--grey);border-radius:14px;padding:18px 18px 16px}
+.route .sum{font-family:var(--fm);font-weight:800;font-size:22px;letter-spacing:-.02em;display:block}
+.route .nm{font-size:13px;color:var(--ink-3);display:block;margin-bottom:12px}
+.route .need{font-size:13.5px;color:var(--ink-2);border-top:1px solid var(--line-2);padding-top:10px}
+.route .need b{color:var(--ink);font-weight:600}
+
+/* ---------- shtab: device mocks ---------- */
+.cols2>*,.block-head>div{min-width:0}
+.row .k{min-width:0}
+.mock{background:var(--grey);border-radius:18px;padding:14px;border:1px solid var(--line)}
+.mock .bar-top{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--ink-3);margin:0 2px 10px;font-family:var(--fm);font-weight:600}
+.mock .scr{background:var(--white);border-radius:12px;padding:14px;border:1px solid var(--line)}
+.mock .ttl{font-family:var(--fm);font-weight:700;font-size:15px;letter-spacing:-.01em;margin-bottom:2px}
+.mock .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:12px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:13.5px}
+.row .k{color:var(--ink-2)}
+.row .v{font-weight:600;text-align:right}
+.ph{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:10px 0}
+.ph span{aspect-ratio:4/3;border-radius:8px;background:repeating-linear-gradient(135deg,var(--grey-2) 0 8px,var(--grey) 8px 16px);position:relative}
+.ph span::after{content:attr(data-t);position:absolute;left:5px;bottom:4px;font-size:10px;font-family:var(--fm);font-weight:600;color:var(--ink-2);background:rgba(255,255,255,.85);border-radius:4px;padding:1px 5px}
+.seg{display:flex;gap:6px;margin:8px 0 2px;flex-wrap:wrap}
+.seg span{font-size:12px;border:1px solid var(--line-2);border-radius:999px;padding:4px 10px;color:var(--ink-2)}
+.seg span.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.btns{display:flex;gap:8px;margin-top:12px}
+.btns span{flex:1;text-align:center;font-family:var(--fm);font-weight:700;font-size:13px;border-radius:10px;padding:10px 8px}
+.btns .pri{background:var(--blue);color:#fff}
+.btns .sec{background:var(--grey);color:var(--ink-2)}
+.badge{font-family:var(--fm);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.badge.ok{background:var(--ok-soft);color:var(--ok)}
+.badge.warn{background:var(--warn-soft);color:var(--warn)}
+.badge.b{background:var(--blue-soft);color:var(--blue-ink)}
+.badge.plain{background:var(--grey);color:var(--ink-2)}
+
+/* ---------- shtab: dashboard ---------- */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.kpi{background:var(--grey);border-radius:10px;padding:10px 12px}
+.kpi b{display:block;font-family:var(--fm);font-weight:800;font-size:22px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.kpi span{font-size:11.5px;color:var(--ink-3);line-height:1.3;display:block}
+.flow{height:10px;border-radius:999px;background:var(--grey-2);display:flex;overflow:hidden;margin:6px 0 8px}
+.flow i{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11.5px;color:var(--ink-2)}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+
+/* ---------- shtab: reuse ---------- */
+.reuse{display:grid;grid-template-columns:minmax(150px,.8fr) 2fr;gap:0;margin-top:22px;border-top:1px solid var(--line)}
+.reuse > div{padding:12px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.reuse .who{font-weight:600;padding-right:16px}
+.reuse .what{color:var(--ink-2)}
+.reuse .what b{color:var(--ink);font-weight:600}
+@media (max-width:640px){.reuse{grid-template-columns:1fr}.reuse .who{border-bottom:0;padding-bottom:0}}
+.center-act{display:flex;align-items:center;gap:14px;background:var(--blue-soft);border-radius:14px;padding:14px 18px;margin-top:22px}
+.center-act .ic{flex:none;width:40px;height:40px;border-radius:12px;background:var(--blue);display:grid;place-items:center}
+.center-act .ic svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.center-act p{margin:0;font-size:14.5px;color:var(--ink-2)}
+.center-act p b{color:var(--ink)}
+
+/* ---------- shtab: three actions ---------- */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+@media (max-width:760px){.three{grid-template-columns:1fr}}
+.three div{background:var(--ok-soft);border-radius:14px;padding:16px 18px}
+.three b{font-family:var(--fm);font-size:12px;font-weight:700;color:var(--ok);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:4px}
+.three span{font-size:15px;font-weight:600;letter-spacing:-.01em}
+</style>
+</head>
+<body>
+
+<div class="progress"><div class="bar" id="bar"></div></div>
+
+<main class="deck" id="deck">
+
+<!-- 0 -->
+<section class="slide" data-nav="Титул" data-kicker="Концепт">
+  <div class="card hero">
+    <p class="eyebrow">Портал послуг «Київ Цифровий» <span class="dim">концепт для штабів допомоги</span></p>
+    <div class="title-grid">
+      <div>
+        <h1>Штаб, який рахує сам</h1>
+        <p class="lead">Електронний акт пошкоджень після атаки. Поки людина отримує допомогу, штаб сам обходить квартири й фіксує пошкодження. Людина не збирає довідки, а лише підтверджує.</p>
+        <div class="hint">
+          <span>Гортати:</span><kbd>→</kbd><kbd>←</kbd><span>· усі сторінки</span><kbd>O</kbd><span>· на весь екран</span><kbd>F</kbd>
+        </div>
+      </div>
+      <div>
+        <div class="stat"><b>1</b><span>огляд квартири замість трьох</span></div>
+        <div class="stat"><b>3</b><span>дії людини: підтвердити, дати доступ, підписати</span></div>
+        <div class="stat"><b>24 год</b><span>ціль від атаки до підписаного акта</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 1 -->
+<section class="slide" data-nav="Як зараз" data-kicker="Контекст">
+  <div class="card">
+    <p class="eyebrow">Контекст</p>
+    <h2>Штаб консультує, але не фіксує</h2>
+    <p class="lead">Після атаки КМДА розгортає штаби: консультації, психолог, юрист, розселення, харчування. Але факт пошкодження кожна родина потім доводить сама, і тричі.</p>
+    <div class="routes">
+      <div class="route">
+        <span class="sum">40 000 грн</span><span class="nm">міська допомога, житло непридатне</span>
+        <div class="need"><b>Потрібно:</b> акт районної комісії або довідка ОСББ, ще п'ять документів. Лише офлайн, 10 днів.</div>
+      </div>
+      <div class="route">
+        <span class="sum">10 000 грн</span><span class="nm">міська допомога, житло пошкоджене</span>
+        <div class="need"><b>Потрібно:</b> довідка від ОСББ, ЖБК або обслуговуючої організації. Лише офлайн, 10 днів.</div>
+      </div>
+      <div class="route">
+        <span class="sum">єВідновлення</span><span class="nm">державна компенсація на ремонт</span>
+        <div class="need"><b>Потрібно:</b> заява в Дії, потім огляд комісією і акт. Ще один візит у квартиру.</div>
+      </div>
+    </div>
+    <div class="metric">
+      <span class="lb">Наслідок</span>
+      <span class="vl">Вікна закривають у перші години, а комісія приходить пізніше й бачить плівку, а не пошкодження</span>
+    </div>
+    <p class="small muted" style="margin-top:14px">Масштаб: після атаки 7 вересня 2025 року лише в Святошинському районі вибило 746 вікон, до двох штабів за день звернулися 197 людей.</p>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-nav="Ідея" data-kicker="Ідея">
+  <div class="card">
+    <p class="eyebrow">Ідея</p>
+    <h2>Фіксацію починає місто за адресою, а не людина заявою</h2>
+    <p class="lead">Людина і штаб рухаються паралельно. Натисніть момент, щоб побачити, що відбувається з кожного боку.</p>
+    <div class="axis six" id="axis">
+      <button class="stage" type="button" aria-pressed="false" data-out="<div class='lanes'><div class='lane me'><span class='who'>Людина</span>В укритті або на вулиці біля будинку. Нічого не заповнює.</div><div class='lane'><span class='who'>Штаб</span>Ставить точку прильоту на карті. Система знаходить будинки, квартири й власників з реєстру.</div></div>">
+        <span class="age">Т+0</span><span class="nm">Атака</span><span class="dt">Подія «приліт» на карті</span>
+      </button>
+      <button class="stage" type="button" aria-pressed="false" data-out="<div class='lanes'><div class='lane me'><span class='who'>Людина</span>Приходить у штаб, показує QR з Дії, каже, де ключі. Близько трьох хвилин.</div><div class='lane'><span class='who'>Штаб</span>Знаходить її квартиру, фіксує згоду на огляд і спосіб доступу. Власникам, які не прийшли, приходить повідомлення.</div></div>">
+        <span class="age">Т+1 год</span><span class="nm">Стійка штабу</span><span class="dt">Ідентифікація і згода</span>
+      </button>
+      <button class="stage" type="button" aria-pressed="false" data-out="<div class='lanes'><div class='lane me'><span class='who'>Людина</span>Отримує допомогу: вода, психолог, юрист, розселення. Бачить, що бригада вже в її під'їзді.</div><div class='lane'><span class='who'>Штаб</span>Бригада з членом комісії та інженером КК обходить квартири: фото, чек-лист, ступінь, два підписи КЕП. Лише потім закривають вікна.</div></div>">
+        <span class="age">Т+2–12 год</span><span class="nm">Огляд</span><span class="dt">Акт на планшеті</span>
+      </button>
+      <button class="stage" type="button" aria-pressed="false" data-out="<div class='lanes'><div class='lane me'><span class='who'>Людина</span>Відкриває в застосунку акт зі своїми фото, бачить суму і заповнену заяву. Підписує, коли готова.</div><div class='lane'><span class='who'>Штаб</span>Акт синхронізовано, заява на міську допомогу заповнена з реєстрів, співвласникам надіслано запит на згоду.</div></div>">
+        <span class="age">Т+1 день</span><span class="nm">Акт у застосунку</span><span class="dt">Підтвердити або заперечити</span>
+      </button>
+      <button class="stage" type="button" aria-pressed="false" data-out="<div class='lanes'><div class='lane me'><span class='who'>Людина</span>Якщо знайшла нові тріщини чи протікання, додає фото й просить повторний огляд.</div><div class='lane'><span class='who'>Штаб</span>Повторний огляд доповнює акт, а не замінює його. Строк на заперечення рахується від дня підтвердження.</div></div>">
+        <span class="age">Т+5 днів</span><span class="nm">Заперечення</span><span class="dt">Доповнення акта</span>
+      </button>
+      <button class="stage" type="button" aria-pressed="false" data-out="<div class='lanes'><div class='lane me'><span class='who'>Людина</span>Отримує міську допомогу. Бачить статус компенсації «єВідновлення» і заміни вікон. Жодного візиту до установ.</div><div class='lane'><span class='who'>Штаб</span>Той самий акт пішов у соцполітику, комісію «єВідновлення», керуючу компанію, поліцію та історію будинку.</div></div>">
+        <span class="age">Т+10 днів</span><span class="nm">Виплата</span><span class="dt">Один акт — усі маршрути</span>
+      </button>
+    </div>
+    <div class="axis-out" id="axisOut">Повністю без людини акт не складається: потрібні доступ до квартири і воля власника. Але її участь зводиться до <b>трьох дій</b>. Решту робить штаб.</div>
+    <div class="three">
+      <div><b>Дія 1</b><span>Підтвердити, що це моя квартира</span></div>
+      <div><b>Дія 2</b><span>Дати доступ для огляду</span></div>
+      <div><b>Дія 3</b><span>Підписати акт і заяву</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-nav="Принципи" data-kicker="Рамка">
+  <div class="card">
+    <p class="eyebrow">Рамка</p>
+    <h2>Сім принципів</h2>
+    <div class="rgrid">
+      <div class="risk"><h3>Адреса, а не заява</h3><p>Об'єкт процесу — пошкоджена квартира. Її картка існує ще до того, як хтось прийшов у штаб.</p></div>
+      <div class="risk"><h3>Спершу фіксація, потім плівка</h3><p>Вікно закривають, коли його сфотографовано й внесено в акт. Виняток — пряма загроза життю.</p></div>
+      <div class="risk"><h3>Людина підтверджує, а не доводить</h3><p>Особу, власність і наявність іншого житла система бере з реєстрів. Людину питають лише про те, чого реєстр не знає.</p></div>
+      <div class="risk"><h3>Один огляд — усі виплати</h3><p>Єдиний чек-лист покриває вимоги соцполітики, «єВідновлення», керуючої компанії й поліції.</p></div>
+      <div class="risk"><h3>Офлайн за замовчуванням</h3><p>Після атаки часто немає світла і зв'язку. Планшет працює без мережі й синхронізується пізніше.</p></div>
+      <div class="risk"><h3>Ніякого підпису в перші години</h3><p>Людину в шоці не просять нічого підписувати. Акт чекає в застосунку, поки вона готова.</p></div>
+      <div class="risk"><h3>Паперовий фолбек</h3><p>Хто не має смартфона, отримує роздруківку акта в штабі і підписує на місці або в ЦНАП.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · Блок 1 -->
+<section class="slide" data-nav="Блок 1 · Реєстр адрес" data-kicker="Хвиля 1">
+  <div class="card">
+    <p class="eyebrow">Блок 1 <span class="dim">· Хвиля 1</span></p>
+    <div class="block-head">
+      <span class="bignum">01</span>
+      <div>
+        <h2>Реєстр адрес прильоту</h2>
+        <p class="lead">Сьогодні квартира з'являється в обліку, лише коли мешканець прийшов. Тепер за годину після атаки в штабі є повний список квартир і власників.</p>
+      </div>
+    </div>
+    <div class="cols2">
+      <div>
+        <h3>Що робимо</h3>
+        <ul class="list">
+          <li><b>Подія «приліт»</b> на карті. Створює штаб, доповнюють ДСНС, поліція й керуючі компанії</li>
+          <li><b>Список квартир</b> кожного будинку з паспорта «Цифрового будинку»</li>
+          <li><b>Власники й частки</b> з Державного реєстру речових прав</li>
+          <li><b>Проактивне повідомлення</b> власникам, які не прийшли: «Ваша квартира могла постраждати, штаб працює за адресою…»</li>
+        </ul>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="bar-top"><span>Штаб · Святошинський</span><span>07:42</span></div>
+        <div class="scr">
+          <div class="ttl">вул. Прикладна, 12</div>
+          <div class="sub">9 поверхів · 72 квартири · КК «Житло-сервіс»</div>
+          <div class="row"><span class="k">кв. 31 · Коваль О. та Коваль І.</span><span class="badge warn">Не оглянуто</span></div>
+          <div class="row"><span class="k">кв. 32 · Мельник Т.</span><span class="badge b">Бригада тут</span></div>
+          <div class="row"><span class="k">кв. 35 · Бондар Р. · за кордоном</span><span class="badge plain">Повідомлено</span></div>
+          <div class="row"><span class="k">кв. 36 · Шевчук Л.</span><span class="badge ok">Акт підписано</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip warn">Складність середня — доступ до даних</span>
+      <span class="chip plain">Залежить від реєстру речових прав</span>
+    </div>
+    <div class="metric"><span class="lb">Метрика</span><span class="vl">Час від атаки до готового списку квартир — ціль до 1 години</span></div>
+  </div>
+</section>
+
+<!-- 5 · Блок 2 -->
+<section class="slide" data-nav="Блок 2 · Акт на планшеті" data-kicker="Хвиля 1">
+  <div class="card">
+    <p class="eyebrow">Блок 2 <span class="dim">· Хвиля 1 · ядро</span></p>
+    <div class="block-head">
+      <span class="bignum">02</span>
+      <div>
+        <h2>Акт на планшеті</h2>
+        <p class="lead">Бригада з членом комісії та інженером керуючої компанії обходить квартири. Огляд займає 10–15 хвилин, і квартиру більше ніхто не обстежує вдруге.</p>
+      </div>
+    </div>
+    <div class="cols2">
+      <div>
+        <h3>Що робимо</h3>
+        <ul class="list">
+          <li><b>Єдиний чек-лист</b>: вікна з площею, двері, стіни, перекриття, мережі, майно для поліції, придатність до проживання</li>
+          <li><b>Фото лише з камери</b>, з геоміткою і часом, прив'язані до пунктів</li>
+          <li><b>Ступінь</b>: пошкоджене (10 000 грн) або непридатне для проживання (40 000 грн)</li>
+          <li><b>Два підписи КЕП</b>, офлайн, синхронізація пізніше</li>
+          <li><b>«Можна закривати»</b>: щойно вікно в акті, керуюча компанія бачить сигнал</li>
+          <li><b>Акт будинку</b> окремо: дах, під'їзди, фасад ідуть у «Цифровий будинок»</li>
+        </ul>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="bar-top"><span>Бригада 3 · офлайн</span><span>кв. 32</span></div>
+        <div class="scr">
+          <div class="ttl">Вікна</div>
+          <div class="sub">Внесено 3 з 4 · площа 5,8 м²</div>
+          <div class="ph"><span data-t="Кухня 08:14"></span><span data-t="Кімната 08:15"></span><span data-t="Балкон 08:17"></span></div>
+          <div class="row"><span class="k">Двері вхідні</span><span class="v">Ціла</span></div>
+          <div class="row"><span class="k">Стіни, стеля</span><span class="v">Тріщина, кухня</span></div>
+          <div class="row"><span class="k">Ступінь</span><span class="v"></span></div>
+          <div class="seg"><span class="on">Пошкоджене</span><span>Суттєво</span><span>Непридатне</span></div>
+          <div class="btns"><span class="sec">Можна закривати</span><span class="pri">Підписати КЕП</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip warn">Складність середня — погодити чек-лист</span>
+      <span class="chip plain">Соцполітика · комісія «єВідновлення» · КК</span>
+    </div>
+    <div class="metric"><span class="lb">Метрика</span><span class="vl">Частка квартир, де акт складено до тимчасового закриття вікон</span></div>
+  </div>
+</section>
+
+<!-- 6 · Блок 3 -->
+<section class="slide" data-nav="Блок 3 · Стійка штабу" data-kicker="Хвиля 1">
+  <div class="card">
+    <p class="eyebrow">Блок 3 <span class="dim">· Хвиля 1</span></p>
+    <div class="block-head">
+      <span class="bignum">03</span>
+      <div>
+        <h2>Стійка штабу</h2>
+        <p class="lead">Сьогодні людина стоїть у черзі до консультанта і пише заяву від руки. Тепер — три хвилини біля стійки, і вона вільна отримувати допомогу.</p>
+      </div>
+    </div>
+    <div class="cols2">
+      <div>
+        <h3>Що робимо</h3>
+        <ul class="list">
+          <li><b>QR з Дії</b> або паспорт — система одразу знаходить квартиру в ураженому будинку</li>
+          <li><b>Згода і доступ</b>: «буду вдома», «ключі в сусіда», «відчиніть зі мною зараз»</li>
+          <li><b>Орендар</b> бачить, що власника вже повідомлено</li>
+          <li><b>Тріаж потреб</b> одним екраном: ночівля, поранені, психолог, ліки, тварини — кожна потреба йде своїй службі</li>
+          <li><b>Статус огляду наживо</b>: «бригада у вашому під'їзді, перед вами 3 квартири»</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Чого не робимо</h3>
+        <ul class="list">
+          <li>Не просимо підписувати акт у штабі — людина в шоці</li>
+          <li>Не вимагаємо документів, які є в реєстрах</li>
+          <li>Не відмовляємо в допомозі штабу тим, хто не власник: орендар отримує все, крім виплати власнику</li>
+        </ul>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip ok">Складність низька</span>
+      <span class="chip plain">Планшети, павербанки, навчання людей</span>
+    </div>
+    <div class="metric"><span class="lb">Метрика</span><span class="vl">Час людини біля стійки — ціль до 3 хвилин</span></div>
+  </div>
+</section>
+
+<!-- 7 · Блок 4 -->
+<section class="slide" data-nav="Блок 4 · Кабінет постраждалого" data-kicker="Хвиля 2">
+  <div class="card">
+    <p class="eyebrow">Блок 4 <span class="dim">· Хвиля 2</span></p>
+    <div class="block-head">
+      <span class="bignum">04</span>
+      <div>
+        <h2>Кабінет постраждалого</h2>
+        <p class="lead">Акт, фото й заповнена заява приходять у «Київ Цифровий». Людина підтверджує або заперечує, і більше нікуди не йде.</p>
+      </div>
+    </div>
+    <div class="cols2">
+      <div>
+        <h3>Що робимо</h3>
+        <ul class="list">
+          <li><b>Картка «Вашу квартиру оглянуто»</b> з актом, фото й ступенем</li>
+          <li><b>«Підтверджую» або «Маю заперечення»</b> — заперечення з фото повертає акт на повторний огляд</li>
+          <li><b>Заява на міську допомогу</b> заповнена з реєстрів, лишається обрати рахунок і підписати</li>
+          <li><b>Згода співвласників</b> — кожен підтверджує у своєму застосунку</li>
+          <li><b>Статуси</b>: «єВідновлення», заміна вікон, виплата</li>
+        </ul>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="bar-top"><span>Київ Цифровий</span><span>19:20</span></div>
+        <div class="scr">
+          <div class="ttl">Вашу квартиру оглянуто</div>
+          <div class="sub">вул. Прикладна, 12, кв. 32 · акт №0412</div>
+          <div class="ph"><span data-t="Кухня"></span><span data-t="Кімната"></span><span data-t="Балкон"></span></div>
+          <div class="row"><span class="k">Пошкоджено</span><span class="v">3 вікна, 5,8 м² · тріщина</span></div>
+          <div class="row"><span class="k">Міська допомога</span><span class="v">10 000 грн</span></div>
+          <div class="row"><span class="k">єВідновлення</span><span class="badge b">Акт передано</span></div>
+          <div class="row"><span class="k">Вікна</span><span class="badge ok">Закрито плівкою</span></div>
+          <div class="btns"><span class="sec">Маю заперечення</span><span class="pri">Підтверджую</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip crit">Складність висока — нормативна</span>
+      <span class="chip plain">Зміна наказу Департаменту соцполітики</span>
+    </div>
+    <div class="metric"><span class="lb">Метрика</span><span class="vl">Кількість візитів людини до установ після штабу — ціль нуль</span></div>
+  </div>
+</section>
+
+<!-- 8 · Блок 5 -->
+<section class="slide" data-nav="Блок 5 · Панель штабу" data-kicker="Хвиля 1">
+  <div class="card">
+    <p class="eyebrow">Блок 5 <span class="dim">· Хвиля 1</span></p>
+    <div class="block-head">
+      <span class="bignum">05</span>
+      <div>
+        <h2>Панель штабу</h2>
+        <p class="lead">Сьогодні картину збирають із дзвінків і чатів. Тепер район і КМДА бачать її наживо, без ручних зведень.</p>
+      </div>
+    </div>
+    <div class="cols2">
+      <div>
+        <h3>Що робимо</h3>
+        <ul class="list">
+          <li><b>Карта прильоту</b> з будинками й квартирами за статусом</li>
+          <li><b>Черга бригад</b> з маршрутами</li>
+          <li><b>Лічильники</b>: пошкоджено, оглянуто, підписано, підтверджено, виплачено, вікон закрито, людей розселено</li>
+          <li><b>Сигнали</b>: квартира без доступу понад добу, акт без підпису власника понад 5 днів, потенційно непридатні квартири</li>
+          <li><b>Зведення для КМДА</b> за кнопку</li>
+        </ul>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="bar-top"><span>Приліт · Святошинський</span><span>Т+9 год</span></div>
+        <div class="scr">
+          <div class="kpis">
+            <div class="kpi"><b>214</b><span>квартир пошкоджено</span></div>
+            <div class="kpi"><b>158</b><span>акт підписано</span></div>
+            <div class="kpi"><b>6</b><span>бригад на маршрутах</span></div>
+          </div>
+          <div class="flow"><i style="width:31%;background:var(--ok)"></i><i style="width:43%;background:var(--blue)"></i><i style="width:14%;background:var(--warn)"></i></div>
+          <div class="legend"><span><i style="background:var(--ok)"></i>Підтверджено</span><span><i style="background:var(--blue)"></i>Підписано комісією</span><span><i style="background:var(--warn)"></i>У черзі</span><span><i style="background:var(--grey-2)"></i>Без доступу</span></div>
+          <div class="row" style="margin-top:10px"><span class="k">Вікон у акті / закрито</span><span class="v">512 / 471</span></div>
+          <div class="row"><span class="k">Без доступу понад добу</span><span class="badge warn">26 кв.</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip ok">Складність низька</span>
+      <span class="chip plain">Вітрина над даними блоків 1–4</span>
+    </div>
+    <p class="small muted" style="margin-top:14px">Числа на макеті умовні.</p>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-nav="Один акт — усі маршрути" data-kicker="Ефект">
+  <div class="card">
+    <p class="eyebrow">Ефект</p>
+    <h2>Одна фіксація — багато використань</h2>
+    <p class="lead">Головна економія не в тому, що акт став електронним, а в тому, що його складають один раз до ремонту і перевикористовують.</p>
+    <div class="center-act">
+      <span class="ic"><svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span>
+      <p><b>Акт квартири</b> — фото з геоміткою, єдиний чек-лист, ступінь пошкодження, два підписи комісії</p>
+    </div>
+    <div class="reuse">
+      <div class="who">Соцполітика РДА</div><div class="what"><b>Міська допомога 10 000 / 40 000 грн</b> без довідки ОСББ і паперового акта</div>
+      <div class="who">Комісія «єВідновлення»</div><div class="what"><b>Державна компенсація</b> за актом, складеним до ремонту, без повторного огляду</div>
+      <div class="who">Керуюча компанія</div><div class="what"><b>Закриття і заміна вікон</b> за точним переліком і площами</div>
+      <div class="who">Поліція</div><div class="what"><b>Кримінальне провадження і репарації</b> — фото й перелік майна</div>
+      <div class="who">ОСББ, «Цифровий будинок»</div><div class="what"><b>Історія будинку</b> і автоматичний вхід у програму відновлення</div>
+      <div class="who">КМДА</div><div class="what"><b>Картина наживо</b> для бюджету й рішень, а не зведення через тиждень</div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-nav="Правова рамка" data-kicker="Право">
+  <div class="card">
+    <p class="eyebrow">Право</p>
+    <h2>Що вже можна і що треба змінити</h2>
+    <p class="lead">Спирається на відкриті виклади юристів і міністерства. Перед стартом звірити з чинними редакціями постанов.</p>
+    <div class="cols2">
+      <div>
+        <h3>Вже дозволено</h3>
+        <ul class="list">
+          <li><b>Обстеження до заяви.</b> Порядок компенсації окремо описує випадок, коли обстеження відбулося раніше за заяву — строк заперечення тоді рахується від заяви</li>
+          <li><b>Огляди за ініціативою міста.</b> Постанова №473 доручає місцевій владі попередні огляди пошкоджених об'єктів</li>
+          <li><b>Міська програма — компетенція міста.</b> Порядок допомоги визначає наказ Департаменту, і місто змінює його саме</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Треба змінити або домовити</h3>
+        <ul class="list">
+          <li><b>Наказ соцполітики</b>: електронний акт комісії як підстава і електронне подання</li>
+          <li><b>Склад бригад</b>: члени комісії «єВідновлення» у штабі</li>
+          <li><b>Доступ без власника</b>: хто може бути представником і як фіксується згода</li>
+          <li><b>Реєстри</b>: читання реєстру речових прав, запис у реєстр пошкодженого майна</li>
+          <li><b>Захист даних</b>: фото житла й майна — чутливі дані</li>
+        </ul>
+      </div>
+    </div>
+    <div class="metric"><span class="lb">Межа</span><span class="vl">Заяву на державну компенсацію подає лише власник. Місто може заповнити її і покласти в застосунок, але не подати за нього</span></div>
+  </div>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-nav="Хвилі впровадження" data-kicker="План">
+  <div class="card">
+    <p class="eyebrow">План</p>
+    <h2>Три хвилі</h2>
+    <p class="lead">Перша хвиля майже не залежить від зовнішніх систем: місто саме володіє і штабом, і районними комісіями, і програмою допомоги.</p>
+    <div class="wavebar" id="wavebar">
+      <button class="wbtn" type="button" data-w="all" aria-pressed="true">Усі хвилі</button>
+      <button class="wbtn" type="button" data-w="1" aria-pressed="false">Хвиля 1</button>
+      <button class="wbtn" type="button" data-w="2" aria-pressed="false">Хвиля 2</button>
+      <button class="wbtn" type="button" data-w="3" aria-pressed="false">Хвиля 3</button>
+    </div>
+    <div class="wgrid" id="wgrid">
+      <div class="wcard" data-w="1">
+        <span class="tag">Хвиля 1 · Штаб рахує</span>
+        <h3>Інструмент штабу</h3>
+        <p>Планшети, реєстр адрес, стійка і панель. Акт поки друкується, але складається один раз, до закриття вікон, і вже має фото. Пілот в одному районі на 2–3 атаки.</p>
+        <div class="wlist"><span>1 · Реєстр адрес</span><span>2 · Акт на планшеті</span><span>3 · Стійка</span><span>5 · Панель</span></div>
+      </div>
+      <div class="wcard" data-w="2">
+        <span class="tag">Хвиля 2 · Людина підтверджує</span>
+        <h3>Без жодного паперу</h3>
+        <p>Акт і заява приходять у «Київ Цифровий», міська допомога призначається за електронним актом. Потрібна зміна наказу Департаменту.</p>
+        <div class="wlist"><span>4 · Кабінет постраждалого</span><span>Згода співвласників</span></div>
+      </div>
+      <div class="wcard" data-w="3">
+        <span class="tag">Хвиля 3 · Акт рахується всюди</span>
+        <h3>Державний реєстр і будинок</h3>
+        <p>Акт записується в реєстр пошкодженого майна й одразу рахується для «єВідновлення». Акт будинку потрапляє в «Цифровий будинок».</p>
+        <div class="wlist"><span>Реєстр пошкодженого майна</span><span>Цифровий будинок</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-nav="Ризики" data-kicker="Чесно">
+  <div class="card">
+    <p class="eyebrow">Чесно</p>
+    <h2>Що може зламати ідею</h2>
+    <div class="rgrid">
+      <div class="risk"><h3>Поспіх і недооцінка</h3><p>Бригада під тиском часу пропустить пошкодження. Тому акт можна доповнювати, а заперечення з фото повертає його на огляд.</p></div>
+      <div class="risk"><h3>Не вистачає бригад</h3><p>Сотні квартир за ніч. Огляд 10–15 хвилин, бригади з інших районів за запитом, пріоритет за ступенем пошкодження.</p></div>
+      <div class="risk"><h3>Вікна закрили до фото</h3><p>Доказ зникає. Сигнал «можна закривати» йде з планшета, виняток — лише пряма загроза життю.</p></div>
+      <div class="risk"><h3>Зловживання</h3><p>Завищені або фіктивні акти. Фото лише з камери з геоміткою, два підписи КЕП, вибіркові перевірки.</p></div>
+      <div class="risk"><h3>Немає світла і зв'язку</h3><p>Після атаки це норма. Офлайн-застосунок, павербанки, резервний зв'язок у штабі.</p></div>
+      <div class="risk"><h3>Цифрова нерівність</h3><p>Найуразливіші часто без смартфона. Паперовий акт зі штабу, підпис у ЦНАП або соцпрацівник удома.</p></div>
+    </div>
+    <h3 style="margin:26px 0 0">Питання, на які потрібні відповіді до старту</h3>
+    <ol class="qlist">
+      <li>Чи готова КМДА включати членів комісії «єВідновлення» в бригади штабу?</li>
+      <li>Чи готовий Департамент соціальної та ветеранської політики приймати електронний акт комісії?</li>
+      <li>Яка правова підстава міста читати реєстр речових прав і писати власнику першим?</li>
+      <li>Хто юридично може дати доступ до квартири замість власника?</li>
+      <li>Хто забезпечує планшети, КЕП і зв'язок для бригад і з якого бюджету?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="slide" data-nav="Наступні кроки" data-kicker="Далі">
+  <div class="card">
+    <p class="eyebrow">Далі</p>
+    <h2>Три кроки, які можна зробити зараз</h2>
+    <p class="lead">Перший результат не потребує жодної зміни законодавства: досить штабу з планшетами, який фіксує квартири до того, як їх закрили плівкою.</p>
+    <div class="steps">
+      <div class="step">
+        <span class="n">КРОК 1</span>
+        <h3>Юридична перевірка</h3>
+        <p>Юрист КМДА звіряє рамку з чинними редакціями постанов №381 і №473 і з наказом Департаменту соцполітики.</p>
+      </div>
+      <div class="step">
+        <span class="n">КРОК 2</span>
+        <h3>Єдиний чек-лист</h3>
+        <p>Соцполітика, комісія «єВідновлення» і керуючі компанії погоджують один перелік пунктів огляду, щоб ніхто не вимагав свого.</p>
+      </div>
+      <div class="step">
+        <span class="n">КРОК 3</span>
+        <h3>Пілот в одному районі</h3>
+        <p>Перша хвиля на 2–3 атаки. Порівняти з сусіднім районом за часом до акта і кількістю повторних оглядів.</p>
+      </div>
+    </div>
+    <a class="doclink" href="concept.md">Повний документ із деталями по кожному блоку →</a>
+  </div>
+</section>
+
+</main>
+
+<nav class="controls" aria-label="Навігація презентацією">
+  <button class="ctl" id="prev" type="button" aria-label="Попередня сторінка">
+    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <span class="counter" id="counter">1 / 14</span>
+  <button class="ctl" id="next" type="button" aria-label="Наступна сторінка">
+    <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <span class="sep"></span>
+  <button class="ctl wide" id="ovBtn" type="button" aria-label="Усі сторінки">Усі</button>
+  <button class="ctl" id="fsBtn" type="button" aria-label="На весь екран">
+    <svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+  </button>
+</nav>
+
+<div class="overview" id="overview" hidden>
+  <div class="ov-head">
+    <h2>Усі сторінки</h2>
+    <button class="more-btn" id="ovClose" type="button">Закрити <kbd>Esc</kbd></button>
+  </div>
+  <div class="ov-grid" id="ovGrid"></div>
+</div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var total = slides.length;
+  var i = 0;
+  var bar = document.getElementById('bar');
+  var counter = document.getElementById('counter');
+  var prev = document.getElementById('prev');
+  var next = document.getElementById('next');
+  var overview = document.getElementById('overview');
+  var ovGrid = document.getElementById('ovGrid');
+
+  function render(){
+    slides.forEach(function(s, n){ s.classList.toggle('active', n === i); });
+    counter.textContent = (i + 1) + ' / ' + total;
+    bar.style.width = ((i) / (total - 1) * 100) + '%';
+    prev.disabled = i === 0;
+    next.disabled = i === total - 1;
+    var active = slides[i];
+    if (active) active.scrollTop = 0;
+    Array.prototype.forEach.call(ovGrid.children, function(c, n){
+      c.classList.toggle('current', n === i);
+    });
+    if (history.replaceState) history.replaceState(null, '', '#' + (i + 1));
+  }
+
+  function go(n){
+    i = Math.max(0, Math.min(total - 1, n));
+    render();
+  }
+
+  prev.addEventListener('click', function(){ go(i - 1); });
+  next.addEventListener('click', function(){ go(i + 1); });
+
+  // overview
+  slides.forEach(function(s, n){
+    var b = document.createElement('button');
+    b.className = 'ov-card';
+    b.type = 'button';
+    b.innerHTML = '<span class="i">' + String(n + 1).padStart(2, '0') + '</span>' +
+                  '<span class="t"></span><span class="k"></span>';
+    b.querySelector('.t').textContent = s.getAttribute('data-nav') || ('Сторінка ' + (n + 1));
+    b.querySelector('.k').textContent = s.getAttribute('data-kicker') || '';
+    b.addEventListener('click', function(){ closeOv(); go(n); });
+    ovGrid.appendChild(b);
+  });
+
+  function openOv(){ overview.hidden = false; }
+  function closeOv(){ overview.hidden = true; }
+  function toggleOv(){ overview.hidden ? openOv() : closeOv(); }
+  document.getElementById('ovBtn').addEventListener('click', toggleOv);
+  document.getElementById('ovClose').addEventListener('click', closeOv);
+
+  // fullscreen
+  document.getElementById('fsBtn').addEventListener('click', function(){
+    if (!document.fullscreenElement) {
+      if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  });
+
+  // disclosures
+  document.querySelectorAll('.more-btn[aria-expanded]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      var body = btn.parentNode.querySelector('.more-body');
+      if (body) body.hidden = open;
+    });
+  });
+
+  // axis
+  var axis = document.getElementById('axis');
+  var axisOut = document.getElementById('axisOut');
+  var axisDefault = axisOut.innerHTML;
+  if (axis) {
+    axis.querySelectorAll('.stage').forEach(function(st){
+      st.addEventListener('click', function(){
+        var on = st.getAttribute('aria-pressed') === 'true';
+        axis.querySelectorAll('.stage').forEach(function(o){ o.setAttribute('aria-pressed', 'false'); });
+        if (on) { axisOut.innerHTML = axisDefault; }
+        else { st.setAttribute('aria-pressed', 'true'); axisOut.innerHTML = st.getAttribute('data-out'); }
+      });
+    });
+  }
+
+  // waves
+  var wavebar = document.getElementById('wavebar');
+  if (wavebar) {
+    var wcards = document.querySelectorAll('#wgrid .wcard');
+    wavebar.querySelectorAll('.wbtn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var w = btn.getAttribute('data-w');
+        wavebar.querySelectorAll('.wbtn').forEach(function(b){ b.setAttribute('aria-pressed', String(b === btn)); });
+        wcards.forEach(function(c){
+          var match = w === 'all' || c.getAttribute('data-w') === w;
+          c.classList.toggle('on', match && w !== 'all');
+          c.classList.toggle('off', !match);
+        });
+      });
+    });
+  }
+
+  // keyboard
+  document.addEventListener('keydown', function(e){
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var k = e.key;
+    if (k === 'Escape') { closeOv(); return; }
+    if (k === 'o' || k === 'O' || k === 'щ' || k === 'Щ') { e.preventDefault(); toggleOv(); return; }
+    if (k === 'f' || k === 'F' || k === 'а' || k === 'А') { e.preventDefault(); document.getElementById('fsBtn').click(); return; }
+    if (!overview.hidden) return;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ') { e.preventDefault(); go(i + 1); }
+    else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); go(i - 1); }
+    else if (k === 'Home') { e.preventDefault(); go(0); }
+    else if (k === 'End') { e.preventDefault(); go(total - 1); }
+  });
+
+  // touch
+  var x0 = null, y0 = null;
+  document.addEventListener('touchstart', function(e){
+    x0 = e.changedTouches[0].clientX; y0 = e.changedTouches[0].clientY;
+  }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0;
+    var dy = e.changedTouches[0].clientY - y0;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.6) go(dx < 0 ? i + 1 : i - 1);
+    x0 = null; y0 = null;
+  }, {passive:true});
+
+  // restore from hash
+  var start = parseInt((location.hash || '').replace('#', ''), 10);
+  if (!isNaN(start) && start >= 1 && start <= total) i = start - 1;
+  render();
+})();
+</script>
+</body>
+</html>
