@@ -183,6 +183,20 @@ h2.sh{font-size:24px;font-weight:700;color:#000;margin-bottom:6px;display:flex;a
 .bdg span.o{background:var(--warn-b);color:var(--warn);font-weight:600}
 .bdg span.a{background:var(--blue-b);color:#00598e}
 .bdg span.h{background:var(--pur-b);color:var(--pur-t);font-weight:600}
+.refbar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;background:#f7f7f9;border-radius:12px;padding:11px 16px;font-size:14.5px;margin-top:22px}
+.refbar .more{flex-basis:100%;color:var(--grey2);font-size:14px}
+button.lnk,a.lnk{background:none;border:0;color:var(--blue);font-weight:600;padding:0;font-size:14px;cursor:pointer}
+.mapbox.hm{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
+.hmap{position:sticky;top:56px}
+.slist.hl-list{max-height:none;overflow:visible}
+.hc{cursor:default}
+.hc-top{display:flex;justify-content:space-between;gap:10px 14px;align-items:flex-start;flex-wrap:wrap}
+.hc .ad{margin-bottom:0}
+.hc-ct{margin:12px 0;border-top:1px solid var(--line)}
+.hc-ct div{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px;flex-wrap:wrap}
+.hc-ct span{color:var(--grey2);flex:1;min-width:0}
+.hc-ct a{font-weight:700;white-space:nowrap;color:#000}
+.hc-bot{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
 .duty{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;border:1.5px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:12px}
 .duty .nm{font-weight:700;font-size:17px}
 .duty .tel{font-size:20px;font-weight:700;white-space:nowrap;color:#000}
@@ -244,9 +258,6 @@ h2.sh{font-size:24px;font-weight:700;color:#000;margin-bottom:6px;display:flex;a
 .tl .ev:before{content:"";position:absolute;left:-25px;top:5px;width:10px;height:10px;border-radius:50%;background:#fff;border:3px solid var(--blue)}
 .tl .dt{font-size:13px;color:var(--grey)}
 .tl .tx{font-size:15px}
-.stl{display:grid;grid-template-columns:repeat(2,1fr);gap:0 28px}
-.stl .r{display:flex;gap:14px;align-items:baseline;padding:11px 0;border-top:1px solid var(--line);font-size:14.5px}
-.stl .r .st{flex:none;min-width:150px;text-align:center}
 
 /* ---------- довідки ---------- */
 .cert{border:1.5px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:12px;background:#fff}
@@ -382,7 +393,7 @@ body.tour-open .toast{right:414px}
 .mapbox>*,.g2>*,.g3>*{min-width:0}
 
 @media(max-width:1100px){
-  .mapbox{grid-template-columns:1fr}
+  .mapbox,.mapbox.hm{grid-template-columns:1fr}.hmap{position:static}
   .kpis,.kpis.k5{grid-template-columns:repeat(2,1fr)}
   .tiles{grid-template-columns:repeat(2,1fr)}
   .shell{flex-direction:column}.side{width:auto;padding:12px 0}.smenu{display:flex;overflow-x:auto}.side .who,.smenu .cap{display:none}.smenu .it small{display:none}.smenu .it{white-space:nowrap}
@@ -391,7 +402,7 @@ body.tour-open .toast{right:414px}
 @media(max-width:700px){
   .wrap,.main{padding:20px 16px 60px}.vnav{padding:0 16px}
   h1.pt{font-size:26px}
-  .g2,.g3,.stl,.opts.c2,.opts.c3,.prefill,.inv .g,.tiles{grid-template-columns:1fr}
+  .g2,.g3,.opts.c2,.opts.c3,.prefill,.inv .g,.tiles{grid-template-columns:1fr}
   .att{grid-template-columns:44px 1fr}.att>.btn{grid-column:1/-1}
   .duty{grid-template-columns:1fr}
   .bars .r{grid-template-columns:110px 1fr 70px}
@@ -666,7 +677,7 @@ function seed(){
   return {
     role:'res',rv:'home',docv:'cert',hv:'req',edu:'e1',zv:'home',stale:false,
     ref:{no:'0571-3920-4416-8803',svc:'Хірургічні операції дорослим у стаціонарі',prof:'Хірургія',created:'2026-10-14',by:DOC,until:'2027-10-14'},
-    hf:{d:'',free:false,all:false},hsel:null,hform:{dep:null,doc:'',from:'2026-11-01',to:'2026-11-15',note:''},
+    hf:{d:'',free:true},refOpen:false,hsel:null,hform:{dep:null,doc:'',from:'2026-11-01',to:'2026-11-15',note:''},
     hreq:null,hreqs:J(HREQ_DEMO),
     beds:J(HOSP[0].deps).map(d=>({...d,res:0,src:'МІС',upd:'08:15'})),dutyConf:false,
     dprof:'Хірургія',dage:'adult',ddist:'Дніпровський',
@@ -791,7 +802,7 @@ function freeBadge(h){
 }
 function hospList(){
   const p=S.ref.prof;
-  return HOSP.filter(h=>(S.hf.all||h.svc.includes(p))&&(!S.hf.d||h.d===S.hf.d)&&(!S.hf.free||(hFree(h,p)||0)>0));
+  return HOSP.filter(h=>h.svc.includes(p)&&(!S.hf.d||h.d===S.hf.d)&&(!S.hf.free||(hFree(h,p)||0)>0));
 }
 function hTrack(q){
   const h=H(q.hosp),idx={sent:1,confirmed:2,admitted:3,declined:1}[q.status];
@@ -810,55 +821,39 @@ function hTrack(q){
    ${body}
    <div class="tl" style="margin-top:20px">${q.hist.slice().reverse().map(e=>`<div class="ev"><div class="dt">${e[0]}</div><div class="tx">${e[1]}</div></div>`).join('')}</div></div>`;
 }
+const depPhone=(h,i)=>`(044) 000-${30+ +h.id.slice(1)}-${11+i}`;
+function hospCard(h){
+  const p=S.ref.prof,deps=(h.id==='h1'?S.beds:h.deps).filter(d=>d.p===p);
+  return `<div class="sch hc${S.hsel===h.id?' hl':''}" id="hc-${h.id}" data-a="hSel" data-id="${h.id}">
+   <div class="hc-top"><div><div class="nm">${h.n}</div><div class="ad">${h.d} р-н · ${h.a} · <a class="lnk" target="_blank" rel="noopener" href="${route(h.a)}">Маршрут ↗</a></div></div><div class="bdg">${freeBadge(h)}</div></div>
+   <div class="hc-ct">
+    <div><span>Приймальне відділення · цілодобово</span><a href="tel:${h.ph}">${h.ph}</a></div>
+    ${deps.map((d,i)=>`<div><span>Рецепція «${d.n}» · пн–пт 08:00–16:00</span><a href="tel:${depPhone(h,i)}">${depPhone(h,i)}</a></div>`).join('')}
+   </div>
+   <div class="hc-bot"><span class="muted" style="font-size:13.5px">♿ ${h.acc}</span><button class="btn sm" data-a="hApply" data-id="${h.id}">Записатись</button></div></div>`;
+}
 function rHosp(){
   const r=S.ref,q=S.hreq,list=hospList(),p=r.prof;
+  const hidden=S.hf.free?HOSP.filter(h=>h.svc.includes(p)&&(!S.hf.d||h.d===S.hf.d)&&!((hFree(h,p)||0)>0)).length:0;
   return `<div class="crumbs"><a data-a="go" data-v="home">Здоров’я</a> · Планова госпіталізація</div>
   <h1 class="pt">Планова госпіталізація за е-направленням</h1>
-  <p class="lead">Оберіть лікарню, яка надає послугу з вашого е-направлення, подивіться вільні місця і подайте заявку на дату. Лікарня підтвердить її або запропонує інший день — без дзвінків і обходу.</p>
+  <p class="lead">Оберіть на карті лікарню з вільними місцями і запишіться на дату. Лікарня підтвердить її або запропонує інший день — без дзвінків і обходу.</p>
+  <div class="refbar" id="hRef"><span class="muted">${ic('doc',18)}</span><span><b>Е-направлення <span class="mono">${r.no}</span></b> · ${r.svc} · чинне до ${fmt(r.until)}</span><span class="st ok">не взяте в роботу</span><button class="lnk" data-a="hRefT">${S.refOpen?'Згорнути':'Детальніше'}</button>
+   ${S.refOpen?`<div class="more">Створено ${fmt(r.created)}, лікарка ${r.by} Направлення можна використати в будь-якій комунальній лікарні з договором НСЗУ за цією послугою. Номер прочитано з ЕСОЗ через МІС вашої лікарки.</div>`:''}</div>
   ${q&&q.status!=='cancelled'?hTrack(q):''}
-  <section class="sec" id="hRef" style="margin-top:36px"><h2 class="sh">Ваше направлення</h2>
-   <div class="card ln"><div class="prefill" style="background:none;padding:0">
-    <div class="fld"><div class="l">Номер е-направлення</div><div class="v mono">${r.no}</div></div>
-    <div class="fld"><div class="l">Послуга</div><div class="v">${r.svc}</div></div>
-    <div class="fld"><div class="l">Створено</div><div class="v">${fmt(r.created)} · ${r.by}</div></div>
-    <div class="fld"><div class="l">Чинне до</div><div class="v">${fmt(r.until)}</div></div></div>
-    <div class="note ok" style="margin-bottom:0">✓ Направлення ще не взяте в роботу — його можна використати в будь-якій комунальній лікарні з договором НСЗУ за цією послугою. Номер прочитано з ЕСОЗ через МІС вашої лікарки.</div></div>
-  </section>
-  <section class="sec" id="hList"><h2 class="sh">Лікарні для вашого направлення</h2>
-   <p class="sub">Показано лише лікарні, що надають послугу «${p}». Дані про місця довідкові й мають час оновлення — остаточне рішення завжди за лікарнею.</p>
+  <section class="sec" id="hList" style="margin-top:30px"><h2 class="sh">${S.hf.free?'Лікарні з вільними місцями':'Лікарні для вашого направлення'}</h2>
+   <p class="sub">Лише лікарні, що надають послугу «${p}» з вашого направлення. Дані про місця довідкові й мають час оновлення — остаточне рішення за лікарнею.</p>
    <div class="fbar">
     <select data-c="hfD"><option value="">Усі райони</option>${DN.map(d=>`<option${S.hf.d===d?' selected':''}>${d}</option>`).join('')}</select>
     <label class="chk"><input type="checkbox" data-c="hfFree"${S.hf.free?' checked':''}>Лише з вільними місцями</label>
-    <label class="chk"><input type="checkbox" data-c="hfAll"${S.hf.all?' checked':''}>Показати всі лікарні</label>
    </div>
-   <div class="mapbox">
-    <div>${mapSVG({sel:S.hf.d?[S.hf.d]:[],pins:list.map(h=>({...h,cls:(()=>{const f=hFree(h,p);return !h.svc.includes(p)?'na':f===null?'na':f===0?'no':'yes'})(),a:'hOpen'})),hl:S.hsel})}
-     <div class="legend"><span><i class="sd yes"></i>є місця</span><span><i class="sd no"></i>немає місць</span><span><i class="sd na"></i>немає даних</span></div></div>
-    <div class="slist">${list.map(h=>`<div class="sch${S.hsel===h.id?' hl':''}" data-a="hOpen" data-id="${h.id}"><div class="nm">${h.n}</div><div class="ad">${h.d} р-н · ${h.a}</div><div class="bdg">${freeBadge(h)}<span>♿ ${h.acc.split(',')[0]}</span></div></div>`).join('')||'<div class="note grey">За цими фільтрами лікарень немає.</div>'}</div>
-   </div>
-  </section>
-  <section class="sec"><h2 class="sh">Що означають статуси</h2>
-   <div class="stl">
-    <div class="r"><span class="st wait">На розгляді</span>Лікарня отримала заявку з вашим направленням</div>
-    <div class="r"><span class="st ok">Підтверджено</span>Дата, час і місце узгоджені — прийде нагадування напередодні</div>
-    <div class="r"><span class="st bad">Відхилено</span>Причину вказано, направлення лишається чинним</div>
-    <div class="r"><span class="st grey">Скасовано</span>Ви скасували заявку — направлення можна використати деінде</div>
+   <div class="mapbox hm">
+    <div class="hmap">${mapSVG({sel:S.hf.d?[S.hf.d]:[],pins:list.map(h=>({...h,cls:(()=>{const f=hFree(h,p);return f===null?'na':f===0?'no':'yes'})(),a:'hSel'})),hl:S.hsel})}
+     <div class="legend"><span><i class="sd yes"></i>є місця</span>${S.hf.free?'':'<span><i class="sd no"></i>немає місць</span><span><i class="sd na"></i>немає даних</span>'}</div></div>
+    <div class="slist hl-list">${list.map(hospCard).join('')||'<div class="note grey">За цими фільтрами лікарень немає.</div>'}
+     ${hidden?`<button class="lnk" style="margin-top:4px" data-a="hShowAll">Показати ще ${hidden}: без вільних місць або без даних про місця</button>`:''}</div>
    </div>
   </section>`;
-}
-function openHosp(id){
-  const h=H(id),p=S.ref.prof,deps=h.id==='h1'?S.beds:h.deps;S.hsel=id;renderRes();
-  const ok=h.svc.includes(p);
-  drawer(`<h3>${h.n}</h3><div class="muted">${h.d} р-н · ${h.a}</div>
-   <div class="note${h.int?'':' warn'}">${h.int?`Дані про місця довідкові, оновлено о ${h.id==='h1'?S.beds[0].upd:h.upd}. Остаточне рішення — за лікарнею.`:'Лікарня поки не передає даних про вільні місця. Заявку можна подати — її розглянуть у загальному режимі.'}</div>
-   ${deps.length?`<h4>Відділення</h4><table class="t"><thead><tr><th>Відділення</th><th>Профіль</th><th class="num">Вільно</th></tr></thead><tbody>${deps.map(d=>{const f=h.id==='h1'?Math.max(0,d.total-d.occ-d.res):d.free;return `<tr><td>${d.n}</td><td>${d.p}</td><td class="num">${h.int?f:'—'}</td></tr>`}).join('')}</tbody></table>`:''}
-   ${deps.some(d=>d.docs)?`<h4>Лікарі за спеціалізаціями</h4><div style="font-size:14.5px">${deps.filter(d=>d.docs).map(d=>`<div style="padding:4px 0"><b>${d.n}:</b> ${d.docs.join(', ')}</div>`).join('')}</div>`:''}
-   <h4>Контакти</h4>
-   <div class="fld"><div class="l">Приймальне відділення</div><div class="v">${h.ph} · цілодобово</div></div>
-   <div class="fld"><div class="l">Планова госпіталізація</div><div class="v">пн–пт, 08:00–14:00</div></div>
-   <div class="fld"><div class="l">Доступність</div><div class="v">♿ ${h.acc}</div></div>
-   <div class="actions"><button class="btn" id="hApply" data-a="hApply" data-id="${h.id}"${ok?'':' disabled'}>Подати заявку</button><a class="btn grey" target="_blank" rel="noopener" href="${route(h.a)}">Маршрут ↗</a></div>
-   ${ok?'':'<p class="muted" style="font-size:14px;margin-top:10px">Лікарня не надає послугу з вашого направлення.</p>'}`);
 }
 function rHospForm(){
   const h=H(S.hsel),f=S.hform,p=S.ref.prof,deps=(h.id==='h1'?S.beds:h.deps).filter(d=>d.p===p);
@@ -1346,8 +1341,10 @@ function jump(id){const el=document.getElementById(id);if(el)el.scrollIntoView({
 const ACT={
   go:d=>go(d.v),jump:d=>jump(d.v),closeM:()=>closeModal(),
   appt:()=>toast('«Запис до лікаря» будується в першій черзі модернізації Порталу (захід 6.1). Цей макет його не дублює.'),
-  hOpen:d=>openHosp(d.id),
-  hApply:d=>{S.hsel=d.id;S.hform.dep=null;closeDrawer();go('hospForm')},
+  hSel:(d,t)=>{const fromPin=!t.classList.contains('sch');S.hsel=d.id;renderRes();if(fromPin){const el=$('#hc-'+d.id);el&&el.scrollIntoView({behavior:'smooth',block:'nearest'})}},
+  hShowAll:()=>{S.hf.free=false;renderRes()},
+  hRefT:()=>{S.refOpen=!S.refOpen;renderRes()},
+  hApply:d=>{S.hsel=d.id;S.hform.dep=null;go('hospForm')},
   hfDep:d=>{S.hform.dep=d.v;renderRes()},
   hSend:()=>{const f=S.hform;if(!f.dep){$('#hErr').textContent='Оберіть відділення.';return}
     const h=H(S.hsel);S.hreq={hosp:S.hsel,dep:f.dep,doc:f.doc,from:f.from,to:f.to,note:f.note,status:'sent',at:TODAY,sla:'2026-10-22',hist:[[fmt(TODAY)+', 09:52','Заявку подано в '+h.n+' · '+f.dep]]};
@@ -1444,7 +1441,7 @@ document.addEventListener('click',e=>{
 });
 const CH={
   stale:t=>{S.stale=t.value==='1';renderAll()},
-  hfD:t=>{S.hf.d=t.value;renderRes()},hfFree:t=>{S.hf.free=t.checked;renderRes()},hfAll:t=>{S.hf.all=t.checked;renderRes()},
+  hfD:t=>{S.hf.d=t.value;renderRes()},hfFree:t=>{S.hf.free=t.checked;renderRes()},
   hfDoc:t=>{S.hform.doc=t.value},hfFrom:t=>{S.hform.from=t.value},hfTo:t=>{S.hform.to=t.value},hfNote:t=>{S.hform.note=t.value},
   dDist:t=>{S.ddist=t.value;renderRes()},phNow:t=>{S.phNow=t.checked;renderRes()},vq:t=>{S.vq=t.value;renderRes()},
   cfAuto:t=>{S.cf.auto=t.checked},shAuto:t=>{S.share.auto=t.checked},
@@ -1476,9 +1473,8 @@ const FLOWS=[
   start(){resetDemo()},
   steps:[
    {t:'Натисни <b>«Обрати лікарню»</b> у картці е-направлення.',sel:'#attn [data-v="hosp"]',done:()=>S.rv==='hosp'},
-   {t:'Портал прочитав номер і послугу з ЕСОЗ через МІС лікарки. Направлення безадресне, тож лікарню обирає людина.',sel:'#hRef',manual:true},
-   {t:'Показано лише лікарні з цією послугою: в одній місць немає, ще одна не передає даних. Натисни <b>«Лікарня Лівого берега»</b>.',sel:'.sch[data-id="h1"]',done:()=>drOpen()&&S.hsel==='h1',act(){openHosp('h1')}},
-   {t:'Відділення, вільні місця з часом оновлення, лікарі, доступність. Натисни <b>«Подати заявку»</b>.',sel:'#hApply',done:()=>S.rv==='hospForm'},
+   {t:'У центрі — карта. Портал прочитав послугу з е-направлення і одразу показує лише лікарні з вільними місцями. Саме направлення — одним рядком угорі.',sel:'#hList .mapbox',manual:true},
+   {t:'У картці лікарні — вільні місця з часом оновлення, телефони приймального відділення і рецепції відділення. Натисни <b>«Записатись»</b> у «Лікарні Лівого берега».',sel:'#hc-h1 [data-a="hApply"]',done:()=>S.rv==='hospForm'},
    {t:'Обери відділення <b>«Хірургія № 1»</b>.',sel:'[data-a="hfDep"][data-v="Хірургія № 1"]',done:()=>S.hform.dep==='Хірургія № 1',act(){S.hform.dep='Хірургія № 1';renderRes()}},
    {t:'Натисни <b>«Подати заявку»</b>. Це запит, а не гарантоване бронювання.',sel:'#hSend',done:()=>S.hreq&&S.hreq.status==='sent'},
    {t:'Тепер подивимося з боку лікарні. Переключись на роль <b>«Лікарня»</b>.',sel:'.mock [data-role="hosp"]',done:()=>S.role==='hosp'},
