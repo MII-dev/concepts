@@ -183,10 +183,9 @@ h2.sh{font-size:24px;font-weight:700;color:#000;margin-bottom:6px;display:flex;a
 .bdg span.o{background:var(--warn-b);color:var(--warn);font-weight:600}
 .bdg span.a{background:var(--blue-b);color:#00598e}
 .bdg span.h{background:var(--pur-b);color:var(--pur-t);font-weight:600}
-.mapwrap{position:relative}
-.refpin{position:absolute;left:12px;top:12px;display:flex;gap:9px;align-items:flex-start;background:#fff;border-radius:12px;padding:9px 13px;font-size:13px;line-height:1.4;box-shadow:var(--shadow);color:var(--ink2);cursor:help;max-width:calc(100% - 24px)}
-.refpin svg{color:var(--blue);flex:none;margin-top:1px}
-.refpin i.ok{font-style:normal;color:var(--ok);font-weight:700}
+.refchip{display:inline-flex;gap:8px;align-items:center;background:#f3f3f5;border-radius:11px;min-height:38px;padding:6px 12px;font-size:13.5px;color:var(--ink2);cursor:help}
+.refchip svg{color:var(--blue);flex:none}
+.refchip i.ok{font-style:normal;color:var(--ok);font-weight:700}
 button.lnk,a.lnk{background:none;border:0;color:var(--blue);font-weight:600;padding:0;font-size:14px;cursor:pointer}
 .mapbox.hm{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
 .hmap{position:sticky;top:56px}
@@ -846,11 +845,11 @@ function rHosp(){
    <div class="fbar">
     <select data-c="hfD"><option value="">Усі райони</option>${DN.map(d=>`<option${S.hf.d===d?' selected':''}>${d}</option>`).join('')}</select>
     <label class="chk"><input type="checkbox" data-c="hfFree"${S.hf.free?' checked':''}>Лише з вільними місцями</label>
+    <span class="refchip" id="hRef" title="${tip}">${ic('doc',16)}<span>Направлення <b class="mono">№ ${r.no.slice(0,4)}-…-${r.no.slice(-4)}</b> · ${p} · до ${fmt(r.until)} <i class="ok">✓</i></span></span>
     <span class="muted" style="margin-left:auto;font-size:14px">${list.length} ${list.length===1?'лікарня':list.length<5?'лікарні':'лікарень'}</span>
    </div>
    <div class="mapbox hm">
-    <div class="hmap"><div class="mapwrap">${mapSVG({sel:S.hf.d?[S.hf.d]:[],pins:list.map(h=>({...h,cls:(()=>{const f=hFree(h,p);return f===null?'na':f===0?'no':'yes'})(),a:'hSel'})),hl:S.hsel})}
-      <div class="refpin" id="hRef" title="${tip}">${ic('doc',16)}<span>За направленням <b class="mono">№ ${r.no.slice(0,4)}-…-${r.no.slice(-4)}</b><br>${p} · чинне до ${fmt(r.until)} <i class="ok">✓</i></span></div></div>
+    <div class="hmap">${mapSVG({sel:S.hf.d?[S.hf.d]:[],pins:list.map(h=>({...h,cls:(()=>{const f=hFree(h,p);return f===null?'na':f===0?'no':'yes'})(),a:'hSel'})),hl:S.hsel})}
      <div class="legend"><span><i class="sd yes"></i>є місця</span>${S.hf.free?'':'<span><i class="sd no"></i>немає місць</span><span><i class="sd na"></i>немає даних</span>'}<span>Дані про місця довідкові — остаточне рішення за лікарнею</span></div></div>
     <div class="slist hl-list">${list.map(hospCard).join('')||'<div class="note grey">За цими фільтрами лікарень немає.</div>'}
      ${hidden?`<button class="lnk" style="margin-top:4px" data-a="hShowAll">Показати ще ${hidden}: без вільних місць або без даних про місця</button>`:''}</div>
@@ -1474,7 +1473,7 @@ const FLOWS=[
   start(){resetDemo()},
   steps:[
    {t:'Натисни <b>«Обрати лікарню»</b> у картці е-направлення.',sel:'#attn [data-v="hosp"]',done:()=>S.rv==='hosp'},
-   {t:'Карта — основа кроку. Портал прочитав послугу з е-направлення і одразу показує лише лікарні з вільними місцями. Направлення — маленькою плашкою на карті, деталі в підказці.',sel:'#hList .mapbox',manual:true},
+   {t:'Карта — основа кроку. Портал прочитав послугу з е-направлення і одразу показує лише лікарні з вільними місцями. Направлення — плашкою поруч із фільтрами, деталі в підказці.',sel:'#hList .mapbox',manual:true},
    {t:'У картці лікарні — вільні місця з часом оновлення, телефони приймального відділення і рецепції відділення. Натисни <b>«Записатись»</b> у «Лікарні Лівого берега».',sel:'#hc-h1 [data-a="hApply"]',done:()=>S.rv==='hospForm'},
    {t:'Обери відділення <b>«Хірургія № 1»</b>.',sel:'[data-a="hfDep"][data-v="Хірургія № 1"]',done:()=>S.hform.dep==='Хірургія № 1',act(){S.hform.dep='Хірургія № 1';renderRes()}},
    {t:'Натисни <b>«Подати заявку»</b>. Це запит, а не гарантоване бронювання.',sel:'#hSend',done:()=>S.hreq&&S.hreq.status==='sent'},
