@@ -198,6 +198,14 @@ button.lnk,a.lnk{background:none;border:0;color:var(--blue);font-weight:600;padd
 .hc-ct span{color:var(--grey2);flex:1;min-width:0}
 .hc-ct a{font-weight:700;white-space:nowrap;color:#000}
 .hc-bot{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.ward{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:10px}
+.room{border:1.5px solid var(--line);border-radius:12px;padding:8px 10px}
+.room .rn{font-size:12.5px;color:var(--grey2);margin-bottom:6px}
+.bedsr{display:flex;gap:6px;flex-wrap:wrap}
+.bed{width:32px;height:40px;border-radius:8px;border:0;font-size:12.5px;font-weight:700;cursor:default}
+.bed.occ{background:#dbe7fb;color:#1b4d8c}.bed.res{background:#ead9fd;color:var(--pur-t)}.bed.free{background:var(--ok-b);color:var(--ok)}
+.bed.clean{background:var(--warn-b);color:var(--warn);cursor:pointer;box-shadow:inset 0 0 0 1.5px #e0b85a}
+.nbtn{display:inline-flex;gap:6px;flex-wrap:wrap}
 .duty{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center;border:1.5px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:12px}
 .duty .nm{font-weight:700;font-size:17px}
 .duty .tel{font-size:20px;font-weight:700;white-space:nowrap;color:#000}
@@ -395,7 +403,7 @@ body.tour-open .toast{right:414px}
 
 @media(max-width:1100px){
   .mapbox,.mapbox.hm{grid-template-columns:1fr}.hmap{position:static}
-  .kpis,.kpis.k5{grid-template-columns:repeat(2,1fr)}
+  .kpis,.kpis.k5{grid-template-columns:repeat(2,1fr)}.ward{grid-template-columns:repeat(3,1fr)}
   .tiles{grid-template-columns:repeat(2,1fr)}
   .shell{flex-direction:column}.side{width:auto;padding:12px 0}.smenu{display:flex;overflow-x:auto}.side .who,.smenu .cap{display:none}.smenu .it small{display:none}.smenu .it{white-space:nowrap}
   .hnav{display:none}
@@ -467,7 +475,7 @@ body.tour-open .toast{right:414px}
 <!-- ===================== ЛІКАРНЯ ===================== -->
 <div id="v-hosp" class="shell" hidden>
   <aside class="side">
-    <div class="who"><b>Лікарня Лівого берега</b>Приймальне відділення · завідувачі відділень</div>
+    <div class="who"><b>Лікарня Лівого берега</b>Кабінет лікарні на Порталі</div>
     <div class="smenu" id="hMenu"></div>
   </aside>
   <div class="main" id="hMain"></div>
@@ -654,13 +662,32 @@ const RX_DRUGS={
 };
 
 const HREQ_DEMO=[
- {id:'r1',pt:'Гончаренко В. П.',age:67,dep:'Хірургія № 1',from:'2026-10-26',to:'2026-11-06',at:'2026-10-19',sla:'2026-10-21',st:'sent'},
- {id:'r2',pt:'Литвин О. С.',age:54,dep:'Травматологія',from:'2026-10-22',to:'2026-10-30',at:'2026-10-16',sla:'2026-10-20',st:'sent'},
- {id:'r3',pt:'Остапчук Н. В.',age:45,dep:'Хірургія № 2',from:'2026-10-27',to:'2026-11-03',at:'2026-10-15',sla:'2026-10-17',st:'confirmed',date:'2026-10-28',time:'08:00'},
- {id:'r4',pt:'Білик Т. М.',age:71,dep:'Терапія',from:'2026-10-21',to:'2026-10-25',at:'2026-10-14',sla:'2026-10-16',st:'confirmed',date:'2026-10-23',time:'09:00'},
- {id:'r5',pt:'Сорока І. Д.',age:39,dep:'Хірургія № 1',from:'2026-10-20',to:'2026-10-31',at:'2026-10-13',sla:'2026-10-15',st:'declined',reason:'Послуга не профільна для відділення'},
- {id:'r6',pt:'Кириленко М. О.',age:58,dep:'Хірургія № 1',from:'2026-11-02',to:'2026-11-20',at:'2026-10-20',sla:'2026-10-22',st:'sent'}
+ {id:'r1',pt:'Гончаренко В. П.',age:67,ph:'+380 50 214 33 07',dep:'Хірургія № 1',from:'2026-10-26',to:'2026-11-06',at:'2026-10-19',st:'sent'},
+ {id:'r2',pt:'Литвин О. С.',age:54,ph:'+380 63 551 20 41',dep:'Травматологія',from:'2026-10-22',to:'2026-10-30',at:'2026-10-16',st:'sent'},
+ {id:'r3',pt:'Остапчук Н. В.',age:45,ph:'+380 67 702 18 90',dep:'Хірургія № 2',from:'2026-10-27',to:'2026-11-03',at:'2026-10-15',st:'confirmed',date:'2026-10-28',time:'08:00',conf:false},
+ {id:'r4',pt:'Білик Т. М.',age:71,ph:'+380 44 000 51 12',dep:'Терапія',from:'2026-10-21',to:'2026-10-25',at:'2026-10-14',st:'confirmed',date:'2026-10-23',time:'09:00'},
+ {id:'r5',pt:'Сорока І. Д.',age:39,ph:'+380 95 118 07 64',dep:'Хірургія № 1',from:'2026-10-20',to:'2026-10-31',at:'2026-10-13',st:'declined',reason:'Послуга не профільна для відділення'},
+ {id:'r6',pt:'Кириленко М. О.',age:58,ph:'+380 66 430 92 15',dep:'Хірургія № 1',from:'2026-11-02',to:'2026-11-20',at:'2026-10-20',st:'sent'},
+ {id:'r7',pt:'Мазур Т. В.',age:58,ph:'+380 67 845 11 02',dep:'Хірургія № 1',from:'2026-10-19',to:'2026-10-23',at:'2026-10-09',st:'confirmed',date:'2026-10-20',time:'09:00',conf:true},
+ {id:'r8',pt:'Кравець О. Л.',age:63,ph:'+380 50 377 64 28',dep:'Хірургія № 1',from:'2026-10-20',to:'2026-10-24',at:'2026-10-08',st:'confirmed',date:'2026-10-20',time:'10:30',conf:false},
+ {id:'r9',pt:'Бондаренко С. П.',age:49,ph:'+380 93 260 48 71',dep:'Хірургія № 1',from:'2026-10-19',to:'2026-10-22',at:'2026-10-07',st:'admitted',date:'2026-10-20',time:'08:00',arr:'08:20',arrDate:'2026-10-20',conf:true}
 ];
+/* палати хірургічних відділень: стан кожного ліжка веде пост медсестри */
+const WARD_DEF={'Хірургія № 1':{per:4,occ:31,clean:2,seed:5},'Хірургія № 2':{per:3,occ:26,clean:1,seed:9}};
+const WNAMES=['Ярема','Гордієнко','Тарасенко','Шаповал','Кучер','Зінченко','Остапенко','Науменко','Литвиненко','Савчук','Головко','Вдовенко','Чорний','Мартинюк','Кушнір','Степаненко','Рибак','Бабенко','Ігнатенко','Ковтун','Лук’янчук','Дорошенко','Максименко','Грищенко','Сидорук','Фесенко','Панченко','Білоус','Яценко','Олексієнко','Матвієнко','Тимченко','Кравчук'];
+function mkWard(){
+  const W=[],INI='АВГДІКМОПСТ';
+  Object.entries(WARD_DEF).forEach(([dep,cfg])=>{
+    const total=HOSP[0].deps.find(d=>d.n===dep).total,r=rng(cfg.seed),idx=[...Array(total).keys()];
+    for(let i=idx.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[idx[i],idx[j]]=[idx[j],idx[i]]}
+    const beds=[...Array(total)].map((_,i)=>({id:dep.slice(-1)+'-'+i,dep,room:Math.floor(i/cfg.per)+1,n:i%cfg.per+1,st:'free'}));
+    idx.slice(0,cfg.occ).forEach((k,m)=>{const since=addD(TODAY,-1-Math.floor(r()*9)),o=addD(since,6+Math.floor(r()*7));
+      Object.assign(beds[k],{st:'occ',pt:WNAMES[(m*7+cfg.seed)%WNAMES.length]+' '+INI[m%11]+'. '+INI[(m*3+1)%11]+'.',since,out:m<2?TODAY:m<4?addD(TODAY,1):o<=TODAY?addD(TODAY,2):o})});
+    idx.slice(cfg.occ,cfg.occ+cfg.clean).forEach(k=>beds[k].st='clean');
+    W.push(...beds);
+  });
+  return W;
+}
 const CREQ_DEMO=[
  {id:'q91',pt:'Ткаченко Даниїл',age:'7 р.',t:'086',deliver:'Ліцей № 142',at:'2026-10-19',exam:'2026-10-20 09:00',st:'pending'},
  {id:'q92',pt:'Руденко Аліна',age:'19 р.',t:'095',deliver:'Посилання для університету',at:'2026-10-19',st:'pending'},
@@ -675,7 +702,7 @@ const VDAY=[
 
 function seed(){
   const J=x=>JSON.parse(JSON.stringify(x));
-  return {
+  const o={
     role:'res',rv:'home',docv:'cert',hv:'req',edu:'e1',zv:'home',stale:false,
     ref:{no:'0571-3920-4416-8803',svc:'Хірургічні операції дорослим у стаціонарі',prof:'Хірургія',created:'2026-10-14',by:DOC,until:'2027-10-14'},
     hf:{d:'',free:true},hsel:null,hform:{dep:null,doc:'',from:'2026-11-01',to:'2026-11-15',note:''},
@@ -693,10 +720,15 @@ function seed(){
       {id:'k4',p:'marko',t:'063',date:'2025-11-05',auto:true,sent:[{e:'e1',at:'2025-11-06',seen:'2025-11-07'}]},
       {id:'k5',p:'iryna',t:'vac',date:'2021-07-08',note:'COVID-19, 2 дози',sent:[]}
     ],
-    creq:[],creqDemo:J(CREQ_DEMO),cf:null,share:null,vday:J(VDAY),reminded:{}
+    creq:[],creqDemo:J(CREQ_DEMO),cf:null,share:null,vday:J(VDAY),reminded:{},
+    ward:mkWard(),hwork:null,hview:null,hdec:'ok',nOut:0,nReady:0,clk:0
   };
+  reserveBed('r7','Хірургія № 1','Мазур Т. В.',o);reserveBed('r8','Хірургія № 1','Кравець О. Л.',o);reserveBed('r3','Хірургія № 2','Остапчук Н. В.',o);
+  const b9=o.ward.find(x=>x.dep==='Хірургія № 1'&&x.st==='free');Object.assign(b9,{st:'occ',rid:'r9',pt:'Бондаренко С. П.',since:TODAY,out:addD(TODAY,6)});o.hreqs.find(r=>r.id==='r9').bed=bedL(b9);
+  syncBeds(o);
+  return o;
 }
-let S=seed();
+let S; // стан створюється наприкінці скрипта, коли оголошено всі допоміжні функції
 
 /* ================= УТИЛІТИ ================= */
 const $=s=>document.querySelector(s);
@@ -754,9 +786,11 @@ function mapSVG({sel=[],pins=[],hl=null,heat=null}={}){
 /* ================= МЕШКАНКА ================= */
 function attn(){
   const a=[],q=S.hreq;
-  if(!q||['cancelled','declined'].includes(q.status))a.push({ic:'bed',t:q&&q.status==='declined'?'Лікарня відхилила заявку — оберіть іншу':'Е-направлення на госпіталізацію: оберіть лікарню',d:`№ ${S.ref.no} · ${S.ref.svc} · чинне до ${fmt(S.ref.until)}`,b:'Обрати лікарню',v:'hosp'});
-  else if(q.status==='sent')a.push({ic:'bed',t:'Заявка на госпіталізацію на розгляді',d:`${H(q.hosp).n} · відповідь до ${fmt(q.sla)}`,b:'Відкрити',v:'hosp'});
+  if(!q||['cancelled','declined','noshow'].includes(q.status))a.push({ic:'bed',t:{declined:'Лікарня відхилила заявку — оберіть іншу',noshow:'Ви не прибули на госпіталізацію — направлення чинне',cancelled:'Заявку закрито — направлення чинне'}[q&&q.status]||'Е-направлення на госпіталізацію: оберіть лікарню',d:`№ ${S.ref.no} · ${S.ref.svc} · чинне до ${fmt(S.ref.until)}`,b:'Обрати лікарню',v:'hosp'});
+  else if(q.cxl&&['sent','inwork','confirmed'].includes(q.status))a.push({ic:'bed',t:'Ви повідомили лікарню, що не прийдете',d:`${H(q.hosp).n} закриє заявку · направлення лишається чинним`,b:'Відкрити',v:'hosp'});
+  else if(['sent','inwork'].includes(q.status))a.push({ic:'bed',t:q.status==='inwork'?'Лікарня розглядає вашу заявку':'Заявку на госпіталізацію подано',d:`${H(q.hosp).n} · ${q.dep}`,b:'Відкрити',v:'hosp'});
   else if(q.status==='confirmed')a.push({ic:'bed',c:'ok',t:`Госпіталізація: ${wdL(q.date)}, ${fmtL(q.date)}, ${q.time}`,d:`${H(q.hosp).n} · ${q.place}`,b:'Що взяти з собою',v:'hosp'});
+  else if(q.status==='admitted')a.push({ic:'bed',c:'ok',t:`Ви в лікарні: ${H(q.hosp).n}`,d:`${q.dep} · ${q.bed}`,b:'Деталі',v:'hosp'});
   const vb=S.vbook;
   if(vb&&vb.status==='booked')a.push({ic:'syr',c:'pur',t:`Щеплення (${PPL[vb.p].n}): ${dayL(vb.d)}, ${fmtL(vb.d)}, ${vb.t}`,d:`${CL.find(c=>c.id===vb.c).n} · ${vb.list.join(', ')}`,b:'Деталі',v:'vac'});
   else{const due=S.vcal.marko.filter(x=>x.st==='due');if(due.length)a.push({ic:'syr',c:'pur',t:'Марку час щеплень за віком 6 років',d:due.map(x=>x.v+' ('+x.dose+')').join(' · ')+' · за календарем з '+fmt(due[0].date),b:'Записатися',v:'vac'})}
@@ -806,19 +840,27 @@ function hospList(){
   return HOSP.filter(h=>h.svc.includes(p)&&(!S.hf.d||h.d===S.hf.d)&&(!S.hf.free||(hFree(h,p)||0)>0));
 }
 function hTrack(q){
-  const h=H(q.hosp),idx={sent:1,confirmed:2,admitted:3,declined:1}[q.status];
-  const steps=['Подано','На розгляді','Підтверджено','Госпіталізовано'];
-  const stb={sent:'<span class="st wait">На розгляді</span>',confirmed:'<span class="st ok">Підтверджено</span>',declined:'<span class="st bad">Відхилено</span>',admitted:'<span class="st ok">Госпіталізовано</span>'}[q.status];
+  const h=H(q.hosp),st=q.status,cx=q.cxl&&['sent','inwork','confirmed'].includes(st);
+  const idx={sent:1,inwork:1,confirmed:2,admitted:3,discharged:5,declined:1,noshow:3,cancelled:1}[st];
+  const steps=['Подано','Розглядається','Підтверджено','Госпіталізовано','Виписано'];
+  const lab={sent:['Подано','wait'],inwork:['Розглядається','wait'],confirmed:['Підтверджено','ok'],admitted:['Госпіталізовано','ok'],discharged:['Виписано','ok'],declined:['Відхилено','bad'],noshow:['Не прибули','bad'],cancelled:['Закрито','grey']}[st];
+  const alert=['declined','noshow','cancelled'].includes(st);
   let body='';
-  if(q.status==='sent')body=`<div class="note">Лікарня розглядає заявку. Відповідь — до <b>${fmt(q.sla)}</b> (2 робочі дні, SLA погоджується — рішення D-04). Ми повідомимо в «Київ Цифровий» і SMS.</div><div class="actions"><button class="btn red sm" data-a="hCancel">Скасувати заявку</button></div>`;
-  if(q.status==='confirmed')body=`<div class="inv"><div class="cap">Госпіталізацію підтверджено</div><h3>${wdL(q.date)}, ${fmtL(q.date)}, ${q.time}</h3>
+  if(cx)body=`<div class="note warn">Ви повідомили лікарню, що не зможете прийти. Лікарня закриє заявку, а направлення лишиться чинним.</div>`;
+  else if(st==='sent'||st==='inwork')body=`<div class="note">Лікарня ${st==='inwork'?'вже розглядає':'отримала'} вашу заявку. Повідомимо в «Київ Цифровий» і SMS, щойно буде рішення.</div><div class="actions"><button class="btn red sm" data-a="hCancel">Не зможу прийти</button></div>`;
+  else if(st==='confirmed')body=`<div class="inv"><div class="cap">Госпіталізацію підтверджено</div><h3>${wdL(q.date)}, ${fmtL(q.date)}, ${q.time}</h3>
     <div class="g"><div><b>${q.dep}</b>Відділення</div><div><b>${q.place}</b>Куди прийти</div><div><b class="mono">${S.ref.no}</b>Е-направлення</div></div>
     <ul>${q.instr.split('\n').map(x=>`<li>${x}</li>`).join('')}</ul>
-    <div class="actions"><button class="btn" data-a="hIcs">Додати в календар</button><a class="btn tr" target="_blank" rel="noopener" href="${route(h.a)}">Маршрут ↗</a><button class="btn tr" data-a="hCancel">Скасувати</button></div></div>`;
-  if(q.status==='declined')body=`<div class="note bad"><b>Лікарня відхилила заявку:</b> ${q.reason}. Направлення лишається чинним — оберіть іншу лікарню.</div><div class="actions"><button class="btn sm" data-a="hRetry">Обрати іншу лікарню</button></div>`;
+    <div class="actions">${q.conf?'<span class="st ok" style="background:#fff">✓ Ви підтвердили, що прийдете</span>':'<button class="btn" id="hConf" data-a="hConf">Підтверджую, що прийду</button>'}<button class="btn tr" data-a="hIcs">Додати в календар</button><a class="btn tr" target="_blank" rel="noopener" href="${route(h.a)}">Маршрут ↗</a><button class="btn tr" data-a="hCancel">Не зможу прийти</button></div>
+    ${q.conf?'':'<p style="font-size:13.5px;opacity:.85;margin-top:12px">Напередодні нагадаємо й попросимо підтвердити прихід — медсестра відділення побачить це на своєму посту. <span class="idea" style="background:#fff">ідея</span></p>'}</div>`;
+  else if(st==='admitted')body=`<div class="note ok"><b>Вас госпіталізовано ${fmtL(q.arrDate)} о ${q.arr}.</b> ${q.dep} · ${q.bed}. Направлення взято в роботу й погашено в ЕСОЗ.</div>`;
+  else if(st==='discharged')body=`<div class="note ok"><b>Вас виписано ${fmtL(q.out)}.</b> Виписку ф. 027/о видала лікарня. Електронна виписка в кабінеті — наступний етап.</div>`;
+  else if(st==='declined')body=`<div class="note bad"><b>Лікарня відхилила заявку:</b> ${q.reason}. Направлення лишається чинним — оберіть іншу лікарню.</div><div class="actions"><button class="btn sm" data-a="hRetry">Обрати іншу лікарню</button></div>`;
+  else if(st==='noshow')body=`<div class="note bad"><b>Лікарня зафіксувала, що ви не прибули ${fmtL(q.arrDate)}.</b> Направлення не погашене й лишається чинним — можна подати заявку знову.</div><div class="actions"><button class="btn sm" data-a="hRetry">Обрати лікарню</button></div>`;
+  else if(st==='cancelled')body=`<div class="note grey">Лікарня закрила заявку на ваше прохання. Направлення чинне до ${fmt(S.ref.until)}.</div><div class="actions"><button class="btn sm" data-a="hRetry">Обрати іншу лікарню</button></div>`;
   return `<div class="card" id="hTrack" style="margin-top:28px">
-   <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center"><h3 style="margin:0">Заявка: ${h.n}</h3>${stb}</div>
-   <div class="trk">${steps.map((s,i)=>`<div class="s ${i<idx?'done':i===idx?'cur'+(q.status==='declined'?' alert':''):''}"><i></i>${s}</div>`).join('')}</div>
+   <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center"><h3 style="margin:0">Заявка: ${h.n}</h3><span class="st ${lab[1]}">${lab[0]}</span></div>
+   <div class="trk">${steps.map((s,i)=>`<div class="s ${i<idx?'done':i===idx?'cur'+(alert?' alert':''):''}"><i></i>${s}</div>`).join('')}</div>
    ${body}
    <div class="tl" style="margin-top:20px">${q.hist.slice().reverse().map(e=>`<div class="ev"><div class="dt">${e[0]}</div><div class="tx">${e[1]}</div></div>`).join('')}</div></div>`;
 }
@@ -836,11 +878,12 @@ function hospCard(h){
 function rHosp(){
   const r=S.ref,q=S.hreq,list=hospList(),p=r.prof;
   const hidden=S.hf.free?HOSP.filter(h=>h.svc.includes(p)&&(!S.hf.d||h.d===S.hf.d)&&!((hFree(h,p)||0)>0)).length:0;
+  if(q&&!['declined','noshow','cancelled'].includes(q.status))return `<div class="crumbs"><a data-a="go" data-v="home">Здоров’я</a> · Планова госпіталізація</div><h1 class="pt">Планова госпіталізація</h1>${hTrack(q)}`;
   const tip=`Е-направлення № ${r.no}. Створено ${fmt(r.created)}, лікарка ${r.by} Ще не взяте в роботу: його можна використати в будь-якій комунальній лікарні з договором НСЗУ за цією послугою.`;
   return `<div class="crumbs"><a data-a="go" data-v="home">Здоров’я</a> · Планова госпіталізація</div>
   <h1 class="pt">Оберіть лікарню</h1>
   <p class="lead">Лікарні з вільними місцями для вашого е-направлення. Запишіться — лікарня підтвердить дату або запропонує іншу.</p>
-  ${q&&q.status!=='cancelled'?hTrack(q):''}
+  ${q?hTrack(q):''}
   <section id="hList" style="margin-top:24px;scroll-margin-top:60px">
    <div class="fbar">
     <select data-c="hfD"><option value="">Усі райони</option>${DN.map(d=>`<option${S.hf.d===d?' selected':''}>${d}</option>`).join('')}</select>
@@ -1182,47 +1225,116 @@ function dStock(){
 }
 
 /* ================= ЛІКАРНЯ ================= */
-function allReqs(){const r=S.hreqs.slice();const q=S.hreq;if(q&&q.hosp==='h1'&&q.status!=='cancelled')r.unshift({id:'me',me:1,pt:'Мельник І. О.',age:38,dep:q.dep,from:q.from,to:q.to,at:q.at,sla:q.sla,st:q.status,date:q.date,time:q.time,reason:q.reason});return r}
-function renderHospRole(){
-  const rq=allReqs(),nw=rq.filter(r=>r.st==='sent').length;
-  $('#hMenu').innerHTML=`<div class="it${S.hv==='req'?' on':''}" data-a="hvNav" data-v="req">Заявки на госпіталізацію<span class="cnt">${nw}</span></div>
-   <div class="it${S.hv==='beds'?' on':''}" data-a="hvNav" data-v="beds">Ліжковий фонд</div>
-   <div class="it${S.hv==='duty'?' on':''}" data-a="hvNav" data-v="duty">Чергування</div>`;
-  $('#hMain').innerHTML=({req:hqList,beds:hqBeds,duty:hqDuty}[S.hv])();
+const ADM='Гнатенко Л. М.',NURSE='Коваль Н. І.';
+const RQ_ST={sent:['Нова','wait'],inwork:['В роботі · '+ADM,'info'],confirmed:['Підтверджено','ok'],admitted:['Госпіталізовано','ok'],noshow:['Не прибув','grey'],discharged:['Виписано','grey'],declined:['Відхилено','grey'],cancelled:['Закрито на прохання пацієнта','grey']};
+const bedL=b=>b?`Палата ${b.room}, ліжко ${b.n}`:'—';
+function reserveBed(rid,dep,pt,o=S){const b=o.ward.find(x=>x.dep===dep&&x.st==='free');if(b)Object.assign(b,{st:'res',rid,pt});return b}
+function freeRes(rid){S.ward.filter(x=>x.rid===rid&&x.st==='res').forEach(b=>{b.st='free';delete b.rid;delete b.pt})}
+function syncBeds(o=S){o.beds.forEach(b=>{if(!WARD_DEF[b.n])return;const w=o.ward.filter(x=>x.dep===b.n);b.occ=w.filter(x=>x.st==='occ'||x.st==='clean').length;b.res=w.filter(x=>x.st==='res').length;b.src='Пост медсестри'})}
+function markWard(dep){const b=S.beds.find(x=>x.n===dep);if(b)b.upd='щойно';syncBeds()}
+const NOWT=()=>{S.clk=(S.clk||0)+4;const m=9*60+40+S.clk;return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0')};
+function allReqs(){
+  const r=S.hreqs.slice(),q=S.hreq;
+  if(q&&q.hosp==='h1')r.unshift({id:'me',me:1,pt:'Мельник І. О.',full:PPL.iryna.full,age:38,ph:'+380 67 123 45 18',dep:q.dep,from:q.from,to:q.to,at:q.at,st:q.status,date:q.date,time:q.time,reason:q.reason,cxl:q.cxl,conf:q.conf,bed:q.bed,arr:q.arr,arrDate:q.arrDate,note:q.note,redir:q.redir});
+  return r;
 }
-const reqSt=r=>r.st==='sent'?(r.sla<=TODAY?'<span class="st bad">SLA сьогодні</span>':'<span class="st wait">Нова</span>'):r.st==='confirmed'?`<span class="st ok">Підтверджено · ${fmt(r.date)}</span>`:'<span class="st grey">Відхилено</span>';
+const reqById=id=>allReqs().find(r=>r.id===id);
+/* статус заявки змінюють лише дії співробітників лікарні */
+function setReq(id,patch){if(id==='me'){const q=S.hreq;Object.entries(patch).forEach(([k,v])=>q[k==='st'?'status':k]=v)}else Object.assign(S.hreqs.find(r=>r.id===id),patch)}
+function hist(id,txt){if(id==='me')S.hreq.hist.push([fmt(TODAY)+', '+NOWT(),txt])}
+const needsAct=r=>r.st==='sent'||(r.cxl&&['sent','inwork','confirmed'].includes(r.st));
+const reqSt=r=>{if(r.cxl&&['sent','inwork','confirmed'].includes(r.st))return '<span class="st bad">Пацієнт не прийде</span>';const s=RQ_ST[r.st];return `<span class="st ${s[1]}">${s[0]}${r.st==='confirmed'?' · '+fmt(r.date):''}</span>`};
+function renderHospRole(){
+  const rq=allReqs(),nw=rq.filter(needsAct).length;
+  const exp=d=>rq.filter(r=>r.dep===d&&r.st==='confirmed'&&r.date===TODAY).length;
+  const it=(v,label,extra='')=>`<div class="it${S.hv===v?' on':''}" data-a="hvNav" data-v="${v}">${label}${extra}</div>`;
+  $('#hMenu').innerHTML=`<div class="cap">Приймальне відділення</div>${it('req','Заявки на госпіталізацію',S.hwork?'<span class="cnt warn">1</span>':nw?`<span class="cnt">${nw}</span>`:'')}
+   <div class="cap">Пост медсестри</div>${Object.keys(WARD_DEF).map(d=>it('nurse:'+d,d,exp(d)?`<span class="cnt">${exp(d)}</span>`:'')).join('')}
+   <div class="cap">Лікарня</div>${it('beds','Ліжковий фонд')}${it('duty','Чергування')}`;
+  const v=S.hv.startsWith('nurse:')?'nurse':S.hv;
+  $('#hMain').innerHTML=({req:hqList,nurse:hqNurse,beds:hqBeds,duty:hqDuty}[v])();
+}
 function hqList(){
-  const rq=allReqs();
-  return `<h1 class="pt">Заявки на госпіталізацію</h1><p class="sub" style="margin-top:6px">Заявки з Порталу разом із е-направленням. Відповісти треба протягом 2 робочих днів — інакше прийде нагадування (SLA, рішення D-04).</p>
-   <div class="kpis"><div class="kpi"><div class="v">${rq.filter(r=>r.st==='sent').length}</div><div class="l">нових заявок</div></div><div class="kpi bad"><div class="v">${rq.filter(r=>r.st==='sent'&&r.sla<=TODAY).length}</div><div class="l">SLA спливає сьогодні</div></div><div class="kpi ok"><div class="v">${rq.filter(r=>r.st==='confirmed').length}</div><div class="l">підтверджено</div></div><div class="kpi"><div class="v">${S.beds.reduce((a,d)=>a+Math.max(0,d.total-d.occ-d.res),0)}</div><div class="l">вільних ліжок</div></div></div>
-   <div class="table-x"><table class="t"><thead><tr><th>Подано</th><th>Пацієнт</th><th>Відділення</th><th>Бажаний період</th><th>Відповісти до</th><th>Статус</th></tr></thead><tbody>
-   ${rq.map(r=>`<tr class="cl${r.me?' me':''}" data-a="hqOpen" data-id="${r.id}"><td>${fmt(r.at)}</td><td><b>${r.pt}</b>, ${r.age} р.</td><td>${r.dep}</td><td>${fmt(r.from)} — ${fmt(r.to)}</td><td>${fmt(r.sla)}</td><td>${reqSt(r)}</td></tr>`).join('')}
+  if(S.hwork)return hqWork(S.hwork,true);
+  if(S.hview)return hqWork(S.hview,false);
+  const rq=allReqs().sort((a,b)=>(needsAct(b)?1:0)-(needsAct(a)?1:0)||(a.at<b.at?1:-1));
+  return `<h1 class="pt">Заявки на госпіталізацію</h1><p class="sub" style="margin-top:6px">${ADM} · адміністраторка приймального відділення. Відкрита заявка переходить у вашу роботу, і закрити її без рішення не можна.</p>
+   <div class="kpis"><div class="kpi"><div class="v">${rq.filter(r=>r.st==='sent'&&!r.cxl).length}</div><div class="l">нових заявок</div></div><div class="kpi bad"><div class="v">${rq.filter(r=>r.cxl&&['sent','inwork','confirmed'].includes(r.st)).length}</div><div class="l">пацієнт повідомив, що не прийде</div></div><div class="kpi ok"><div class="v">${rq.filter(r=>r.st==='confirmed'&&!r.cxl).length}</div><div class="l">підтверджено, очікуємо</div></div><div class="kpi"><div class="v">${S.beds.reduce((a,d)=>a+Math.max(0,d.total-d.occ-d.res),0)}</div><div class="l">вільних ліжок</div></div></div>
+   <div class="table-x"><table class="t"><thead><tr><th>Надійшла</th><th>Пацієнт</th><th>Відділення</th><th>Бажаний період</th><th>Статус</th></tr></thead><tbody>
+   ${rq.map(r=>`<tr class="cl${r.me?' me':''}" data-a="hqOpen" data-id="${r.id}"><td>${fmt(r.at)}</td><td><b>${r.pt}</b>, ${r.age} р.</td><td>${r.dep}${r.redir?`<br><span class="muted" style="font-size:13px">перенаправлено з «${r.redir}»</span>`:''}</td><td>${fmt(r.from)} — ${fmt(r.to)}</td><td>${reqSt(r)}</td></tr>`).join('')}
    </tbody></table></div>`;
 }
-function openReq(id){
-  const r=allReqs().find(x=>x.id===id),me=id==='me',q=S.hreq;
-  drawer(`<h3>Заявка на госпіталізацію</h3><div class="muted">з Порталу · подано ${fmt(r.at)}</div>
-   <h4>Пацієнт</h4><div class="fld"><div class="v"><b>${me?PPL.iryna.full:r.pt}</b>, ${r.age} р.</div></div>
-   <h4>Е-направлення · автоперевірка</h4>
-   <div class="chkl"><div class="r ok"><span class="i">✓</span><div>Чинне до ${fmt(S.ref.until)}<small>№ ${me?S.ref.no:'0571-••••-••••-'+String(1000+r.age*13).slice(0,4)}</small></div></div>
-   <div class="r ok"><span class="i">✓</span><div>Не взяте в роботу іншим закладом</div></div>
-   <div class="r ok"><span class="i">✓</span><div>Послуга відповідає профілю відділення «${r.dep}»</div></div></div>
-   <div class="fld" style="margin-top:12px"><div class="l">Бажаний період</div><div class="v">${fmt(r.from)} — ${fmt(r.to)}</div></div>
-   ${me&&q.note?`<div class="fld"><div class="l">Коментар пацієнтки</div><div class="v">${q.note}</div></div>`:''}
-   <div class="fld"><div class="l">Відповісти до</div><div class="v">${fmt(r.sla)}</div></div>
-   ${r.st==='sent'?`<h4>Рішення</h4>
-    <div class="grid g2"><div class="field"><label>Дата</label><input type="date" id="rqDate" value="${me?'2026-11-10':r.from}"></div><div class="field"><label>Час</label><select id="rqTime"><option>08:00</option><option>09:00</option><option>10:00</option></select></div></div>
+function hqWork(id,edit){
+  const r=reqById(id),dec=S.hdec||'ok',cx=r.cxl&&['sent','inwork','confirmed'].includes(r.st);
+  const bd=S.beds.find(b=>b.n===r.dep),free=bd?Math.max(0,bd.total-bd.occ-bd.res):null,rb=S.ward.find(b=>b.rid===id);
+  const status={confirmed:`Підтверджено на ${fmt(r.date)}, ${r.time}. ${rb?'Заброньовано: '+bedL(rb)+'. ':''}${r.conf?'✓ Пацієнт підтвердив прихід у застосунку.':'Пацієнт ще не підтвердив прихід.'}`,
+    admitted:`Госпіталізовано ${fmt(r.arrDate)} о ${r.arr} · ${r.bed}. Направлення погашено.`,noshow:`Не прибув ${fmt(r.arrDate)}: ${r.reason||'—'}.`,discharged:'Пацієнта виписано.',declined:'Відхилено: '+r.reason+'.',cancelled:'Закрито на прохання пацієнта.'}[r.st]||'';
+  let right='';
+  if(!edit)right=`<div class="note ${['confirmed','admitted'].includes(r.st)?'ok':'grey'}" style="margin:0">${reqSt(r)}<div style="margin-top:8px">${status}</div></div>`;
+  else if(cx)right=`<div class="note bad">Пацієнт повідомив через Портал, що не прийде (${fmt(r.cxl)}).</div><p class="muted" style="font-size:14px">Заброньоване ліжко звільниться, а направлення пацієнта лишиться чинним.</p><div class="actions"><button class="btn" id="rqCxl" data-a="rqCxl" data-id="${id}">Закрити заявку на прохання пацієнта</button></div>`;
+  else right=`<div class="seg sm" style="margin-bottom:18px"><button class="${dec==='ok'?'on':''}" data-a="hDecT" data-v="ok">Підтвердити дату</button><button class="${dec==='redir'?'on':''}" data-a="hDecT" data-v="redir">Перенаправити</button><button class="${dec==='no'?'on':''}" data-a="hDecT" data-v="no">Відхилити</button></div>
+   ${dec==='ok'?`<div class="grid g2"><div class="field"><label>Дата</label><input type="date" id="rqDate" value="${r.me?'2026-11-10':r.from}"></div><div class="field"><label>Час</label><select id="rqTime"><option>08:00</option><option>09:00</option><option>10:00</option></select></div></div>
     <div class="field"><label>Куди прийти</label><input id="rqPlace" value="Приймальне відділення, корпус 2"></div>
     <div class="field"><label>Інструкції для пацієнта</label><textarea id="rqInstr">Візьміть паспорт і номер е-направлення\nРезультати аналізів крові, не давніші за 14 днів, і ЕКГ\nНе їжте після 22:00 напередодні</textarea></div>
-    <div class="actions"><button class="btn" id="rqOk" data-a="rqOk" data-id="${id}">Підтвердити</button><button class="btn red" id="rqNo" data-a="rqNo" data-id="${id}">Відхилити</button></div>`:
-    `<div class="note ${r.st==='confirmed'?'ok':'grey'}">${r.st==='confirmed'?`Підтверджено на ${fmt(r.date)}, ${r.time}. Пацієнт отримав сповіщення.`:'Відхилено: '+r.reason}</div>`}`);
+    <p class="muted" style="font-size:14px">${WARD_DEF[r.dep]?`Ліжко у «${r.dep}» заброниться автоматично — зараз вільно ${free}.`:`Вільно у «${r.dep}»: ${free}.`} Якщо дата поза бажаним періодом, пацієнт отримає сповіщення і зможе відмовитися.</p>
+    <div class="actions"><button class="btn" id="rqOk" data-a="rqOk" data-id="${id}">Підтвердити дату</button></div>`:
+   dec==='redir'?`<div class="field"><label>Відділення</label><select id="rqDep">${S.beds.filter(b=>b.n!==r.dep).map(b=>`<option>${b.n}</option>`).join('')}</select></div>
+    <div class="field"><label>Коментар для відділення</label><textarea id="rqDepT" placeholder="Чому перенаправляєте"></textarea></div>
+    <div class="actions"><button class="btn" id="rqRedir" data-a="rqRedir" data-id="${id}">Перенаправити</button></div>`:
+   `<div class="field"><label>Причина — її побачить пацієнт</label><select id="rqWhy"><option>Немає місць у бажаний період</option><option>Послуга не профільна для відділення</option><option>Потрібне додаткове обстеження перед госпіталізацією</option></select></div>
+    <div class="field"><label>Що робити пацієнту далі</label><textarea id="rqWhyT">Направлення лишається чинним — можна подати заявку в іншу лікарню.</textarea></div>
+    <div class="actions"><button class="btn red" id="rqNo" data-a="rqNo" data-id="${id}">Відхилити з причиною</button></div>`}`;
+  return `<div class="crumbs">Заявки на госпіталізацію · ${edit?'у роботі':'перегляд'}</div>
+   <h1 class="pt">${r.full||r.pt}, ${r.age} р.</h1>
+   ${edit?`<div class="note warn" id="hLock"><b>Заявка у вашій роботі.</b> Закрити її без рішення не можна. Підтвердіть дату, перенаправте у відділення або відхиліть із причиною.</div>`:'<div class="actions" style="margin-top:12px"><button class="btn grey sm" data-a="hqBack">← До списку заявок</button></div>'}
+   <div class="grid g2" style="margin-top:18px">
+    <div class="card ln"><h3>Заявка</h3>
+     <div class="fld"><div class="l">Відділення</div><div class="v">${r.dep}${r.redir?` <span class="muted" style="font-size:14px">· перенаправлено з «${r.redir}»</span>`:''}</div></div>
+     <div class="fld"><div class="l">Бажаний період</div><div class="v">${fmt(r.from)} — ${fmt(r.to)}</div></div>
+     <div class="fld"><div class="l">Телефон</div><div class="v">${r.ph||'+380 •• ••• •• ••'}</div></div>
+     ${r.note?`<div class="fld"><div class="l">Коментар пацієнта</div><div class="v">${r.note}</div></div>`:''}
+     <div class="fld"><div class="l">Надійшла</div><div class="v">${fmt(r.at)} · з Порталу</div></div>
+     <h4 style="margin:16px 0 4px;font-size:15px">Е-направлення · автоперевірка</h4>
+     <div class="chkl"><div class="r ok"><span class="i">✓</span><div>Чинне до ${fmt(S.ref.until)}<small>№ ${r.me?S.ref.no:'0571-••••-••••-'+String(1000+r.age*13).slice(0,4)}</small></div></div>
+     <div class="r ok"><span class="i">✓</span><div>Не взяте в роботу іншим закладом</div></div>
+     <div class="r ok"><span class="i">✓</span><div>Послуга відповідає профілю відділення</div></div></div></div>
+    <div class="card ln" id="hDec"><h3>${edit?'Рішення':'Статус'}</h3>${right}</div>
+   </div>`;
+}
+function hqNurse(){
+  const dep=S.hv.slice(6),ward=S.ward.filter(b=>b.dep===dep),bd=S.beds.find(b=>b.n===dep),free=Math.max(0,bd.total-bd.occ-bd.res);
+  const rq=allReqs().filter(r=>r.dep===dep);
+  const today=rq.filter(r=>(r.st==='confirmed'&&r.date===TODAY&&!r.cxl)||(['admitted','noshow'].includes(r.st)&&r.arrDate===TODAY)).sort((a,b)=>(a.time||a.arr)<(b.time||b.arr)?-1:1);
+  const later=rq.filter(r=>r.st==='confirmed'&&r.date>TODAY&&!r.cxl).sort((a,b)=>a.date<b.date?-1:1);
+  const inside=ward.filter(b=>b.st==='occ').sort((a,b)=>a.out<b.out?-1:a.out>b.out?1:a.room-b.room);
+  const rooms=[...new Set(ward.map(b=>b.room))];
+  const arrRow=r=>{const rb=S.ward.find(b=>b.rid===r.id&&b.st==='res'),late=r.st==='confirmed'&&r.time<NOW;
+    return `<tr class="${r.me?'me':''}"><td class="mono">${r.time||r.arr}</td><td><b>${r.pt}</b>, ${r.age} р.<br><span class="muted" style="font-size:13px">${r.ph||''}</span></td><td>${r.st==='confirmed'?bedL(rb):r.bed||'—'}</td><td>${r.conf?'<span class="st ok">✓ у застосунку</span>':'<span class="muted">—</span>'}</td>
+     <td>${r.st==='admitted'?`<span class="st ok">Прибув о ${r.arr}</span>`:r.st==='noshow'?`<span class="st grey">Не прибув</span><br><span class="muted" style="font-size:13px">${r.reason}</span>`:
+     `${late?'<span class="st bad" style="margin-right:8px">Запізнюється</span>':''}<span class="nbtn"><button class="btn xs" data-a="nArr" data-id="${r.id}">Прибув</button><button class="btn xs red" data-a="nNo" data-id="${r.id}">Не прибув</button></span>`}</td></tr>`};
+  return `<h1 class="pt">Пост медсестри · ${dep}</h1><p class="sub" style="margin-top:6px">${NURSE} · старша медсестра. Сьогодні, ${fmtL(TODAY)}, ${NOW}. Кожна відмітка одразу оновлює ліжковий фонд, який бачать пацієнти на карті Порталу.</p>
+   <div class="mis">Якщо МІС лікарні вже веде рух пацієнтів, ці відмітки приходять з МІС автоматично. Якщо ні, медсестра ставить їх тут, у кабінеті лікарні на Порталі.</div>
+   <div class="kpis k5" id="nKpi"><div class="kpi"><div class="v">${today.filter(r=>r.st==='confirmed').length}</div><div class="l">очікуємо сьогодні</div></div><div class="kpi ok"><div class="v">${today.filter(r=>r.st==='admitted').length}</div><div class="l">прибули сьогодні</div></div><div class="kpi${today.some(r=>r.st==='noshow')?' bad':''}"><div class="v">${today.filter(r=>r.st==='noshow').length}</div><div class="l">не прибули</div></div><div class="kpi warn"><div class="v">${inside.filter(b=>b.out===TODAY).length}</div><div class="l">вибувають сьогодні</div></div><div class="kpi"><div class="v">${free}</div><div class="l">вільних ліжок</div></div></div>
+   <section id="nArr"><h3 style="font-size:19px;margin-bottom:10px">Надходження сьогодні</h3>
+    ${today.length?`<div class="table-x"><table class="t"><thead><tr><th>Час</th><th>Пацієнт</th><th>Ліжко</th><th>Прихід підтверджено</th><th></th></tr></thead><tbody>${today.map(arrRow).join('')}</tbody></table></div>`:'<div class="note grey">Сьогодні планових надходжень немає.</div>'}
+    ${later.length?`<p class="muted" style="font-size:14px;margin-top:10px">Найближчі дні: ${later.map(r=>`${r.pt} — ${fmt(r.date)}, ${r.time}`).join(' · ')}</p>`:''}
+   </section>
+   <section id="nIn" style="margin-top:34px"><h3 style="font-size:19px;margin-bottom:10px">У відділенні · ${inside.length}</h3>
+    <div class="table-x" style="max-height:400px;overflow:auto"><table class="t"><thead><tr><th>Ліжко</th><th>Пацієнт</th><th>Госпіталізовано</th><th>Плановий вибуд</th><th></th></tr></thead><tbody>
+    ${inside.map(b=>`<tr class="${b.rid==='me'?'me':''}"><td>${bedL(b)}</td><td><b>${b.pt}</b></td><td>${fmt(b.since)}</td><td>${b.out===TODAY?'<span class="st wait">сьогодні</span>':b.out===addD(TODAY,1)?'завтра':fmt(b.out)}</td><td><button class="btn xs grey" data-a="nOut" data-id="${b.id}">Вибув</button></td></tr>`).join('')}
+    </tbody></table></div>
+   </section>
+   <section id="nWard" style="margin-top:34px"><h3 style="font-size:19px;margin-bottom:6px">Палати</h3><p class="muted" style="font-size:14px;margin-bottom:12px">Після вибуття ліжко йде на санобробку. Натисніть на нього, коли воно готове, — і воно знову стане вільним на Порталі.</p>
+    <div class="ward">${rooms.map(rm=>`<div class="room"><div class="rn">Палата ${rm}</div><div class="bedsr">${ward.filter(b=>b.room===rm).map(b=>`<button class="bed ${b.st}"${b.st==='clean'?` data-a="bedReady" data-id="${b.id}"`:''} title="${{occ:'Зайняте'+(b.pt?': '+b.pt:''),res:'Заброньоване'+(b.pt?': '+b.pt:''),free:'Вільне',clean:'Санобробка — натисніть, коли готове'}[b.st]}">${b.n}</button>`).join('')}</div></div>`).join('')}</div>
+    <div class="legend"><span><i class="sd" style="background:#bcd3f7"></i>зайняте</span><span><i class="sd" style="background:#d9c2fb"></i>заброньоване</span><span><i class="sd yes"></i>вільне</span><span><i class="sd low"></i>санобробка</span></div>
+   </section>`;
 }
 function hqBeds(){
   return `<h1 class="pt">Ліжковий фонд</h1><p class="sub" style="margin-top:6px">Вільні місця по відділеннях бачать пацієнти на Порталі з міткою часу. Дані довідкові: остаточне рішення завжди за лікарнею.</p>
-   <div class="note warn">Як наповнювати реєстр — автоматично з МІС чи вручну — вирішує ДОЗ (рішення D-03). Якщо дані не оновлювались довше доби, Портал позначає їх як застарілі.</div>
-   <div class="table-x"><table class="t"><thead><tr><th>Відділення</th><th>Профіль</th><th class="num">Штатні ліжка</th><th class="num">Зайнято</th><th class="num">Заброньовано</th><th class="num">Вільно</th><th>Джерело</th><th>Оновлено</th></tr></thead><tbody>
-   ${S.beds.map((d,i)=>`<tr><td><b>${d.n}</b></td><td>${d.p}</td><td class="num">${d.total}</td><td class="num"><span class="pm"><button data-a="bedOcc" data-id="${i}" data-v="-1">−</button>${d.occ}<button data-a="bedOcc" data-id="${i}" data-v="1">+</button></span></td><td class="num">${d.res}</td><td class="num"><b>${Math.max(0,d.total-d.occ-d.res)}</b></td><td>${d.src}</td><td>${d.upd}</td></tr>`).join('')}
-   </tbody></table></div><p class="muted" style="font-size:13.5px;margin-top:10px">«Заброньовано» — підтверджені заявки з Порталу на найближчі 14 днів.</p>`;
+   <div class="note">Хірургічні відділення рахуються з відміток поста медсестри — прибуття, вибуття, санобробка — без ручного введення. Решту відділень поки ведуть вручну або з МІС (рішення D-03).</div>
+   <div class="table-x" id="bedTbl"><table class="t"><thead><tr><th>Відділення</th><th>Профіль</th><th class="num">Штатні ліжка</th><th class="num">Зайнято</th><th class="num">Заброньовано</th><th class="num">Вільно</th><th>Джерело</th><th>Оновлено</th></tr></thead><tbody>
+   ${S.beds.map((d,i)=>`<tr><td><b>${d.n}</b></td><td>${d.p}</td><td class="num">${d.total}</td><td class="num">${WARD_DEF[d.n]?d.occ:`<span class="pm"><button data-a="bedOcc" data-id="${i}" data-v="-1">−</button>${d.occ}<button data-a="bedOcc" data-id="${i}" data-v="1">+</button></span>`}</td><td class="num">${d.res}</td><td class="num"><b>${Math.max(0,d.total-d.occ-d.res)}</b></td><td>${WARD_DEF[d.n]?'<span class="st ok">Пост медсестри · авто</span>':d.src}</td><td>${d.upd}</td></tr>`).join('')}
+   </tbody></table></div><p class="muted" style="font-size:13.5px;margin-top:10px">«Зайнято» включає ліжка на санобробці. «Заброньовано» — підтверджені заявки з Порталу.</p>`;
 }
 function hqDuty(){
   return `<h1 class="pt">Чергування</h1><p class="sub" style="margin-top:6px">Якщо джерелом обрано заклади (рішення D-02), лікарня щодня підтверджує чергування на наступну добу. Без підтвердження Портал покаже, що дані застаріли.</p>
@@ -1303,11 +1415,12 @@ function zRx(){
    <div class="note warn">Чи показувати мешканцям наявність ліків і дефіцит — окреме рішення керівництва (D-10).</div>`;
 }
 function zHosp(){
-  const R=[['Лікарня Лівого берега','МІС',94,S.beds.filter(d=>d.p==='Хірургія').reduce((a,d)=>a+Math.max(0,d.total-d.occ-d.res),0)],['Центральна міська лікарня','МІС',81,0],['Лікарня Оболоні','вручну',88,2],['Лікарня Голосієва','МІС',76,4],['Лікарня Святошина','немає даних',null,null]];
-  return `<h1 class="pt">Планова госпіталізація</h1><p class="sub" style="margin-top:6px">Заявки з Портала, SLA лікарень і завантаженість за профілями.</p>
-   <div class="kpis"><div class="kpi"><div class="v">214</div><div class="l">заявок за тиждень</div></div><div class="kpi ok"><div class="v">87 %</div><div class="l">розглянуто в межах SLA</div></div><div class="kpi"><div class="v">9 %</div><div class="l">відхилено</div></div><div class="kpi"><div class="v">9 дн.</div><div class="l">від направлення до госпіталізації</div></div></div>
-   <div class="table-x"><table class="t"><thead><tr><th>Лікарня</th><th>Дані про місця</th><th class="num">SLA</th><th class="num">Вільно в хірургії</th></tr></thead><tbody>
-   ${R.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]==='немає даних'?'<span class="st bad">немає даних</span>':r[1]}</td><td class="num">${r[2]===null?'—':r[2]+' %'}</td><td class="num">${r[3]===null?'—':r[3]}</td></tr>`).join('')}</tbody></table></div>
+  const R=[['Лікарня Лівого берега','пост медсестри',3,S.beds.filter(d=>d.p==='Хірургія').reduce((a,d)=>a+Math.max(0,d.total-d.occ-d.res),0),3],['Центральна міська лікарня','МІС',7,0,6],['Лікарня Оболоні','вручну',5,2,2],['Лікарня Голосієва','МІС',9,4,5],['Лікарня Святошина','немає даних',null,null,null]];
+  return `<h1 class="pt">Планова госпіталізація</h1><p class="sub" style="margin-top:6px">Заявки з Порталу, час до рішення, неприбуття й завантаженість за профілями.</p>
+   <div class="kpis k5"><div class="kpi"><div class="v">214</div><div class="l">заявок за тиждень</div></div><div class="kpi ok"><div class="v">5 год</div><div class="l">середній час до рішення</div></div><div class="kpi"><div class="v">0</div><div class="l">заявок закрито без рішення</div></div><div class="kpi"><div class="v">9 %</div><div class="l">відхилено</div></div><div class="kpi warn"><div class="v">4 %</div><div class="l">не прибули на госпіталізацію</div></div></div>
+   <div class="table-x"><table class="t"><thead><tr><th>Лікарня</th><th>Дані про місця</th><th class="num">Час до рішення</th><th class="num">Неприбуття</th><th class="num">Вільно в хірургії</th></tr></thead><tbody>
+   ${R.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]==='немає даних'?'<span class="st bad">немає даних</span>':r[1]}</td><td class="num">${r[2]===null?'—':r[2]+' год'}</td><td class="num">${r[4]===null?'—':r[4]+' %'}</td><td class="num">${r[3]===null?'—':r[3]}</td></tr>`).join('')}</tbody></table></div>
+   <div class="note">Неприбуття вперше вимірюється: медсестра відмічає «не прибув» на посту, і ліжко одразу повертається у вільні.</div>
    <div class="card ln" style="margin-top:20px"><h3>Причини відхилень</h3><div class="bars"><div class="r"><span>Немає місць</span><div class="tr"><i style="width:61%"></i></div><b class="mono">61 %</b></div><div class="r"><span>Послуга не профільна</span><div class="tr"><i style="width:22%"></i></div><b class="mono">22 %</b></div><div class="r"><span>Інше</span><div class="tr"><i style="width:17%"></i></div><b class="mono">17 %</b></div></div></div>`;
 }
 function zDuty(){
@@ -1347,10 +1460,11 @@ const ACT={
   hApply:d=>{S.hsel=d.id;S.hform.dep=null;go('hospForm')},
   hfDep:d=>{S.hform.dep=d.v;renderRes()},
   hSend:()=>{const f=S.hform;if(!f.dep){$('#hErr').textContent='Оберіть відділення.';return}
-    const h=H(S.hsel);S.hreq={hosp:S.hsel,dep:f.dep,doc:f.doc,from:f.from,to:f.to,note:f.note,status:'sent',at:TODAY,sla:'2026-10-22',hist:[[fmt(TODAY)+', 09:52','Заявку подано в '+h.n+' · '+f.dep]]};
-    S.hv='req';go('hosp');notify('Заявку подано в «'+h.n+'». Лікарня відповість до 22.10.')},
-  hCancel:()=>modal(`<h3>Скасувати заявку?</h3><p class="muted" style="font-size:15px">Направлення лишиться чинним — його можна використати в іншій лікарні.</p><div class="actions"><button class="btn red" data-a="hCancelOk">Скасувати заявку</button><button class="btn grey" data-a="closeM">Назад</button></div>`),
-  hCancelOk:()=>{const q=S.hreq;if(q.status==='confirmed'){const b=S.beds.find(x=>x.n===q.dep);if(b)b.res=Math.max(0,b.res-1)}q.status='cancelled';q.hist.push([fmt(TODAY),'Заявку скасовано пацієнткою']);closeModal();renderAll();toast('Заявку скасовано. Направлення чинне до '+fmt(S.ref.until)+'.')},
+    const h=H(S.hsel);S.hreq={hosp:S.hsel,dep:f.dep,doc:f.doc,from:f.from,to:f.to,note:f.note,status:'sent',at:TODAY,hist:[[fmt(TODAY)+', 09:52','Заявку подано в '+h.n+' · '+f.dep]]};
+    S.hv='req';S.hwork=null;S.hview=null;go('hosp');notify('Заявку подано в «'+h.n+'». Повідомимо, щойно лікарня ухвалить рішення.')},
+  hCancel:()=>modal(`<h3>Не зможете прийти?</h3><p class="muted" style="font-size:15px">Ми повідомимо лікарню, і вона закриє заявку. Направлення лишиться чинним — його можна використати в іншій лікарні.</p><div class="actions"><button class="btn red" data-a="hCancelOk">Повідомити лікарню</button><button class="btn grey" data-a="closeM">Назад</button></div>`),
+  hCancelOk:()=>{const q=S.hreq;q.cxl=TODAY;q.hist.push([fmt(TODAY)+', '+NOWT(),'Ви повідомили лікарню, що не зможете прийти']);closeModal();renderAll();toast('Лікарню повідомлено. Вона закриє заявку, направлення лишається чинним.')},
+  hConf:()=>{const q=S.hreq;q.conf=true;q.hist.push([fmt(TODAY)+', '+NOWT(),'Ви підтвердили, що прийдете']);renderRes();toast('Дякуємо! Медсестра відділення бачить, що ви прийдете.')},
   hRetry:()=>{S.hreq=null;S.hsel=null;renderRes();jump('hList')},
   hIcs:()=>{const q=S.hreq,h=H(q.hosp);ics('gospitalizatsiya.ics','Госпіталізація: '+h.n,q.date,q.time,h.a+', '+q.place)},
   dProf:d=>{S.dprof=d.v;renderRes()},dAge:d=>{S.dage=d.v;renderRes()},
@@ -1415,14 +1529,39 @@ const ACT={
   stIn:()=>{S.stock.unshift({id:'s8',vac:'КПК',ser:'KPK-2540',mfr:'Виробник А',got:48,used:0,exp:'2026-11-24',pl:'Холодильник 1, полиця 2'});S.redis='done';renderDoc();toast('Надходження прийнято: +48 доз КПК. ДОЗ бачить переміщення.')},
   stOff:d=>{const s=S.stock.find(x=>x.id===d.id);modal(`<h3>Списати дози · ${s.vac}, ${s.ser}</h3><div class="field" style="margin-top:12px"><label>Причина</label><select><option>Закінчився термін придатності</option><option>Порушення холодового ланцюга</option><option>Пошкоджено флакон</option></select></div><div class="field"><label>Кількість доз</label><input id="offN" type="number" value="1" min="1" max="${s.got-s.used}"></div><div class="actions"><button class="btn red" data-a="stOffOk" data-id="${s.id}">Списати</button><button class="btn grey" data-a="closeM">Скасувати</button></div>`)},
   stOffOk:d=>{const s=S.stock.find(x=>x.id===d.id),n=Math.min(Math.max(1,+$('#offN').value||1),s.got-s.used);s.used+=n;closeModal();renderDoc();toast(`Списано ${n} доз. Причину видно ДОЗ.`)},
-  hvNav:d=>{S.hv=d.v;closeDrawer();renderHospRole()},
-  hqOpen:d=>openReq(d.id),
-  rqOk:d=>{const date=$('#rqDate').value,time=$('#rqTime').value,place=$('#rqPlace').value,instr=$('#rqInstr').value;
-    if(d.id==='me'){const q=S.hreq;Object.assign(q,{status:'confirmed',date,time,place,instr});q.hist.push([fmt(TODAY)+', 10:05',`Лікарня підтвердила: ${fmt(date)}, ${time}`]);const b=S.beds.find(x=>x.n===q.dep);if(b)b.res++;S.rv='hosp'}
-    else Object.assign(S.hreqs.find(r=>r.id===d.id),{st:'confirmed',date,time});
-    closeDrawer();renderHospRole();toast('Підтверджено. Пацієнт отримав push і SMS з датою та інструкціями.')},
-  rqNo:d=>modal(`<h3>Відхилити заявку</h3><div class="field" style="margin-top:12px"><label>Причина — її побачить пацієнт</label><select id="rqWhy"><option>Немає місць у бажаний період</option><option>Послуга не профільна для відділення</option><option>Потрібне додаткове обстеження перед госпіталізацією</option></select></div><div class="actions"><button class="btn red" data-a="rqNoOk" data-id="${d.id}">Відхилити</button><button class="btn grey" data-a="closeM">Назад</button></div>`),
-  rqNoOk:d=>{const why=$('#rqWhy').value;if(d.id==='me'){const q=S.hreq;q.status='declined';q.reason=why;q.hist.push([fmt(TODAY),'Лікарня відхилила: '+why]);S.rv='hosp'}else Object.assign(S.hreqs.find(r=>r.id===d.id),{st:'declined',reason:why});closeModal();closeDrawer();renderHospRole();toast('Заявку відхилено. Пацієнт отримав сповіщення з причиною.')},
+  hvNav:d=>{if(S.hwork&&d.v!=='req'){S.hv='req';renderHospRole();toast('Спершу опрацюйте заявку в роботі — закрити її без рішення не можна.');return}S.hv=d.v;S.hview=null;closeDrawer();renderHospRole();scrollTo(0,0)},
+  hqOpen:d=>{const r=reqById(d.id);
+    if(needsAct(r)){S.hwork=d.id;S.hdec='ok';if(r.st==='sent'){setReq(d.id,{st:'inwork'});hist(d.id,'Лікарня взяла заявку в роботу')}}else S.hview=d.id;
+    renderHospRole();scrollTo(0,0)},
+  hqBack:()=>{S.hview=null;renderHospRole()},
+  hDecT:d=>{S.hdec=d.v;renderHospRole()},
+  rqOk:d=>{const r=reqById(d.id),date=$('#rqDate').value,time=$('#rqTime').value,place=$('#rqPlace').value,instr=$('#rqInstr').value;
+    setReq(d.id,{st:'confirmed',date,time,place,instr});
+    if(WARD_DEF[r.dep])reserveBed(d.id,r.dep,r.pt);else{const b=S.beds.find(x=>x.n===r.dep);if(b)b.res++}
+    markWard(r.dep);hist(d.id,`Лікарня підтвердила: ${fmt(date)}, ${time}`);S.hwork=null;if(d.id==='me')S.rv='hosp';
+    renderHospRole();toast('Підтверджено, ліжко заброньовано. Пацієнт отримав push і SMS з датою та інструкціями.')},
+  rqRedir:d=>{const r=reqById(d.id),dep=$('#rqDep').value;setReq(d.id,{st:'sent',dep,redir:r.dep});hist(d.id,`Заявку перенаправлено у відділення «${dep}»`);S.hwork=null;renderHospRole();toast(`Заявку перенаправлено у «${dep}». Там вона з’явиться як нова.`)},
+  rqNo:d=>{const why=$('#rqWhy').value;setReq(d.id,{st:'declined',reason:why});hist(d.id,'Лікарня відхилила: '+why);S.hwork=null;if(d.id==='me')S.rv='hosp';renderHospRole();toast('Заявку відхилено. Пацієнт отримав сповіщення з причиною.')},
+  rqCxl:d=>{const r=reqById(d.id);freeRes(d.id);if(!WARD_DEF[r.dep]&&r.st==='confirmed'){const b=S.beds.find(x=>x.n===r.dep);if(b)b.res=Math.max(0,b.res-1)}markWard(r.dep);setReq(d.id,{st:'cancelled'});hist(d.id,'Лікарня закрила заявку на ваше прохання');S.hwork=null;renderHospRole();toast('Заявку закрито. Заброньоване ліжко знову вільне.')},
+  nArr:d=>{const r=reqById(d.id),rb=S.ward.find(b=>b.rid===d.id&&b.st==='res'),fr=S.ward.filter(b=>b.dep===r.dep&&b.st==='free'),docs=(HOSP[0].deps.find(x=>x.n===r.dep)||{}).docs||[];
+    modal(`<h3>Прибуття · ${r.pt}</h3><div class="note ok">Направлення № ${r.me?S.ref.no:'0571-••••-••••-'+String(1000+r.age*13).slice(0,4)} буде взято в роботу й погашено в ЕСОЗ через МІС.</div>
+     <div class="field"><label>Ліжко</label><select id="nBed">${rb?`<option value="${rb.id}">${bedL(rb)} — заброньоване</option>`:''}${fr.map(b=>`<option value="${b.id}">${bedL(b)}</option>`).join('')}</select></div>
+     <div class="field"><label>Лікуючий лікар</label><select>${docs.map(x=>`<option>${x}</option>`).join('')}</select></div>
+     <div class="actions"><button class="btn" id="nArrOk" data-a="nArrOk" data-id="${d.id}">Підтвердити прибуття</button><button class="btn grey" data-a="closeM">Скасувати</button></div>`)},
+  nArrOk:d=>{const r=reqById(d.id),b=S.ward.find(x=>x.id===$('#nBed').value),t=NOWT();freeRes(d.id);
+    Object.assign(b,{st:'occ',rid:d.id,pt:r.pt,since:TODAY,out:addD(TODAY,6)});setReq(d.id,{st:'admitted',arr:t,arrDate:TODAY,bed:bedL(b)});
+    hist(d.id,`Ви прибули до лікарні: ${r.dep}, ${bedL(b)}. Направлення взято в роботу й погашено`);if(d.id==='me')S.rv='hosp';markWard(r.dep);closeModal();renderHospRole();toast(`Прибуття зафіксовано о ${t}. Ліжковий фонд на Порталі оновлено.`)},
+  nNo:d=>{const r=reqById(d.id);modal(`<h3>Не прибув · ${r.pt}</h3><div class="field" style="margin-top:12px"><label>Що сталося</label><select id="nWhy"><option>Не з’явився без попередження</option><option>Повідомив телефоном, що не прийде</option><option>Перенесено за погодженням з лікарем</option></select></div><p class="muted" style="font-size:14px">Заброньоване ліжко звільниться. Направлення не погашається — пацієнт отримає сповіщення, що воно чинне.</p><div class="actions"><button class="btn red" id="nNoOk" data-a="nNoOk" data-id="${d.id}">Зафіксувати</button><button class="btn grey" data-a="closeM">Скасувати</button></div>`)},
+  nNoOk:d=>{const r=reqById(d.id),why=$('#nWhy').value;freeRes(d.id);setReq(d.id,{st:'noshow',reason:why,arrDate:TODAY});hist(d.id,'Лікарня зафіксувала, що ви не прибули. Направлення не погашене й лишається чинним');if(d.id==='me')S.rv='hosp';markWard(r.dep);closeModal();renderHospRole();toast('Неприбуття зафіксовано. Ліжко знову вільне на Порталі.')},
+  nOut:d=>{const b=S.ward.find(x=>x.id===d.id);modal(`<h3>Вибуття · ${b.pt}</h3><div class="muted" style="font-size:14.5px">${b.dep} · ${bedL(b)} · з ${fmt(b.since)}</div>
+     <div class="field" style="margin-top:14px"><label>Як вибув</label><select id="nOutT"><option>Виписаний додому</option><option>Переведений в інше відділення</option><option>Переведений до іншого закладу</option><option>Самовільно залишив лікарню</option></select></div>
+     <label class="chk"><input type="checkbox" checked>Виписку ф. 027/о сформовано в МІС</label>
+     <p class="muted" style="font-size:14px;margin-top:8px">Ліжко піде на санобробку, а потім знову стане вільним.</p>
+     <div class="actions"><button class="btn" id="nOutOk" data-a="nOutOk" data-id="${b.id}">Зафіксувати вибуття</button><button class="btn grey" data-a="closeM">Скасувати</button></div>`)},
+  nOutOk:d=>{const b=S.ward.find(x=>x.id===d.id),how=$('#nOutT').value,rid=b.rid;
+    if(rid)setReq(rid,{st:'discharged',out:TODAY,outType:how});if(rid==='me')hist('me',how==='Виписаний додому'?'Вас виписано':'Вибуття: '+how.toLowerCase());
+    Object.assign(b,{st:'clean'});delete b.pt;delete b.rid;S.nOut++;markWard(b.dep);closeModal();renderHospRole();toast('Вибуття зафіксовано. Ліжко — на санобробці.')},
+  bedReady:d=>{const b=S.ward.find(x=>x.id===d.id);b.st='free';S.nReady++;markWard(b.dep);renderHospRole();toast(`${bedL(b)} готове — на Порталі +1 вільне місце.`)},
   bedOcc:d=>{const b=S.beds[+d.id];b.occ=Math.min(b.total,Math.max(0,b.occ+(+d.v)));b.upd='щойно';b.src='вручну';renderHospRole()},
   dutyConf:()=>{S.dutyConf=true;renderHospRole();toast('Графік на 21 жовтня підтверджено. Портал покаже його о 08:00.')},
   eNav:d=>{S.edu=d.v;renderEdu()},
@@ -1453,6 +1592,7 @@ const CH={
 $$('.mock [data-role]').forEach(b=>b.onclick=()=>setRole(b.dataset.role));
 function resetDemo(){S=seed();Object.assign(LAST_EXAM,{sofia:'2026-08-20',marko:'2025-11-05',iryna:null});closeDrawer();closeModal();renderAll();scrollTo(0,0)}
 $('#resetBtn').onclick=resetDemo;
+S=seed();
 renderAll();
 /* посилання на стан: #role=doz&zv=vac або #rv=cert */
 (()=>{const h=new URLSearchParams(location.hash.slice(1));if(!h.toString())return;
@@ -1469,7 +1609,7 @@ const FLOWS=[
    {t:'Кожна картка веде в послугу з уже підставленими даними. Діагнозів тут немає: портал показує події, а не медичну карту.',sel:'#attn .att',manual:true},
    {t:'П’ять нових послуг і «Запис до лікаря» з першої черги модернізації — цей макет його не дублює, а будується поверх.',sel:'#tiles',manual:true}
   ]},
- {id:'hosp',name:'Планова госпіталізація',ds:'Лікарня за направленням, заявка, підтвердження лікарнею',min:3,
+ {id:'hosp',name:'Планова госпіталізація',ds:'Лікарня за направленням, заявка, обов’язкове опрацювання',min:3,
   start(){resetDemo()},
   steps:[
    {t:'Натисни <b>«Обрати лікарню»</b> у картці е-направлення.',sel:'#attn [data-v="hosp"]',done:()=>S.rv==='hosp'},
@@ -1478,10 +1618,32 @@ const FLOWS=[
    {t:'Обери відділення <b>«Хірургія № 1»</b>.',sel:'[data-a="hfDep"][data-v="Хірургія № 1"]',done:()=>S.hform.dep==='Хірургія № 1',act(){S.hform.dep='Хірургія № 1';renderRes()}},
    {t:'Натисни <b>«Подати заявку»</b>. Це запит, а не гарантоване бронювання.',sel:'#hSend',done:()=>S.hreq&&S.hreq.status==='sent'},
    {t:'Тепер подивимося з боку лікарні. Переключись на роль <b>«Лікарня»</b>.',sel:'.mock [data-role="hosp"]',done:()=>S.role==='hosp'},
-   {t:'Заявка Мельник І. О. підсвічена жовтим. Відкрий її.',sel:'tr[data-id="me"]',done:()=>drOpen(),act(){openReq('me')}},
-   {t:'Направлення перевірено автоматично, дату й інструкції підставлено. Натисни <b>«Підтвердити»</b>.',sel:'#rqOk',done:()=>S.hreq.status==='confirmed'},
+   {t:'Нова заявка Мельник І. О. підсвічена жовтим. Відкрий її — вона перейде у твою роботу.',sel:'tr[data-id="me"]',done:()=>S.hwork==='me',act(){ACT.hqOpen({id:'me'})}},
+   {t:'Тут немає кнопки «Закрити»: заявку можна лише опрацювати — підтвердити дату, перенаправити у відділення або відхилити з причиною. Поки рішення немає, інші розділи не відкриваються.',sel:'#hDec',manual:true},
+   {t:'Дату й інструкції підставлено, ліжко заброниться автоматично. Натисни <b>«Підтвердити дату»</b>.',sel:'#rqOk',done:()=>S.hreq.status==='confirmed'},
    {t:'Повернись у роль <b>«Мешканка»</b>.',sel:'.mock [data-role="res"]',done:()=>S.role==='res'},
-   {t:'Підтверджено: дата, місце, що взяти з собою, файл у календар. Дзвінків і обходу лікарень не було. Місце в ліжковому фонді лікарні тепер заброньоване.',sel:'#hTrack',manual:true}
+   {t:'Підтверджено: дата, місце, що взяти з собою. Натисни <b>«Підтверджую, що прийду»</b> — медсестра побачить це на посту.',sel:'#hConf',done:()=>!!S.hreq.conf},
+   {t:'Статусом заявки керує лише лікарня. Пацієнтка може тільки повідомити «Не зможу прийти» — тоді лікарня закриє заявку, а направлення лишиться чинним.',sel:'#hTrack',manual:true}
+  ]},
+ {id:'nurse',name:'Пост медсестри',ds:'Прибув, не прибув, вибув, санобробка — ліжковий фонд сам',min:3,
+  start(){resetDemo();S.hsel='h1';
+    S.hreq={hosp:'h1',dep:'Хірургія № 1',doc:'',from:TODAY,to:addD(TODAY,7),note:'',status:'confirmed',at:'2026-10-14',date:TODAY,time:'11:00',place:'Приймальне відділення, корпус 2',instr:'Візьміть паспорт і номер е-направлення',conf:true,
+      hist:[['14.10.2026, 12:10','Заявку подано в Лікарня Лівого берега · Хірургія № 1'],['15.10.2026, 09:30','Лікарня підтвердила: 20.10.2026, 11:00'],['19.10.2026, 18:02','Ви підтвердили, що прийдете']]};
+    reserveBed('me','Хірургія № 1','Мельник І. О.');syncBeds();S.hv='nurse:Хірургія № 1';setRole('hosp')},
+  steps:[
+   {t:'Пост медсестри хірургії № 1: хто має прибути сьогодні, хто у відділенні, хто вибуває і скільки ліжок вільно.',sel:'#nKpi',manual:true},
+   {t:'Мазур Т. В. мав прибути о 09:00 — позначка «Запізнюється» і телефон, щоб подзвонити. Мельник І. О. підтвердила прихід у застосунку напередодні.',sel:'#nArr',manual:true},
+   {t:'Пацієнтка прийшла. Натисни <b>«Прибув»</b> біля Мельник І. О.',sel:'[data-a="nArr"][data-id="me"]',done:()=>mdOpen()},
+   {t:'Ліжко вже заброньоване під неї. Натисни <b>«Підтвердити прибуття»</b> — направлення погаситься в ЕСОЗ.',sel:'#nArrOk',done:()=>S.hreq.status==='admitted'},
+   {t:'Кравець О. Л. не прийде. Натисни <b>«Не прибув»</b>.',sel:'[data-a="nNo"][data-id="r8"]',done:()=>mdOpen()},
+   {t:'Обери, що сталося, і натисни <b>«Зафіксувати»</b> — заброньоване ліжко звільниться.',sel:'#nNoOk',done:()=>S.hreqs.find(r=>r.id==='r8').st==='noshow'},
+   {t:'Хтось вибуває сьогодні. Натисни <b>«Вибув»</b> у першому рядку списку «У відділенні».',sel:'#nIn [data-a="nOut"]',done:()=>mdOpen()},
+   {t:'Обери, як вибув, і натисни <b>«Зафіксувати вибуття»</b>.',sel:'#nOutOk',done:()=>S.nOut>0},
+   {t:'Ліжко пішло на санобробку. Натисни на жовте ліжко в палатах, коли воно готове.',sel:'#nWard .bed.clean',done:()=>S.nReady>0},
+   {t:'Відкрий <b>«Ліжковий фонд»</b>.',sel:'[data-a="hvNav"][data-v="beds"]',done:()=>S.hv==='beds'},
+   {t:'Хірургія рахується з відміток поста медсестри — без ручного введення. Саме ці цифри бачать пацієнти на карті.',sel:'#bedTbl',manual:true},
+   {t:'Переключись на роль <b>«Мешканка»</b>.',sel:'.mock [data-role="res"]',done:()=>S.role==='res',act(){S.rv='hosp';setRole('res')}},
+   {t:'Пацієнтка бачить: госпіталізовано, палата й ліжко, направлення погашено.',sel:'#hTrack',manual:true}
   ]},
  {id:'duty',name:'Чергові лікарні сьогодні',ds:'Маршрут за профілем, банер 103, застарілі дані',min:1,
   start(){resetDemo();go('duty')},
