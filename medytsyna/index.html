@@ -133,8 +133,17 @@ h2.sh{font-size:24px;font-weight:700;color:#000;margin-bottom:6px;display:flex;a
 
 /* ---------- «моє здоров’я» ---------- */
 .fam{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;align-items:center}
-.fam .p{display:flex;align-items:center;gap:10px;background:#f3f3f5;border-radius:99px;padding:5px 14px 5px 5px;font-size:14.5px;font-weight:600}
+.fam .p{display:flex;align-items:center;gap:10px;background:#f3f3f5;border:1.5px solid transparent;border-radius:99px;padding:5px 14px 5px 5px;font-size:14.5px;font-weight:600}
+.fam .p:hover{background:#ebebef}
+.fam .p.all{padding-left:16px;min-height:43px}
+.fam .p.on{background:var(--blue-l);border-color:var(--blue);color:var(--blue)}
 .fam .p span{font-weight:400;color:var(--grey2)}
+.fam .p b{min-width:22px;height:22px;border-radius:99px;background:var(--pur);color:#fff;font-size:12px;display:inline-grid;place-items:center;padding:0 6px;margin-left:-2px}
+.tiles.sum.n4{grid-template-columns:repeat(4,1fr)}
+.tiles.sum .tile{gap:3px}
+.tiles.sum .tile b{font-size:18px}
+.tiles.sum .tile.pur{border-color:#d9c2fb;background:#fbf8ff}
+.tiles.sum .tile.warn{border-color:#f3c98b;background:#fffaf1}
 .av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;font-style:normal;color:#fff;background:var(--blue);flex:none}
 .av.s{background:#d6457f}.av.m{background:#16a06c}
 .att{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:16px;align-items:center;padding:16px 20px;border-radius:14px;background:#fff;box-shadow:var(--shadow);margin-bottom:12px}
@@ -404,7 +413,7 @@ body.tour-open .toast{right:414px}
 @media(max-width:1100px){
   .mapbox,.mapbox.hm{grid-template-columns:1fr}.hmap{position:static}
   .kpis,.kpis.k5{grid-template-columns:repeat(2,1fr)}.ward{grid-template-columns:repeat(3,1fr)}
-  .tiles{grid-template-columns:repeat(2,1fr)}
+  .tiles,.tiles.sum.n4{grid-template-columns:repeat(2,1fr)}
   .shell{flex-direction:column}.side{width:auto;padding:12px 0}.smenu{display:flex;overflow-x:auto}.side .who,.smenu .cap{display:none}.smenu .it small{display:none}.smenu .it{white-space:nowrap}
   .hnav{display:none}
 }
@@ -703,7 +712,7 @@ const VDAY=[
 function seed(){
   const J=x=>JSON.parse(JSON.stringify(x));
   const o={
-    role:'res',rv:'home',docv:'cert',hv:'req',edu:'e1',zv:'home',stale:false,
+    role:'res',rv:'home',fam:null,docv:'cert',hv:'req',edu:'e1',zv:'home',stale:false,
     ref:{no:'0571-3920-4416-8803',svc:'Хірургічні операції дорослим у стаціонарі',prof:'Хірургія',created:'2026-10-14',by:DOC,until:'2027-10-14'},
     hf:{d:'',free:true},hsel:null,hform:{dep:null,doc:'',from:'2026-11-01',to:'2026-11-15',note:''},
     hreq:null,hreqs:J(HREQ_DEMO),
@@ -786,29 +795,46 @@ function mapSVG({sel=[],pins=[],hl=null,heat=null}={}){
 /* ================= МЕШКАНКА ================= */
 function attn(){
   const a=[],q=S.hreq;
-  if(!q||['cancelled','declined','noshow'].includes(q.status))a.push({ic:'bed',t:{declined:'Лікарня відхилила заявку — оберіть іншу',noshow:'Ви не прибули на госпіталізацію — направлення чинне',cancelled:'Заявку закрито — направлення чинне'}[q&&q.status]||'Е-направлення на госпіталізацію: оберіть лікарню',d:`№ ${S.ref.no} · ${S.ref.svc} · чинне до ${fmt(S.ref.until)}`,b:'Обрати лікарню',v:'hosp'});
-  else if(q.cxl&&['sent','inwork','confirmed'].includes(q.status))a.push({ic:'bed',t:'Ви повідомили лікарню, що не прийдете',d:`${H(q.hosp).n} закриє заявку · направлення лишається чинним`,b:'Відкрити',v:'hosp'});
-  else if(['sent','inwork'].includes(q.status))a.push({ic:'bed',t:q.status==='inwork'?'Лікарня розглядає вашу заявку':'Заявку на госпіталізацію подано',d:`${H(q.hosp).n} · ${q.dep}`,b:'Відкрити',v:'hosp'});
-  else if(q.status==='confirmed')a.push({ic:'bed',c:'ok',t:`Госпіталізація: ${wdL(q.date)}, ${fmtL(q.date)}, ${q.time}`,d:`${H(q.hosp).n} · ${q.place}`,b:'Що взяти з собою',v:'hosp'});
-  else if(q.status==='admitted')a.push({ic:'bed',c:'ok',t:`Ви в лікарні: ${H(q.hosp).n}`,d:`${q.dep} · ${q.bed}`,b:'Деталі',v:'hosp'});
+  if(!q||['cancelled','declined','noshow'].includes(q.status))a.push({p:'iryna',ic:'bed',t:{declined:'Лікарня відхилила заявку — оберіть іншу',noshow:'Ви не прибули на госпіталізацію — направлення чинне',cancelled:'Заявку закрито — направлення чинне'}[q&&q.status]||'Е-направлення на госпіталізацію: оберіть лікарню',d:`№ ${S.ref.no} · ${S.ref.svc} · чинне до ${fmt(S.ref.until)}`,b:'Обрати лікарню',v:'hosp'});
+  else if(q.cxl&&['sent','inwork','confirmed'].includes(q.status))a.push({p:'iryna',ic:'bed',t:'Ви повідомили лікарню, що не прийдете',d:`${H(q.hosp).n} закриє заявку · направлення лишається чинним`,b:'Відкрити',v:'hosp'});
+  else if(['sent','inwork'].includes(q.status))a.push({p:'iryna',ic:'bed',t:q.status==='inwork'?'Лікарня розглядає вашу заявку':'Заявку на госпіталізацію подано',d:`${H(q.hosp).n} · ${q.dep}`,b:'Відкрити',v:'hosp'});
+  else if(q.status==='confirmed')a.push({p:'iryna',ic:'bed',c:'ok',t:`Госпіталізація: ${wdL(q.date)}, ${fmtL(q.date)}, ${q.time}`,d:`${H(q.hosp).n} · ${q.place}`,b:'Що взяти з собою',v:'hosp'});
+  else if(q.status==='admitted')a.push({p:'iryna',ic:'bed',c:'ok',t:`Ви в лікарні: ${H(q.hosp).n}`,d:`${q.dep} · ${q.bed}`,b:'Деталі',v:'hosp'});
   const vb=S.vbook;
-  if(vb&&vb.status==='booked')a.push({ic:'syr',c:'pur',t:`Щеплення (${PPL[vb.p].n}): ${dayL(vb.d)}, ${fmtL(vb.d)}, ${vb.t}`,d:`${CL.find(c=>c.id===vb.c).n} · ${vb.list.join(', ')}`,b:'Деталі',v:'vac'});
-  else{const due=S.vcal.marko.filter(x=>x.st==='due');if(due.length)a.push({ic:'syr',c:'pur',t:'Марку час щеплень за віком 6 років',d:due.map(x=>x.v+' ('+x.dose+')').join(' · ')+' · за календарем з '+fmt(due[0].date),b:'Записатися',v:'vac'})}
-  S.certs.filter(c=>!c.repl&&c.until).forEach(c=>{const d=daysBetween(TODAY,c.until);if(d>=0&&d<=30)a.push({ic:'doc',c:'warn',t:`${PPL[c.p].n}: довідка ${CT[c.t].f} спливає через ${d} дн.`,d:`Передана в ${c.sent.filter(s=>!s.rev).map(s=>EDU[s.e].n).join(', ')||'—'} · чинна до ${fmt(c.until)}`,b:'Оформити нову',act:'cRenew',id:c.id})});
-  S.creq.filter(r=>r.st!=='signed').forEach(r=>a.push({ic:'doc',t:`Запит на довідку ${CT[r.t].f} для ${PPL[r.p].gen}`,d:r.st==='exam'?`Огляд ${dayL(r.slot.slice(0,10))} о ${r.slot.slice(11)} · ${DOC}`:'У лікарки на підписі',b:'Відкрити',v:'cert'}));
-  S.rx.filter(r=>r.status==='active').forEach(r=>a.push({ic:'pill',c:'ok',t:`Е-рецепт: ${r.drug}, ${r.form}`,d:`Міська програма Києва · 100 % · дійсний до ${fmt(r.until)}`,b:'Де отримати',v:'rx'}));
+  if(vb&&vb.status==='booked')a.push({p:vb.p,ic:'syr',c:'pur',t:`Щеплення (${PPL[vb.p].n}): ${dayL(vb.d)}, ${fmtL(vb.d)}, ${vb.t}`,d:`${CL.find(c=>c.id===vb.c).n} · ${vb.list.join(', ')}`,b:'Деталі',v:'vac'});
+  ['marko','sofia','iryna'].forEach(p=>{if(vb&&vb.status==='booked'&&vb.p===p)return;const due=S.vcal[p].filter(x=>['due','missed'].includes(x.st));if(!due.length)return;
+    a.push({p,ic:'syr',c:'pur',t:p==='iryna'?'Вам рекомендоване щеплення':p==='marko'?'Марку час щеплень за віком 6 років':`${PPL[p].n}: час щеплення`,d:due.map(x=>x.v+' ('+x.dose+')').join(' · ')+(due[0].st==='missed'?' · пропущено з '+fmt(due[0].date):' · за календарем з '+fmt(due[0].date)),b:'Записатися',v:'vac'})});
+  S.certs.filter(c=>!c.repl&&c.until).forEach(c=>{const d=daysBetween(TODAY,c.until);if(d>=0&&d<=30)a.push({p:c.p,ic:'doc',c:'warn',t:`${PPL[c.p].n}: довідка ${CT[c.t].f} спливає через ${d} дн.`,d:`Передана в ${c.sent.filter(s=>!s.rev).map(s=>EDU[s.e].n).join(', ')||'—'} · чинна до ${fmt(c.until)}`,b:'Оформити нову',act:'cRenew',id:c.id})});
+  S.creq.filter(r=>r.st!=='signed').forEach(r=>a.push({p:r.p,ic:'doc',t:`Запит на довідку ${CT[r.t].f} для ${PPL[r.p].gen}`,d:r.st==='exam'?`Огляд ${dayL(r.slot.slice(0,10))} о ${r.slot.slice(11)} · ${DOC}`:'У лікарки на підписі',b:'Відкрити',v:'cert'}));
+  S.rx.filter(r=>r.status==='active').forEach(r=>a.push({p:'iryna',ic:'pill',c:'ok',t:`Е-рецепт: ${r.drug}, ${r.form}`,d:`Міська програма Києва · 100 % · дійсний до ${fmt(r.until)}`,b:'Де отримати',v:'rx'}));
   return a;
 }
+function famSummary(p){
+  const P=PPL[p],cal=S.vcal[p],due=cal.filter(x=>['due','missed'].includes(x.st)),bk=cal.filter(x=>x.st==='booked'),nd=cal.filter(x=>x.st==='nodata').length;
+  const last=cal.filter(x=>x.st==='done').sort((a,b)=>a.date<b.date?1:-1)[0];
+  const cs=S.certs.filter(c=>c.p===p&&!c.repl),soon=cs.filter(c=>c.until).sort((a,b)=>a.until<b.until?-1:1)[0];
+  const c=[];
+  if(p==='iryna'){const q=S.hreq,rx=S.rx.filter(r=>r.status==='active');
+    c.push({ic:'bed',t:'Госпіталізація',v:!q||['declined','noshow','cancelled'].includes(q.status)?'Лікарню не обрано':{sent:'Заявку подано',inwork:'Розглядається',confirmed:'Підтверджено',admitted:'У лікарні',discharged:'Виписано'}[q.status],d:q&&q.status==='confirmed'?`${fmtL(q.date)}, ${q.time} · ${H(q.hosp).n}`:`Е-направлення чинне до ${fmt(S.ref.until)}`,go:'hosp'});
+    c.push({ic:'pill',t:'Ліки за програмою',v:rx.length?`${rx.length} активний рецепт`:'Активних рецептів немає',d:rx.length?`${rx[0].drug} · до ${fmt(rx[0].until)}`:'',go:'rx'})}
+  c.push({ic:'syr',t:'Щеплення',v:due.length?`Час зробити: ${due.length}`:bk.length?`Заплановано на ${fmt(bk[0].date)}`:'За календарем',d:(last?`Останнє: ${last.v}, ${fmt(last.date)}`:'')+(nd?` · ${nd} без даних в ЕСОЗ`:''),go:'vac',tone:due.length?'pur':''});
+  c.push({ic:'doc',t:'Медичні довідки',v:cs.length?`${cs.length} ${cs.length===1?'довідка':cs.length<5?'довідки':'довідок'}`:'Довідок немає',d:soon?`${CT[soon.t].f} чинна до ${fmt(soon.until)}`:'',go:'cert',tone:soon&&daysBetween(TODAY,soon.until)<=30?'warn':''});
+  if(P.kid)c.push({ic:'school',t:'Заклади освіти',v:KIDEDU[p].map(e=>EDU[e].n.split(' · ')[0]).join(', '),d:KIDEDU[p].map(e=>{const got=S.certs.filter(x=>x.p===p&&!x.repl&&x.sent.some(s=>s.e===e&&!s.rev)).map(x=>CT[x.t].f);return EDU[e].kind+': '+(got.length?got.join(', '):'довідок немає')}).join(' · '),go:'cert'});
+  return `<section class="sec" id="famSum" style="margin-top:40px"><h2 class="sh">Коротко: ${p==='iryna'?'ви':P.n}</h2>
+   <div class="tiles sum n${c.length}">${c.map(x=>`<button class="tile${x.tone?' '+x.tone:''}" data-a="go" data-v="${x.go}"><div class="ic">${ic(x.ic,24)}</div><span>${x.t}</span><b>${x.v}</b>${x.d?`<span>${x.d}</span>`:''}</button>`).join('')}</div></section>`;
+}
 function rHome(){
-  const a=attn();
+  const all=attn(),f=S.fam,a=f?all.filter(x=>x.p===f):all,cnt=p=>all.filter(x=>x.p===p).length;
   return `<div class="crumbs"><a>Головна</a> · Здоров’я</div>
   <h1 class="pt">Моє здоров’я</h1>
   <p class="lead">Направлення, рецепти, щеплення й медичні довідки — ваші і дітей — в одному місці. Медичні записи беруться з ЕСОЗ через вашого лікаря. Діагнози тут не показуються.</p>
-  <div class="fam">${['iryna','sofia','marko'].map(p=>`<div class="p">${avatar(p)}${PPL[p].n} <span>${p==='iryna'?'я':PPL[p].age}</span></div>`).join('')}<span class="muted" style="font-size:13.5px">Діти — за деклараціями з лікарем, де ви законна представниця</span></div>
-  <section class="sec" id="attn" style="margin-top:36px"><h2 class="sh">Потребує уваги</h2><p class="sub">Портал сам стежить за строками й нагадує в «Київ Цифровий».</p>
-   ${a.map(x=>`<div class="att"><div class="ic ${x.c||''}">${ic(x.ic)}</div><div><div class="t">${x.t}</div><div class="d">${x.d}</div></div><button class="btn sm${x.c==='warn'?'':' ghost'}" ${x.act?`data-a="${x.act}" data-id="${x.id}"`:`data-a="go" data-v="${x.v}"`}>${x.b}</button></div>`).join('')||'<div class="note ok">Усе гаразд — нічого не потребує уваги.</div>'}
+  <div class="fam" id="famF"><button class="p all${f?'':' on'}" data-a="famF" data-v="">Уся родина${all.length?`<b>${all.length}</b>`:''}</button>${['iryna','sofia','marko'].map(p=>`<button class="p${f===p?' on':''}" data-a="famF" data-v="${p}">${avatar(p)}${PPL[p].n} <span>${p==='iryna'?'я':PPL[p].age}</span>${cnt(p)?`<b>${cnt(p)}</b>`:''}</button>`).join('')}</div>
+  <p class="muted" style="font-size:13.5px;margin-top:8px">Діти — за деклараціями з лікарем, де ви законна представниця. Оберіть людину, щоб бачити лише її.</p>
+  <section class="sec" id="attn" style="margin-top:32px"><h2 class="sh">Потребує уваги${f?` — ${f==='iryna'?'ви':PPL[f].n}`:''}</h2><p class="sub">Портал сам стежить за строками й нагадує в «Київ Цифровий».</p>
+   ${a.map(x=>`<div class="att"><div class="ic ${x.c||''}">${ic(x.ic)}</div><div><div class="t">${x.t}</div><div class="d">${x.d}</div></div><button class="btn sm${x.c==='warn'?'':' ghost'}" ${x.act?`data-a="${x.act}" data-id="${x.id}"`:`data-a="go" data-v="${x.v}" data-p="${x.p}"`}>${x.b}</button></div>`).join('')||`<div class="note ok">${f?(f==='iryna'?'У вас':'У '+PPL[f].gen)+' все гаразд':'Усе гаразд'} — нічого не потребує уваги.</div>`}
   </section>
-  <section class="sec" id="tiles"><h2 class="sh">Послуги</h2>
+  ${f?famSummary(f):''}
+  <section class="sec" id="tiles"><h2 class="sh">${f?'Усі послуги':'Послуги'}</h2>
    <div class="tiles">
     <button class="tile" data-a="go" data-v="hosp"><div class="ic">${ic('bed',28)}</div><b>Планова госпіталізація</b><span>Лікарні для вашого е-направлення, вільні місця, заявка на дату</span></button>
     <button class="tile" data-a="go" data-v="duty"><div class="ic">${ic('siren',28)}</div><b>Чергові лікарні сьогодні</b><span>Куди їхати з гострим станом — за профілем і віком</span></button>
@@ -1453,7 +1479,8 @@ function setRole(r){S.role=r;closeDrawer();closeModal();renderAll();scrollTo(0,0
 function go(v){S.rv=v;closeDrawer();renderRes();scrollTo(0,0)}
 function jump(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}
 const ACT={
-  go:d=>go(d.v),jump:d=>jump(d.v),closeM:()=>closeModal(),
+  go:d=>{if(d.v==='vac'&&S.rv==='home'&&(d.p||S.fam)){S.vp=d.p||S.fam;S.vq=''}go(d.v)},
+  famF:d=>{S.fam=d.v||null;renderRes()},jump:d=>jump(d.v),closeM:()=>closeModal(),
   appt:()=>toast('«Запис до лікаря» будується в першій черзі модернізації Порталу (захід 6.1). Цей макет його не дублює.'),
   hSel:(d,t)=>{const fromPin=!t.classList.contains('sch');S.hsel=d.id;renderRes();if(fromPin){const el=$('#hc-'+d.id);el&&el.scrollIntoView({behavior:'smooth',block:'nearest'})}},
   hShowAll:()=>{S.hf.free=false;renderRes()},
@@ -1602,11 +1629,13 @@ renderAll();
 const drOpen=()=>$('#drawer').classList.contains('on');
 const mdOpen=()=>!$('#ovl').hidden;
 const FLOWS=[
- {id:'home',name:'«Моє здоров’я»',ds:'Що потребує уваги родини і шість послуг розділу',min:1,
+ {id:'home',name:'«Моє здоров’я»',ds:'Що потребує уваги, фільтр за людиною, послуги розділу',min:1,
   start(){resetDemo()},
   steps:[
    {t:'Розділ починається не з каталогу послуг, а з того, що потребує уваги саме цієї родини: направлення без лікарні, щеплення, на яке настав час, довідка, що спливає, активний рецепт.',sel:'#attn',manual:true},
    {t:'Кожна картка веде в послугу з уже підставленими даними. Діагнозів тут немає: портал показує події, а не медичну карту.',sel:'#attn .att',manual:true},
+   {t:'Профілі — це фільтри, а цифра показує, скільки справ у кожного. Натисни <b>«Марко»</b>, щоб бачити лише сина.',sel:'[data-a="famF"][data-v="marko"]',done:()=>S.fam==='marko'},
+   {t:'Лише справи Марка і коротке зведення: щеплення, довідки, заклади освіти. Із картки «Щеплення» календар відкриється одразу на ньому.',sel:'#famSum',manual:true},
    {t:'П’ять нових послуг і «Запис до лікаря» з першої черги модернізації — цей макет його не дублює, а будується поверх.',sel:'#tiles',manual:true}
   ]},
  {id:'hosp',name:'Планова госпіталізація',ds:'Лікарня за направленням, заявка, обов’язкове опрацювання',min:3,
