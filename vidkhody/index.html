@@ -1,0 +1,1406 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Відходи Києва — Портал послуг «Київ Цифровий»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Onest:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --grey:#F2F5FA;
+  --grey-2:#E6EBF4;
+  --white:#FFFFFF;
+  --ink:#16181D;
+  --ink-2:#4B5566;
+  --ink-3:#828C9C;
+  --line:#E3E8F0;
+  --line-2:#CFD8E6;
+  --blue:#2B63F0;
+  --blue-deep:#2456DC;
+  --blue-ink:#1A46C0;
+  --blue-soft:#E7EEFF;
+  --ok:#0E7A55;
+  --ok-soft:#DFF1E9;
+  --warn:#8E6200;
+  --warn-soft:#F7EEDA;
+  --crit:#C0392B;
+  --crit-soft:#FBE6E3;
+  --shadow:0 1px 2px rgba(22,24,29,.04), 0 12px 30px -20px rgba(22,24,29,.3);
+  --shadow-lg:0 2px 4px rgba(22,24,29,.05), 0 30px 60px -30px rgba(22,24,29,.35);
+  --f:"Onest","Helvetica Neue",Arial,system-ui,sans-serif;
+  --fm:"Manrope","Onest",Arial,system-ui,sans-serif;
+  --r:16px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;background:var(--grey);color:var(--ink);
+  font-family:var(--f);font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;overflow:hidden;
+}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:6px}
+
+/* ---------- progress ---------- */
+.progress{position:fixed;inset:0 0 auto 0;height:3px;background:var(--grey-2);z-index:60}
+.progress .bar{height:100%;width:0;background:var(--blue);transition:width .35s cubic-bezier(.4,0,.2,1)}
+
+/* ---------- deck ---------- */
+.deck{height:100%;display:flex;align-items:center;justify-content:center;padding:44px 20px 84px}
+.slide{display:none;width:100%;max-width:1080px;max-height:100%;overflow-y:auto;overscroll-behavior:contain}
+.slide.active{display:block;animation:in .32s cubic-bezier(.2,.7,.3,1) both}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:clamp(22px,3.4vw,44px)}
+.card.hero{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 20px 50px -30px rgba(43,99,240,.9)}
+.card.hero .eyebrow{color:rgba(255,255,255,.72)}
+.card.hero .eyebrow .dim{color:rgba(255,255,255,.55)}
+.card.hero .lead{color:rgba(255,255,255,.88)}
+.card.hero .stat{border-top-color:rgba(255,255,255,.24)}
+.card.hero .stat span{color:rgba(255,255,255,.68)}
+.card.hero .hint{color:rgba(255,255,255,.72)}
+.card.hero kbd{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.3);color:#fff}
+.eyebrow{font-family:var(--fm);font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin:0 0 16px;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.eyebrow .dim{color:var(--ink-3)}
+h1,h2,h3{font-family:var(--fm)}
+h1{font-size:clamp(34px,5.8vw,64px);line-height:1.02;letter-spacing:-.035em;font-weight:800;margin:0 0 .4em;text-wrap:balance}
+h2{font-size:clamp(25px,3.7vw,42px);line-height:1.1;letter-spacing:-.03em;font-weight:800;margin:0 0 .35em;text-wrap:balance}
+h3{font-size:15.5px;font-weight:700;letter-spacing:-.01em;margin:0 0 8px}
+.lead{font-size:clamp(16px,1.8vw,20px);line-height:1.5;color:var(--ink-2);margin:0 0 4px;max-width:62ch}
+p{margin:0 0 1em;max-width:66ch}
+p:last-child{margin-bottom:0}
+.muted{color:var(--ink-2)}
+.small{font-size:14px}
+
+/* ---------- chips ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chip{font-family:var(--fm);font-size:11.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:6px 12px;border-radius:999px;white-space:nowrap}
+.chip.b{background:var(--blue-soft);color:var(--blue-ink)}
+.chip.ok{background:var(--ok-soft);color:var(--ok)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.chip.crit{background:var(--crit-soft);color:var(--crit)}
+.chip.plain{background:var(--grey);color:var(--ink-2)}
+
+/* ---------- title slide ---------- */
+.title-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:clamp(20px,3vw,44px);align-items:end}
+@media (max-width:820px){.title-grid{grid-template-columns:1fr}}
+.stat{display:flex;flex-direction:column;gap:2px;padding:14px 0;border-top:1px solid var(--line)}
+.stat b{font-family:var(--fm);font-size:30px;font-weight:800;letter-spacing:-.03em}
+.stat span{font-size:13px;color:var(--ink-3)}
+.hint{margin-top:26px;font-size:13px;color:var(--ink-3);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+kbd{font-family:var(--fm);font-size:11px;font-weight:600;background:var(--grey);border:1px solid var(--line-2);border-bottom-width:2px;border-radius:6px;padding:2px 7px;color:var(--ink-2)}
+
+/* ---------- axis ---------- */
+.axis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:26px 0 18px}
+@media (max-width:860px){.axis{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.axis{grid-template-columns:1fr}}
+.stage{
+  text-align:left;background:var(--grey);border:1px solid transparent;border-radius:12px;
+  padding:14px 14px 16px;display:flex;flex-direction:column;gap:5px;transition:.18s;
+}
+.stage:hover{background:var(--white);border-color:var(--line-2)}
+.stage[aria-pressed="true"]{background:var(--blue-soft);border-color:var(--blue)}
+.stage .age{font-family:var(--fm);font-size:11.5px;font-weight:600;color:var(--blue);letter-spacing:.04em}
+.stage .nm{font-weight:600;font-size:14.5px;letter-spacing:-.01em}
+.stage .dt{font-size:12.5px;color:var(--ink-3);line-height:1.4}
+.axis-out{background:var(--blue-soft);border-radius:12px;padding:16px 18px;min-height:76px;font-size:14.5px;color:var(--ink-2)}
+.axis-out b{color:var(--ink)}
+
+/* ---------- block slide ---------- */
+.block-head{display:flex;gap:18px;align-items:flex-start}
+.bignum{
+  flex:none;width:56px;height:56px;border-radius:50%;background:var(--blue);color:#fff;
+  display:grid;place-items:center;font-family:var(--fm);font-weight:800;font-size:21px;
+  letter-spacing:-.02em;margin-top:4px;
+}
+@media (max-width:640px){.bignum{width:44px;height:44px;font-size:17px}}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.6vw,34px);margin-top:24px}
+@media (max-width:820px){.cols2{grid-template-columns:1fr}}
+ul.list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+ul.list li{position:relative;padding-left:20px;font-size:15px;color:var(--ink-2);line-height:1.45}
+ul.list li::before{content:"";position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:2px;background:var(--blue)}
+ul.list li b{color:var(--ink);font-weight:600}
+ol.list{margin:0;padding-left:1.25em;display:flex;flex-direction:column;gap:8px}
+ol.list li{font-size:14.5px;color:var(--ink-2);line-height:1.45}
+ol.list li b{color:var(--ink)}
+.metric{margin-top:22px;background:var(--grey);border-radius:12px;padding:14px 18px;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.metric .lb{font-family:var(--fm);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);flex:none}
+.metric .vl{font-size:15px;font-weight:500}
+
+/* ---------- disclosure ---------- */
+.more{margin-top:20px}
+.more-btn{
+  background:var(--white);border:1px solid var(--line-2);border-radius:999px;padding:8px 16px;
+  font-size:13.5px;font-weight:500;display:inline-flex;align-items:center;gap:8px;transition:.16s;
+}
+.more-btn:hover{border-color:var(--blue);color:var(--blue-ink)}
+.more-btn .ar{flex:none;transition:transform .2s}
+.more-btn[aria-expanded="true"] .ar{transform:rotate(90deg)}
+.more-body{margin-top:16px;border-top:1px solid var(--line);padding-top:18px}
+.more-body[hidden]{display:none}
+
+/* ---------- waves ---------- */
+.wavebar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.wbtn{background:var(--white);border:1px solid var(--line-2);border-radius:999px;padding:7px 16px;font-size:13.5px;transition:.16s}
+.wbtn:hover{border-color:var(--blue)}
+.wbtn[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.wgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:860px){.wgrid{grid-template-columns:1fr}}
+.wcard{background:var(--grey);border-radius:14px;padding:20px;border:1px solid transparent;transition:.2s}
+.wcard.on{background:var(--white);border-color:var(--blue);box-shadow:var(--shadow)}
+.wcard.off{opacity:.42}
+.wcard .tag{font-family:var(--fm);font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:6px}
+.wcard h3{font-size:18px;margin-bottom:8px}
+.wcard p{font-size:13.5px;color:var(--ink-2);margin:0 0 12px}
+.wlist{display:flex;flex-wrap:wrap;gap:6px}
+.wlist span{font-size:12px;background:var(--white);border:1px solid var(--line);border-radius:6px;padding:3px 8px;color:var(--ink-2)}
+.wcard.on .wlist span{background:var(--blue-soft);border-color:transparent;color:var(--blue-ink)}
+
+/* ---------- risk grid ---------- */
+.rgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:8px}
+@media (max-width:820px){.rgrid{grid-template-columns:1fr}}
+.risk{background:var(--grey);border-radius:14px;padding:18px 20px}
+.risk h3{margin-bottom:4px}
+.risk p{font-size:13.5px;color:var(--ink-2);margin:0}
+.qlist{counter-reset:q;list-style:none;margin:22px 0 0;padding:0}
+.qlist li{counter-increment:q;position:relative;padding:12px 0 12px 38px;border-top:1px solid var(--line);font-size:15px}
+.qlist li::before{
+  content:counter(q);position:absolute;left:0;top:13px;width:22px;height:22px;border-radius:50%;
+  background:var(--blue-soft);color:var(--blue-ink);font-family:var(--fm);font-size:11.5px;font-weight:700;
+  display:grid;place-items:center;
+}
+
+/* ---------- steps (final) ---------- */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+@media (max-width:820px){.steps{grid-template-columns:1fr}}
+.step{background:var(--grey);border-radius:14px;padding:20px}
+.step .n{font-family:var(--fm);font-size:11.5px;font-weight:600;color:var(--blue);letter-spacing:.1em;display:block;margin-bottom:8px}
+.step h3{font-size:16px}
+.step p{font-size:13.5px;color:var(--ink-2);margin:0}
+.doclink{
+  display:inline-flex;align-items:center;gap:8px;margin-top:26px;
+  background:var(--blue);color:#fff;text-decoration:none;
+  font-size:14px;font-weight:600;font-family:var(--fm);
+  padding:11px 20px;border-radius:999px;transition:.16s;
+}
+.doclink:hover{background:var(--blue-deep)}
+
+/* ---------- controls ---------- */
+.controls{
+  position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:50;
+  display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.92);
+  backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:999px;
+  padding:6px;box-shadow:var(--shadow);
+}
+.ctl{width:34px;height:34px;border:0;background:transparent;border-radius:999px;display:grid;place-items:center;color:var(--ink-2);transition:.15s}
+.ctl:hover:not(:disabled){background:var(--grey);color:var(--ink)}
+.ctl:disabled{opacity:.3;cursor:default}
+.ctl svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.counter{font-family:var(--fm);font-size:12.5px;font-weight:600;color:var(--ink-2);padding:0 8px;min-width:58px;text-align:center;font-variant-numeric:tabular-nums}
+.sep{width:1px;height:20px;background:var(--line);margin:0 2px}
+.ctl.wide{width:auto;padding:0 14px;font-size:12px;font-family:var(--fm);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.ctl.wide:hover{background:var(--blue-soft);color:var(--blue-ink)}
+
+/* ---------- dots ---------- */
+.dots{position:fixed;left:0;right:0;bottom:0;height:4px;display:flex;gap:2px;padding:0 10px 4px;z-index:40;pointer-events:none}
+
+/* ---------- overview ---------- */
+.overview{position:fixed;inset:0;background:rgba(242,245,250,.97);z-index:70;overflow-y:auto;padding:28px 20px 40px}
+.overview[hidden]{display:none}
+.ov-head{max-width:1180px;margin:0 auto 20px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.ov-head h2{font-size:20px;margin:0}
+.ov-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.ov-card{
+  background:var(--white);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:left;
+  display:flex;flex-direction:column;gap:6px;min-height:106px;transition:.16s;
+}
+.ov-card:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:var(--shadow)}
+.ov-card.current{border-color:var(--blue);background:var(--blue-soft)}
+.ov-card .i{font-family:var(--fm);font-size:11.5px;font-weight:700;color:var(--blue)}
+.ov-card .t{font-weight:600;font-size:14.5px;line-height:1.3;letter-spacing:-.01em}
+.ov-card .k{font-size:12px;color:var(--ink-3);margin-top:auto}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:640px){
+  .deck{padding:34px 12px 78px}
+  .card{border-radius:12px}
+  .block-head{gap:12px}
+}
+
+/* ---------- base: timeline ---------- */
+.axis.six{grid-template-columns:repeat(6,1fr)}
+@media (max-width:980px){.axis.six{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:520px){.axis.six{grid-template-columns:1fr 1fr}}
+.lanes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:640px){.lanes{grid-template-columns:1fr}}
+.lane{background:var(--white);border-radius:10px;padding:12px 14px}
+.lane .who{font-family:var(--fm);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:4px}
+.lane.me .who{color:var(--ok)}
+
+/* ---------- base: routes ---------- */
+.routes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+@media (max-width:860px){.routes{grid-template-columns:1fr}}
+.route{background:var(--grey);border-radius:14px;padding:18px 18px 16px}
+.route .sum{font-family:var(--fm);font-weight:800;font-size:22px;letter-spacing:-.02em;display:block}
+.route .nm{font-size:13px;color:var(--ink-3);display:block;margin-bottom:12px}
+.route .need{font-size:13.5px;color:var(--ink-2);border-top:1px solid var(--line-2);padding-top:10px}
+.route .need b{color:var(--ink);font-weight:600}
+
+/* ---------- base: device mocks ---------- */
+.cols2>*,.block-head>div{min-width:0}
+.row .k{min-width:0}
+.mock{background:var(--grey);border-radius:18px;padding:14px;border:1px solid var(--line)}
+.mock .bar-top{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--ink-3);margin:0 2px 10px;font-family:var(--fm);font-weight:600}
+.mock .scr{background:var(--white);border-radius:12px;padding:14px;border:1px solid var(--line)}
+.mock .ttl{font-family:var(--fm);font-weight:700;font-size:15px;letter-spacing:-.01em;margin-bottom:2px}
+.mock .sub{font-size:12.5px;color:var(--ink-3);margin-bottom:12px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:13.5px}
+.row .k{color:var(--ink-2)}
+.row .v{font-weight:600;text-align:right}
+.ph{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:10px 0}
+.ph span{aspect-ratio:4/3;border-radius:8px;background:repeating-linear-gradient(135deg,var(--grey-2) 0 8px,var(--grey) 8px 16px);position:relative}
+.ph span::after{content:attr(data-t);position:absolute;left:5px;bottom:4px;font-size:10px;font-family:var(--fm);font-weight:600;color:var(--ink-2);background:rgba(255,255,255,.85);border-radius:4px;padding:1px 5px}
+.seg{display:flex;gap:6px;margin:8px 0 2px;flex-wrap:wrap}
+.seg span{font-size:12px;border:1px solid var(--line-2);border-radius:999px;padding:4px 10px;color:var(--ink-2)}
+.seg span.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.btns{display:flex;gap:8px;margin-top:12px}
+.btns span{flex:1;text-align:center;font-family:var(--fm);font-weight:700;font-size:13px;border-radius:10px;padding:10px 8px}
+.btns .pri{background:var(--blue);color:#fff}
+.btns .sec{background:var(--grey);color:var(--ink-2)}
+.badge{font-family:var(--fm);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:3px 9px;white-space:nowrap}
+.badge.ok{background:var(--ok-soft);color:var(--ok)}
+.badge.warn{background:var(--warn-soft);color:var(--warn)}
+.badge.b{background:var(--blue-soft);color:var(--blue-ink)}
+.badge.plain{background:var(--grey);color:var(--ink-2)}
+
+/* ---------- base: dashboard ---------- */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.kpi{background:var(--grey);border-radius:10px;padding:10px 12px}
+.kpi b{display:block;font-family:var(--fm);font-weight:800;font-size:22px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.kpi span{font-size:11.5px;color:var(--ink-3);line-height:1.3;display:block}
+.flow{height:10px;border-radius:999px;background:var(--grey-2);display:flex;overflow:hidden;margin:6px 0 8px}
+.flow i{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11.5px;color:var(--ink-2)}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+
+/* ---------- base: reuse ---------- */
+.reuse{display:grid;grid-template-columns:minmax(150px,.8fr) 2fr;gap:0;margin-top:22px;border-top:1px solid var(--line)}
+.reuse > div{padding:12px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.reuse .who{font-weight:600;padding-right:16px}
+.reuse .what{color:var(--ink-2)}
+.reuse .what b{color:var(--ink);font-weight:600}
+@media (max-width:640px){.reuse{grid-template-columns:1fr}.reuse .who{border-bottom:0;padding-bottom:0}}
+.center-act{display:flex;align-items:center;gap:14px;background:var(--blue-soft);border-radius:14px;padding:14px 18px;margin-top:22px}
+.center-act .ic{flex:none;width:40px;height:40px;border-radius:12px;background:var(--blue);display:grid;place-items:center}
+.center-act .ic svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.center-act p{margin:0;font-size:14.5px;color:var(--ink-2)}
+.center-act p b{color:var(--ink)}
+
+/* ---------- vidkhody: islands ---------- */
+.islands{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:24px}
+@media (max-width:980px){.islands{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.islands{grid-template-columns:1fr}}
+.isl{background:var(--grey);border-radius:14px;padding:16px 16px 14px;display:flex;flex-direction:column;gap:6px}
+.isl .src{font-family:var(--fm);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+.isl h3{font-size:16px;margin:0}
+.isl .kn{font-size:13px;color:var(--ink-2);line-height:1.4;border-top:1px solid var(--line-2);padding-top:8px;margin-top:2px}
+.isl .kn b{color:var(--ink);font-weight:600}
+.isl .no{font-size:13px;color:var(--crit);line-height:1.4}
+
+/* ---------- vidkhody: contours ---------- */
+.axis.three{grid-template-columns:repeat(3,1fr);margin:22px 0 12px}
+@media (max-width:760px){.axis.three{grid-template-columns:1fr}}
+.core{background:var(--blue-soft);border-radius:14px;padding:16px 18px;margin-top:14px}
+.core .lbl{font-family:var(--fm);font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-ink);display:block;margin-bottom:10px}
+.mods{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media (max-width:760px){.mods{grid-template-columns:1fr 1fr}}
+@media (max-width:460px){.mods{grid-template-columns:1fr}}
+.mods span{background:var(--white);border-radius:10px;padding:9px 12px;font-size:13.5px;font-weight:500;display:flex;gap:9px;align-items:baseline}
+.mods span i{font-style:normal;font-family:var(--fm);font-weight:800;font-size:12px;color:var(--blue)}
+.integr{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px}
+.integr .lbl{font-family:var(--fm);font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-right:4px}
+.integr span:not(.lbl){font-size:12.5px;border:1px dashed var(--line-2);border-radius:999px;padding:5px 12px;color:var(--ink-2);background:var(--white)}
+.axis-out ul{margin:0;padding-left:1.1em}
+.axis-out li{margin:2px 0}
+
+/* ---------- vidkhody: misc ---------- */
+.badge.crit{background:var(--crit-soft);color:var(--crit)}
+.field{display:flex;align-items:center;gap:8px;border:1px solid var(--line-2);border-radius:10px;padding:8px 12px;font-size:13.5px;color:var(--ink);margin-bottom:12px}
+.field svg{width:15px;height:15px;stroke:var(--ink-3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.sw{display:inline-block;width:30px;height:18px;border-radius:999px;background:var(--blue);position:relative;vertical-align:middle}
+.sw::after{content:"";position:absolute;right:2px;top:2px;width:14px;height:14px;border-radius:50%;background:#fff}
+.track{display:flex;gap:4px;margin:10px 0 4px}
+.track span{flex:1;font-size:10.5px;font-family:var(--fm);font-weight:600;text-align:center;padding:6px 2px;border-radius:6px;background:var(--grey);color:var(--ink-3)}
+.track span.done{background:var(--ok-soft);color:var(--ok)}
+.track span.now{background:var(--blue);color:#fff}
+.sect{font-family:var(--fm);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin:12px 0 2px}
+.loadbars{display:flex;flex-direction:column;gap:7px;margin:8px 0 4px}
+.lb-row{display:grid;grid-template-columns:96px 1fr 42px;gap:8px;align-items:center;font-size:12.5px}
+.lb-row .t{color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lb-row .tr{height:8px;background:var(--grey);border-radius:0 4px 4px 0;position:relative}
+.lb-row .tr i{position:absolute;left:0;top:0;bottom:0;border-radius:0 4px 4px 0;background:var(--blue)}
+.lb-row .tr .cap{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink-3);left:71.4%}
+.lb-row .v{font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+
+/* ---------- vidkhody: simulator ---------- */
+.sim{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(16px,2.6vw,30px);margin-top:24px;align-items:start}
+@media (max-width:820px){.sim{grid-template-columns:1fr}}
+.togs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:460px){.togs{grid-template-columns:1fr}}
+.tog{text-align:left;background:var(--grey);border:1px solid transparent;border-radius:12px;padding:14px 14px 14px 48px;position:relative;transition:.16s;display:flex;flex-direction:column;gap:3px}
+.tog:hover{border-color:var(--line-2);background:var(--white)}
+.tog::before{content:"";position:absolute;left:14px;top:15px;width:22px;height:22px;border-radius:7px;border:2px solid var(--line-2);background:var(--white);transition:.16s}
+.tog[aria-pressed="true"]{background:var(--blue-soft);border-color:var(--blue)}
+.tog[aria-pressed="true"]::before{background:var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/14px no-repeat;border-color:var(--blue)}
+.tog.neg[aria-pressed="true"]{background:var(--warn-soft);border-color:var(--warn)}
+.tog.neg[aria-pressed="true"]::before{background-color:var(--warn);border-color:var(--warn)}
+.tog .nm{font-weight:600;font-size:14.5px;letter-spacing:-.01em}
+.tog .dt{font-size:12.5px;color:var(--ink-3);line-height:1.35}
+.sim-out{border-radius:14px;padding:20px 22px;background:var(--grey);border:1px solid var(--line);min-height:100%}
+.sim-out .st{display:inline-flex;align-items:center;gap:8px;font-family:var(--fm);font-weight:800;font-size:22px;letter-spacing:-.02em;margin:6px 0 8px}
+.sim-out .st::before{content:"";width:12px;height:12px;border-radius:50%;background:currentColor;flex:none}
+.sim-out .lbl{display:block;font-family:var(--fm);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.sim-out p{font-size:14.5px;color:var(--ink-2);margin:0 0 10px}
+.sim-out .nx{font-size:13.5px;border-top:1px solid var(--line-2);padding-top:10px;color:var(--ink-2)}
+.sim-out .nx b{color:var(--ink)}
+.sim-out.ok{background:var(--ok-soft);border-color:transparent}.sim-out.ok .st{color:var(--ok)}
+.sim-out.warn{background:var(--warn-soft);border-color:transparent}.sim-out.warn .st{color:var(--warn)}
+.sim-out.crit{background:var(--crit-soft);border-color:transparent}.sim-out.crit .st{color:var(--crit)}
+.sim-out.b{background:var(--blue-soft);border-color:transparent}.sim-out.b .st{color:var(--blue-ink)}
+
+/* ---------- vidkhody: services ---------- */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 18px}
+.tpanel[hidden]{display:none}
+.tpanel .cols2{margin-top:0;align-items:start}
+.tpanel h3{font-size:19px;margin-bottom:8px}
+.tpanel p{font-size:15px;color:var(--ink-2)}
+.tpanel .chips{margin-top:14px}
+
+/* ---------- vidkhody: data table ---------- */
+.dtab{display:grid;grid-template-columns:1fr 1fr;margin-top:22px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.dtab > div{padding:11px 16px;font-size:14.5px;border-top:1px solid var(--line)}
+.dtab > div:nth-child(odd){background:var(--white);font-weight:500}
+.dtab > div:nth-child(even){background:var(--grey);color:var(--ink-2)}
+.dtab > .h{border-top:0;font-family:var(--fm);font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.dtab > .h:nth-child(1){background:var(--blue);color:#fff}
+.dtab > .h:nth-child(2){background:var(--grey-2);color:var(--ink-2)}
+@media (max-width:520px){.dtab > div{padding:10px 12px;font-size:13.5px}}
+
+/* ---------- vidkhody: dashboard ---------- */
+.dash-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:14px 0 10px}
+.dash-head .wavebar{margin:0}
+.dash-head .ttl{font-family:var(--fm);font-weight:700;font-size:15px}
+.kgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media (max-width:820px){.kgrid{grid-template-columns:1fr 1fr}}
+@media (max-width:460px){.kgrid{grid-template-columns:1fr}}
+.ktile{background:var(--grey);border-radius:14px;padding:11px 14px;display:flex;flex-direction:column;gap:3px}
+.ktile .lb{font-family:var(--fm);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+.ktile b{font-family:var(--fm);font-weight:800;font-size:25px;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.15}
+.ktile b small{font-size:15px;font-weight:700;letter-spacing:-.01em;color:var(--ink-2);margin-left:3px}
+.ktile .df{font-size:12.5px;color:var(--ink-3);line-height:1.35}
+.ktile .tg{font-size:12px;color:var(--ink-2);margin-top:4px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.dbars{margin-top:8px;background:var(--grey);border-radius:14px;padding:11px 14px 9px;position:relative}
+.dbars .ttl{font-family:var(--fm);font-weight:700;font-size:14px;margin-bottom:8px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.dbars .ttl span{font-family:var(--f);font-weight:400;font-size:12.5px;color:var(--ink-3)}
+.drow{display:grid;grid-template-columns:120px 1fr 74px;gap:10px;align-items:center;font-size:12.5px;padding:1px 4px;border-radius:6px;cursor:default}
+.drow:hover,.drow:focus-visible{background:var(--white)}
+.drow .t{color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.drow .tr{height:9px;position:relative}
+.drow .tr i{position:absolute;left:0;top:0;bottom:0;background:var(--blue);border-radius:0 4px 4px 0;transition:width .35s cubic-bezier(.4,0,.2,1)}
+.drow .v{text-align:right;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink)}
+@media (max-width:520px){.drow{grid-template-columns:92px 1fr 60px;gap:6px}}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;font-size:12px;line-height:1.4;padding:7px 10px;border-radius:8px;white-space:nowrap;transform:translate(-50%,-100%);z-index:5;box-shadow:var(--shadow)}
+.tip[hidden]{display:none}
+.tip b{font-weight:600}
+</style>
+</head>
+<body>
+
+<div class="progress"><div class="bar" id="bar"></div></div>
+
+<main class="deck" id="deck">
+
+<!-- 0 -->
+<section class="slide" data-nav="Титул" data-kicker="Концепт">
+  <div class="card hero">
+    <p class="eyebrow">Портал послуг «Київ Цифровий» <span class="dim">концепт міської системи</span></p>
+    <div class="title-grid">
+      <div>
+        <h1>Відходи Києва</h1>
+        <p class="lead">Єдина міська база операційних даних та аналітики. Кожен рейс сміттєвоза підтверджують кілька джерел. Мешканець за адресою бачить свій майданчик, графік вивезення і того, хто відповідає.</p>
+        <div class="hint">
+          <span>Гортати:</span><kbd>→</kbd><kbd>←</kbd><span>· усі сторінки</span><kbd>O</kbd><span>· на весь екран</span><kbd>F</kbd>
+        </div>
+      </div>
+      <div>
+        <div class="stat"><b>6</b><span>модулів: від договору до аналітики</span></div>
+        <div class="stat"><b>3</b><span>контури: адміністративний, кабінети учасників, сервіси для мешканців</span></div>
+        <div class="stat"><b>5</b><span>джерел, що підтверджують рейс, замість одного GPS</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 1 -->
+<section class="slide" data-nav="Як зараз" data-kicker="Контекст">
+  <div class="card">
+    <p class="eyebrow">Контекст</p>
+    <h2>Послуга є, а картини немає</h2>
+    <p class="lead">Щодня Київ вивозить близько 2 300 тонн побутових відходів. Дані про це існують, але лежать у п'яти місцях і ніде не сходяться в один рейс.</p>
+    <div class="islands">
+      <div class="isl">
+        <span class="src">Департамент</span><h3>Договори</h3>
+        <div class="kn"><b>Знає:</b> зону, строк, види відходів</div>
+        <div class="no">Не знає, чи вивезли сьогодні</div>
+      </div>
+      <div class="isl">
+        <span class="src">Карти КП і «Київ Цифрового»</span><h3>Майданчики</h3>
+        <div class="kn"><b>Знає:</b> де стоять контейнери</div>
+        <div class="no">Не знає стану й навантаження</div>
+      </div>
+      <div class="isl">
+        <span class="src">Платформи перевізників</span><h3>GPS</h3>
+        <div class="kn"><b>Знає:</b> де їхала машина</div>
+        <div class="no">Не знає, чи спорожнили контейнер</div>
+      </div>
+      <div class="isl">
+        <span class="src">Об'єкти приймання</span><h3>Вага</h3>
+        <div class="kn"><b>Знає:</b> скільки тонн привезли</div>
+        <div class="no">Не знає, з якого маршруту</div>
+      </div>
+      <div class="isl">
+        <span class="src">1551</span><h3>Скарги</h3>
+        <div class="kn"><b>Знає:</b> адресу і проблему</div>
+        <div class="no">Не знає, хто відповідає за договором</div>
+      </div>
+    </div>
+    <div class="metric">
+      <span class="lb">Наслідок</span>
+      <span class="vl">Про невивезений контейнер місто дізнається зі скарги, а не з даних. Договірні показники якості не рахуються з фактів</span>
+    </div>
+    <p class="small muted" style="margin-top:14px">Масштаб: понад 11 тис. м³, або близько 2 300 т на день (КМДА, 2023). У серпні 2025 року в місті було 3 900 контейнерів для роздільного збирання. Регіональний план до 2035 року ставить за мету менше захоронювати на полігонах.</p>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-nav="Ідея: одна база, три контури" data-kicker="Ідея">
+  <div class="card">
+    <p class="eyebrow">Ідея</p>
+    <h2>Одна міська база і три контури навколо неї</h2>
+    <p class="lead">Натисніть контур, щоб побачити, хто в ньому працює і що робить.</p>
+    <div class="axis three" data-axis="ctr">
+      <button class="stage" type="button" aria-pressed="false" data-out="<b>Департамент, РДА, служби контролю.</b><ul><li>Договори і зони обслуговування</li><li>Контроль рейсів і розбіжностей</li><li>Звернення зі строками за договором</li><li>Дашборд для керівництва КМДА, аналітика і прогноз</li></ul>">
+        <span class="age">Контур 1</span><span class="nm">Внутрішній адміністративний</span><span class="dt">Місто керує і контролює</span>
+      </button>
+      <button class="stage" type="button" aria-pressed="false" data-out="<b>Перевізник, диспетчер, водій, об'єкт приймання, ОСББ або управитель.</b><ul><li>Перевізник бачить свої договори і показники, за якими його оцінюють</li><li>Диспетчер і водій ведуть маршрути, відмітки й причини відхилень</li><li>Об'єкт приймання підтверджує рейс і масу</li><li>ОСББ бачить свій майданчик і подає заявки від будинку</li></ul>">
+        <span class="age">Контур 2</span><span class="nm">Кабінети учасників</span><span class="dt">Кожен вносить своє</span>
+      </button>
+      <button class="stage" type="button" aria-pressed="false" data-out="<b>Мешканці, ОСББ, бізнес на Порталі послуг Києва.</b><ul><li>Майданчик, графік і відповідальний за адресою</li><li>Факт вивезення сьогодні</li><li>Звернення з фото, яке потрапляє до відповідального перевізника</li><li>Заявки на контейнери і вивезення великогабаритних відходів</li></ul>">
+        <span class="age">Контур 3</span><span class="nm">Публічні сервіси</span><span class="dt">Розділ на Порталі</span>
+      </button>
+    </div>
+    <div class="axis-out">Усі три контури працюють з <b>одними даними</b>. Карта на Порталі, звіт перевізника і дашборд КМДА показують той самий рейс.</div>
+    <div class="core">
+      <span class="lbl">Єдина міська база операційних даних</span>
+      <div class="mods">
+        <span><i>01</i>Перевізники та договори</span>
+        <span><i>02</i>Контейнери та майданчики</span>
+        <span><i>03</i>Маршрути та GPS</span>
+        <span><i>04</i>Обсяги та приймання відходів</span>
+        <span><i>05</i>Звернення та контроль</span>
+        <span><i>06</i>Аналітика та планування</span>
+      </div>
+    </div>
+    <div class="integr">
+      <span class="lbl">Інтеграції</span>
+      <span>Державна ІС відходів</span><span>Портал послуг Києва</span><span>1551</span><span>Геопортал</span><span>GPS-платформи перевізників</span><span>Вагові комплекси</span>
+    </div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-nav="Принципи" data-kicker="Рамка">
+  <div class="card">
+    <p class="eyebrow">Рамка</p>
+    <h2>Вісім принципів</h2>
+    <div class="rgrid">
+      <div class="risk"><h3>Рейс, а не машина</h3><p>Обліковуємо запланований рейс і кожне відвідування майданчика. Позиція машини — лише одне з джерел.</p></div>
+      <div class="risk"><h3>Кілька джерел підтвердження</h3><p>Графік, GPS, відмітка водія, зважування і звернення. Жодне з них окремо не вирішує, чи виконано послугу.</p></div>
+      <div class="risk"><h3>Правила в договорі, а не в коді</h3><p>Допуски, поважні причини і показники якості записано в договорі. Система лише застосовує їх.</p></div>
+      <div class="risk"><h3>Своє зберігаємо, державне за посиланням</h3><p>Місто веде свої договори, майданчики й рейси. Реєстрові відомості читає з першоджерела.</p></div>
+      <div class="risk"><h3>Адреса як вхід</h3><p>Мешканцю не треба знати перевізника чи балансоутримувача. Він вводить адресу, решту система знає сама.</p></div>
+      <div class="risk"><h3>Звернення знаходить відповідального</h3><p>Ланцюг «адреса → майданчик → зона → договір → перевізник» працює без ручного пошуку.</p></div>
+      <div class="risk"><h3>Дані — обов'язок за договором</h3><p>Формат, частота і повнота даних від перевізника є умовою договору з наслідками, а не доброю волею.</p></div>
+      <div class="risk"><h3>Відкриті дані за замовчуванням</h3><p>Майданчики, графіки й показники виконання договорів публікуються. Дані водіїв і заявників не публікуються.</p></div>
+    </div>
+    <div class="metric"><span class="lb">Межа</span><span class="vl">Система не замінює державну звітність, не створює повторних державних реєстрів і не визначає якість послуги лише за GPS</span></div>
+  </div>
+</section>
+
+<!-- 4 · Модуль 1 -->
+<section class="slide" data-nav="Модуль 1 · Перевізники та договори" data-kicker="Хвиля 1">
+  <div class="card">
+    <p class="eyebrow">Модуль 1 <span class="dim">· Хвиля 1</span></p>
+    <div class="block-head">
+      <span class="bignum">01</span>
+      <div>
+        <h2>Перевізники та договори</h2>
+        <p class="lead">Сьогодні щоб дізнатися, хто відповідає за двір, треба поєднати договір, додаток з адресами і карту. Тепер відповідь займає секунди.</p>
+      </div>
+    </div>
+    <div class="cols2">
+      <div>
+        <h3>Що робимо</h3>
+        <ul class="list">
+          <li><b>Перевізники</b>, визначені за результатами конкурсів, з посиланням на рішення</li>
+          <li><b>Чинні договори</b>: строки, види побутових відходів, території обслуговування</li>
+          <li><b>Зони на карті</b> з перевіркою перетинів і адрес без відповідального</li>
+          <li><b>Договірні показники якості</b> як параметри, а не текст: виконання рейсів, строк реакції, повнота даних</li>
+          <li><b>Історія</b>: хто відповідав за адресу в будь-яку дату</li>
+          <li><b>Дані державних реєстрів</b> через інтеграцію, за посиланням</li>
+        </ul>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="bar-top"><span>Департамент · Договори</span><span>Дарницький</span></div>
+        <div class="scr">
+          <div class="ttl">Зона Д-2</div>
+          <div class="sub">Перевізник А · за конкурсом · договір до 31.12.2028</div>
+          <div class="row"><span class="k">Види відходів</span><span class="v">змішані · скло · пластик</span></div>
+          <div class="row"><span class="k">Адрес / майданчиків</span><span class="v">1 214 / 386</span></div>
+          <div class="row"><span class="k">Виконання рейсів</span><span class="v">не менше 98%</span></div>
+          <div class="row"><span class="k">Реакція на звернення</span><span class="v">до 24 год</span></div>
+          <div class="row"><span class="k">Передача GPS</span><span class="badge ok">Щодня, API</span></div>
+          <div class="row"><span class="k">Адреси без відповідального</span><span class="badge warn">3 адреси</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip ok">Складність низька</span>
+      <span class="chip plain">Оцифрувати чинні договори і зони</span>
+    </div>
+    <div class="metric"><span class="lb">Метрика</span><span class="vl">Частка адрес міста з визначеним відповідальним за кожним видом відходів — ціль 100%</span></div>
+  </div>
+</section>
+
+<!-- 5 · Модуль 2 -->
+<section class="slide" data-nav="Модуль 2 · Контейнерні майданчики" data-kicker="Хвиля 1">
+  <div class="card">
+    <p class="eyebrow">Модуль 2 <span class="dim">· Хвиля 1</span></p>
+    <div class="block-head">
+      <span class="bignum">02</span>
+      <div>
+        <h2>Контейнерні майданчики та інфраструктура</h2>
+        <p class="lead">Наявні карти відповідають на питання «де». Тепер кожен майданчик має ще й стан, навантаження і чергу ремонту.</p>
+      </div>
+    </div>
+    <div class="cols2">
+      <div>
+        <h3>Що робимо</h3>
+        <ul class="list">
+          <li><b>Геолокація</b>, кількість і тип контейнерів, місткість, види відходів</li>
+          <li><b>Балансоутримувач</b> і будинки, прив'язані до майданчика</li>
+          <li><b>Доступність для спецтранспорту</b>: під'їзд, розворот, типові перешкоди</li>
+          <li><b>Фотофіксація</b> під час інвентаризації, після вивезення і за зверненням</li>
+          <li><b>Стан обладнання</b> і потреба в ремонті чи заміні з відповідальним</li>
+          <li><b>Одне джерело для всіх карт</b>: карта КП і «Сортування сміття» в «Київ Цифровому» беруть дані звідси</li>
+        </ul>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="bar-top"><span>Майданчик Д-2-117</span><span>Інвентаризація 12.10</span></div>
+        <div class="scr">
+          <div class="ttl">вул. Прикладна, 12–14</div>
+          <div class="sub">6 будинків · близько 1 450 мешканців</div>
+          <div class="ph"><span data-t="Загальний"></span><span data-t="Під'їзд"></span><span data-t="Контейнер 3"></span></div>
+          <div class="row"><span class="k">Контейнери</span><span class="v">3 × 1,1 м³ змішані · скло · пластик</span></div>
+          <div class="row"><span class="k">Балансоутримувач</span><span class="v">ОСББ «Прикладне»</span></div>
+          <div class="row"><span class="k">Під'їзд спецтранспорту</span><span class="badge warn">Часто заблоковано</span></div>
+          <div class="row"><span class="k">Навантаження</span><span class="v">112% місткості</span></div>
+          <div class="row"><span class="k">Контейнер 3</span><span class="badge crit">Потрібна заміна</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip warn">Складність середня — перша інвентаризація</span>
+      <span class="chip plain">Стартовий імпорт з карти КП «Київкомунсервіс»</span>
+    </div>
+    <div class="metric"><span class="lb">Метрика</span><span class="vl">Частка майданчиків з актуальною інвентаризацією за останні 6 місяців</span></div>
+  </div>
+</section>
+
+<!-- 6 · Модуль 3 -->
+<section class="slide" data-nav="Модуль 3 · Диспетчеризація та GPS" data-kicker="Хвиля 2">
+  <div class="card">
+    <p class="eyebrow">Модуль 3 <span class="dim">· Хвиля 2</span></p>
+    <div class="block-head">
+      <span class="bignum">03</span>
+      <div>
+        <h2>Диспетчеризація та GPS-моніторинг</h2>
+        <p class="lead">Сьогодні треки лежать на платформі перевізника, і місто бачить їх лише на запит. Тепер пропущену точку видно, поки рейс ще можна завершити.</p>
+      </div>
+    </div>
+    <div class="cols2">
+      <div>
+        <h3>Що робимо</h3>
+        <ul class="list">
+          <li><b>Маршрути і графіки</b> вивезення, погоджені в межах договору</li>
+          <li><b>GPS-позиції</b> з платформ перевізників через API в одному форматі</li>
+          <li><b>Підтвердження відвідування</b>: зупинка в геозоні майданчика</li>
+          <li><b>Відхилення</b>: пропущені точки, вихід за зону, простій</li>
+          <li><b>Причини невиконання</b> з довідника: заблоковано під'їзд, несправність, тривога, відмова об'єкта</li>
+          <li><b>Оперативні повідомлення</b> диспетчерам перевізника і міста</li>
+        </ul>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="bar-top"><span>Диспетчерська · Перевізник А</span><span>06:52</span></div>
+        <div class="scr">
+          <div class="ttl">Маршрут Д-2-04 · змішані</div>
+          <div class="sub">Машина 0417 · 38 з 42 точок</div>
+          <div class="flow"><i style="width:86%;background:var(--ok)"></i><i style="width:5%;background:var(--warn)"></i></div>
+          <div class="legend"><span><i style="background:var(--ok)"></i>Відвідано</span><span><i style="background:var(--warn)"></i>Пропущено</span><span><i style="background:var(--grey-2)"></i>Попереду</span></div>
+          <div class="row" style="margin-top:10px"><span class="k">вул. Прикладна, 12</span><span class="badge ok">06:31</span></div>
+          <div class="row"><span class="k">вул. Зразкова, 5</span><span class="badge warn">Пропущено</span></div>
+          <div class="sect">Причина</div>
+          <div class="seg"><span class="on">Заблоковано авто</span><span>Несправність</span><span>Тривога</span><span>Інше</span></div>
+          <div class="btns"><span class="sec">Повернути машину</span><span class="pri">Зафіксувати з фото</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip warn">Складність середня–висока — дані перевізників</span>
+      <span class="chip plain">Передача GPS як умова договору</span>
+    </div>
+    <div class="metric"><span class="lb">Метрика</span><span class="vl">Частка пропущених точок, закритих того самого дня</span></div>
+  </div>
+</section>
+
+<!-- 7 · Модуль 4 -->
+<section class="slide" data-nav="Модуль 4 · Облік передавання відходів" data-kicker="Хвиля 2">
+  <div class="card">
+    <p class="eyebrow">Модуль 4 <span class="dim">· Хвиля 2</span></p>
+    <div class="block-head">
+      <span class="bignum">04</span>
+      <div>
+        <h2>Облік фактичного передавання відходів</h2>
+        <p class="lead">Вагова знає машину і тонни, але не маршрут. Тепер кожне зважування знаходить свій рейс, а розбіжності видно наступного ранку.</p>
+      </div>
+    </div>
+    <div class="cols2">
+      <div>
+        <h3>Що робимо</h3>
+        <ul class="list">
+          <li><b>Рейси</b>, що завершуються на об'єкті приймання</li>
+          <li><b>Маса за результатами зважування</b> на ваговому комплексі</li>
+          <li><b>Підтвердження прийняття</b> об'єктом: машина, час, маса, вид відходів</li>
+          <li><b>Розбіжності</b>: рейс без зважування, зважування без рейсу, маса поза очікуваним діапазоном</li>
+          <li><b>Кабінет об'єкта приймання</b> для підтвердження і виправлень</li>
+        </ul>
+        <p class="small muted" style="margin-top:16px">Модуль не замінює державну звітність. Це операційний облік міста для контролю договорів і планування.</p>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="bar-top"><span>Об'єкт приймання · вагова</span><span>08:14</span></div>
+        <div class="scr">
+          <div class="ttl">Рейс Д-2-04 · машина 0417</div>
+          <div class="sub">Знайдено за номером машини і часом</div>
+          <div class="row"><span class="k">Брутто / тара</span><span class="v">21,4 / 11,6 т</span></div>
+          <div class="row"><span class="k">Нетто</span><span class="v">9,8 т</span></div>
+          <div class="row"><span class="k">Очікувано для маршруту</span><span class="v">8,5–11 т</span></div>
+          <div class="row"><span class="k">Статус</span><span class="badge ok">Приймання підтверджено</span></div>
+          <div class="sect">Розбіжності за добу</div>
+          <div class="row"><span class="k">Рейс без зважування</span><span class="badge warn">3</span></div>
+          <div class="row"><span class="k">Зважування без рейсу</span><span class="badge warn">1</span></div>
+          <div class="row"><span class="k">Маса поза діапазоном</span><span class="badge plain">2</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip crit">Складність висока — об'єкти приймання</span>
+      <span class="chip plain">Не всі об'єкти належать місту</span>
+    </div>
+    <div class="metric"><span class="lb">Метрика</span><span class="vl">Частка рейсів із підтвердженим зважуванням</span></div>
+  </div>
+</section>
+
+<!-- 8 · Модуль 5 -->
+<section class="slide" data-nav="Модуль 5 · Звернення та контроль" data-kicker="Хвиля 1–2">
+  <div class="card">
+    <p class="eyebrow">Модуль 5 <span class="dim">· Хвиля 1–2</span></p>
+    <div class="block-head">
+      <span class="bignum">05</span>
+      <div>
+        <h2>Звернення та контроль якості</h2>
+        <p class="lead">Звернення в 1551 сьогодні вручну передають відповідальним. Тепер воно саме знаходить перевізника і зіставляється з рейсом.</p>
+      </div>
+    </div>
+    <div class="cols2">
+      <div>
+        <h3>Що робимо</h3>
+        <ul class="list">
+          <li><b>Інтеграція з 1551</b> в обидва боки: звернення і статус</li>
+          <li><b>Автоматична прив'язка</b>: адреса → майданчик → договір → перевізник</li>
+          <li><b>Переповнені контейнери</b>, несвоєчасне вивезення, стихійні сміттєзвалища</li>
+          <li><b>Скарга після «виконано»</b> робить рейс спірним</li>
+          <li><b>Контроль строків</b> реагування за договором</li>
+          <li><b>Підтвердження усунення</b> фото з геоміткою і оцінка заявника</li>
+        </ul>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="bar-top"><span>1551 → Відходи Києва</span><span>Звернення</span></div>
+        <div class="scr">
+          <div class="ttl">Переповнений контейнер</div>
+          <div class="sub">вул. Прикладна, 12 · від заявника о 21:05</div>
+          <div class="ph"><span data-t="Заявник 21:05"></span><span data-t="Рейс 06:31"></span><span data-t="Усунено 07:12"></span></div>
+          <div class="row"><span class="k">Майданчик</span><span class="v">Д-2-117</span></div>
+          <div class="row"><span class="k">Відповідальний</span><span class="v">Перевізник А · зона Д-2</span></div>
+          <div class="row"><span class="k">Рейс напередодні</span><span class="badge warn">Спірний</span></div>
+          <div class="row"><span class="k">Строк за договором</span><span class="v">до 21:05 завтра</span></div>
+          <div class="row"><span class="k">Статус</span><span class="badge ok">Усунено, чекає оцінки</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip warn">Складність середня — API 1551</span>
+      <span class="chip plain">Прив'язка адреси до майданчика</span>
+    </div>
+    <div class="metric"><span class="lb">Метрика</span><span class="vl">Медіанний час від реєстрації звернення до усунення</span></div>
+  </div>
+</section>
+
+<!-- 9 · Модуль 6 -->
+<section class="slide" data-nav="Модуль 6 · Аналітика та прогнозування" data-kicker="Хвиля 3">
+  <div class="card">
+    <p class="eyebrow">Модуль 6 <span class="dim">· Хвиля 3</span></p>
+    <div class="block-head">
+      <span class="bignum">06</span>
+      <div>
+        <h2>Аналітика та прогнозування</h2>
+        <p class="lead">Рішення про нові контейнери і маршрути сьогодні ухвалюють на основі оцінок і скарг. Тепер на основі даних, які щодня накопичують модулі 1–5.</p>
+      </div>
+    </div>
+    <div class="cols2">
+      <div>
+        <h3>Що робимо</h3>
+        <ul class="list">
+          <li><b>Обсяги відходів</b> за районами та потоками</li>
+          <li><b>Якість виконання графіків</b> за перевізниками і зонами</li>
+          <li><b>Ефективність маршрутів</b>: кілометри на тонну, порожні пробіги</li>
+          <li><b>Потреба в контейнерах</b> і навантаження на інфраструктуру</li>
+          <li><b>Прогноз витрат</b> і сценарії розвитку для регіонального плану до 2035 року</li>
+          <li><b>Звіт про виконання договорів</b> для претензій і наступних конкурсів</li>
+        </ul>
+      </div>
+      <div class="mock">
+        <div class="bar-top"><span>Аналітика · Дарницький</span><span>Жовтень</span></div>
+        <div class="scr">
+          <div class="ttl">Найбільш перевантажені майданчики</div>
+          <div class="sub">Заповнення до вивезення, % місткості · риска — 100%</div>
+          <div class="loadbars" role="list">
+            <div class="lb-row" role="listitem" title="Д-2-117: 112% місткості"><span class="t">Д-2-117</span><span class="tr"><i style="width:80%"></i><span class="cap"></span></span><span class="v">112%</span></div>
+            <div class="lb-row" role="listitem" title="Д-2-031: 106% місткості"><span class="t">Д-2-031</span><span class="tr"><i style="width:75.7%"></i><span class="cap"></span></span><span class="v">106%</span></div>
+            <div class="lb-row" role="listitem" title="Д-1-208: 103% місткості"><span class="t">Д-1-208</span><span class="tr"><i style="width:73.6%"></i><span class="cap"></span></span><span class="v">103%</span></div>
+            <div class="lb-row" role="listitem" title="Д-1-044: 97% місткості"><span class="t">Д-1-044</span><span class="tr"><i style="width:69.3%"></i><span class="cap"></span></span><span class="v">97%</span></div>
+            <div class="lb-row" role="listitem" title="Д-2-090: 94% місткості"><span class="t">Д-2-090</span><span class="tr"><i style="width:67.1%"></i><span class="cap"></span></span><span class="v">94%</span></div>
+          </div>
+          <div class="row" style="margin-top:10px"><span class="k">Потрібно контейнерів</span><span class="v">+14 на район</span></div>
+          <div class="row"><span class="k">Або частіше вивезення</span><span class="v">5 майданчиків</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="chips">
+      <span class="chip warn">Складність середня — якість даних</span>
+      <span class="chip plain">Прогноз після року накопичених даних</span>
+    </div>
+    <p class="small muted" style="margin-top:14px">Числа на макеті умовні.</p>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-nav="Наскрізний процес" data-kicker="Процес">
+  <div class="card">
+    <p class="eyebrow">Процес</p>
+    <h2>День одного рейсу</h2>
+    <p class="lead">Щоденне вивезення змішаних відходів. Натисніть крок, щоб побачити, що відбувається і що записує система.</p>
+    <div class="axis six" data-axis="proc">
+      <button class="stage" type="button" aria-pressed="false" data-out="<div class='lanes'><div class='lane me'><span class='who'>Що відбувається</span>Департамент і перевізник погоджують передбачені договором зони, маршрути та графіки.</div><div class='lane'><span class='who'>Що записує система</span>План рейсу: послідовність майданчиків, вікна часу, машина, вид відходів. Мешканці бачать графік за адресою.</div></div>">
+        <span class="age">Крок 1</span><span class="nm">Планування</span><span class="dt">Зони, маршрути, графіки</span>
+      </button>
+      <button class="stage" type="button" aria-pressed="false" data-out="<div class='lanes'><div class='lane me'><span class='who'>Що відбувається</span>Сміттєвоз виходить на маршрут і об'їжджає майданчики.</div><div class='lane'><span class='who'>Що записує система</span>GPS-трек з платформи перевізника, зупинки в геозонах майданчиків, пропущені точки в реальному часі.</div></div>">
+        <span class="age">Крок 2</span><span class="nm">Виконання</span><span class="dt">GPS і контрольні точки</span>
+      </button>
+      <button class="stage" type="button" aria-pressed="false" data-out="<div class='lanes'><div class='lane me'><span class='who'>Що відбувається</span>Водій або диспетчер відмічає виконання. Якщо точку пропущено, обирає причину і додає фото.</div><div class='lane'><span class='who'>Що записує система</span>Відмітки по кожному майданчику, винятки і причини відхилень з довідника.</div></div>">
+        <span class="age">Крок 3</span><span class="nm">Підтвердження</span><span class="dt">Відмітки і винятки</span>
+      </button>
+      <button class="stage" type="button" aria-pressed="false" data-out="<div class='lanes'><div class='lane me'><span class='who'>Що відбувається</span>Машина заїжджає на вагу об'єкта приймання.</div><div class='lane'><span class='who'>Що записує система</span>Підтвердження прийняття і фактичну масу, прив'язані до рейсу за номером машини і часом.</div></div>">
+        <span class="age">Крок 4</span><span class="nm">Приймання</span><span class="dt">Зважування на об'єкті</span>
+      </button>
+      <button class="stage" type="button" aria-pressed="false" data-out="<div class='lanes'><div class='lane me'><span class='who'>Що відбувається</span>Наступного ранку система зводить усі джерела за рейсом.</div><div class='lane'><span class='who'>Що записує система</span>Статус рейсу: виконано, з винятком, спірне, не виконано. Скарги мешканців після рейсу враховуються.</div></div>">
+        <span class="age">Крок 5</span><span class="nm">Зіставлення</span><span class="dt">П'ять джерел — один статус</span>
+      </button>
+      <button class="stage" type="button" aria-pressed="false" data-out="<div class='lanes'><div class='lane me'><span class='who'>Що відбувається</span>Департамент бачить відхилення, контролює їх усунення і формує звіт про виконання договорів.</div><div class='lane'><span class='who'>Що записує система</span>Показники якості за договором, дашборд для керівництва КМДА, підстави для претензій.</div></div>">
+        <span class="age">Крок 6</span><span class="nm">Рішення</span><span class="dt">Звіт і контроль</span>
+      </button>
+    </div>
+    <div class="axis-out">Факт належного виконання послуги встановлюється <b>зіставленням кількох джерел</b>, а не одним GPS. Правила оцінки записано в договорах із перевізниками.</div>
+  </div>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-nav="Чому не лише GPS" data-kicker="Зіставлення">
+  <div class="card">
+    <p class="eyebrow">Зіставлення</p>
+    <h2>Чому не лише GPS</h2>
+    <p class="lead">Трекер може стояти не на тій машині, машина може зупинитись поруч і не завантажити контейнер, сигнал може зникнути у дворі. Увімкніть і вимкніть джерела, щоб побачити статус рейсу.</p>
+    <div class="sim">
+      <div class="togs" id="togs">
+        <button class="tog" type="button" data-k="gps" aria-pressed="true"><span class="nm">GPS у точці</span><span class="dt">Машина зупинилась у геозоні майданчика</span></button>
+        <button class="tog" type="button" data-k="mark" aria-pressed="true"><span class="nm">Відмітка водія</span><span class="dt">Водій або диспетчер підтвердив виконання</span></button>
+        <button class="tog" type="button" data-k="weigh" aria-pressed="true"><span class="nm">Зважування</span><span class="dt">Об'єкт приймання підтвердив рейс і масу</span></button>
+        <button class="tog neg" type="button" data-k="cmp" aria-pressed="false"><span class="nm">Скарга після рейсу</span><span class="dt">Мешканець повідомив, що не вивезли</span></button>
+      </div>
+      <div class="sim-out ok" id="simOut" aria-live="polite">
+        <span class="lbl">Статус рейсу</span>
+        <div class="st" id="simSt">Виконано</div>
+        <p id="simTx">Усі три джерела збігаються, скарг немає.</p>
+        <div class="nx" id="simNx"><b>Далі:</b> рейс зараховано у виконання договору.</div>
+      </div>
+    </div>
+    <p class="small muted" style="margin-top:16px">Приклад правил. Остаточні визначає договір із перевізником: допуски по часу, поважні причини, що робити зі спірними рейсами.</p>
+  </div>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-nav="Сервіси для мешканців" data-kicker="Портал">
+  <div class="card">
+    <p class="eyebrow">Портал послуг Києва <span class="dim">· сервіси</span></p>
+    <h2>П'ять сервісів для мешканців, ОСББ і бізнесу</h2>
+    <p class="lead">На Порталі з'являється розділ «Управління побутовими відходами» з даними модулів 1–5. Карта «Сортування сміття» і заявка на контейнер, які вже є в «Київ Цифровому», стають його частиною.</p>
+    <div class="tabs wavebar" id="svcTabs" role="tablist">
+      <button class="wbtn" type="button" role="tab" data-t="s1" aria-pressed="true">1 · Мій майданчик</button>
+      <button class="wbtn" type="button" role="tab" data-t="s2" aria-pressed="false">2 · Графік</button>
+      <button class="wbtn" type="button" role="tab" data-t="s3" aria-pressed="false">3 · Контейнери для сортування</button>
+      <button class="wbtn" type="button" role="tab" data-t="s4" aria-pressed="false">4 · Порушення графіка</button>
+      <button class="wbtn" type="button" role="tab" data-t="s5" aria-pressed="false">5 · Великогабаритні</button>
+    </div>
+
+    <div class="tpanel" data-t="s1">
+      <div class="cols2">
+        <div>
+          <h3>Мій контейнерний майданчик</h3>
+          <p>Мешканець вводить адресу і бачить найближчі майданчики, типи контейнерів, графік вивезення, відповідального перевізника і контакти для звернень.</p>
+          <div class="chips"><span class="chip ok">Хвиля 1</span><span class="chip plain">Модулі 1, 2, 3</span></div>
+        </div>
+        <div class="mock" aria-hidden="true">
+          <div class="bar-top"><span>Портал послуг Києва</span><span>Відходи</span></div>
+          <div class="scr">
+            <div class="field"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>вул. Прикладна, 12</div>
+            <div class="ttl">Ваш майданчик · 40 м</div>
+            <div class="sub">Д-2-117 · за будинком, вхід з двору</div>
+            <div class="row"><span class="k">Контейнери</span><span class="v">змішані · скло · пластик</span></div>
+            <div class="row"><span class="k">Вивезення</span><span class="v">щодня, 05:00–08:00</span></div>
+            <div class="row"><span class="k">Перевізник</span><span class="v">Перевізник А</span></div>
+            <div class="row"><span class="k">Сьогодні</span><span class="badge ok">Вивезено о 06:31</span></div>
+            <div class="btns"><span class="sec">Інші майданчики</span><span class="pri">Повідомити про проблему</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tpanel" data-t="s2" hidden>
+      <div class="cols2">
+        <div>
+          <h3>Графік вивезення побутових відходів</h3>
+          <p>Перегляд графіка за адресою, сповіщення про зміну часу вивезення та інформація про виконання рейсу: вивезено, перенесено і з якої причини.</p>
+          <div class="chips"><span class="chip ok">Графік — хвиля 1</span><span class="chip b">Факт рейсу — хвиля 2</span></div>
+        </div>
+        <div class="mock" aria-hidden="true">
+          <div class="bar-top"><span>Графік вивезення</span><span>вул. Прикладна, 12</span></div>
+          <div class="scr">
+            <div class="seg" style="margin-top:0"><span>Пн</span><span class="on">Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Нд</span></div>
+            <div class="row" style="margin-top:10px"><span class="k">Змішані</span><span class="v">щодня, 05:00–08:00</span></div>
+            <div class="row"><span class="k">Скло</span><span class="v">вт, пт</span></div>
+            <div class="row"><span class="k">Пластик</span><span class="v">пн, чт</span></div>
+            <div class="sect">Сьогодні</div>
+            <div class="row"><span class="k">Змішані</span><span class="badge ok">Вивезено о 06:31</span></div>
+            <div class="row"><span class="k">Скло</span><span class="badge warn">Перенесено на 14:00 · під'їзд заблоковано</span></div>
+            <div class="row"><span class="k">Сповіщати про зміни</span><span class="sw"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tpanel" data-t="s3" hidden>
+      <div class="cols2">
+        <div>
+          <h3>Замовлення контейнерів для роздільного збирання</h3>
+          <p>ОСББ або управитель подає заявку на встановлення додаткових контейнерів. Департамент оцінює потребу і технічну можливість, а потім визначає порядок реалізації. Заявник бачить статус і рішення з обґрунтуванням.</p>
+          <p class="small muted">Не обіцяємо мешканцям, доки не визначено виконавця, порядок фінансування, договірну модель і підстави надання послуги.</p>
+          <div class="chips"><span class="chip warn">Потрібне рішення</span><span class="chip plain">Виконавець · фінансування · договір · підстави</span></div>
+        </div>
+        <div class="mock" aria-hidden="true">
+          <div class="bar-top"><span>Кабінет ОСББ</span><span>Заявка</span></div>
+          <div class="scr">
+            <div class="ttl">ОСББ «Прикладне»</div>
+            <div class="sub">Майданчик Д-2-117</div>
+            <div class="row"><span class="k">Що потрібно</span><span class="v">скло + пластик</span></div>
+            <div class="row"><span class="k">Обґрунтування</span><span class="v">6 будинків · навантаження 112%</span></div>
+            <div class="row"><span class="k">Місце</span><span class="v">фото і точка на карті</span></div>
+            <div class="track"><span class="done">Подано</span><span class="now">Оцінка потреби</span><span>Технічна можливість</span><span>Рішення</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tpanel" data-t="s4" hidden>
+      <div class="cols2">
+        <div>
+          <h3>Повідомлення про порушення графіка</h3>
+          <p>Заявник зазначає адресу і тип проблеми, додає фото. Звернення передається до 1551 або іншого визначеного міського процесу і пов'язується з відповідальним перевізником.</p>
+          <div class="chips"><span class="chip b">Хвиля 2</span><span class="chip plain">Модуль 5 і 1551</span></div>
+        </div>
+        <div class="mock" aria-hidden="true">
+          <div class="bar-top"><span>Повідомити про проблему</span><span>1551</span></div>
+          <div class="scr">
+            <div class="ttl">Що сталося?</div>
+            <div class="seg"><span class="on">Не вивезли</span><span>Переповнений</span><span>Розсипано</span><span>Зламаний контейнер</span><span>Стихійне звалище</span></div>
+            <div class="ph"><span data-t="Фото 21:05"></span><span></span><span></span></div>
+            <div class="row"><span class="k">Адреса</span><span class="v">вул. Прикладна, 12 · Д-2-117</span></div>
+            <div class="row"><span class="k">Відповідальний</span><span class="v">Перевізник А · зона Д-2</span></div>
+            <div class="row"><span class="k">Строк реакції</span><span class="v">24 год за договором</span></div>
+            <div class="btns"><span class="pri">Надіслати</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tpanel" data-t="s5" hidden>
+      <div class="cols2">
+        <div>
+          <h3>Вивезення великогабаритних відходів</h3>
+          <p>Користувач зазначає вид і орієнтовний обсяг відходів, адресу і бажану дату. Система визначає доступного виконавця та умови надання послуги.</p>
+          <p class="small muted">Не обіцяємо мешканцям, доки не визначено виконавця, порядок фінансування, договірну модель і підстави надання послуги. Зараз таке вивезення входить у послугу з вивезення побутових відходів з окремим розрахунком.</p>
+          <div class="chips"><span class="chip warn">Потрібне рішення</span><span class="chip plain">Виконавець · фінансування · договір · підстави</span></div>
+        </div>
+        <div class="mock" aria-hidden="true">
+          <div class="bar-top"><span>Замовлення</span><span>Великогабаритні</span></div>
+          <div class="scr">
+            <div class="ttl">Що вивезти?</div>
+            <div class="seg"><span class="on">Меблі</span><span>Техніка</span><span>Матраци</span><span>Двері й вікна</span></div>
+            <div class="row" style="margin-top:10px"><span class="k">Орієнтовний обсяг</span><span class="v">близько 2 м³</span></div>
+            <div class="row"><span class="k">Адреса</span><span class="v">вул. Прикладна, 12</span></div>
+            <div class="row"><span class="k">Бажана дата</span><span class="v">15 листопада</span></div>
+            <div class="row"><span class="k">Виконавець і умови</span><span class="badge plain">Визначає система</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="slide" data-nav="Які дані зберігає місто" data-kicker="Дані">
+  <div class="card">
+    <p class="eyebrow">Дані</p>
+    <h2>Своє зберігаємо, державне беремо за посиланням</h2>
+    <p class="lead">Міська система містить власні операційні дані та посилання на державні реєстрові записи, а не створює повторні державні реєстри.</p>
+    <div class="dtab">
+      <div class="h">Міські первинні дані</div><div class="h">Отримуємо з інших систем</div>
+      <div>Результати конкурсів</div><div>Відомості ЄДР</div>
+      <div>Міські договори</div><div>Державні реєстрові відомості про перевізників</div>
+      <div>Зони обслуговування</div><div>Дозвільні відомості про об'єкти оброблення</div>
+      <div>Контейнерні майданчики</div><div>Дані державної звітності в дозволеному обсязі</div>
+      <div>Графіки та маршрути</div><div>Дані геоінформаційних ресурсів</div>
+      <div>Виконання рейсів</div><div>Інформація зовнішніх GPS-платформ</div>
+      <div>Договірні показники якості</div><div>Звернення з 1551</div>
+    </div>
+    <div class="metric"><span class="lb">Ефект</span><span class="vl">Ні перевізник, ні об'єкт приймання не звітують двічі: місто читає те, що вже є в державній системі, і веде лише свої операційні дані</span></div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section class="slide" data-nav="Дашборд для керівництва КМДА" data-kicker="Дашборд">
+  <div class="card">
+    <p class="eyebrow">Дашборд</p>
+    <h2>Шість показників для керівництва КМДА</h2>
+    <div class="dash-head">
+      <span class="ttl">Показники управління відходами</span>
+      <div class="wavebar" id="perBar">
+        <button class="wbtn" type="button" data-p="w" aria-pressed="true">Тиждень</button>
+        <button class="wbtn" type="button" data-p="m" aria-pressed="false">Місяць</button>
+        <button class="wbtn" type="button" data-p="y" aria-pressed="false">Рік</button>
+      </div>
+    </div>
+    <div class="kgrid" id="kgrid">
+      <div class="ktile"><span class="lb">Виконання графіків</span><b data-k="exec">—</b><span class="df">Частка підтверджених рейсів від запланованих</span></div>
+      <div class="ktile"><span class="lb">Обсяг перевезення</span><b data-k="vol">—</b><span class="df">Тонни відходів за районами та потоками</span></div>
+      <div class="ktile"><span class="lb">Скарги мешканців</span><b data-k="cmp">—</b><span class="df">Звернення на 1 000 адрес обслуговування</span></div>
+      <div class="ktile"><span class="lb">Швидкість реагування</span><b data-k="react">—</b><span class="df">Медіана від реєстрації звернення до усунення</span></div>
+      <div class="ktile"><span class="lb">Роздільне збирання</span><b data-k="sep">—</b><span class="df">Обсяги окремо зібраних потоків</span></div>
+      <div class="ktile"><span class="lb">Стан інфраструктури</span><b data-k="infra">—</b><span class="df">Частка майданчиків, що потребують ремонту</span></div>
+    </div>
+    <div class="dbars" id="dbars">
+      <div class="ttl">Обсяг перевезення за районами, т <span id="dbPer">за тиждень</span></div>
+      <div id="drows"></div>
+      <div class="tip" id="tip" hidden></div>
+    </div>
+    <p class="small muted" style="margin-top:10px">Умовні дані, щоб показати вигляд. У робочій системі показники з'являються лише після підключення фактичних джерел даних, без оцінок і ручних зведень.</p>
+  </div>
+</section>
+
+<!-- 15 -->
+<section class="slide" data-nav="Хвилі впровадження" data-kicker="План">
+  <div class="card">
+    <p class="eyebrow">План</p>
+    <h2>Три хвилі</h2>
+    <p class="lead">Перша хвиля майже не залежить від перевізників: місто вже володіє договорами, картами майданчиків і зверненнями, або може зібрати їх саме.</p>
+    <div class="wavebar" id="wavebar">
+      <button class="wbtn" type="button" data-w="all" aria-pressed="true">Усі хвилі</button>
+      <button class="wbtn" type="button" data-w="1" aria-pressed="false">Хвиля 1</button>
+      <button class="wbtn" type="button" data-w="2" aria-pressed="false">Хвиля 2</button>
+      <button class="wbtn" type="button" data-w="3" aria-pressed="false">Хвиля 3</button>
+    </div>
+    <div class="wgrid" id="wgrid">
+      <div class="wcard" data-w="1">
+        <span class="tag">Хвиля 1 · Місто бачить</span>
+        <h3>Хто, де і що</h3>
+        <p>Реєстр договорів і майданчиків, звернення 1551 прив'язані до відповідального. Мешканець бачить свій майданчик і графік. Пілот: один район, повна інвентаризація.</p>
+        <div class="wlist"><span>1 · Договори</span><span>2 · Майданчики</span><span>5 · Прив'язка звернень</span><span>Сервіси 1, 2</span></div>
+      </div>
+      <div class="wcard" data-w="2">
+        <span class="tag">Хвиля 2 · Рейс підтверджено</span>
+        <h3>Факт, а не звіт</h3>
+        <p>GPS і вага від перевізників і об'єктів приймання, правила зіставлення, статуси рейсів, дашборд КМДА. Пілот: одна зона, один перевізник, три місяці.</p>
+        <div class="wlist"><span>3 · GPS</span><span>4 · Приймання</span><span>5 · Повністю</span><span>Сервіс 4</span><span>Дашборд</span></div>
+      </div>
+      <div class="wcard" data-w="3">
+        <span class="tag">Хвиля 3 · Місто планує</span>
+        <h3>Прогноз і нові послуги</h3>
+        <p>Аналітика і прогноз після року даних. Обмін із державною інформаційною системою. Сервіси на замовлення після рішень про модель.</p>
+        <div class="wlist"><span>6 · Аналітика</span><span>Державна ІС</span><span>Сервіси 3, 5</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 16 -->
+<section class="slide" data-nav="Ризики і питання" data-kicker="Чесно">
+  <div class="card">
+    <p class="eyebrow">Чесно</p>
+    <h2>Що може зламати ідею</h2>
+    <div class="rgrid">
+      <div class="risk"><h3>Перевізники не передають дані</h3><p>Без GPS і відміток модулі 3 і 4 порожні. Тому передача даних — умова договору з наслідками і перехідним періодом.</p></div>
+      <div class="risk"><h3>Підміна даних</h3><p>Трекер на іншій машині, відмітки заднім числом. Зіставлення з вагою і скаргами, вибіркові перевірки.</p></div>
+      <div class="risk"><h3>Хибні санкції через збої</h3><p>Втрачений сигнал схожий на невиконання. Статус «з винятком», право перевізника на пояснення, ручна перевірка спірних рейсів.</p></div>
+      <div class="risk"><h3>Застаріла карта</h3><p>Неправдива карта руйнує довіру. Правило оновлення інвентаризації, фото від водіїв, виправлення від ОСББ.</p></div>
+      <div class="risk"><h3>Об'єкти приймання поза містом</h3><p>Немає даних зважування. Угоди про обмін, як мінімум завантаження за стандартом.</p></div>
+      <div class="risk"><h3>Обіцянки без моделі</h3><p>Сервіси 3 і 5 без виконавця і фінансування розчарують. Запуск лише після рішень.</p></div>
+    </div>
+    <h3 style="margin:26px 0 0">Питання, на які потрібні відповіді до старту</h3>
+    <ol class="qlist">
+      <li>Хто власник і адміністратор системи: Департамент, КП «ГІОЦ» чи інший суб'єкт?</li>
+      <li>Чи передаватимуть чинні перевізники GPS і відмітки рейсів за додатковою угодою, чи лише в нових договорах?</li>
+      <li>Які показники якості вже є в договорах і які треба додати?</li>
+      <li>Які об'єкти приймання готові передавати дані зважування і в якому форматі?</li>
+      <li>Які дані державної інформаційної системи управління відходами доступні місту і через який канал?</li>
+      <li>Хто виконує і як фінансуються сервіси 3 і 5?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- 17 -->
+<section class="slide" data-nav="Наступні кроки" data-kicker="Далі">
+  <div class="card">
+    <p class="eyebrow">Далі</p>
+    <h2>Три кроки, які можна зробити зараз</h2>
+    <p class="lead">Перший результат не потребує жодних даних від перевізників. Досить оцифрувати договори й майданчики, прив'язати до них звернення і показати мешканцю його майданчик за адресою.</p>
+    <div class="steps">
+      <div class="step">
+        <span class="n">КРОК 1</span>
+        <h3>Інвентаризація джерел</h3>
+        <p>Чинні договори, карти і бази майданчиків, GPS-платформи перевізників, вагові комплекси, формат звернень 1551.</p>
+      </div>
+      <div class="step">
+        <span class="n">КРОК 2</span>
+        <h3>Правила зіставлення</h3>
+        <p>Департамент і перевізники погоджують показники якості, допуски і поважні причини, щоб записати їх у договори.</p>
+      </div>
+      <div class="step">
+        <span class="n">КРОК 3</span>
+        <h3>Пілот в одному районі</h3>
+        <p>Реєстр договорів і майданчиків, прив'язка звернень, сервіси «Мій майданчик» і «Графік» на Порталі.</p>
+      </div>
+    </div>
+    <a class="doclink" href="concept.md">Повний документ із деталями по кожному модулю →</a>
+  </div>
+</section>
+
+</main>
+
+<nav class="controls" aria-label="Навігація презентацією">
+  <button class="ctl" id="prev" type="button" aria-label="Попередня сторінка">
+    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <span class="counter" id="counter">1 / 18</span>
+  <button class="ctl" id="next" type="button" aria-label="Наступна сторінка">
+    <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <span class="sep"></span>
+  <button class="ctl wide" id="ovBtn" type="button" aria-label="Усі сторінки">Усі</button>
+  <button class="ctl" id="fsBtn" type="button" aria-label="На весь екран">
+    <svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+  </button>
+</nav>
+
+<div class="overview" id="overview" hidden>
+  <div class="ov-head">
+    <h2>Усі сторінки</h2>
+    <button class="more-btn" id="ovClose" type="button">Закрити <kbd>Esc</kbd></button>
+  </div>
+  <div class="ov-grid" id="ovGrid"></div>
+</div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var total = slides.length;
+  var i = 0;
+  var bar = document.getElementById('bar');
+  var counter = document.getElementById('counter');
+  var prev = document.getElementById('prev');
+  var next = document.getElementById('next');
+  var overview = document.getElementById('overview');
+  var ovGrid = document.getElementById('ovGrid');
+
+  function render(){
+    slides.forEach(function(s, n){ s.classList.toggle('active', n === i); });
+    counter.textContent = (i + 1) + ' / ' + total;
+    bar.style.width = ((i) / (total - 1) * 100) + '%';
+    prev.disabled = i === 0;
+    next.disabled = i === total - 1;
+    var active = slides[i];
+    if (active) active.scrollTop = 0;
+    Array.prototype.forEach.call(ovGrid.children, function(c, n){
+      c.classList.toggle('current', n === i);
+    });
+    if (history.replaceState) history.replaceState(null, '', '#' + (i + 1));
+  }
+  function go(n){ i = Math.max(0, Math.min(total - 1, n)); render(); }
+  prev.addEventListener('click', function(){ go(i - 1); });
+  next.addEventListener('click', function(){ go(i + 1); });
+
+  // overview
+  slides.forEach(function(s, n){
+    var b = document.createElement('button');
+    b.className = 'ov-card';
+    b.type = 'button';
+    b.innerHTML = '<span class="i">' + String(n + 1).padStart(2, '0') + '</span><span class="t"></span><span class="k"></span>';
+    b.querySelector('.t').textContent = s.getAttribute('data-nav') || ('Сторінка ' + (n + 1));
+    b.querySelector('.k').textContent = s.getAttribute('data-kicker') || '';
+    b.addEventListener('click', function(){ closeOv(); go(n); });
+    ovGrid.appendChild(b);
+  });
+  function openOv(){ overview.hidden = false; }
+  function closeOv(){ overview.hidden = true; }
+  function toggleOv(){ overview.hidden ? openOv() : closeOv(); }
+  document.getElementById('ovBtn').addEventListener('click', toggleOv);
+  document.getElementById('ovClose').addEventListener('click', closeOv);
+
+  // fullscreen
+  document.getElementById('fsBtn').addEventListener('click', function(){
+    if (!document.fullscreenElement) {
+      if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+    } else if (document.exitFullscreen) { document.exitFullscreen(); }
+  });
+
+  // axes (contours, process)
+  document.querySelectorAll('.axis[data-axis]').forEach(function(axis){
+    var out = axis.nextElementSibling;
+    var def = out.innerHTML;
+    axis.querySelectorAll('.stage').forEach(function(st){
+      st.addEventListener('click', function(){
+        var on = st.getAttribute('aria-pressed') === 'true';
+        axis.querySelectorAll('.stage').forEach(function(o){ o.setAttribute('aria-pressed', 'false'); });
+        if (on) { out.innerHTML = def; }
+        else { st.setAttribute('aria-pressed', 'true'); out.innerHTML = st.getAttribute('data-out'); }
+      });
+    });
+  });
+
+  // waves
+  var wavebar = document.getElementById('wavebar');
+  if (wavebar) {
+    var wcards = document.querySelectorAll('#wgrid .wcard');
+    wavebar.querySelectorAll('.wbtn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var w = btn.getAttribute('data-w');
+        wavebar.querySelectorAll('.wbtn').forEach(function(b){ b.setAttribute('aria-pressed', String(b === btn)); });
+        wcards.forEach(function(c){
+          var match = w === 'all' || c.getAttribute('data-w') === w;
+          c.classList.toggle('on', match && w !== 'all');
+          c.classList.toggle('off', !match);
+        });
+      });
+    });
+  }
+
+  // trip status simulator
+  var togs = document.getElementById('togs');
+  if (togs) {
+    var simOut = document.getElementById('simOut');
+    var simSt = document.getElementById('simSt');
+    var simTx = document.getElementById('simTx');
+    var simNx = document.getElementById('simNx');
+    function st(){
+      var s = {};
+      togs.querySelectorAll('.tog').forEach(function(t){ s[t.getAttribute('data-k')] = t.getAttribute('aria-pressed') === 'true'; });
+      var g = s.gps, m = s.mark, w = s.weigh, c = s.cmp, r;
+      if (c && (g || m || w)) r = ['crit', 'Спірне', 'Джерела кажуть «виконано», а мешканець каже «ні». Це саме той випадок, який GPS сам не побачить.', 'Перевірка диспетчером міста за фото і треком. Рейс не зараховується, доки спір не вирішено.'];
+      else if (c) r = ['crit', 'Не виконано', 'Жодного підтвердження немає, а скарга підтверджує невивезення.', 'Завдання перевізнику зі строком за договором, рейс враховується в показниках якості.'];
+      else if (g && m && w) r = ['ok', 'Виконано', 'Усі три джерела збігаються, скарг немає.', 'Рейс зараховано у виконання договору.'];
+      else if (g && m) r = ['warn', 'Потребує підтвердження приймання', 'Машина була на майданчику і водій відмітив виконання, але об\'єкт приймання рейс не підтвердив.', 'Розбіжність у модулі 4: шукаємо зважування або пояснення перевізника.'];
+      else if (m && w) r = ['b', 'Виконано з винятком', 'Немає GPS, але є відмітка водія і зважування. Схоже на збій трекера.', 'Зараховується, якщо водій додав фото. Повторювані збої — сигнал перевірити трекер.'];
+      else if (g && w) r = ['warn', 'Потребує пояснення', 'Машина була в точці і рейс зважено, але виконання ніхто не відмітив.', 'Запит диспетчеру перевізника. Договір визначає, чи зараховувати такий рейс.'];
+      else if (g) r = ['warn', 'Не підтверджено', 'Машина була поруч, але завантаження не доведено ні відміткою, ні вагою.', 'Проїзд повз двір ще не послуга. Рейс не зараховується без пояснення.'];
+      else if (m) r = ['warn', 'Не підтверджено', 'Є лише відмітка водія. Ні трек, ні вага її не підтверджують.', 'Рейс не зараховується без додаткового підтвердження.'];
+      else if (w) r = ['warn', 'Розбіжність', 'Є зважування, але немає рейсу, до якого його прив\'язати.', 'Розбіжність у модулі 4: «зважування без рейсу».'];
+      else r = ['crit', 'Не виконано', 'Жодне джерело не підтверджує рейс.', 'Якщо водій указав причину з довідника, договір визначає, чи вона поважна.'];
+      simOut.className = 'sim-out ' + r[0];
+      simSt.textContent = r[1];
+      simTx.textContent = r[2];
+      simNx.innerHTML = '<b>Далі:</b> ';
+      simNx.appendChild(document.createTextNode(r[3]));
+    }
+    togs.querySelectorAll('.tog').forEach(function(t){
+      t.addEventListener('click', function(){
+        t.setAttribute('aria-pressed', String(t.getAttribute('aria-pressed') !== 'true'));
+        st();
+      });
+    });
+    st();
+  }
+
+  // services tabs
+  var svcTabs = document.getElementById('svcTabs');
+  if (svcTabs) {
+    var panels = document.querySelectorAll('.tpanel');
+    svcTabs.querySelectorAll('.wbtn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var t = btn.getAttribute('data-t');
+        svcTabs.querySelectorAll('.wbtn').forEach(function(b){ b.setAttribute('aria-pressed', String(b === btn)); });
+        panels.forEach(function(p){ p.hidden = p.getAttribute('data-t') !== t; });
+      });
+    });
+  }
+
+  // dashboard (illustrative data)
+  var perBar = document.getElementById('perBar');
+  if (perBar) {
+    var fmt = function(n, d){ return n.toLocaleString('uk-UA', {minimumFractionDigits: d || 0, maximumFractionDigits: d || 0}); };
+    var D = {
+      w: {lbl: 'за тиждень', exec: [96.4, '%'], vol: [16100], cmp: [3.2, ''], react: [19, 'год'], sep: [410], infra: [7.8, '%']},
+      m: {lbl: 'за місяць', exec: [95.8, '%'], vol: [69400], cmp: [13.6, ''], react: [21, 'год'], sep: [1790], infra: [8.1, '%']},
+      y: {lbl: 'за рік', exec: [95.1, '%'], vol: [838000], cmp: [158, ''], react: [23, 'год'], sep: [21300], infra: [9.4, '%']}
+    };
+    var districts = [
+      ['Деснянський', 11.5], ['Дарницький', 11.2], ['Солом\'янський', 10.8], ['Дніпровський', 10.6], ['Оболонський', 10.4],
+      ['Святошинський', 10.4], ['Шевченківський', 9.6], ['Печерський', 9.1], ['Голосіївський', 8.9], ['Подільський', 7.5]
+    ];
+    var drows = document.getElementById('drows');
+    var tip = document.getElementById('tip');
+    var dbars = document.getElementById('dbars');
+    districts.forEach(function(d){
+      var r = document.createElement('div');
+      r.className = 'drow';
+      r.tabIndex = 0;
+      r.innerHTML = '<span class="t"></span><span class="tr"><i></i></span><span class="v"></span>';
+      r.querySelector('.t').textContent = d[0];
+      drows.appendChild(r);
+    });
+    var rows = drows.querySelectorAll('.drow');
+    function showTip(r){
+      var box = dbars.getBoundingClientRect();
+      var bar = r.querySelector('.tr i').getBoundingClientRect();
+      tip.innerHTML = '';
+      var b = document.createElement('b'); b.textContent = r.getAttribute('data-n');
+      tip.appendChild(b);
+      tip.appendChild(document.createTextNode(': ' + r.getAttribute('data-v') + ' т · ' + r.getAttribute('data-s') + '% міста'));
+      tip.style.left = Math.min(Math.max(bar.right - box.left, 90), box.width - 90) + 'px';
+      tip.style.top = (bar.top - box.top - 6) + 'px';
+      tip.hidden = false;
+    }
+    rows.forEach(function(r){
+      r.addEventListener('mouseenter', function(){ showTip(r); });
+      r.addEventListener('focus', function(){ showTip(r); });
+      r.addEventListener('mouseleave', function(){ tip.hidden = true; });
+      r.addEventListener('blur', function(){ tip.hidden = true; });
+    });
+    function setP(p){
+      var d = D[p];
+      perBar.querySelectorAll('.wbtn').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-p') === p)); });
+      var k = document.querySelectorAll('#kgrid b[data-k]');
+      k.forEach(function(el){
+        var key = el.getAttribute('data-k'), v = d[key];
+        if (key === 'vol' || key === 'sep') {
+          el.innerHTML = (v[0] >= 10000 ? fmt(v[0] / 1000, 1) + '<small>тис. т</small>' : fmt(v[0]) + '<small>т</small>');
+        } else if (key === 'react') {
+          el.innerHTML = fmt(v[0]) + '<small>год</small>';
+        } else if (key === 'cmp') {
+          el.innerHTML = fmt(v[0], v[0] < 100 ? 1 : 0);
+        } else {
+          el.innerHTML = fmt(v[0], 1) + '<small>%</small>';
+        }
+      });
+      document.getElementById('dbPer').textContent = d.lbl;
+      var max = districts[0][1];
+      rows.forEach(function(r, n){
+        var share = districts[n][1];
+        var t = Math.round(d.vol[0] * share / 100);
+        r.querySelector('.tr i').style.width = (share / max * 100) + '%';
+        r.querySelector('.v').textContent = fmt(t);
+        r.setAttribute('data-n', districts[n][0]);
+        r.setAttribute('data-v', fmt(t));
+        r.setAttribute('data-s', fmt(share, 1));
+        r.setAttribute('aria-label', districts[n][0] + ': ' + fmt(t) + ' т');
+      });
+    }
+    perBar.querySelectorAll('.wbtn').forEach(function(b){
+      b.addEventListener('click', function(){ setP(b.getAttribute('data-p')); });
+    });
+    setP('w');
+  }
+
+  // keyboard
+  document.addEventListener('keydown', function(e){
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var k = e.key;
+    if (k === 'Escape') { closeOv(); return; }
+    if (k === 'o' || k === 'O' || k === 'щ' || k === 'Щ') { e.preventDefault(); toggleOv(); return; }
+    if (k === 'f' || k === 'F' || k === 'а' || k === 'А') { e.preventDefault(); document.getElementById('fsBtn').click(); return; }
+    if (!overview.hidden) return;
+    if (k === 'ArrowRight' || k === 'PageDown' || k === ' ') { e.preventDefault(); go(i + 1); }
+    else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); go(i - 1); }
+    else if (k === 'Home') { e.preventDefault(); go(0); }
+    else if (k === 'End') { e.preventDefault(); go(total - 1); }
+  });
+
+  // touch
+  var x0 = null, y0 = null;
+  document.addEventListener('touchstart', function(e){ x0 = e.changedTouches[0].clientX; y0 = e.changedTouches[0].clientY; }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.6) go(dx < 0 ? i + 1 : i - 1);
+    x0 = null; y0 = null;
+  }, {passive:true});
+
+  // restore from hash
+  var start = parseInt((location.hash || '').replace('#', ''), 10);
+  if (!isNaN(start) && start >= 1 && start <= total) i = start - 1;
+  render();
+})();
+</script>
+</body>
+</html>
