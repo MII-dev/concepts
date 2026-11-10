@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Мої послуги — Портал послуг · макет «Відходи Києва»</title>
+<link rel="preload" href="fonts/Daikon-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Daikon-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:Daikon;font-weight:400;font-style:normal;font-display:swap;src:url(fonts/Daikon-Regular.woff2) format("woff2")}
+@font-face{font-family:Daikon;font-weight:600;font-style:normal;font-display:swap;src:url(fonts/Daikon-SemiBold.woff2) format("woff2")}
+@font-face{font-family:Daikon;font-weight:700;font-style:normal;font-display:swap;src:url(fonts/Daikon-Bold.woff2) format("woff2")}
+:root{
+  --bg:#f0f5fc;--white:#fff;
+  --ink:#030616;--ink2:#364153;--ink3:#4a5567;--mut:#8e95a0;
+  --blue:#2b66f6;--blue-d:#2457ce;--blue-h:#1f55db;--blue-ink:#173e93;--blue-s:#f0f5fc;--blue-l:#e1ecfd;
+  --pill:#e1e7ef;--line:#eceff4;--line2:#e1e7ef;
+  --ok:#295e48;--ok-s:#effdf6;--ok-i:#1f9d63;
+  --warn:#88451d;--warn-s:#fef8de;--warn-i:#c98a12;
+  --grey-s:#f2f5f9;
+  --bad:#9b2c2c;--bad-s:#fdeeee;--bad-i:#d64545;
+  --pur:#7b2ff7;
+  --sh:0 6px 20px rgba(23,62,147,.06);
+  --sh2:0 12px 40px rgba(3,6,22,.16);
+  --wrap:1336px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:Daikon,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:16px;line-height:1.4;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+h1,h2,h3,h4,p{margin:0}
+a{color:inherit;text-decoration:none;cursor:pointer}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
+input,select,textarea{font:inherit;color:var(--ink)}
+svg{display:block;flex:none}
+[hidden]{display:none!important}
+.ic{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ic.s20{width:20px;height:20px}.ic.s18{width:18px;height:18px}.ic.s16{width:16px;height:16px}
+
+/* ===== службова панель макета ===== */
+.mock{background:#2b2f36;color:#b8bec8;display:flex;align-items:center;gap:6px;padding:0 16px;min-height:44px;font:13px/1.2 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;flex-wrap:wrap;position:sticky;top:0;z-index:60}
+.mock .lbl{font-weight:700;color:#fff;margin-right:6px;white-space:nowrap}
+.mock .tab{border:1px solid #454b55;color:#c9ced6;border-radius:8px;padding:5px 13px;font-weight:600;white-space:nowrap;font-size:13px}
+.mock .tab:hover{color:#fff;border-color:#6b727d}
+.mock .tab.on{background:#fff;color:#1d1d1f;border-color:#fff}
+.mock .tab:disabled{opacity:.35;cursor:default}
+.mock .sep{width:1px;height:22px;background:#454b55;margin:0 6px}
+.mock label{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.mock select{background:#1f2227;color:#fff;border:1px solid #454b55;border-radius:8px;padding:4px 8px;font-size:13px}
+.mock .hint{margin-left:auto;opacity:.75;white-space:nowrap}
+.mock .tourbtn{border-color:#8b5cf6;color:#e4d2ff}
+.mock .tourbtn.on,.mock .tourbtn:hover{background:#7b2ff7;border-color:#7b2ff7;color:#fff}
+body.clean .mock{display:none}
+
+/* ===== шапка ===== */
+.wrap{width:var(--wrap);max-width:calc(100% - 48px);margin:0 auto}
+.hd{background:#fff;height:72px;position:relative;z-index:30}
+.hd .wrap{height:72px;display:flex;align-items:center}
+.logo{display:block;margin-left:4px}
+.logo img{height:43px;width:auto;display:block}
+.hnav{display:flex;align-items:center;gap:25px;margin-left:44px}
+.hnav>button,.hnav>a{display:flex;align-items:center;gap:8px;font-size:16px;color:var(--ink);height:40px;-webkit-text-stroke:.3px currentColor}
+.hnav .ic{width:20px;height:20px;stroke-width:1.8}
+.hright{margin-left:auto;display:flex;align-items:center;gap:24px}
+.hbtn{display:flex;align-items:center;gap:6px;font-size:16px;height:40px;color:var(--ink);-webkit-text-stroke:.3px currentColor}
+.hbtn .ic{width:24px;height:24px;stroke-width:1.7}
+.upill{display:flex;align-items:center;gap:8px;height:48px;padding:0 10px 0 3px;border:1px solid var(--line2);border-radius:24px;background:#fff;font-size:16px;font-weight:600;margin-right:-4px}
+.ava{width:40px;height:40px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:16px;font-weight:600;letter-spacing:.01em}
+.upill .ic{width:20px;height:20px;stroke-width:1.8}
+.drop{position:absolute;top:64px;background:#fff;border-radius:16px;box-shadow:var(--sh2);padding:8px;min-width:240px;z-index:50}
+.drop a,.drop button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:11px 14px;border-radius:10px;font-size:15.5px}
+.drop a:hover,.drop button:hover{background:var(--blue-s)}
+.drop .cap{font-size:12.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:.03em;padding:8px 14px 4px}
+.drop hr{border:0;border-top:1px solid var(--line);margin:6px 4px}
+
+/* ===== банер ===== */
+.banner{position:absolute;left:0;right:0;top:72px;height:220px;background-color:#2758da;background-image:var(--ban),linear-gradient(90deg,#2253c9 0%,#2457cf 26%,#285ee0 50%,#2961e8 72%,#2b66f6 100%);background-repeat:repeat-x,no-repeat;background-position:center bottom,0 0;background-size:480px 220px,100% 100%;z-index:0}
+.page{position:relative}
+
+/* ===== каркас ===== */
+.layout{position:relative;z-index:1;display:grid;grid-template-columns:308px minmax(0,984px);column-gap:41px;align-items:start}
+.side{background:#fff;border-radius:0 0 24px 24px;padding:20px 20px 20px;align-self:start}
+.side .who{margin:2px 0 14px;padding:12px 18px 14px;border-radius:14px;background:var(--blue-s)}
+.side .who b{display:block;font-size:15px;font-weight:600}
+.side .who span{display:block;font-size:13px;color:var(--ink3);margin-top:2px;line-height:1.35}
+.scap{font-size:13.5px;line-height:20px;color:var(--ink3);text-transform:uppercase;padding-left:18px;margin:24px 0 8px}
+.scap:first-child{margin-top:0}
+.sit{display:flex;align-items:center;gap:10px;height:48px;padding:0 14px 0 16px;border-radius:12px;font-size:16px;color:var(--ink);-webkit-text-stroke:.3px currentColor;margin-bottom:2px;width:100%;text-align:left;position:relative}
+.sit .ic{color:var(--ink2)}
+.sit:hover{background:#f6f9fd}
+.sit.on{background:var(--blue-s)}
+.sit.on .ic{color:var(--blue)}
+.sit .cnt{-webkit-text-stroke:0;margin-left:auto;min-width:22px;height:22px;border-radius:11px;background:var(--blue-s);color:var(--blue-ink);font-size:12.5px;font-weight:600;display:grid;place-items:center;padding:0 6px}
+.sit.on .cnt{background:#fff}
+.sit .new{margin-left:auto;font-size:11px;font-weight:600;color:var(--pur);background:#f3e8ff;border-radius:6px;padding:2px 6px}
+.main{min-width:0;padding-bottom:0}
+
+/* ===== заголовок сторінки ===== */
+.ph{height:173px;padding-top:65px;color:#fff;position:relative}
+.ph h1{font-size:66px;line-height:72px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ph.sm{padding-top:58px}
+.ph.sm h1{font-size:44px;line-height:52px}
+.crumb{position:absolute;top:30px;left:0;display:flex;gap:8px;align-items:center;font-size:15px;color:rgba(255,255,255,.82)}
+.crumb a:hover{color:#fff;text-decoration:underline}
+.crumb .ic{width:16px;height:16px}
+.ph.nolead{height:220px}
+
+/* ===== картки ===== */
+.card{background:#fff;border-radius:24px;box-shadow:var(--sh)}
+.lead{display:flex;gap:25px;padding:25px 28px 24px;min-height:194px}
+.ring{width:57px;height:57px;flex:none;position:relative;display:grid;place-items:center;font-size:16px;font-weight:400;color:var(--ink)}
+.ring>svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.ring>span{position:relative;font-size:15.5px}
+.ring.ok{color:var(--ok-i)}
+.lead .k{display:flex;align-items:center;gap:8px;font-size:13.5px;line-height:20px;color:var(--ink3);text-transform:uppercase}
+.lead .k .ic{width:18px;height:18px;stroke-width:1.6}
+.lead h3{font-size:23px;line-height:30px;font-weight:600;margin-top:3px}
+.lead .m{font-size:16.3px;line-height:22px;color:var(--ink3);margin-top:7px;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center}
+.lead .m i{font-style:normal;color:var(--ink3)}
+.acts{display:flex;align-items:center;gap:39px;margin-top:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 24px;border-radius:24px;background:var(--blue);color:#fff;font-size:18.5px;font-weight:600;white-space:nowrap;transition:background .15s}
+.btn:hover{background:var(--blue-h)}
+.btn.sec{background:var(--blue-s);color:var(--blue)}
+.btn.sec:hover{background:var(--blue-l)}
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line2)}
+.btn.ghost:hover{border-color:var(--blue);color:var(--blue)}
+.btn.sm{height:40px;font-size:15.5px;padding:0 18px}
+.btn.dang{background:var(--bad-s);color:var(--bad)}
+.btn:disabled{opacity:.45;cursor:default}
+.lnk{color:var(--blue);font-size:18.5px;font-weight:600;white-space:nowrap}
+.lnk:hover{text-decoration:underline}
+.lnk.sm{font-size:15.5px}
+
+/* ===== секції ===== */
+.h2{font-size:37.4px;line-height:44px;font-weight:600;margin:48px 0 0}
+.sub{font-size:15.8px;line-height:22px;color:var(--ink2);margin-top:12px}
+.tools{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:18px}
+.seg{display:inline-flex;align-items:center;background:var(--pill);border-radius:24px;padding:4px;height:48px}
+.seg button{height:40px;padding:0 18px;border-radius:20px;font-size:16.5px;color:var(--ink2);display:flex;align-items:center;gap:6px}
+.seg button.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(3,6,22,.08)}
+.seg .b2{background:var(--blue);color:#fff;font-size:13px;font-weight:600;border-radius:10px;padding:1px 7px;line-height:18px}
+.fpill{position:relative}
+.fpill>button{display:flex;align-items:center;gap:5px;height:48px;padding:0 16px 0 22px;border-radius:24px;background:#fff;border:1px solid #e6ebf2;font-size:16px;color:var(--ink2)}
+.fpill>button b{color:var(--ink);font-weight:600;margin-right:6px}
+.fpill .drop{top:56px;right:0}
+
+/* список заяв */
+.list{margin-top:20px;padding:0 28px}
+#ddBox .drop{top:-4px}
+.row{display:grid;grid-template-columns:minmax(0,1fr) 216px 24px;column-gap:20px;align-items:center;padding:24px 0 25px;border-bottom:1px solid var(--line);position:relative;cursor:pointer}
+.list>.row:last-child{border-bottom:0}
+.row .dot{position:absolute;left:-20px;top:33px;width:10px;height:10px;border-radius:50%;background:var(--blue)}
+.row h4{font-size:20.6px;line-height:28px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .meta{display:flex;gap:32px;margin-top:4px;font-size:14.6px;line-height:22px;flex-wrap:wrap}
+.row .meta span{color:var(--ink2)}
+.row .meta b{font-weight:400;color:var(--ink);margin-left:6px;-webkit-text-stroke:.3px currentColor}
+.row .ar{color:var(--ink)}
+.row:hover h4{color:var(--blue)}
+.more-l{display:inline-flex;align-items:center;gap:6px;color:var(--blue);font-size:16.4px;font-weight:600;padding:20px 12px 22px}
+.more-l .ic{width:20px;height:20px;stroke-width:2}
+.empty{padding:36px 0;color:var(--ink3);text-align:center}
+
+/* чипи */
+.chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 10px;border-radius:8px;font-size:14px;white-space:nowrap;justify-self:start;max-width:100%}
+.chip .ic{width:16px;height:16px;stroke-width:1.8}
+.chip.b{background:var(--blue-s);color:var(--blue-ink)}
+.chip.g{background:var(--grey-s);color:var(--ink2)}
+.chip.y{background:var(--warn-s);color:var(--warn)}
+.chip.ok{background:var(--ok-s);color:var(--ok)}
+.chip.bad{background:var(--bad-s);color:var(--bad)}
+.chip.pur{background:#f3e8ff;color:#5b12b5}
+.chip.sm{height:26px;font-size:13.5px;padding:0 8px;border-radius:7px}
+
+/* послуги для вас */
+.pills{display:flex;gap:8px;margin-top:22px;flex-wrap:wrap}
+.pills button{height:44px;padding:0 28px;border-radius:22px;background:var(--pill);font-size:16px;color:var(--ink)}
+.pills button:hover{background:#d6dde8}
+.pills button.on{background:var(--blue-d);color:#fff}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:21px}
+.scard{min-height:290px;padding:24px 24px 24px 18px;display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .15s}
+.scard:hover{box-shadow:0 10px 30px rgba(23,62,147,.12)}
+.scard .sic{width:66px;height:66px;display:block}
+.scard h4{font-size:23px;line-height:28px;font-weight:600;margin:11px 0 0 6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.scard .need{font-size:14px;line-height:20px;color:var(--ink2);margin:8px 0 0 6px}
+.scard .need b{color:var(--ink);font-weight:600}
+.scard .tags{display:flex;gap:10px;margin:auto 0 0 6px;padding-top:20px;flex-wrap:wrap}
+.tag{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 10px;border-radius:8px;font-size:14px;white-space:nowrap}
+.tag.on{background:var(--ok-s);color:var(--ok)}
+.tag.cat{background:var(--blue-s);color:var(--blue-ink)}
+.tag.osbb{background:#f3e8ff;color:#5b12b5}
+.tag .ic{width:16px;height:16px;stroke-width:1.8}
+.findrow{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:26px}
+.findrow p{font-size:15.6px}
+.findrow .btn{width:188px;font-size:20px}
+
+/* ===== футер ===== */
+.foot{background:var(--ink);color:#fff;margin-top:55px;padding:48px 0 0;min-height:423px}
+.fgrid{display:grid;grid-template-columns:minmax(0,1fr) 272px 292px;column-gap:0}
+.foot .flogo img{height:48px;width:auto;display:block}
+.foot .fcap{font-size:14px;line-height:20px;text-transform:uppercase;color:#cccdd1;white-space:nowrap}
+.foot .fcol a{display:block;font-size:17px;font-weight:600;margin-top:18px}
+.foot .fcol .fcap{margin-top:3px}
+.fsup{margin-top:48px}
+.fcont{display:grid;grid-template-columns:312px 312px;column-gap:24px;margin-top:20px}
+.fcont .l{font-size:16px;color:#cccdd1}
+.fcont .v{display:flex;align-items:center;gap:12px;font-size:17px;font-weight:600;margin-top:17px;padding-bottom:16px;border-bottom:1px solid #30323f}
+.fcont .v .ic{width:22px;height:22px;stroke-width:1.5;color:#cccdd1}
+.stores{display:flex;gap:10px;margin-top:22px}
+.store{white-space:nowrap;height:44px;border:1px solid #c9cbd2;border-radius:8px;display:flex;align-items:center;gap:8px;padding:0 10px 0 9px;background:#000}
+.store small{display:block;font-size:9px;line-height:10px;letter-spacing:.02em}
+.store b{display:block;font-size:18px;line-height:20px;font-weight:600;letter-spacing:-.01em;font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.socs{display:flex;gap:12px;margin-top:20px}
+.soc{width:44px;height:44px;border:1.5px solid #fff;border-radius:50%;display:grid;place-items:center}
+.soc svg{width:20px;height:20px}
+.fbot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:76px;padding-bottom:58px}
+.fbot .cp{display:flex;gap:26px;font-size:14px;line-height:20px;color:#9a9ba1;align-items:flex-end}
+.fbot a{font-size:16px;font-weight:600}
+
+/* ===== чат ===== */
+.fab{position:fixed;right:24px;bottom:24px;width:72px;height:72px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;z-index:45;box-shadow:0 6px 18px rgba(3,6,22,.25)}
+.fab .ic{width:34px;height:34px;stroke-width:1.7}
+.chat{position:fixed;right:24px;bottom:108px;width:360px;max-height:520px;background:#fff;border-radius:20px;box-shadow:var(--sh2);z-index:46;display:flex;flex-direction:column;overflow:hidden}
+.chat .chd{background:var(--ink);color:#fff;padding:14px 18px;display:flex;align-items:center;gap:10px;font-weight:600}
+.chat .chd button{margin-left:auto;color:#cfd3da;font-size:22px;line-height:1}
+.chat .cbd{padding:16px;overflow:auto;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:86%;padding:10px 13px;border-radius:14px;font-size:14.5px;line-height:1.4}
+.msg.bot{background:var(--blue-s);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.me{background:var(--blue);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.qr{display:flex;flex-wrap:wrap;gap:6px}
+.qr button{border:1px solid var(--line2);border-radius:16px;padding:6px 12px;font-size:13.5px;background:#fff}
+.qr button:hover{border-color:var(--blue);color:var(--blue)}
+
+/* ===== модалки, тост ===== */
+.ovl{position:fixed;inset:0;background:rgba(3,6,22,.42);z-index:70;display:grid;place-items:center;padding:20px}
+.mdl{background:#fff;border-radius:24px;width:min(560px,100%);max-height:calc(100vh - 40px);overflow:auto;padding:28px 28px 26px;position:relative;box-shadow:var(--sh2)}
+.mdl.wide{width:min(760px,100%)}
+.mdl h3{font-size:24px;line-height:30px;font-weight:600;padding-right:36px}
+.mdl .x{position:absolute;right:18px;top:18px;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:var(--ink2)}
+.mdl .x:hover{background:var(--blue-s)}
+.mdl p{color:var(--ink2);margin-top:10px;line-height:1.5}
+.mdl .acts{margin-top:22px;gap:12px}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:13px 20px;border-radius:14px;font-size:15px;opacity:0;pointer-events:none;transition:.25s;z-index:80;max-width:min(560px,calc(100vw - 40px));text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%)}
+.srch{width:min(720px,100%);padding:22px}
+.srch .inp{display:flex;align-items:center;gap:10px;border:1px solid var(--line2);border-radius:24px;height:52px;padding:0 18px}
+.srch input{border:0;outline:0;flex:1;font-size:17px;background:none}
+.srch .res a{display:flex;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:12px;font-size:16px}
+.srch .res a:hover{background:var(--blue-s)}
+.srch .res small{color:var(--ink3)}
+
+/* ===== форми, майстер ===== */
+.wz{padding:25px 28px 28px}
+.wz-h{display:flex;gap:25px;align-items:center}
+.wz-h .k{font-size:14px;line-height:20px;color:var(--ink3);text-transform:uppercase;letter-spacing:.02em}
+.wz-h h3{font-size:22px;line-height:30px;font-weight:600;margin-top:3px}
+.wz-b{margin-top:24px;border-top:1px solid var(--line);padding-top:24px}
+.wz-f{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:28px}
+.fl{font-size:15px;color:var(--ink2);margin:0 0 8px;display:block}
+.fld{display:flex;align-items:center;gap:10px;border:1px solid var(--line2);border-radius:14px;height:52px;padding:0 16px;background:#fff;font-size:16.5px}
+.fld .ic{color:var(--ink3)}
+.fld input{border:0;outline:0;flex:1;font-size:16.5px;background:none;min-width:0}
+textarea.fld{height:auto;min-height:92px;padding:14px 16px;width:100%;resize:vertical;outline:0}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.opt{display:flex;align-items:flex-start;gap:12px;text-align:left;border:1px solid var(--line2);border-radius:16px;padding:14px 16px;background:#fff;transition:.15s;width:100%}
+.opt:hover{border-color:#b8c9ea}
+.opt.on{border-color:var(--blue);background:var(--blue-s);box-shadow:inset 0 0 0 1px var(--blue)}
+.opt .oi{width:40px;height:40px;border-radius:12px;background:var(--blue-s);color:var(--blue);display:grid;place-items:center;flex:none}
+.opt.on .oi{background:#fff}
+.opt b{display:block;font-size:16px;font-weight:600;line-height:22px}
+.opt small{display:block;font-size:13.5px;color:var(--ink3);margin-top:2px;line-height:1.35}
+.opt .rd{width:22px;height:22px;border-radius:50%;border:2px solid #c3cddd;flex:none;margin-top:1px;margin-left:auto}
+.opt.on .rd{border:7px solid var(--blue)}
+.ph-add{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.pht{width:120px;height:90px;border-radius:12px;position:relative;overflow:hidden;background:#8d9aae}
+.pht svg{width:100%;height:100%}
+.pht span{position:absolute;left:6px;bottom:6px;background:rgba(3,6,22,.72);color:#fff;font-size:11px;border-radius:6px;padding:2px 6px}
+.addph{width:120px;height:90px;border-radius:12px;border:1.5px dashed #b8c9ea;color:var(--blue);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:13.5px;font-weight:600}
+.addph:hover{background:var(--blue-s)}
+.chk{display:flex;align-items:center;gap:10px;font-size:15.5px;margin-top:18px;cursor:pointer}
+.chk i{width:22px;height:22px;border-radius:6px;border:2px solid #c3cddd;display:grid;place-items:center;flex:none}
+.chk.on i{background:var(--blue);border-color:var(--blue)}
+.chk.on i::after{content:"";width:10px;height:5px;border:2.2px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.kv{display:grid;grid-template-columns:220px 1fr;gap:0;font-size:16px}
+.kv>div{padding:13px 0;border-bottom:1px solid var(--line)}
+.kv>div:nth-child(odd){color:var(--ink2)}
+.kv>div:nth-child(even){font-weight:600}
+.kv>div:nth-last-child(-n+2){border-bottom:0}
+.info{display:flex;gap:12px;border-radius:16px;padding:14px 16px;background:var(--blue-s);font-size:15px;line-height:1.5;color:var(--ink2);margin-top:16px}
+.info .ic{color:var(--blue);margin-top:1px}
+.info b{color:var(--ink);font-weight:600}
+.info.warn{background:var(--warn-s)}.info.warn .ic{color:var(--warn-i)}
+.info.ok{background:var(--ok-s)}.info.ok .ic{color:var(--ok-i)}
+.info.pur{background:#f6effe}.info.pur .ic{color:var(--pur)}
+.days{display:flex;gap:8px;flex-wrap:wrap}
+.day{width:86px;border:1px solid var(--line2);border-radius:14px;padding:10px 6px;text-align:center;background:#fff}
+.day b{display:block;font-size:20px;font-weight:600}
+.day small{display:block;font-size:12.5px;color:var(--ink3)}
+.day.on{border-color:var(--blue);background:var(--blue-s);box-shadow:inset 0 0 0 1px var(--blue)}
+.day:disabled{opacity:.4;cursor:default}
+.slots{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.slots button{height:40px;padding:0 16px;border-radius:20px;border:1px solid var(--line2);font-size:15.5px;background:#fff}
+.slots button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+
+/* ===== відходи ===== */
+.sec{padding:24px 28px 26px;margin-top:20px}
+.two{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:28px}
+.map{border-radius:18px;overflow:hidden;background:#e9eef5;position:relative;aspect-ratio:13/10;align-self:start}
+.map svg{width:100%;height:100%;display:block}
+.mapleg{position:absolute;left:12px;bottom:12px;background:rgba(255,255,255,.92);border-radius:10px;padding:6px 10px;font-size:12.5px;color:var(--ink2);display:flex;gap:12px}
+.mapleg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.site-h{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.site-h h3{font-size:22px;line-height:30px;font-weight:600}
+.site-h small{display:block;color:var(--ink3);font-size:15px;margin-top:2px}
+.bins{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 4px}
+.binc{display:flex;align-items:center;gap:8px;border:1px solid var(--line2);border-radius:12px;padding:8px 12px 8px 9px;font-size:14.5px}
+.binc i{width:18px;height:22px;border-radius:3px 3px 5px 5px;position:relative;flex:none}
+.binc i::before{content:"";position:absolute;left:-2px;right:-2px;top:-3px;height:4px;border-radius:2px;background:inherit;filter:brightness(.85)}
+.binc small{color:var(--ink3);margin-left:2px}
+.rows2>div{display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15.5px}
+.rows2>div:last-child{border-bottom:0}
+.rows2 span{color:var(--ink2)}
+.rows2 b{font-weight:600;text-align:right}
+.rows2 a{color:var(--blue);font-weight:600}
+.near{margin-top:14px}
+.near .t{font-size:14px;color:var(--ink3);text-transform:uppercase;letter-spacing:.02em;margin-bottom:6px}
+.near div{display:flex;justify-content:space-between;font-size:15px;padding:7px 0;color:var(--ink2)}
+.sch{width:100%;border-collapse:separate;border-spacing:0;font-size:15px}
+.sch th{font-weight:400;color:var(--ink3);font-size:14px;text-transform:uppercase;letter-spacing:.02em;padding:0 6px 12px;text-align:center}
+.sch th:first-child{text-align:left;padding-left:0}
+.sch th.td{color:var(--blue);font-weight:600}
+.sch td{padding:6px;text-align:center;border-top:1px solid var(--line)}
+.sch td:first-child{text-align:left;padding-left:0;white-space:nowrap}
+.sch td.td{background:var(--blue-s)}
+.sch tr:first-child td.td{border-radius:12px 12px 0 0}
+.sch tr:last-child td.td{border-radius:0 0 12px 12px}
+.slot{display:inline-block;font-size:13px;color:var(--ink2);background:var(--grey-s);border-radius:7px;padding:4px 7px;white-space:nowrap}
+.slot.today{background:#fff;color:var(--ink);font-weight:600;box-shadow:inset 0 0 0 1px var(--line2)}
+.slot.moved{background:var(--warn-s);color:var(--warn)}
+.slot.done{background:var(--ok-s);color:var(--ok)}
+.sn{display:inline-flex;align-items:center;gap:8px}
+.sn i{width:10px;height:10px;border-radius:3px;flex:none}
+.tg{display:flex;align-items:center;gap:10px;font-size:16px;cursor:pointer;user-select:none}
+.tg i{width:44px;height:26px;border-radius:13px;background:#c9d2e0;position:relative;transition:.2s;flex:none}
+.tg i::after{content:"";position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.tg.on i{background:var(--blue)}
+.tg.on i::after{left:21px}
+.hist>div{display:grid;grid-template-columns:110px 130px 1fr;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line);font-size:15px}
+.hist span{color:var(--ink2)}
+.sec-h{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.sec-h h3{font-size:22px;line-height:30px;font-weight:600}
+
+/* таймлайн */
+.tl{position:relative;margin-top:6px}
+.tl>div{position:relative;padding:0 0 18px 34px}
+.tl>div::before{content:"";position:absolute;left:9px;top:22px;bottom:-2px;width:2px;background:var(--line2)}
+.tl>div:last-child::before{display:none}
+.tl>div::after{content:"";position:absolute;left:3px;top:4px;width:10px;height:10px;border-radius:50%;background:#fff;border:3px solid var(--blue)}
+.tl>div.ok::after{border-color:var(--ok-i);background:var(--ok-i)}
+.tl>div.w::after{border-color:var(--warn-i)}
+.tl>div.bad::after{border-color:var(--bad-i)}
+.tl>div.pend::after{border-color:#c3cddd}
+.tl b{display:block;font-weight:600;font-size:16px;line-height:22px}
+.tl small{display:block;color:var(--ink3);font-size:14px;margin-top:2px}
+.tl>div.pend b{color:var(--ink3);font-weight:400}
+
+/* трекер заявки */
+.trk{display:flex;gap:6px;margin-top:16px}
+.trk span{flex:1;text-align:center;font-size:13.5px;padding:9px 4px;border-radius:10px;background:var(--grey-s);color:var(--ink3)}
+.trk span.d{background:var(--ok-s);color:var(--ok)}
+.trk span.c{background:var(--blue);color:#fff;font-weight:600}
+
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}
+.kpis.k4{grid-template-columns:repeat(4,1fr)}
+.kpi{background:#fff;border-radius:20px;padding:18px 20px;box-shadow:var(--sh)}
+.kpi .l{font-size:13.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:.02em}
+.kpi b{display:block;font-size:34px;line-height:42px;font-weight:600;margin-top:6px;font-variant-numeric:tabular-nums}
+.kpi b small{font-size:18px;color:var(--ink2);margin-left:4px;font-weight:600}
+.kpi .d{font-size:13.5px;color:var(--ink2);margin-top:2px;line-height:1.35}
+.kpi .t{margin-top:10px}
+.bars{padding:20px 24px;margin-top:10px}
+.bars .r{display:grid;grid-template-columns:150px 1fr 80px;gap:12px;align-items:center;font-size:14.5px;padding:4px 0}
+.bars .r span{color:var(--ink2)}
+.bars .r i{display:block;height:10px;border-radius:0 5px 5px 0;background:var(--blue)}
+.bars .r b{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+
+/* рейси */
+.fchips{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.fchips button{height:40px;padding:0 16px;border-radius:20px;background:var(--pill);font-size:15.5px;display:flex;align-items:center;gap:8px}
+.fchips button.on{background:var(--blue-d);color:#fff}
+.fchips button em{font-style:normal;font-size:12.5px;font-weight:600;background:rgba(255,255,255,.7);color:var(--ink2);border-radius:9px;padding:1px 7px}
+.fchips button.on em{background:rgba(255,255,255,.25);color:#fff}
+.trow{display:grid;grid-template-columns:110px minmax(0,1fr) 196px 236px 24px;column-gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.trow:last-child{border-bottom:0}
+.trow:hover .rn{color:var(--blue)}
+.trow .rn{font-weight:600;font-size:17px}
+.trow .rs{font-size:14.5px;color:var(--ink2)}
+.trow .rs b{color:var(--ink);font-weight:600}
+.srcs{display:flex;gap:6px}
+.src{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;position:relative}
+.src .ic{width:18px;height:18px;stroke-width:1.8}
+.src.y{background:var(--ok-s);color:var(--ok-i)}
+.src.n{background:var(--grey-s);color:#a9b1bd}
+.src.c{background:var(--bad-s);color:var(--bad-i)}
+.src.x{background:var(--warn-s);color:var(--warn-i)}
+.thead{display:grid;grid-template-columns:110px minmax(0,1fr) 196px 236px 24px;column-gap:16px;font-size:13px;color:var(--ink3);text-transform:uppercase;letter-spacing:.02em;padding:18px 0 10px;border-bottom:1px solid var(--line)}
+.smat{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px}
+.sm{border-radius:16px;padding:14px 14px 16px;background:var(--grey-s)}
+.sm.y{background:var(--ok-s)}.sm.c{background:var(--bad-s)}.sm.x{background:var(--warn-s)}
+.sm .h{display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px}
+.sm.y .h .ic{color:var(--ok-i)}.sm.c .h .ic{color:var(--bad-i)}.sm.x .h .ic{color:var(--warn-i)}.sm.n .h .ic{color:#a9b1bd}
+.sm p{font-size:13.5px;color:var(--ink2);margin-top:6px;line-height:1.4}
+.verdict{display:flex;gap:16px;align-items:center;border-radius:18px;padding:18px 20px;margin-top:16px}
+.verdict.ok{background:var(--ok-s)}.verdict.bad{background:var(--bad-s)}.verdict.y{background:var(--warn-s)}.verdict.b{background:var(--blue-s)}.verdict.g{background:var(--grey-s)}
+.verdict b{font-size:20px;font-weight:600;display:block}
+.verdict p{font-size:15px;color:var(--ink2);margin-top:2px}
+.prog{height:8px;border-radius:4px;background:var(--line);overflow:hidden;display:flex;margin-top:8px;width:100%}
+.prog i{display:block;height:100%}
+.pts>div{display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line);font-size:15.5px}
+.pts>div:last-child{border-bottom:0}
+.pts span.tm{color:var(--ink3);font-variant-numeric:tabular-nums}
+.pts .miss{background:var(--warn-s);margin:0 -14px;padding:11px 14px;border-radius:12px;border-bottom:0}
+.reason{margin-top:14px;border:1px solid var(--line2);border-radius:18px;padding:18px}
+.reason h4{font-size:17px;font-weight:600}
+.segs{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.segs button{height:38px;padding:0 15px;border-radius:19px;border:1px solid var(--line2);font-size:15px;background:#fff}
+.segs button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+
+/* ===== путівник ===== */
+.tour{position:fixed;right:22px;bottom:22px;width:370px;max-height:calc(100vh - 80px);display:flex;flex-direction:column;background:#fff;border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.28),0 0 0 1px rgba(0,0,0,.05);z-index:65;overflow:hidden;font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.tour .th{background:#2b2f36;color:#fff;padding:13px 14px 13px 18px;display:flex;align-items:center;gap:10px;flex:none}
+.tour .th b{font-size:15px}
+.tour .th .pr{font-size:12.5px;color:#b8bec8;margin-left:auto}
+.tour .th button{color:#b8bec8;font-size:20px;line-height:1;padding:2px 6px;border-radius:8px}
+.tour .th button:hover{color:#fff;background:#3a3f48}
+.tour .tb{padding:18px 20px 20px;overflow:auto;color:#1d1d1f;font-size:14.5px;line-height:1.5}
+.tour .intro{color:#323232;margin:0 0 14px}
+.tour .fl{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:1px solid #e5e5ea;border-radius:12px;padding:10px 12px;margin-bottom:8px;font:inherit}
+.tour .fl:hover{border-color:#7b2ff7;background:#faf6ff}
+.tour .fl .no{width:26px;height:26px;border-radius:50%;background:#f3e8ff;color:#5b12b5;font-weight:800;font-size:12.5px;display:grid;place-items:center;flex:none}
+.tour .fl.ok .no{background:#e8f7ea;color:#1f7a2e}
+.tour .fl .nm{font-weight:700;font-size:14px;line-height:1.3;display:block}
+.tour .fl .ds{font-size:12.5px;color:#6e6e6e;margin-top:2px;line-height:1.35;display:block}
+.tour .fl .rl{margin-left:auto;font-size:12px;color:#6e6e6e;white-space:nowrap}
+.tour .kick{font-size:12px;font-weight:800;color:#7b2ff7;letter-spacing:.04em;text-transform:uppercase}
+.tour h4{font-size:17px;margin:4px 0 12px}
+.tour .bar{display:flex;gap:4px;margin-bottom:16px}
+.tour .bar i{flex:1;height:4px;border-radius:4px;background:#e5e5ea}
+.tour .bar i.d{background:#35ac46}
+.tour .bar i.c{background:#7b2ff7}
+.tour .ok-msg{background:#e8f7ea;color:#1f7a2e;border-radius:10px;padding:10px 12px;font-weight:700;font-size:13.5px;margin-top:14px}
+.tour .ta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;align-items:center}
+.tour .ta .tbn{padding:10px 16px;font:700 13.5px/1.2 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;border-radius:10px;background:#7b2ff7;color:#fff}
+.tour .ta .tbn:hover{background:#6420d4}
+.tour .ta .tbn.g{background:#f1f1f4;color:#1d1d1f}
+.tour .tlinks{display:flex;gap:18px;margin-top:12px}
+.tour .tlinks button{color:#6e6e6e;font-size:13px}
+.tour .tlinks button:hover{color:#1d1d1f}
+.tour-hl{outline:3px solid #7b2ff7!important;outline-offset:4px;animation:tpulse 1.6s ease-out infinite}
+@keyframes tpulse{0%{box-shadow:0 0 0 0 rgba(123,47,247,.45)}70%{box-shadow:0 0 0 14px rgba(123,47,247,0)}100%{box-shadow:0 0 0 0 rgba(123,47,247,0)}}
+@media(min-width:1500px){body.tour-open .fab{right:414px}body.tour-open .chat{right:414px}}
+
+/* шар «Figma як є» */
+body.base .vx{display:none!important}
+
+/* вузькі екрани */
+@media(max-width:1180px){
+  .layout{grid-template-columns:1fr;row-gap:0}
+  .side{border-radius:0 0 20px 20px;display:flex;gap:4px;overflow-x:auto;padding:10px 12px}
+  .side .scap,.side .who{display:none}
+  .sit{width:auto;white-space:nowrap;flex:none;margin:0}
+  .ph{height:150px;padding-top:40px}
+  .hnav{display:none}
+  .two,.g2{grid-template-columns:1fr}
+  .smat{grid-template-columns:repeat(2,1fr)}
+  .trow,.thead{grid-template-columns:90px minmax(0,1fr) 160px 24px}.trow .srcs,.thead .hs{display:none}
+}
+@media(max-width:760px){
+  .ph h1{font-size:40px;line-height:48px}
+  .sgrid,.kpis,.kpis.k4,.g3{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr 24px}.row .chip{grid-column:1;grid-row:2;margin-top:10px}.row .ar{grid-row:1/3;grid-column:2}
+  .fgrid{grid-template-columns:1fr}.fcont{grid-template-columns:1fr}
+  .hright .hbtn span{display:none}.upill span{display:none}
+  .mock .hint{display:none}
+  .tour{left:10px;right:10px;width:auto;bottom:10px;max-height:55vh}
+  .lead{flex-direction:column}
+}
+</style>
+</head>
+
+<body>
+
+<div class="mock" id="mock">
+  <span class="lbl">Макет · Відходи Києва</span>
+  <button class="tab on" data-role="res">Мешканець</button>
+  <button class="tab" data-role="osbb">Голова ОСББ</button>
+  <button class="tab" data-role="car">Перевізник</button>
+  <button class="tab" data-role="dep">Департамент</button>
+  <span class="sep"></span>
+  <label>Шар: <select id="layerSel">
+    <option value="1">кабінет + «Відходи»</option>
+    <option value="0">кабінет як у Figma</option>
+  </select></label>
+  <button class="tab" id="resetBtn">Скинути</button>
+  <button class="tab tourbtn" id="tourbtn">🧭 Путівник</button>
+  <a class="tab" href="../" target="_blank" rel="noopener">Концепт ↗</a>
+  <span class="hint">Копія кабінету з Figma · дані демонстраційні</span>
+</div>
+
+<div class="page">
+  <header class="hd">
+    <div class="wrap">
+      <a class="logo" data-a="home" aria-label="Портал послуг"><img src="img/logo-blue.svg" alt="Портал послуг Kyiv.Digital"></a>
+      <nav class="hnav">
+        <button data-a="dd" data-d="city">Міські послуги <svg class="ic" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+        <a data-a="toast" data-t="«Часті запитання» в макеті не деталізовано">Часті запитання</a>
+      </nav>
+      <div class="hright">
+        <button class="hbtn" data-a="search"><svg class="ic" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7"/><path d="M20.5 20.5l-5-5"/></svg><span>Пошук</span></button>
+        <button class="hbtn" data-a="dd" data-d="a11y"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="7.2" r="1.3" fill="currentColor" stroke="none"/><path d="M7.5 10l4.5 1 4.5-1M12 11v3.2M12 14.2l-2.4 4.3M12 14.2l2.4 4.3"/></svg><span>Доступність</span></button>
+        <button class="upill" data-a="dd" data-d="user"><span class="ava" id="uAva">РК</span><span id="uName">Роман К.</span><svg class="ic" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+      </div>
+    </div>
+    <div class="wrap" style="position:relative;height:0"><div id="ddBox"></div></div>
+  </header>
+
+  <div class="banner"></div>
+
+  <div class="wrap layout">
+    <aside class="side" id="side"></aside>
+    <main class="main" id="main"></main>
+  </div>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="fgrid">
+        <div>
+          <a class="flogo" data-a="home"><img src="img/logo-white.svg" alt="Портал послуг"></a>
+          <div class="fsup">
+            <div class="fcap">Підтримка</div>
+            <div class="fcont">
+              <div><div class="l">Контактний номер:</div><div class="v"><svg class="ic" viewBox="0 0 24 24"><path d="M5 4h3.5l1.7 4.3-2.3 1.4a11 11 0 005.4 5.4l1.4-2.3L19 14.5V18a2 2 0 01-2 2A15 15 0 013 6a2 2 0 012-2z"/></svg>+38 (044) 366-80-22</div></div>
+              <div><div class="l">E-mail підтримка:</div><div class="v"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6l8.5 7 8.5-7"/></svg>portal.support@kyivcity.gov.ua</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="fcol">
+          <div class="fcap">Міська платформа</div>
+          <a data-a="dd" data-d="city">Міські послуги</a>
+          <a data-a="toast" data-t="«Часті запитання» в макеті не деталізовано">Часті запитання</a>
+        </div>
+        <div>
+          <div class="fcap" style="margin-top:3px">Мобільний застосунок Kyiv Digital</div>
+          <div class="stores">
+            <a class="store" data-a="toast" data-t="Посилання на Google Play"><svg width="26" height="28" viewBox="0 0 26 28"><path d="M1.5 1.2L14.6 14 1.5 26.8c-.4-.3-.6-.8-.6-1.4V2.6c0-.6.2-1.1.6-1.4z" fill="#2ec4f3"/><path d="M19 9.6L14.6 14 1.5 1.2c.5-.4 1.2-.4 1.9 0z" fill="#3fdc7f"/><path d="M19 18.4L3.4 26.8c-.7.4-1.4.4-1.9 0L14.6 14z" fill="#f5384a"/><path d="M24 12.2c1 .6 1 2 0 2.6l-5 2.9L14.6 14 19 9.6z" fill="#ffc72c"/></svg><span><small>GET IT ON</small><b>Google Play</b></span></a>
+            <a class="store" data-a="toast" data-t="Посилання на App Store"><svg width="22" height="26" viewBox="0 0 22 26" fill="#fff"><path d="M18.2 13.8c0-3 2.5-4.5 2.6-4.6-1.4-2.1-3.6-2.4-4.4-2.4-1.9-.2-3.6 1.1-4.6 1.1-.9 0-2.4-1.1-4-1-2 0-3.9 1.2-5 3-2.1 3.7-.5 9.2 1.5 12.2 1 1.5 2.2 3.1 3.8 3 1.5-.1 2.1-1 3.9-1s2.4 1 4 1c1.7 0 2.7-1.5 3.7-3 1.2-1.7 1.6-3.3 1.7-3.4-.1 0-3.2-1.2-3.2-4.9zM15.2 4.9c.8-1 1.4-2.4 1.2-3.8-1.2.1-2.6.8-3.5 1.8-.8.9-1.4 2.3-1.2 3.7 1.3.1 2.6-.7 3.5-1.7z"/></svg><span><small>Download on the</small><b>App Store</b></span></a>
+          </div>
+          <div class="fcap" style="margin-top:37px">Соціальні мережі</div>
+          <div class="socs">
+            <a class="soc" data-a="toast" data-t="Telegram"><svg viewBox="0 0 24 24" fill="#fff"><path d="M21.5 3.6L2.9 10.8c-1.3.5-1.2 1.2-.2 1.5l4.8 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.4-1.2zM8.4 13.5l9.6-6.1c.5-.3.9-.1.5.2l-8.2 7.4-.3 3.4z"/></svg></a>
+            <a class="soc" data-a="toast" data-t="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".9" fill="#fff" stroke="none"/></svg></a>
+            <a class="soc" data-a="toast" data-t="Facebook"><svg viewBox="0 0 24 24" fill="#fff"><path d="M13.6 21v-7.6h2.6l.4-3h-3V8.5c0-.9.3-1.5 1.5-1.5h1.6V4.3c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.9v3h2.6V21z"/></svg></a>
+            <a class="soc" data-a="toast" data-t="YouTube"><svg viewBox="0 0 24 24" fill="#fff"><path d="M21.6 7.2a2.6 2.6 0 00-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4a2.6 2.6 0 00-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.8a2.6 2.6 0 001.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 001.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3z"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="fbot">
+        <div class="cp"><span>©2026</span><span>Вебпортал надання електронних послуг.<br>Київська міська державна адміністрація, Київська міська рада</span></div>
+        <a data-a="toast" data-t="«Умови користування» в макеті не деталізовано">Умови користування</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<button class="fab" id="fab" data-a="chat" aria-label="Чат-помічник"><svg class="ic" viewBox="0 0 24 24"><path d="M12 4c4.7 0 8.5 3.1 8.5 7s-3.8 7-8.5 7c-1 0-2-.1-2.9-.4L5 19.5l1.1-3.6C4.5 14.6 3.5 12.9 3.5 11c0-3.9 3.8-7 8.5-7z"/><path d="M8.5 10h7M8.5 13h4.5"/></svg></button>
+<div class="chat" id="chat" hidden></div>
+<div class="ovl" id="ovl" hidden><div class="mdl" id="mdl"></div></div>
+<div class="toast" id="toast"></div>
+<div class="tour" id="tour" hidden>
+  <div class="th"><b>🧭 Путівник</b><span class="pr" id="tour-pr"></span><button id="tour-x" title="Згорнути">×</button></div>
+  <div class="tb" id="tour-body"></div>
+</div>
+
+<script>
+/* ================= БАЗА ================= */
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const P={
+ doc:'<path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>',
+ pen:'<path d="M5 15.5L15.5 5a2.1 2.1 0 013 3L8 18.5l-4 1z"/><path d="M13.5 7l3 3M4 21.5c2-.2 3.4-1.6 4.8-1.6 1.5 0 1.6 1.4 3.2 1.4 1.3 0 2.4-.9 3.5-1.6"/>',
+ docs:'<path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5"/><path d="M13.5 11.5v4a1.75 1.75 0 01-3.5 0v-4.5a1 1 0 012 0v4"/>',
+ cal:'<rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+ users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 19.5c.8-3.4 3.4-5 6.5-5s5.7 1.6 6.5 5"/><path d="M15.5 4.8a3.5 3.5 0 010 6.4M18 14.8c1.8.7 3 2.3 3.5 4.7"/>',
+ kid:'<circle cx="14.5" cy="9.5" r="5.5"/><path d="M10.6 13.4L6 18"/><circle cx="5" cy="19" r="2"/><path d="M12.5 7.5a3 3 0 014 0"/>',
+ brief:'<rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0110.5 4h3A1.5 1.5 0 0115 5.5V7M3 12.5h18"/>',
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4.5 20c1-3.6 3.9-5.5 7.5-5.5s6.5 1.9 7.5 5.5"/>',
+ bell:'<path d="M6 16v-5a6 6 0 0112 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 004 0"/>',
+ bin:'<path d="M4 7h16M9.5 7V4.5h5V7M6 7l1 13h10l1-13"/><path d="M10 11v5M14 11v5"/>',
+ home:'<path d="M4 11l8-7 8 7v9a1 1 0 01-1 1h-5v-6h-4v6H5a1 1 0 01-1-1z"/>',
+ truck:'<path d="M2.5 6.5h11.5v9.5H2.5zM14 9.5h4l3 3.5v3h-7"/><circle cx="6.5" cy="17.5" r="2"/><circle cx="17" cy="17.5" r="2"/>',
+ inbox:'<path d="M4 13l2.5-8h11L20 13v6H4z"/><path d="M4 13h4.5l1 2h5l1-2H20"/>',
+ chart:'<path d="M4 20V4M4 20h16"/><path d="M8.5 16v-5M12.5 16V8M16.5 16v-3"/>',
+ route:'<circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H16a3 3 0 000-6H8a3 3 0 010-6h7.5"/>',
+ bins:'<path d="M2.5 9h8M3.5 9l.8 10h5.4l.8-10M5 9V7h3v2M13.5 9h8M14.5 9l.8 10h5.4l.8-10M16 9V7h3v2"/>',
+ file:'<path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 12.5h6M9 16.5h6"/>',
+ plane:'<path d="M21 3L10.5 13.5M21 3l-6.5 18-4-7.5L3 9.5z"/>',
+ clock:'<path d="M4.5 12a7.5 7.5 0 107.5-7.5A7.6 7.6 0 005 8.2"/><path d="M4.5 4.5v3.8h3.8M12 8v4l2.8 1.8"/>',
+ docsearch:'<path d="M12.5 3H6.5A1.5 1.5 0 005 4.5v15A1.5 1.5 0 006.5 21H11"/><path d="M12.5 3l5 5v2.5"/><circle cx="15.5" cy="16" r="3"/><path d="M17.8 18.3l2.2 2.2"/>',
+ check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+ checkc:'<circle cx="12" cy="12" r="8.5"/><path d="M8 12.3l2.8 2.8 5.4-5.5"/>',
+ x:'<path d="M6 6l12 12M18 6L6 18"/>',
+ alert:'<path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17v.3"/>',
+ info:'<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8v.3"/>',
+ arr:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+ chev:'<path d="M6 9l6 6 6-6"/>',
+ chevu:'<path d="M6 15l6-6 6 6"/>',
+ chevr:'<path d="M9 6l6 6-6 6"/>',
+ pin:'<path d="M12 21s7-6.2 7-11.5A7 7 0 005 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
+ cam:'<path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+ gps:'<circle cx="12" cy="12" r="2.6"/><circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>',
+ mark:'<rect x="4" y="4" width="16" height="16" rx="3.5"/><path d="M8.5 12.3l2.4 2.4 4.6-4.9"/>',
+ scale:'<path d="M4 20h16M6 20l2-11h8l2 11"/><circle cx="12" cy="6" r="2"/>',
+ msg:'<path d="M4 5h16v11H9l-5 4z"/><path d="M12 8v3.5M12 13.6v.3"/>',
+ sofa:'<path d="M5 11V8a2 2 0 012-2h10a2 2 0 012 2v3"/><path d="M3 12a2 2 0 014 0v2h10v-2a2 2 0 014 0v5H3z"/><path d="M5 17v2M19 17v2"/>',
+ tv:'<rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/>',
+ bed:'<path d="M3 19V7M3 14h18v5M21 14v-2a3 3 0 00-3-3h-7v5"/><circle cx="7" cy="11" r="1.6"/>',
+ door:'<path d="M6 21V4h12v17M4 21h16"/><path d="M14.5 12.5h.5"/>',
+ bath:'<path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4z"/><path d="M6 12V6a2 2 0 014 0M7 19l-1 2M17 19l1 2"/>',
+ dots:'<path d="M6 12h.01M12 12h.01M18 12h.01" stroke-width="3"/>',
+ over:'<path d="M5 10h14l-1.2 10H6.2z"/><path d="M12 3v5M9.5 5.5L12 3l2.5 2.5"/>',
+ spill:'<path d="M4 9h10l-1 9H5z"/><path d="M16 14.5l2.5 1.5M17 11h3.5M15.5 18.5l1.3 2"/>',
+ broken:'<path d="M5 8h14l-1.2 12H6.2z"/><path d="M11.5 8l-1 4 3 2-1 4"/>',
+ dump:'<path d="M3 19h18M4.5 19l3.5-6 3 3 3.5-5.5L19 19"/><circle cx="16" cy="6" r="1.5"/>',
+ car:'<path d="M5 16v-4l2-4h10l2 4v4z"/><circle cx="8" cy="16.5" r="1.5"/><circle cx="16" cy="16.5" r="1.5"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ back:'<path d="M19 12H5M11 6l-6 6 6 6"/>',
+ ret:'<path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 010 11H11"/>',
+ leaf:'<path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14z"/><path d="M5 19l7-7"/>',
+ glass:'<path d="M9 3h6M10 3v4l-2 3v10a1 1 0 001 1h6a1 1 0 001-1V10l-2-3V3"/>',
+ bat:'<rect x="7" y="5" width="10" height="16" rx="2"/><path d="M10 3h4M12 10v5M9.5 12.5h5"/>',
+ shirt:'<path d="M8 4l-5 3 2 4 2-1v10h10V10l2 1 2-4-5-3a4 4 0 01-8 0z"/>',
+ zoom:'<circle cx="10.5" cy="10.5" r="7"/><path d="M20.5 20.5l-5-5M10.5 7.5v6M7.5 10.5h6"/>',
+ logout:'<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/>'
+};
+const ic=(n,c='')=>`<svg class="ic ${c}" viewBox="0 0 24 24">${P[n]||''}</svg>`;
+const STR={mix:['Змішані','#6b7280'],glass:['Скло','#1f9d63'],plast:['Пластик','#e0a100'],dry:['Суха фракція','#2b66f6'],haz:['Небезпечні','#d64545']};
+
+/* ================= ІЛЮСТРАЦІЇ ================= */
+(function(){
+  const win=(x0,y0,c,r,dx,dy,w,h)=>{let s='';for(let j=0;j<r;j++)for(let i=0;i<c;i++)s+=`<rect x='${x0+i*dx}' y='${y0+j*dy}' width='${w}' height='${h}'/>`;return s};
+  let sp='';for(let a=0;a<360;a+=30){const r=a*Math.PI/180;sp+=`<line x1='300' y1='236' x2='${(300+64*Math.cos(r)).toFixed(1)}' y2='${(236+64*Math.sin(r)).toFixed(1)}'/>`}
+  let cab='';for(let a=0;a<360;a+=30){const r=a*Math.PI/180;cab+=`<circle cx='${(300+68*Math.cos(r)).toFixed(1)}' cy='${(236+68*Math.sin(r)).toFixed(1)}' r='4.5'/>`}
+  const svg=`<svg xmlns='http://www.w3.org/2000/svg' width='480' height='220' viewBox='0 0 480 220'><g fill='#fff' fill-opacity='.075'><rect x='8' y='74' width='70' height='146'/><rect x='20' y='52' width='46' height='24'/><rect x='32' y='34' width='22' height='20'/><rect x='42' y='12' width='2' height='24'/><rect x='100' y='134' width='58' height='86'/><rect x='112' y='108' width='34' height='28'/><path d='M129 70c-12 8-17 19-17 30v8h34v-8c0-11-5-22-17-30z'/><rect x='128' y='44' width='2' height='28'/><rect x='123' y='51' width='12' height='2'/><rect x='176' y='166' width='74' height='54'/><rect x='186' y='152' width='54' height='16'/><rect x='392' y='76' width='10' height='144'/><rect x='386' y='68' width='22' height='9'/><path d='M397 32c-3 0-5 3-5 6v10l-12-8-2 3 14 11v14h10V54l14-11-2-3-12 8V38c0-3-2-6-5-6z'/><rect x='420' y='102' width='56' height='118'/><rect x='430' y='86' width='36' height='18'/><rect x='446' y='70' width='4' height='18'/>${cab}</g><g fill='#06134a' fill-opacity='.10'>${win(15,84,6,13,10,10,5,5)}${win(427,110,5,11,10,10,5,5)}${win(183,174,7,4,10,11,5,6)}${win(118,146,4,6,11,12,4,6)}</g><g fill='none' stroke='#fff' stroke-opacity='.10' stroke-width='3'><circle cx='300' cy='236' r='64'/><circle cx='300' cy='236' r='12'/>${sp}</g><g fill='none' stroke='#fff' stroke-opacity='.22' stroke-width='1.6' stroke-linecap='round'><path d='M214 66l5 3 5-3'/><path d='M232 56l4 2.5 4-2.5'/><path d='M346 96l4 2.5 4-2.5'/><path d='M84 30l4 2.5 4-2.5'/></g></svg>`;
+  document.documentElement.style.setProperty('--ban',`url("data:image/svg+xml,${encodeURIComponent(svg)}")`);
+})();
+function ring(a,b,kind,tx){
+  const r=24.5,c=2*Math.PI*r,p=b?Math.min(1,a/b):1,col=kind==='ok'?'#1f9d63':kind==='w'?'#e0a100':'#2b66f6';
+  const txt=tx||(kind==='ok'?ic('check'):b>9?Math.round(p*100)+'%':`${a}/${b}`);
+  return `<div class="ring ${kind==='ok'?'ok':''}"><svg width="57" height="57" viewBox="0 0 57 57"><circle cx="28.5" cy="28.5" r="${r}" fill="none" stroke="#e1e7ef" stroke-width="4.5"/><circle cx="28.5" cy="28.5" r="${r}" fill="none" stroke="${col}" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="${(c*p).toFixed(1)} ${c.toFixed(1)}"/></svg><span>${txt}</span></div>`;
+}
+function photo(k,lbl){
+  let s=`<svg viewBox="0 0 120 90" preserveAspectRatio="xMidYMid slice"><rect width="120" height="90" fill="#a9b4c3"/><g fill="#b9c3d0">${[0,1,2,3].map(j=>[0,1,2,3,4,5].map(i=>`<rect x="${i*21+(j%2?-8:2)}" y="${j*12+2}" width="18" height="9" rx="1"/>`).join('')).join('')}</g><rect y="56" width="120" height="34" fill="#80899a"/>`;
+  const cont=(x,col,lid)=>`<rect x="${x}" y="40" width="34" height="30" rx="3" fill="${col}"/><rect x="${x-2}" y="${lid?30:37}" width="38" height="5" rx="2" fill="${col}" ${lid?`transform="rotate(-14 ${x} 37)"`:''}/><circle cx="${x+6}" cy="72" r="3" fill="#2a2f38"/><circle cx="${x+28}" cy="72" r="3" fill="#2a2f38"/>`;
+  if(k==='full')s+=cont(42,'#2f5d50',1)+`<g fill="#1d2129"><circle cx="50" cy="36" r="8"/><circle cx="62" cy="33" r="9"/><circle cx="72" cy="37" r="7"/><circle cx="34" cy="66" r="7"/><circle cx="86" cy="68" r="8"/><circle cx="96" cy="72" r="5"/></g><g fill="#e8e1cf"><rect x="22" y="72" width="9" height="6" rx="1" transform="rotate(12 22 72)"/><rect x="99" y="62" width="8" height="5" rx="1"/></g>`;
+  else if(k==='clean')s+=cont(42,'#2f5d50',0);
+  else if(k==='sofa')s+=cont(78,'#2f5d50',0)+`<path d="M8 50h52v18H8z" fill="#8a5a3c"/><rect x="4" y="46" width="10" height="24" rx="3" fill="#7a4d32"/><rect x="54" y="46" width="10" height="24" rx="3" fill="#7a4d32"/><rect x="12" y="38" width="44" height="14" rx="3" fill="#9a6a4a"/>`;
+  else s+=cont(12,'#2f5d50',0)+cont(48,'#2f8f4e',0)+cont(84,'#d9a516',0);
+  s+='</svg>';
+  return `<div class="pht">${s}${lbl?`<span>${lbl}</span>`:''}</div>`;
+}
+function svcIcon(k){
+  const box=`<rect x="5.5" y="4.5" width="55" height="55" rx="11" fill="#fff" stroke="#b8d0fb"/>`;
+  const g={
+    rep:`<rect x="22" y="22" width="22" height="24" rx="3" fill="#2b66f6"/><rect x="19" y="17" width="28" height="6" rx="2" fill="#7ea6fa"/><rect x="31.5" y="27" width="3" height="10" rx="1.5" fill="#fff"/><circle cx="33" cy="41" r="1.9" fill="#fff"/>`,
+    sofa:`<rect x="20" y="20" width="26" height="14" rx="4" fill="#7ea6fa"/><path d="M15 31a4 4 0 018 0v4h20v-4a4 4 0 018 0v11H15z" fill="#2b66f6"/><rect x="18" y="42" width="3" height="5" rx="1" fill="#2b66f6"/><rect x="45" y="42" width="3" height="5" rx="1" fill="#2b66f6"/>`,
+    bins:`<rect x="14" y="26" width="11" height="20" rx="2" fill="#7ea6fa"/><rect x="27.5" y="22" width="11" height="24" rx="2" fill="#2b66f6"/><rect x="41" y="26" width="11" height="20" rx="2" fill="#7ea6fa"/><path d="M30 33.5l3-4 3 4M33 29.5v8" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`,
+    map:`<path d="M33 49s12-10 12-19a12 12 0 00-24 0c0 9 12 19 12 19z" fill="#2b66f6"/><path d="M27 33c0-5 3-8 10-8 0 6-3 9-8 9" fill="#7ea6fa"/><path d="M27 35l5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>`
+  }[k];
+  return `<svg class="sic" viewBox="0 0 66 66"><defs><filter id="sh${k}" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#2b66f6" flood-opacity=".12"/></filter></defs><g filter="url(#sh${k})">${box}</g>${g}</svg>`;
+}
+function mapSvg(ai,opt){
+  const A=ADDR[ai],o=opt||{};
+  const roads=`<g stroke="#fff" stroke-width="16" fill="none"><path d="M-10 70H530M-10 250H530M120-10V330M380-10V330"/></g><g stroke="#fff" stroke-width="7" fill="none"><path d="M120 160H380M250 70V250"/></g>`;
+  const blocks=`<g fill="#dbe3ee"><rect x="10" y="90" width="92" height="56" rx="4"/><rect x="10" y="166" width="92" height="66" rx="4"/><rect x="140" y="88" width="94" height="56" rx="4"/><rect x="266" y="88" width="96" height="56" rx="4"/><rect x="266" y="176" width="96" height="56" rx="4"/><rect x="398" y="90" width="110" height="64" rx="4"/><rect x="398" y="172" width="110" height="60" rx="4"/><rect x="140" y="268" width="94" height="44" rx="4"/><rect x="266" y="268" width="96" height="44" rx="4"/><rect x="10" y="4" width="92" height="50" rx="4"/><rect x="140" y="4" width="222" height="50" rx="4"/></g><rect x="398" y="268" width="114" height="46" rx="6" fill="#d3e8d6"/><rect x="398" y="4" width="114" height="50" rx="6" fill="#d3e8d6"/>`;
+  const home=A.map.home,site=A.map.site;
+  const mk=(x,y,lbl,main)=>main?`<g transform="translate(${x} ${y})"><circle r="17" fill="#2b66f6" stroke="#fff" stroke-width="3"/><path d="M-6-5h12M-4-5l1 11h6l1-11M-2-5v-2h4v2" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(22 -14)"><rect width="${lbl.length*7.4+18}" height="28" rx="14" fill="#fff"/><text x="9" y="18.5" font-size="13" font-family="Daikon,Arial" font-weight="600" fill="#030616">${lbl}</text></g></g>`:`<g transform="translate(${x} ${y})"><circle r="11" fill="#fff" stroke="#8e95a0" stroke-width="2"/><path d="M-4-3.5h8M-2.8-3.5l.7 7.5h4.2l.7-7.5" stroke="#4a5567" stroke-width="1.5" fill="none" stroke-linecap="round"/><text x="15" y="4.5" font-size="12" font-family="Daikon,Arial" fill="#364153">${lbl}</text></g>`;
+  return `<svg viewBox="0 0 520 320" preserveAspectRatio="xMidYMid slice"><rect width="520" height="320" fill="#e9eef5"/>${blocks}${roads}<rect x="${home[0]}" y="${home[1]}" width="${home[2]}" height="${home[3]}" rx="4" fill="#cfe0ff" stroke="#2b66f6" stroke-width="2.5"/><text x="${home[0]+8}" y="${home[1]+20}" font-size="12.5" font-family="Daikon,Arial" font-weight="600" fill="#173e93">${A.short}</text><path d="M${home[0]+home[2]/2} ${home[1]+home[3]}L${site[0]} ${site[1]}" stroke="#2b66f6" stroke-width="2.5" stroke-dasharray="4 5" fill="none"/>${A.near.map(n=>mk(n[3],n[4],n[0],0)).join('')}${mk(site[0],site[1],A.site+' · '+A.dist,1)}</svg>`;
+}
+
+/* ================= ДАНІ ================= */
+const TODAY='10.11.2026';
+const ADDR=[
+ {a:'вул. Прикладна, 12',kv:'кв. 31',src:'з профілю',short:'Прикладна, 12',site:'Д-2-117',dist:'40 м',where:'за будинком, вхід з двору',rayon:'Дарницький',car:'Перевізник А',zone:'Д-2',contract:'до 31.12.2028',disp:'(044) 000-01-17',bal:'ОСББ «Прикладне»',houses:6,people:'~1 450',
+  cont:[['mix',3,'1,1 м³'],['glass',1,'1,5 м³'],['plast',1,'1,5 м³']],st:'Справний · інвентаризація 12.10.2026',
+  near:[['Д-2-118','160 м','змішані · суха фракція',398,108],['Д-2-121','230 м','змішані · скло · батарейки',72,196]],
+  map:{home:[140,176,94,56],site:[205,262]},
+  sch:{mix:[1,1,1,1,1,1,1,'05:00–08:00'],glass:[0,1,0,0,1,0,0,'10:00–12:00'],plast:[1,0,0,1,0,0,0,'10:00–12:00']}},
+ {a:'просп. Перемоги, 37',kv:'кв. 8',src:'батьки',short:'Перемоги, 37',site:'С-1-044',dist:'25 м',where:'біля торця будинку',rayon:'Святошинський',car:'Перевізник Б',zone:'С-1',contract:'до 30.06.2029',disp:'(044) 000-02-44',bal:'КК «Житло-сервіс»',houses:3,people:'~640',
+  cont:[['mix',4,'1,1 м³'],['dry',2,'2,5 м³']],st:'Справний · інвентаризація 03.09.2026',
+  near:[['С-1-046','190 м','змішані · скло',420,212],['С-1-039','260 м','змішані · пластик',70,120]],
+  map:{home:[266,88,96,56],site:[320,176]},
+  sch:{mix:[1,0,1,0,1,0,1,'06:00–09:00'],dry:[0,1,0,0,1,0,0,'11:00–13:00']}}
+];
+const DAYS=['Пн','Вт','Ср','Чт','Пт','Сб','Нд'],TD=1;
+const APPS=[
+ {t:'Психологічна підтримка Захисникам і Захисницям',d:'12.06.2026',r:'12.07.2026',st:'sub',dot:1},
+ {t:'Запис дитини до школи',d:'6.06.2026',r:'16.06.2026',st:'fix'},
+ {t:'Реабілітація для ветеранів та їхніх сімей',d:'5.05.2026',r:'20.06.2026',st:'rev'},
+ {t:'Переведення дитини в нову школу',d:'5.05.2026',r:'20.06.2026',st:'rev'},
+ {t:'Компенсація вартості проїзду для Захисників і Захисниць',d:'28.04.2026',r:'28.05.2026',st:'rev'},
+ {t:'Направлення на санаторно-курортне лікування',d:'21.04.2026',r:'21.06.2026',st:'sub'},
+ {t:'Запис дитини до закладу позашкільної освіти',d:'14.04.2026',r:'14.05.2026',st:'fix'},
+ {t:'Допомога на поховання',d:'02.04.2026',r:'02.05.2026',st:'rev'},
+ {t:'Отримання талонів на паливо',d:'27.03.2026',r:'27.04.2026',st:'sub'},
+ {t:'Безоплатна юридична консультація',d:'18.03.2026',r:'18.04.2026',st:'rev'},
+ {t:'Компенсація за найм житла',d:'05.03.2026',r:'05.05.2026',st:'rev'}
+];
+const DONE=[
+ {t:'Безоплатне паркування в Києві для Захисників та Захисниць',d:'02.06.2026',r:'09.06.2026',st:'ok',dot:1},
+ {t:'Одноразова допомога при пошкодженні житла - 10 000 грн',d:'14.05.2026',r:'24.05.2026',st:'ok',dot:1},
+ {t:'Запис до гуртка «Робототехніка»',d:'02.02.2026',r:'12.02.2026',st:'ok'}
+];
+const CH={sub:['b','plane','Подано'],fix:['g','clock','На доопрацювання'],rev:['y','docsearch','На розгляді'],ok:['ok','checkc','Виконано'],
+ work:['b','truck','В роботі'],done:['ok','checkc','Усунено'],conf:['ok','checkc','Виконано'],ret:['bad','ret','Повернуто'],plan:['b','cal','Заплановано'],eval:['y','docsearch','Оцінка потреби'],tech:['y','docsearch','Тех. можливість'],appr:['ok','checkc','Погоджено'],rej:['bad','x','Відмовлено']};
+const chip=(k,txt)=>{const c=CH[k]||['g','info',k];return `<span class="chip ${c[0]}">${ic(c[1])}${txt||c[2]}</span>`};
+const NEED='<b>Потрібні дані:</b> серія та номер паспорта або номер ID-картки, посвідчення учасника бойових дій';
+const SVC=[
+ {t:'Одноразова допомога при пошкодженні житла - 10 000 грн',img:'svc-zhytlo-dopomoga',tag:'Соціальна підтримка',cat:['zhytlo']},
+ {t:'Погодження розміщення літніх та сезонних майданчиків біля кафе та ресторанів',img:'svc-biz-maidanchyky',tag:'Бізнесу',cat:['biz']},
+ {t:'Одноразова матеріальна допомога малозабезпеченим киянам',img:'svc-malozabezpecheni',tag:'Соціальна підтримка',cat:[]},
+ {t:'Часткове відшкодування вартості незалежних джерел електричної енергії',img:'svc-energia',tag:'Відновлення та енергоефективність',cat:['zhytlo']},
+ {t:'Запис дитини до школи',img:'svc-shkola',tag:'Діти та освіта',cat:['dity']},
+ {t:'Безоплатне паркування в Києві для Захисників та Захисниць',img:'svc-parkuvannia',tag:'Захисникам',cat:['zah']},
+ {t:'Повідомлення про порушення графіка вивезення відходів',svg:'rep',tag:'Відходи',need:'<b>Потрібні дані:</b> адреса (з профілю), фото за бажанням',cat:['zhytlo'],vx:1,a:'rep-start'},
+ {t:'Вивезення великогабаритних відходів',svg:'sofa',tag:'Відходи',need:'<b>Потрібні дані:</b> адреса, вид і орієнтовний обсяг речей',cat:['zhytlo'],vx:1,a:'bulky-start'},
+ {t:'Встановлення контейнерів для роздільного збирання',svg:'bins',tag:'Для ОСББ',osbb:1,need:'<b>Хто подає:</b> ОСББ або управитель будинку',cat:['zhytlo'],vx:1,a:'cont-info'},
+ {t:'Де викинути скло, батарейки й одяг',svg:'map',tag:'Відходи',need:'<b>Карта:</b> контейнери для сортування і «Кошики добра» поруч з вами',cat:['zhytlo'],vx:1,a:'sortmap'}
+];
+const REPT={late:['Не вивезли вчасно','clock'],over:['Переповнений контейнер','over'],spill:['Розсипано після вивезення','spill'],broken:['Пошкоджений контейнер','broken'],dump:['Стихійне сміттєзвалище','dump'],block:['Заблоковано під’їзд','car']};
+const ROUTES=[
+ {id:'Д-2-04',s:'mix',m:'0417',pts:[42,42]},
+ {id:'Д-2-07',s:'glass',m:'0522',pts:[17,18]},
+ {id:'Д-2-11',s:'dry',m:'0603',pts:[31,31]},
+ {id:'Д-1-12',s:'mix',m:'0388',pts:[46,51],run:1}
+];
+const TRIPS=[
+ {id:'Д-2-04',s:'mix',car:'Перевізник А',m:'0417',pts:'42 з 42',gps:1,mark:1,w:'9,8 т',site:'Д-2-117'},
+ {id:'Д-2-07',s:'glass',car:'Перевізник А',m:'0522',pts:'17 з 18',gps:1,mark:0,w:'2,1 т',glass:1},
+ {id:'Д-1-12',s:'mix',car:'Перевізник А',m:'0388',pts:'51 з 51',gps:0,mark:1,w:'10,4 т',ph:1},
+ {id:'Д-1-03',s:'mix',car:'Перевізник А',m:'0391',pts:'38 з 38',gps:1,mark:0,w:'8,9 т'},
+ {id:'С-1-21',s:'mix',car:'Перевізник Б',m:'1120',pts:'44 з 44',gps:1,mark:1,w:'11,2 т'},
+ {id:'С-2-05',s:'plast',car:'Перевізник Б',m:'1207',pts:'0 з 26',gps:0,mark:0,w:''},
+ {id:'Д-3-02',s:'dry',car:'Перевізник А',m:'0644',pts:'29 з 29',gps:1,mark:1,w:'1,7 т'}
+];
+const DIST=[['Деснянський',11.5],['Дарницький',11.2],['Солом’янський',10.8],['Дніпровський',10.6],['Оболонський',10.4],['Святошинський',10.4],['Шевченківський',9.6],['Печерський',9.1],['Голосіївський',8.9],['Подільський',7.5]];
+const PER={w:{l:'за тиждень',exec:96.4,vol:16100,cmp:3.2,react:19,sep:410,infra:7.8},m:{l:'за місяць',exec:95.8,vol:69400,cmp:13.6,react:21,sep:1790,infra:8.1},y:{l:'за рік',exec:95.1,vol:838000,cmp:158,react:23,sep:21300,infra:9.4}};
+const fmt=(n,d=0)=>n.toLocaleString('uk-UA',{minimumFractionDigits:d,maximumFractionDigits:d});
+const RL={res:{ava:'РК',name:'Роман К.'},osbb:{ava:'ОГ',name:'Олена Г.'},car:{ava:'АС',name:'Андрій С.'},dep:{ava:'ІМ',name:'Ірина М.'}};
+
+function S0(){return{
+  role:'res',layer:true,
+  v:{res:'svc',osbb:'osbb',car:'disp',dep:'over'},sub:{res:null,osbb:null,car:null,dep:null},
+  tab:'act',stF:'all',more:false,cat:'all',
+  addr:0,notify:false,wz:null,
+  reps:[],bulky:[],creq:[],proposal:false,
+  glass:{reason:'block',when:'14',moved:false,photo:false},
+  dec:{},tripF:'all',period:'w',seen:{},
+  cdec:{exec:'kks',date:'30'},
+  notes:[
+    {r:'res',t:'Заяву «Психологічна підтримка Захисникам і Захисницям» подано',d:'12.06.2026',u:1},
+    {r:'res',t:'Завершіть заяву «Оздоровлення дітей у супроводі дорослого»: залишилось 3 кроки',d:'08.11.2026',u:1,go:['drafts']},
+    {r:'res',t:'Нові послуги в розділі «Послуги для вас»',d:'05.11.2026',u:1,go:['svc']},
+    {r:'osbb',t:'Звіт за жовтень: майданчик Д-2-117 переповнювався 5 разів',d:'01.11.2026',u:1,go:['osbb']},
+    {r:'car',t:'Маршрут Д-2-07: пропущено точку вул. Прикладна, 12',d:'10.11.2026, 10:20',u:1,go:['route','Д-2-07']},
+    {r:'dep',t:'Зведення за жовтень готове: виконання графіків 95,8%',d:'01.11.2026',u:1,go:['over']}
+  ],
+  chat:false,chatLog:null,dd:null,a11y:false
+}}
+let S=S0();
+const repHist={id:'1551-26-117355',type:'over',addr:0,site:'Д-2-117',created:'02.11.2026, 19:40',status:'conf',hist:1,photo:1,closePhoto:1,dl:'03.11.2026, 19:40',
+ ev:[['ok','Звернення зареєстровано','02.11.2026, 19:40 · 1551 № 26-117355'],['ok','Передано перевізнику','Перевізник А · зона Д-2'],['ok','Машину направлено','03.11.2026, 07:05'],['ok','Усунено, фото з геоміткою','03.11.2026, 08:12'],['ok','Ви підтвердили усунення','03.11.2026, 09:30']]};
+const bulkyHist={id:'ВГ-26-0218',items:['Меблі'],what:'Шафа, 2 стільці',vol:'1–3 м³',date:'21.10.2026',slot:'08:00–12:00',status:'ok',hist:1,created:'15.10.2026'};
+</script>
+
+<script>
+/* ================= ДОПОМІЖНЕ ================= */
+const A=()=>ADDR[S.addr];
+const rep=id=>S.reps.find(r=>r.id===id)||(id===repHist.id?repHist:null);
+const blk=id=>S.bulky.find(b=>b.id===id)||(id===bulkyHist.id?bulkyHist:null);
+const creqById=id=>S.creq.find(c=>c.id===id);
+const ph=(t,o={})=>`<div class="ph${o.sm?' sm':''}${o.nolead?' nolead':''}">${o.crumb?`<div class="crumb">${o.crumb.map(c=>c[1]?`<a data-a="go" data-v="${c[1]}"${c[2]?` data-s="${c[2]}"`:''}>${c[0]}</a>`:`<span>${c[0]}</span>`).join(ic('chevr'))}</div>`:''}<h1>${t}</h1></div>`;
+const unread=r=>S.notes.filter(n=>n.r===r&&n.u&&(S.layer||!n.vx)).length;
+function note(r,t,go,vx=1){S.notes.unshift({r,t,d:TODAY+', '+clock(),u:1,go,vx})}
+let _min=45;function clock(){_min+=3;const h=9+Math.floor(_min/60),m=_min%60;return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`}
+const disputed=()=>S.reps.some(r=>r.site==='Д-2-117'&&['late','over'].includes(r.type)&&r.trip);
+function tripState(t){
+  const d=S.dec[t.id];
+  if(d==='nocount')return['bad','Точку не зараховано','Департамент не зарахував точку Д-2-117 у цьому рейсі. Решту рейсу зараховано.'];
+  if(d==='count')return['ok','Зараховано','Департамент перевірив і зарахував рейс.'];
+  if(d==='exc')return['b','Зараховано з винятком','Збій GPS підтверджено фото водія і зважуванням.'];
+  if(d==='ask')return['y','Запит перевізнику','Перевізник має пояснити, чому немає відміток водія.'];
+  const cmp=t.site==='Д-2-117'&&disputed();
+  if(t.glass&&S.glass.moved)return['g','Перенесено з причиною','Точку вул. Прикладна, 12 перенесено на 14:00: заблоковано під’їзд. Причина з довідника, є фото.'];
+  if(cmp)return['bad','Спірне','GPS, відмітка і вага кажуть «виконано», а мешканець повідомив, що не вивезли. Потрібна перевірка диспетчером міста.'];
+  if(t.gps&&t.mark&&t.w)return['ok','Виконано','Усі джерела збігаються, скарг немає.'];
+  if(t.glass)return['y','Потребує пояснення','Одну точку пропущено: машина була поруч, але відмітки водія немає. Перевізник ще не вказав причину.'];
+  if(!t.gps&&t.mark&&t.w)return['b','З винятком','Немає GPS-треку, але є відмітки водія з фото і зважування. Схоже на збій трекера.'];
+  if(t.gps&&!t.mark&&t.w)return['y','Потребує пояснення','Машина пройшла маршрут і рейс зважено, але водій не відмітив виконання.'];
+  if(!t.gps&&!t.mark&&!t.w)return['bad','Не виконано','Жодне джерело не підтверджує рейс.'];
+  return['g','Неповні дані',''];
+}
+const TF=[['all','Усі'],['ok','Виконано'],['b','З винятком'],['y','Потребує пояснення'],['bad','Спірні й невиконані']];
+const tripMatch=(t,f)=>{const k=tripState(t)[0];return f==='all'||k===f||(f==='ok'&&false)};
+
+/* ================= МЕНЮ ================= */
+const MENU={
+ res:()=>[['Кабінет',[['svc','doc','Мої послуги'],['drafts','pen','Чернетки',2],['docs','docs','Мої документи']]],
+          ['Мої розділи',[['events','cal','Обрані заходи'],['spec','users','Мої фахівці'],['kids','kid','Послуги для дітей'],['biz','brief','Мій бізнес'],['waste','bin','Відходи',0,1]]],
+          ['Акаунт',[['prof','user','Мій профіль'],['notif','bell','Мої сповіщення',unread('res')]]]],
+ osbb:()=>[['Кабінет',[['svc','doc','Мої послуги'],['docs','docs','Мої документи']]],
+          ['ОСББ «Прикладне»',[['osbb','bin','Відходи будинку'],['house','home','Мій будинок']]],
+          ['Акаунт',[['prof','user','Мій профіль'],['notif','bell','Мої сповіщення',unread('osbb')]]]],
+ car:()=>[['Перевізник А · зона Д-2',[['disp','truck','Диспетчерська'],['creps','inbox','Звернення',S.reps.filter(r=>r.status==='sub'||r.status==='work').length||0],['ckpi','chart','Показники договору']]],
+          ['Акаунт',[['notif','bell','Мої сповіщення',unread('car')]]]],
+ dep:()=>[['Департамент ЖКІ',[['over','chart','Огляд'],['trips','route','Рейси і зіставлення',TRIPS.filter(t=>['bad','y'].includes(tripState(t)[0])).length],['creq','bins','Заявки на контейнери',S.creq.filter(c=>c.status==='eval').length||0],['contracts','file','Договори']]],
+          ['Акаунт',[['notif','bell','Мої сповіщення',unread('dep')]]]]
+};
+const PARENT={rep:'@from',bulky:'@from',rdet:'@from',bdet:'@from',cont:'osbb',cdet:'osbb',route:'disp',crep:'creps',trip:'trips',creqd:'creq'};
+const WHO={car:['Андрій С.','Диспетчер · Перевізник А'],dep:['Ірина М.','Відділ поводження з побутовими відходами'],osbb:['Олена Г.','Голова правління ОСББ «Прикладне»']};
+function renderSide(){
+  let v=S.v[S.role];let p=PARENT[v];if(p==='@from')p=(S.wz&&S.wz.from)||S.from||'waste';if(p)v=p;
+  let h=WHO[S.role]?`<div class="who"><b>${WHO[S.role][0]}</b><span>${WHO[S.role][1]}</span></div>`:'';
+  MENU[S.role]().forEach(([cap,items])=>{h+=`<div class="scap">${cap}</div>`;items.forEach(([k,i,t,c,vx])=>{h+=`<button class="sit${v===k?' on':''}${vx?' vx':''}" data-a="go" data-v="${k}">${ic(i)}<span>${t}</span>${c?`<span class="cnt">${c}</span>`:''}</button>`})});
+  $('#side').innerHTML=h;
+}
+
+/* ================= МЕШКАНЕЦЬ: МОЇ ПОСЛУГИ ================= */
+function wasteRows(done){
+  if(!S.layer)return[];
+  const out=[];
+  S.reps.forEach(r=>{const fin=r.status==='conf';if(fin!==done)return;out.push({t:'Повідомлення про порушення графіка вивезення відходів',d:r.created.split(',')[0],r:fin?r.closed||TODAY:r.dl.split(',')[0],rl:fin?'Виконано':'Реакція до',st:fin?'ok':r.status,dot:r.dot,go:['rdet',r.id],txt:r.status==='done'?'Усунено · підтвердьте':null})});
+  S.bulky.forEach(b=>{const fin=b.status==='ok';if(fin!==done)return;out.push({t:'Вивезення великогабаритних відходів',d:b.created,r:b.date,rl:'Дата вивезення',st:fin?'ok':'plan',dot:b.dot,go:['bdet',b.id],txt:fin?null:'Заплановано'})});
+  return out;
+}
+function appRow(x){
+  return `<div class="row" ${x.go?`data-a="go" data-v="${x.go[0]}" data-s="${x.go[1]}"`:`data-a="toast" data-t="Картку заяви в макеті не деталізовано"`}>${x.dot?'<i class="dot"></i>':''}<div><h4>${x.t}</h4><div class="meta"><span>Подано:<b>${x.d}</b></span><span>${x.rl||'Розгляд до'}:<b>${x.r}</b></span></div></div>${chip(x.st,x.txt)}<span class="ar">${ic('arr')}</span></div>`;
+}
+function vSvc(){
+  const f=S.stF,map={sub:['sub','work','plan'],rev:['rev'],fix:['fix']};
+  const act=[...wasteRows(false),...APPS].filter(x=>f==='all'||(map[f]||[]).includes(x.st));
+  const done=[...wasteRows(true),...DONE];
+  const src=S.tab==='act'?act:done;
+  const shown=S.more?src:src.slice(0,4),rest=src.length-shown.length;
+  const flbl={all:'Усі',sub:'Подано',rev:'На розгляді',fix:'На доопрацюванні'}[f];
+  const cards=SVC.filter(s=>(S.layer||!s.vx)&&(S.cat==='all'||s.cat.includes(S.cat)));
+  return ph('Мої послуги')+
+  `<div class="card lead">${ring(2,5)}<div><div class="k">${ic('pen')}Завершіть останню заяву</div><h3>Оздоровлення дітей у супроводі дорослого</h3><div class="m">2/5 кроків <i>•</i> Відомості про заявника</div><div class="acts"><button class="btn" data-a="toast" data-t="Форму послуги «Оздоровлення дітей» в макеті не деталізовано">Продовжити</button><a class="lnk" data-a="go" data-v="drafts">Всі чернетки</a></div></div></div>
+  <h2 class="h2">Подані заяви</h2>
+  <div class="tools"><div class="seg"><button class="${S.tab==='act'?'on':''}" data-a="tab" data-t="act">Активні</button><button class="${S.tab==='done'?'on':''}" data-a="tab" data-t="done">Завершені <span class="b2">+2</span></button></div>
+   <div class="fpill"><button data-a="dd" data-d="stf">Статус: <b>${flbl}</b>${ic('chev','s20')}</button></div></div>
+  <div class="card list${S.more?' more':''}" id="apps">${shown.map(appRow).join('')||'<div class="empty">Заяв із таким статусом немає</div>'}
+   ${rest>0?`<button class="more-l" data-a="more">Переглянути більше (${rest}) ${ic('chev')}</button>`:S.more&&src.length>4?`<button class="more-l" data-a="more">Згорнути ${ic('chevu')}</button>`:''}</div>
+  <h2 class="h2" style="margin-top:41px">Послуги для вас</h2>
+  <p class="sub">Підібрали на основі вашого профілю. Оберіть категорію для зручності</p>
+  <div class="pills">${[['all','Всі'],['zah','Вам як захиснику'],['dity','Вашим дітям'],['zhytlo','Для житла'],['biz','Бізнесу']].map(([k,t])=>`<button class="${S.cat===k?'on':''}" data-a="cat" data-c="${k}">${t}</button>`).join('')}</div>
+  <div class="sgrid">${cards.map(svcCard).join('')}</div>
+  <div class="findrow"><p>Не знайшли потрібне? Скористайтеся пошуком на сторінці міських послуг.</p><button class="btn" data-a="search">Усі послуги</button></div>`;
+}
+function svcCard(s){
+  return `<div class="card scard${s.vx?' vx':''}" ${s.a?`data-a="${s.a}" data-svc="${s.svg}"`:`data-a="toast" data-t="Сторінку послуги в макеті не деталізовано"`}>${s.img?`<img class="sic" src="img/${s.img}.png" alt="">`:svcIcon(s.svg)}<h4>${s.t}</h4><p class="need">${s.need||NEED}</p><div class="tags"><span class="tag on"><svg class="ic" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg>Онлайн</span><span class="tag ${s.osbb?'osbb':'cat'}">${s.tag}</span></div></div>`;
+}
+
+/* ================= МЕШКАНЕЦЬ: ВІДХОДИ ================= */
+function schedTable(a,edit){
+  const rows=Object.entries(a.sch);
+  return `<table class="sch"><thead><tr><th>Потік</th>${DAYS.map((d,i)=>`<th class="${i===TD?'td':''}">${d}${i===TD?' · сьогодні':''}</th>`).join('')}</tr></thead><tbody>${rows.map(([k,r])=>`<tr><td><span class="sn"><i style="background:${STR[k][1]}"></i>${STR[k][0]}</span></td>${DAYS.map((d,i)=>{if(!r[i])return `<td class="${i===TD?'td':''}"></td>`;let cls='slot',t=r[7];if(i===TD&&S.addr===0){if(k==='mix'){cls+=' done';t='вивезено 06:31'}else if(k==='glass'&&S.glass.moved){cls+=' moved';t='перенесено на 14:00'}else cls+=' today'}return `<td class="${i===TD?'td':''}"><span class="${cls}">${t}</span></td>`}).join('')}</tr>`).join('')}</tbody></table>`;
+}
+function myWaste(){
+  const out=[];
+  S.reps.forEach(r=>out.push({t:REPT[r.type][0],d:r.created.split(',')[0],r:r.status==='conf'?'виконано':r.dl.split(',')[0],rl:r.status==='conf'?'Статус':'Реакція до',st:r.status,dot:r.dot,go:['rdet',r.id],txt:r.status==='done'?'Усунено · підтвердьте':null}));
+  S.bulky.forEach(b=>out.push({t:'Вивезення великогабаритних відходів',d:b.created,r:b.date,rl:'Дата вивезення',st:b.status==='ok'?'ok':'plan',dot:b.dot,go:['bdet',b.id]}));
+  out.push({t:REPT.over[0],d:'02.11.2026',r:'Виконано',rl:'Статус',st:'conf',go:['rdet',repHist.id]});
+  out.push({t:'Вивезення великогабаритних відходів',d:'15.10.2026',r:'21.10.2026',rl:'Дата вивезення',st:'ok',go:['bdet',bulkyHist.id]});
+  return out;
+}
+function vWaste(){
+  const a=A(),own=S.addr===0;
+  const today=own?{h:'Змішані вивезено о 06:31',ok:1,m:S.glass.moved?'<span class="chip y sm">'+ic('clock')+'Скло перенесено на 14:00 · заблоковано під’їзд</span>':'Скло — сьогодні 10:00–12:00'}:{h:'Сьогодні вивезення немає',ok:0,m:'Наступне: змішані — завтра 06:00–09:00'};
+  return ph('Відходи')+
+  `<div class="card lead">${today.ok?ring(1,1,'ok'):ring(0,1)}<div><div class="k">${ic('cal')}Сьогодні · вівторок, 10 листопада</div><h3>${today.h}</h3><div class="m">${a.a} <i>•</i> майданчик ${a.site} <i>•</i> ${a.car}</div><div class="m" style="margin-top:4px">${today.m}</div><div class="acts"><button class="btn" data-a="rep-start">Повідомити про проблему</button><a class="lnk" data-a="to-sched">Графік вивезення</a></div></div></div>
+  <div class="tools" style="margin-top:48px"><h2 class="h2" style="margin:0">Мій майданчик</h2><div class="fpill"><button data-a="addr">${ic('pin','s20')}Адреса: <b>${a.a}</b>${ic('chev','s20')}</button></div></div>
+  <div class="card sec"><div class="two"><div class="map">${mapSvg(S.addr)}<div class="mapleg"><span><i style="background:#2b66f6"></i>ваш майданчик</span><span><i style="background:#fff;border:2px solid #8e95a0"></i>інші поруч</span></div></div>
+   <div><div class="site-h"><div><h3>Майданчик ${a.site}</h3><small>${a.where} · ${a.dist} від дому</small></div><span class="chip ok sm">${ic('check')}Справний</span></div>
+   <div class="bins">${a.cont.map(([k,n,v])=>`<span class="binc"><i style="background:${STR[k][1]}"></i>${STR[k][0]}<small>${n} × ${v}</small></span>`).join('')}</div>
+   <div class="rows2"><div><span>Перевізник</span><b>${a.car} · зона ${a.zone}</b></div><div><span>Договір з містом</span><b>${a.contract}</b></div><div><span>Диспетчер перевізника</span><a data-a="toast" data-t="Дзвінок диспетчеру ${a.disp}">${a.disp}</a></div><div><span>Балансоутримувач</span><b>${a.bal}</b></div><div><span>Стан</span><b>${a.st}</b></div></div>
+   <div class="near"><div class="t">Інші майданчики поруч</div>${a.near.map(n=>`<div><span>${n[0]} · ${n[2]}</span><b>${n[1]}</b></div>`).join('')}</div></div></div></div>
+  <div class="tools" style="margin-top:48px" id="sched"><h2 class="h2" style="margin:0">Графік вивезення</h2><label class="tg${S.notify?' on':''}" data-a="notify"><i></i>Сповіщати про зміни</label></div>
+  <div class="card sec">${schedTable(a)}
+   ${own?`<div class="sec-h" style="margin-top:26px"><h3 style="font-size:18px">Останні вивезення</h3><span class="chip g sm">${ic('info')}факт за GPS, відміткою водія і зважуванням</span></div>
+   <div class="hist" style="margin-top:8px"><div><span>Пн, 09.11</span><span>Змішані</span><span><span class="chip ok sm">${ic('check')}Вивезено 06:12</span></span></div><div><span>Пн, 09.11</span><span>Пластик</span><span><span class="chip ok sm">${ic('check')}Вивезено 10:41</span></span></div><div><span>Нд, 08.11</span><span>Змішані</span><span><span class="chip ok sm">${ic('check')}Вивезено 06:40</span></span></div><div><span>Пт, 06.11</span><span>Скло</span><span><span class="chip ok sm">${ic('check')}Вивезено 11:02</span></span></div><div><span>Пн, 02.11</span><span>Змішані</span><span><span class="chip y sm">${ic('clock')}Із запізненням · звернення усунено</span></span></div></div>`:`<div class="info">${ic('info')}<div>Графік і перевізник визначаються за адресою. Для адреси <b>${a.a}</b> відповідає <b>${a.car}</b>, зона ${a.zone}.</div></div>`}</div>
+  <h2 class="h2">Мої звернення та замовлення</h2>
+  <div class="card list" style="margin-top:20px">${myWaste().map(appRow).join('')}</div>
+  <h2 class="h2">Послуги</h2>
+  <div class="sgrid">${SVC.filter(s=>s.vx).map(svcCard).join('')}</div>`;
+}
+
+/* ================= МАЙСТРИ ================= */
+function wzShell(title,crumb,steps,body,foot){
+  const w=S.wz,last=w.step>=steps.length;
+  return ph(title,{sm:1,crumb})+`<div class="card wz"><div class="wz-h">${last?ring(1,1,'ok'):ring(w.step+1,steps.length)}<div><div class="k">${last?'Готово':`Крок ${w.step+1} з ${steps.length}`}</div><h3>${last?(w.doneT||'Подано'):steps[w.step]}</h3></div></div><div class="wz-b">${body}</div>${foot||''}</div>`;
+}
+function wzFoot(canNext,nextT,act){
+  return `<div class="wz-f"><button class="btn ghost" data-a="wz-back">${ic('back','s20')}Назад</button><button class="btn" data-a="${act||'wz-next'}" ${canNext?'':'disabled'}>${nextT||'Далі'}</button></div>`;
+}
+function vRep(){
+  const w=S.wz,a=A(),crumb=[['Відходи','waste'],['Повідомлення про порушення графіка']];
+  const steps=['Де проблема','Що сталося','Перевірте і подайте'];
+  if(w.step===0){
+    const sites=[[a.site,a.dist,a.cont.map(c=>STR[c[0]][0].toLowerCase()).join(' · '),'ваш майданчик'],...a.near.map(n=>[n[0],n[1],n[2],''])];
+    return wzShell('Повідомлення про порушення графіка вивезення',crumb,steps,
+    `<label class="fl">Адреса</label><div class="fld">${ic('pin')}<input value="${a.a}" readonly><span class="chip g sm">${a.src}</span></div>
+     <label class="fl" style="margin-top:20px">Контейнерний майданчик</label>
+     <div class="two" style="grid-template-columns:1fr 1fr;gap:20px"><div style="display:flex;flex-direction:column;gap:8px">${sites.map(s=>`<button class="opt${w.site===s[0]?' on':''}" data-a="wz-set" data-k="site" data-val="${s[0]}"><span class="oi">${ic('bin')}</span><span><b>${s[0]} · ${s[1]}</b><small>${s[2]}${s[3]?' · '+s[3]:''}</small></span><span class="rd"></span></button>`).join('')}</div><div class="map">${mapSvg(S.addr)}</div></div>`,
+    wzFoot(!!w.site));
+  }
+  if(w.step===1){
+    return wzShell('Повідомлення про порушення графіка вивезення',crumb,steps,
+    `<label class="fl">Тип проблеми</label><div class="g3">${Object.entries(REPT).map(([k,v])=>`<button class="opt${w.type===k?' on':''}" data-a="wz-set" data-k="type" data-val="${k}"><span class="oi">${ic(v[1])}</span><span><b>${v[0]}</b></span></button>`).join('')}</div>
+     <label class="fl" style="margin-top:22px">Фото <span style="color:var(--ink3)">— за бажанням, допомагає перевізнику і місту</span></label>
+     <div class="ph-add">${w.photo?photo('full','10.11 · 09:44 · геомітка ✓'):''}<button class="addph" data-a="wz-photo">${ic('cam')}${w.photo?'Ще фото':'Додати фото'}</button></div>
+     <label class="fl" style="margin-top:22px">Коментар</label><textarea class="fld" placeholder="Наприклад: контейнери повні, пакети біля майданчика">${w.comment||''}</textarea>`,
+    wzFoot(!!w.type));
+  }
+  if(w.step===2){
+    const t=REPT[w.type][0],dispute=w.site===a.site&&S.addr===0&&['late','over'].includes(w.type);
+    return wzShell('Повідомлення про порушення графіка вивезення',crumb,steps,
+    `<div class="kv"><div>Адреса</div><div>${a.a}</div><div>Майданчик</div><div>${w.site}</div><div>Проблема</div><div>${t}</div><div>Фото</div><div>${w.photo?'1 фото з геоміткою':'без фото'}</div></div>
+     <div class="info">${ic('truck')}<div>Відповідальний за договором: <b>${a.car} · зона ${a.zone}</b>. Строк реакції за договором — <b>24 години</b>, до 11.11.2026, 09:47.</div></div>
+     ${dispute?`<div class="info warn">${ic('alert')}<div>Сьогодні о <b>06:31</b> перевізник відмітив вивезення з цього майданчика. Ваше звернення позначить рейс <b>Д-2-04</b> як спірний. Його перевірить диспетчер міста, а не лише перевізник.</div></div>`:''}
+     <div class="info">${ic('msg')}<div>Звернення також реєструється в <b>1551</b>. Статус ви бачитимете тут і в «Поданих заявах».</div></div>
+     <div class="chk${w.notif?' on':''}" data-a="wz-tg" data-k="notif"><i></i>Сповіщати мене про зміну статусу</div>`,
+    wzFoot(true,'Подати','rep-submit'));
+  }
+  const r=rep(w.id);
+  w.doneT='Звернення подано';
+  return wzShell('Повідомлення про порушення графіка вивезення',crumb,steps,
+   `<p style="font-size:17px">Звернення <b>№ ${r.id}</b> зареєстровано і передано перевізнику <b>${r.car}</b>. Строк реакції — до ${r.dl}.</p>${r.trip?`<div class="info warn">${ic('alert')}<div>Рейс <b>Д-2-04</b> позначено як спірний. Департамент побачить його під час зіставлення даних.</div></div>`:''}
+    <div class="acts" style="margin-top:22px;gap:24px"><button class="btn" data-a="go" data-v="rdet" data-s="${r.id}">Відкрити звернення</button><a class="lnk" data-a="go" data-v="svc">До моїх послуг</a></div>`);
+}
+function vBulky(){
+  const w=S.wz,a=A(),crumb=[['Відходи','waste'],['Великогабаритні відходи']];
+  const steps=['Що вивезти','Коли','Перевірте і підтвердьте'];
+  const IT=[['Меблі','sofa'],['Побутова техніка','tv'],['Матраци','bed'],['Двері й вікна','door'],['Сантехніка','bath'],['Інше','dots']];
+  if(w.step===0)return wzShell('Вивезення великогабаритних відходів',crumb,steps,
+    `<label class="fl">Що потрібно вивезти — можна кілька</label><div class="g3">${IT.map(([t,i])=>`<button class="opt${w.items.includes(t)?' on':''}" data-a="wz-multi" data-k="items" data-val="${t}"><span class="oi">${ic(i)}</span><span><b>${t}</b></span></button>`).join('')}</div>
+     <label class="fl" style="margin-top:22px">Орієнтовний обсяг</label><div class="segs" style="margin-top:0">${['до 1 м³','1–3 м³','понад 3 м³'].map(v=>`<button class="${w.vol===v?'on':''}" data-a="wz-set" data-k="vol" data-val="${v}">${v}</button>`).join('')}</div>
+     <div class="info">${ic('info')}<div>Будівельні відходи після ремонту, гілки й листя та шини — це окремі послуги, їх тут не замовити.</div></div>`,
+    wzFoot(w.items.length&&w.vol));
+  if(w.step===1){
+    const days=[['Ср','11.11',1],['Чт','12.11',0],['Пт','13.11',1],['Сб','14.11',1],['Нд','15.11',0],['Пн','16.11',1],['Вт','17.11',1],['Ср','18.11',1]];
+    return wzShell('Вивезення великогабаритних відходів',crumb,steps,
+    `<label class="fl">Дата — вільні вікна з графіка перевізника вашої зони (${a.car} · ${a.zone})</label><div class="days">${days.map(d=>`<button class="day${w.day===d[1]?' on':''}" data-a="wz-set" data-k="day" data-val="${d[1]}" ${d[2]?'':'disabled'}><small>${d[0]}</small><b>${d[1].slice(0,2)}</b><small>${d[2]?'є місця':'немає'}</small></button>`).join('')}</div>
+     ${w.day?`<label class="fl" style="margin-top:20px">Час</label><div class="slots" style="margin-top:0">${['08:00–12:00','12:00–16:00'].map(s=>`<button class="${w.slot===s?'on':''}" data-a="wz-set" data-k="slot" data-val="${s}">${s}</button>`).join('')}</div>`:''}
+     <div class="info">${ic('pin')}<div>Речі залиште біля майданчика <b>${a.site}</b> у день вивезення до початку вікна. Двері й вікна — без скла.</div></div>`,
+    wzFoot(w.day&&w.slot));
+  }
+  if(w.step===2)return wzShell('Вивезення великогабаритних відходів',crumb,steps,
+    `<div class="kv"><div>Що</div><div>${w.items.join(', ')}</div><div>Обсяг</div><div>${w.vol}</div><div>Дата і час</div><div>${w.day}.2026, ${w.slot}</div><div>Місце</div><div>біля майданчика ${a.site}, ${a.a}</div><div>Виконавець</div><div>${a.car} · зона ${a.zone}</div><div>Умови</div><div>У межах послуги з вивезення побутових відходів</div></div>
+     <div class="info pur">${ic('info')}<div><b>Варіант моделі.</b> Хто виконує, за чий кошт і в якому обсязі — місто ще має визначити. Тут показано варіант, коли вивезення до 3 м³ на місяць входить у тариф.</div></div>
+     <div class="chk${w.remind?' on':''}" data-a="wz-tg" data-k="remind"><i></i>Нагадати за день до вивезення</div>`,
+    wzFoot(true,'Підтвердити','bulky-submit'));
+  const b=blk(w.id);w.doneT='Вивезення заплановано';
+  return wzShell('Вивезення великогабаритних відходів',crumb,steps,
+   `<p style="font-size:17px">Замовлення <b>№ ${b.id}</b>: ${b.items.join(', ').toLowerCase()} — <b>${b.date}, ${b.slot}</b>. Перевізник підтвердив вікно.</p>
+    <div class="acts" style="margin-top:22px;gap:24px"><button class="btn" data-a="go" data-v="bdet" data-s="${b.id}">Відкрити замовлення</button><a class="lnk" data-a="go" data-v="svc">До моїх послуг</a></div>`);
+}
+function vCont(){
+  const w=S.wz,crumb=[['Відходи будинку','osbb'],['Заявка на контейнери']];
+  const steps=['Що потрібно','Обґрунтування','Перевірте і подайте'];
+  const T=[['glass','Скло','glass'],['plast','Пластик','bins'],['dry','Суха фракція','bins'],['haz','Небезпечні: батарейки, лампи','bat']];
+  if(w.step===0)return wzShell('Заявка на контейнери для роздільного збирання',crumb,steps,
+    `<label class="fl">Майданчик</label><div class="fld">${ic('bin')}<input value="Д-2-117 · вул. Прикладна, 12–14" readonly></div>
+     <label class="fl" style="margin-top:20px">Які контейнери потрібні</label><div class="g2">${T.map(([k,t,i])=>`<button class="opt${w.types.includes(k)?' on':''}" data-a="wz-multi" data-k="types" data-val="${k}"><span class="oi" style="color:${STR[k][1]}">${ic(i)}</span><span><b>${t}</b><small>${k==='glass'?'зараз на майданчику 1 × 1,5 м³':k==='plast'?'зараз 1 × 1,5 м³':'зараз немає'}</small></span></button>`).join('')}</div>`,
+    wzFoot(w.types.length));
+  if(w.step===1)return wzShell('Заявка на контейнери для роздільного збирання',crumb,steps,
+    `<div class="info">${ic('chart')}<div><b>Дані системи «Відходи Києва»</b> підставлено автоматично. Їх бачитиме Департамент.</div></div>
+     <div class="kv" style="margin-top:12px"><div>Будинків на майданчику</div><div>6</div><div>Мешканців</div><div>~1 450</div><div>Заповнення до вивезення</div><div>до 112% місткості</div><div>Переповнень за 30 днів</div><div>5</div><div>Найближчий контейнер для скла</div><div>420 м · Д-2-121</div><div>Пропозиції мешканців</div><div>${S.proposal?'1 · кв. 31, скло':'немає'}</div></div>
+     <label class="fl" style="margin-top:20px">Фото місця</label><div class="ph-add">${w.photo?photo('site','північний край майданчика'):''}<button class="addph" data-a="wz-photo">${ic('cam')}${w.photo?'Ще фото':'Додати фото'}</button></div>`,
+    wzFoot(true));
+  if(w.step===2)return wzShell('Заявка на контейнери для роздільного збирання',crumb,steps,
+    `<div class="kv"><div>Майданчик</div><div>Д-2-117</div><div>Контейнери</div><div>${w.types.map(k=>STR[k][0]).join(', ')}</div><div>Заявник</div><div>ОСББ «Прикладне», голова правління</div></div>
+     <div class="info">${ic('info')}<div>Департамент оцінить потребу і технічну можливість та визначить порядок встановлення. Рішення з обґрунтуванням прийде в цей кабінет.</div></div>
+     <div class="info pur">${ic('info')}<div><b>Ще не визначено:</b> хто встановлює, з якого бюджету і за яким договором. Без цього рішення сервіс не варто обіцяти як готовий.</div></div>`,
+    wzFoot(true,'Подати заявку','cont-submit'));
+  const c=creqById(w.id);w.doneT='Заявку подано';
+  return wzShell('Заявка на контейнери для роздільного збирання',crumb,steps,
+   `<p style="font-size:17px">Заявка <b>№ ${c.id}</b> передана в Департамент. Етап: оцінка потреби.</p><div class="acts" style="margin-top:22px;gap:24px"><button class="btn" data-a="go" data-v="cdet" data-s="${c.id}">Відкрити заявку</button><a class="lnk" data-a="go" data-v="osbb">До відходів будинку</a></div>`);
+}
+
+/* ================= ДЕТАЛІ ================= */
+function vRdet(id){
+  const r=rep(id);if(!r)return ph('Звернення',{nolead:1});
+  const a=ADDR[r.addr],t=REPT[r.type][0];
+  const pend=[];
+  if(r.status==='sub')pend.push('Перевізник направить машину','Усунення з фото','Ваше підтвердження');
+  if(r.status==='work')pend.push('Усунення з фото','Ваше підтвердження');
+  if(r.status==='done')pend.push('Ваше підтвердження');
+  const acts=r.status==='done'?`<div class="acts"><button class="btn" data-a="rep-conf" data-s="${r.id}">Підтверджую, усунено</button><a class="lnk" data-a="rep-ret" data-s="${r.id}">Проблема лишилась</a></div>`:r.status==='ret'?`<div class="m" style="margin-top:12px">Звернення повернуто перевізнику з вашим коментарем.</div>`:'';
+  return ph(t,{sm:1,crumb:[[S.from==='svc'?'Мої послуги':'Відходи',S.from==='svc'?'svc':'waste'],['Звернення № '+r.id]]})+
+  `<div class="card lead"><div style="padding-top:2px">${r.status==='conf'||r.status==='done'?ring(1,1,'ok'):ring(r.status==='work'?2:1,4)}</div><div style="flex:1"><div class="k">${ic('msg')}Звернення № ${r.id}</div><h3>${a.a} · майданчик ${r.site}</h3><div class="m">Подано ${r.created} <i>•</i> ${r.car||a.car}</div><div style="margin-top:12px">${chip(r.status,r.status==='done'?'Усунено · підтвердьте':null)}</div>${acts}</div></div>
+  <div class="card sec" style="margin-top:20px"><div class="two"><div><h3 style="font-size:20px;margin-bottom:14px">Що відбувається</h3><div class="tl">${r.ev.map(e=>`<div class="${e[0]}"><b>${e[1]}</b><small>${e[2]}</small></div>`).join('')}${pend.map(p=>`<div class="pend"><b>${p}</b></div>`).join('')}</div></div>
+   <div><h3 style="font-size:20px;margin-bottom:14px">Фото</h3><div class="ph-add">${r.photo?photo('full','ваше · '+(r.hist?'02.11 19:39':'09:44')):''}${r.closePhoto?photo('clean','перевізник · '+(r.hist?'03.11 08:12':'11:20')):''}${!r.photo&&!r.closePhoto?'<span style="color:var(--ink3)">Фото немає</span>':''}</div>
+   <div class="rows2" style="margin-top:14px"><div><span>Відповідальний</span><b>${a.car} · зона ${a.zone}</b></div><div><span>Строк реакції</span><b>до ${r.dl}</b></div>${r.trip?`<div><span>Рейс</span><b>Д-2-04 · ${S.dec['Д-2-04']==='nocount'?'точку не зараховано':'спірний'}</b></div>`:''}</div></div></div></div>`;
+}
+function vBdet(id){
+  const b=blk(id);if(!b)return ph('Замовлення',{nolead:1});
+  const fin=b.status==='ok';
+  return ph('Вивезення великогабаритних відходів',{sm:1,crumb:[[S.from==='svc'?'Мої послуги':'Відходи',S.from==='svc'?'svc':'waste'],['Замовлення № '+b.id]]})+
+  `<div class="card lead">${fin?ring(1,1,'ok'):ring(1,2)}<div style="flex:1"><div class="k">${ic('sofa')}Замовлення № ${b.id}</div><h3>${b.what||b.items.join(', ')} · ${b.vol}</h3><div class="m">${b.date}, ${b.slot} <i>•</i> біля майданчика Д-2-117</div><div style="margin-top:12px">${fin?chip('ok','Вивезено'):chip('plan','Заплановано')}</div>${fin?'':`<div class="acts"><button class="btn ghost" data-a="toast" data-t="Перенесення дати в макеті не деталізовано">Змінити дату</button><a class="lnk" data-a="toast" data-t="Скасування в макеті не деталізовано">Скасувати</a></div>`}</div></div>
+  <div class="card sec"><h3 style="font-size:20px;margin-bottom:14px">Що відбувається</h3><div class="tl"><div class="ok"><b>Замовлено</b><small>${b.created}</small></div><div class="ok"><b>Перевізник підтвердив вікно</b><small>Перевізник А · зона Д-2</small></div>${fin?`<div class="ok"><b>Вивезено</b><small>${b.date}, 10:42 · фото з геоміткою</small></div>`:`<div class="pend"><b>Нагадування за день</b></div><div class="pend"><b>Вивезення ${b.date}, ${b.slot}</b></div>`}</div></div>`;
+}
+</script>
+
+<script>
+/* ================= ІНШІ СТОРІНКИ КАБІНЕТУ ================= */
+function simpleList(rows){return `<div class="card list" style="margin-top:0">${rows.map(r=>`<div class="row" data-a="${r.a||'toast'}" ${r.v?`data-v="${r.v}"`:''} data-t="${r.tt||'У макеті не деталізовано'}">${r.dot?'<i class="dot"></i>':''}<div><h4>${r.t}</h4><div class="meta">${r.m.map(m=>`<span>${m[0]}${m[1]?`:<b>${m[1]}</b>`:''}</span>`).join('')}</div></div>${r.c||'<span></span>'}<span class="ar">${ic('arr')}</span></div>`).join('')}</div>`}
+function emptyCard(t,d,icn){return `<div class="card lead" style="align-items:center">${`<div class="ring" style="background:var(--blue-s);border-radius:50%;color:var(--blue)">${ic(icn)}</div>`}<div><h3 style="margin-top:0">${t}</h3><div class="m">${d}</div></div></div>`}
+const PAGES={
+ drafts:()=>ph('Чернетки')+simpleList([
+   {t:'Оздоровлення дітей у супроводі дорослого',m:[['Крок','2 з 5'],['Змінено','08.11.2026']],c:'<span class="chip g">'+ic('pen')+'Чернетка</span>',tt:'Форму послуги в макеті не деталізовано'},
+   {t:'Компенсація вартості навчання водінню',m:[['Крок','1 з 4'],['Змінено','21.10.2026']],c:'<span class="chip g">'+ic('pen')+'Чернетка</span>',tt:'Форму послуги в макеті не деталізовано'}]),
+ docs:()=>ph('Мої документи')+simpleList([
+   {t:'Паспорт громадянина України (ID-картка)',m:[['Джерело','Дія'],['Дійсний до','14.03.2031']],c:chip('ok','Підтверджено')},
+   {t:'Посвідчення учасника бойових дій',m:[['Джерело','Мінветеранів'],['Видано','02.09.2023']],c:chip('ok','Підтверджено')},
+   {t:'Свідоцтво про народження дитини',m:[['Джерело','ДРАЦС'],['Дитина','Марко, 2018']],c:chip('ok','Підтверджено')}]),
+ events:()=>ph('Обрані заходи')+simpleList([
+   {t:'Толока в парку Партизанської слави',m:[['Дата','15.11.2026, 10:00'],['Район','Дарницький']],c:'<span class="chip b">'+ic('cal')+'Я йду</span>'},
+   {t:'Обмін речами «Друге життя» в бібліотеці',m:[['Дата','22.11.2026, 12:00'],['Вхід','вільний']],c:'<span class="chip b">'+ic('cal')+'Обрано</span>'}]),
+ spec:()=>ph('Мої фахівці')+emptyCard('Поки немає обраних фахівців','Фахівці з’являться після запису до лікаря, психолога чи юриста через Портал.','users'),
+ kids:()=>ph('Послуги для дітей')+`<div class="sgrid" style="margin-top:0">${SVC.filter(s=>s.cat.includes('dity')).map(svcCard).join('')}</div>`,
+ biz:()=>ph('Мій бізнес')+emptyCard('Бізнес не знайдено','За вашим РНОКПП немає ФОП чи компанії в ЄДР. Якщо ви представляєте компанію, увійдіть з КЕП організації.','brief'),
+ house:()=>ph('Мій будинок')+emptyCard('Кабінет будинку','Паспорт, фінанси й кошторис будинку — див. окремий концепт «Цифровий будинок».','home'),
+ prof:()=>{const r=S.role;const nm={res:'Роман Кравець',osbb:'Олена Гнатюк',car:'Андрій Савчук',dep:'Ірина Мельник'}[r];
+   return ph('Мій профіль')+`<div class="card lead" style="display:block"><div class="kv"><div>ПІБ</div><div>${nm}</div><div>Телефон</div><div>+380 •• ••• •• 31</div><div>E-mail</div><div>${r}.demo@example.com</div>${r==='res'?`<div>Адреса реєстрації</div><div>м. Київ, вул. Прикладна, 12, кв. 31</div><div class="vx">Адреси для сервісу «Відходи»</div><div class="vx">вул. Прикладна, 12 · просп. Перемоги, 37 (батьки)</div>`:''}</div></div>`},
+ notif:()=>{const L=S.notes.filter(n=>n.r===S.role&&(S.layer||!n.vx));
+   return ph('Мої сповіщення')+`<div class="card list" style="margin-top:0">${L.map((n,i)=>`<div class="row" data-a="note" data-i="${S.notes.indexOf(n)}" style="grid-template-columns:minmax(0,1fr) 24px">${n.u?'<i class="dot"></i>':''}<div><h4 style="white-space:normal;font-size:18px;line-height:26px">${n.t}</h4><div class="meta"><span>${n.d}</span></div></div><span class="ar">${ic('arr')}</span></div>`).join('')||'<div class="empty">Сповіщень немає</div>'}</div>`}
+};
+
+/* ================= ГОЛОВА ОСББ ================= */
+function vOsbb(){
+  const rr=S.reps.filter(r=>r.site==='Д-2-117');
+  const reqs=S.creq;
+  return ph('Відходи будинку')+
+  `<div class="card lead">${ring(1,1,'w','112%')}<div><div class="k">${ic('bin')}Майданчик Д-2-117 · ОСББ «Прикладне»</div><h3>Майданчик переповнюється частіше за норму</h3><div class="m">6 будинків <i>•</i> ~1 450 мешканців <i>•</i> заповнення до 112% місткості перед вивезенням</div><div class="acts"><button class="btn" data-a="cont-start">Подати заявку на контейнери</button><a class="lnk" data-a="toast" data-t="Графік той самий, що бачать мешканці: змішані щодня, скло вт і пт, пластик пн і чт">Графік вивезення</a></div></div></div>
+  <h2 class="h2">Пропозиції мешканців</h2>
+  ${S.proposal?`<div class="card list" style="margin-top:20px"><div class="row" data-a="cont-start" style="grid-template-columns:minmax(0,1fr) 216px 24px"><i class="dot"></i><div><h4>Контейнер для скла на майданчику Д-2-117</h4><div class="meta"><span>Від:<b>мешканець, кв. 31</b></span><span>Дата:<b>${TODAY}</b></span></div></div><span class="chip pur">${ic('msg')}Пропозиція</span><span class="ar">${ic('arr')}</span></div></div>`:`<div class="card sec"><p style="color:var(--ink3)">Поки немає. Мешканці можуть запропонувати контейнер зі свого кабінету — пропозиція прийде сюди з даними про майданчик.</p></div>`}
+  <h2 class="h2">Звернення мешканців за 30 днів</h2>
+  <div class="kpis k4"><div class="kpi"><div class="l">Звернень</div><b>${7+rr.length}</b><div class="d">з них переповнень — 5</div></div><div class="kpi"><div class="l">Реакція</div><b>19<small>год</small></b><div class="d">медіана, за договором до 24 год</div></div><div class="kpi"><div class="l">Спірні рейси</div><b>${rr.filter(r=>r.trip).length}</b><div class="d">рейс відмічено, а мешканці скаржаться</div></div><div class="kpi"><div class="l">Заповнення</div><b>112<small>%</small></b><div class="d">пік перед вивезенням</div></div></div>
+  ${rr.length?`<div class="card list" style="margin-top:10px">${rr.map(r=>`<div class="row" data-a="toast" data-t="Голова ОСББ бачить звернення знеособлено"><div><h4>${REPT[r.type][0]}</h4><div class="meta"><span>Від:<b>кв. 31</b></span><span>Подано:<b>${r.created}</b></span></div></div>${chip(r.status)}<span class="ar">${ic('arr')}</span></div>`).join('')}</div>`:''}
+  <h2 class="h2">Заявки на контейнери</h2>
+  ${reqs.length?`<div class="card list" style="margin-top:20px">${reqs.map(c=>`<div class="row" data-a="go" data-v="cdet" data-s="${c.id}">${c.dot?'<i class="dot"></i>':''}<div><h4>${c.types.map(k=>STR[k][0]).join(' і ')} · майданчик Д-2-117</h4><div class="meta"><span>Подано:<b>${c.created}</b></span><span>№<b>${c.id}</b></span></div></div>${chip(c.status)}<span class="ar">${ic('arr')}</span></div>`).join('')}</div>`:`<div class="card sec"><p style="color:var(--ink3)">Заявок ще не було.</p></div>`}`;
+}
+function vCdet(id){
+  const c=creqById(id);if(!c)return ph('Заявка',{nolead:1});
+  const st=c.status,steps=['Подано','Оцінка потреби','Технічна можливість','Рішення'],cur=st==='eval'?1:3;
+  return ph('Заявка на контейнери',{sm:1,crumb:[['Відходи будинку','osbb'],['№ '+c.id]]})+
+  `<div class="card lead">${st==='appr'?ring(1,1,'ok'):ring(cur+1,4)}<div style="flex:1"><div class="k">${ic('bins')}Заявка № ${c.id}</div><h3>${c.types.map(k=>STR[k][0]).join(' і ')} · майданчик Д-2-117</h3><div class="m">Подано ${c.created} <i>•</i> ОСББ «Прикладне»</div><div style="margin-top:12px">${chip(st)}</div>
+   <div class="trk">${steps.map((s,i)=>`<span class="${i<cur||st==='appr'||st==='rej'?'d':i===cur?'c':''}">${s}</span>`).join('')}</div></div></div>
+  ${st==='appr'?`<div class="card sec"><div class="verdict ok" style="margin-top:0">${ic('checkc')}<div><b>Погоджено</b><p>Встановлення ${c.types.map(k=>STR[k][0].toLowerCase()).join(' і ')} до ${c.dec.date}. Виконавець: ${c.dec.exec}. Графік вивезення скла для майданчика: вт і пт, вдень — щоб під’їзд не був заблокований.</p></div></div></div>`:st==='rej'?`<div class="card sec"><div class="verdict bad" style="margin-top:0">${ic('x')}<div><b>Відмовлено</b><p>${c.dec.why}</p></div></div></div>`:`<div class="card sec"><div class="info" style="margin-top:0">${ic('info')}<div>Департамент оцінює потребу за даними майданчика. Строк розгляду — до 10 робочих днів.</div></div></div>`}`;
+}
+
+/* ================= ПЕРЕВІЗНИК ================= */
+function routeState(r){
+  if(r.id==='Д-2-04')return disputed()?['bad','Спірний']:['ok','Завершено'];
+  if(r.id==='Д-2-07')return S.glass.moved?['g','Перенесено 1 точку']:['y','Пропущено 1 точку'];
+  if(r.run)return['b','На маршруті'];return['ok','Завершено'];
+}
+function vDisp(){
+  const done=ROUTES.reduce((s,r)=>s+r.pts[0],0),all=ROUTES.reduce((s,r)=>s+r.pts[1],0);
+  const miss=S.glass.moved?0:1,dsp=disputed()?1:0;
+  return ph('Диспетчерська')+
+  `<div class="card lead">${ring(done,all)}<div><div class="k">${ic('truck')}Сьогодні · вт, 10 листопада · зона Д-2</div><h3>${ROUTES.length} маршрути · ${done} з ${all} точок</h3><div class="m">${miss?'1 пропущена точка':'пропущених точок немає'} <i>•</i> ${dsp?'1 спірний рейс':'спірних рейсів немає'}</div><div class="acts">${miss?`<button class="btn" data-a="go" data-v="route" data-s="Д-2-07">Пропущена точка</button>`:`<button class="btn" data-a="go" data-v="creps">Звернення</button>`}<a class="lnk" data-a="go" data-v="ckpi">Показники договору</a></div></div></div>
+  <h2 class="h2">Маршрути сьогодні</h2>
+  <div class="card list" style="margin-top:20px">${ROUTES.map(r=>{const st=routeState(r),p=r.pts[0]/r.pts[1];return `<div class="row" data-a="go" data-v="route" data-s="${r.id}"><div><h4>${r.id} · ${STR[r.s][0].toLowerCase()}</h4><div class="meta"><span>Машина:<b>${r.m}</b></span><span>Точок:<b>${r.pts[0]} з ${r.pts[1]}</b></span></div><div class="prog" style="max-width:420px"><i style="width:${p*100}%;background:${st[0]==='bad'?'var(--bad-i)':st[0]==='y'?'var(--warn-i)':st[0]==='b'?'var(--blue)':'var(--ok-i)'}"></i></div></div><span class="chip ${st[0]}">${ic(st[0]==='ok'?'checkc':st[0]==='bad'?'alert':st[0]==='b'?'truck':'clock')}${st[1]}</span><span class="ar">${ic('arr')}</span></div>`}).join('')}</div>`;
+}
+function vRoute(id){
+  const r=ROUTES.find(x=>x.id===id)||ROUTES[0],g=S.glass;
+  let pts;
+  if(id==='Д-2-07'){
+    pts=[['10:04','вул. Зразкова, 5','ok'],['10:12','вул. Зразкова, 9','ok'],['10:19','вул. Прикладна, 8','ok'],['10:24','вул. Прикладна, 12 · Д-2-117',g.moved?'mv':'miss'],['10:31','вул. Тестова, 3','ok'],['10:38','вул. Тестова, 7','ok']];
+  }else{
+    pts=[['06:12','вул. Зразкова, 5','ok'],['06:20','вул. Прикладна, 8','ok'],['06:31','вул. Прикладна, 12 · Д-2-117',id==='Д-2-04'&&disputed()?'disp':'ok'],['06:38','вул. Тестова, 3','ok'],['06:44','вул. Тестова, 7','ok']];
+  }
+  const rowsH=pts.map(p=>`<div class="${p[2]==='miss'?'miss':''}"><span class="tm">${p[0]}</span><span>${p[1]}</span>${p[2]==='ok'?`<span class="chip ok sm">${ic('check')}Відвідано</span>`:p[2]==='miss'?`<span class="chip y sm">${ic('alert')}Пропущено</span>`:p[2]==='mv'?`<span class="chip g sm">${ic('clock')}Перенесено на 14:00</span>`:`<span class="chip bad sm">${ic('alert')}Скарга після рейсу</span>`}</div>`).join('');
+  const R=[['block','Заблоковано авто'],['broken','Несправність'],['alarm','Повітряна тривога'],['other','Інше']];
+  const panel=id!=='Д-2-07'?(id==='Д-2-04'&&disputed()?`<div class="info warn">${ic('alert')}<div>На точку <b>Д-2-117</b> після відмітки «вивезено» надійшла скарга мешканця. Рейс спірний — відкрийте звернення.</div></div><div class="acts" style="margin-top:14px"><button class="btn" data-a="go" data-v="creps">Звернення</button></div>`:''):g.moved?`<div class="info ok">${ic('checkc')}<div>Точку перенесено на <b>14:00</b>. ~1 450 мешканців майданчика Д-2-117 зі сповіщеннями отримали повідомлення. Причину записано в рейс — Департамент бачить її під час зіставлення.</div></div>`:
+   `<div class="reason"><h4>Чому пропущено вул. Прикладна, 12?</h4><p style="color:var(--ink2);font-size:14.5px;margin-top:4px">Машина зупинилась поруч о 10:24, але відмітки водія немає.</p>
+    <div class="segs">${R.map(x=>`<button class="${g.reason===x[0]?'on':''}" data-a="gl" data-k="reason" data-val="${x[0]}">${x[1]}</button>`).join('')}</div>
+    <div class="ph-add" style="margin-top:14px">${g.photo?photo('full','водій · 10:24 · геомітка ✓'):''}<button class="addph" data-a="gl-photo">${ic('cam')}Фото від водія</button></div>
+    <label class="fl" style="margin-top:14px">Новий час</label><div class="segs" style="margin-top:0">${[['14','сьогодні 14:00'],['fri','пт 10:00']].map(x=>`<button class="${g.when===x[0]?'on':''}" data-a="gl" data-k="when" data-val="${x[0]}">${x[1]}</button>`).join('')}</div>
+    <div class="acts" style="margin-top:16px;gap:12px"><button class="btn" data-a="gl-move">Перенести і повідомити мешканців</button><button class="btn ghost" data-a="toast" data-t="Машину повернено на точку">Повернути машину</button></div></div>`;
+  return ph(`Маршрут ${r.id} · ${STR[r.s][0].toLowerCase()}`,{sm:1,crumb:[['Диспетчерська','disp'],['Маршрут '+r.id]]})+
+  `<div class="card sec" style="margin-top:0"><div class="sec-h"><h3>Точки маршруту</h3><span class="chip g sm">машина ${r.m} · ${r.pts[0]} з ${r.pts[1]}</span></div><div class="pts" style="margin-top:8px">${rowsH}</div>${panel}</div>`;
+}
+function carReps(){
+  const mine=S.reps.filter(r=>r.addr===0).map(r=>({t:REPT[r.type][0]+' · вул. Прикладна, 12',m:[['Майданчик','Д-2-117'],['Строк до',r.dl]],st:r.status,go:r.id,dot:r.cdot}));
+  return [...mine,{t:'Переповнений контейнер · вул. Зразкова, 5',m:[['Майданчик','Д-2-031'],['Строк до','10.11.2026, 18:00']],st:'work'},{t:'Розсипано після вивезення · вул. Тестова, 3',m:[['Майданчик','Д-2-090'],['Усунено','09.11.2026, 15:20']],st:'conf'}];
+}
+function vCreps(){
+  return ph('Звернення')+`<div class="card list" style="margin-top:0">${carReps().map(x=>`<div class="row" ${x.go?`data-a="go" data-v="crep" data-s="${x.go}"`:'data-a="toast" data-t="Приклад звернення"'}>${x.dot?'<i class="dot"></i>':''}<div><h4>${x.t}</h4><div class="meta">${x.m.map(m=>`<span>${m[0]}:<b>${m[1]}</b></span>`).join('')}</div></div>${chip(x.st,x.st==='done'?'Чекає підтвердження':null)}<span class="ar">${ic('arr')}</span></div>`).join('')}</div>`;
+}
+function srcCell(k,state,title,txt){return `<div class="sm ${state}"><div class="h">${ic(k)}${title}</div><p>${txt}</p></div>`}
+function vCrep(id){
+  const r=rep(id);if(!r)return ph('Звернення',{nolead:1});
+  const act=r.status==='sub'?`<button class="btn" data-a="car-send" data-s="${r.id}">Направити машину</button>`:r.status==='work'?`<button class="btn" data-a="car-close" data-s="${r.id}">Закрити з фото</button>`:r.status==='done'?`<span class="chip ok">${ic('checkc')}Усунено · чекає підтвердження заявника</span>`:r.status==='conf'?`<span class="chip ok">${ic('checkc')}Заявник підтвердив</span>`:`<span class="chip bad">${ic('ret')}Повернуто заявником</span>`;
+  return ph(REPT[r.type][0],{sm:1,crumb:[['Звернення','creps'],['№ '+r.id]]})+
+  `<div class="card lead"><div>${ring(r.status==='sub'?1:r.status==='work'?2:3,3)}</div><div style="flex:1"><div class="k">${ic('msg')}1551 № ${r.id}</div><h3>вул. Прикладна, 12 · майданчик ${r.site}</h3><div class="m">Подано ${r.created} <i>•</i> строк до ${r.dl}</div><div class="acts" style="gap:16px">${act}</div></div></div>
+  <div class="card sec"><div class="two"><div><h3 style="font-size:20px;margin-bottom:12px">Від заявника</h3><div class="ph-add">${r.photo?photo('full','09:44 · геомітка ✓'):'<span style="color:var(--ink3)">без фото</span>'}${r.closePhoto?photo('clean','ваше · 11:20'):''}</div><div class="rows2" style="margin-top:12px"><div><span>Заявник</span><b>мешканець, кв. 31 · дані приховано</b></div><div><span>Коментар</span><b>${r.comment||'—'}</b></div></div></div>
+   <div><h3 style="font-size:20px;margin-bottom:12px">Рейс Д-2-04 сьогодні</h3><div class="rows2"><div><span>${ic('gps','s18')}</span><b style="flex:1;text-align:left">GPS у геозоні 06:29–06:31</b><span class="chip ok sm">так</span></div><div><span>${ic('mark','s18')}</span><b style="flex:1;text-align:left">Відмітка водія 06:31</b><span class="chip ok sm">так</span></div><div><span>${ic('scale','s18')}</span><b style="flex:1;text-align:left">Зважування 08:14 · 9,8 т</b><span class="chip ok sm">так</span></div><div><span>${ic('msg','s18')}</span><b style="flex:1;text-align:left">Скарга ${r.created.split(', ')[1]}</b><span class="chip bad sm">є</span></div></div><div class="info warn">${ic('alert')}<div>Рейс спірний. Остаточно його оцінить Департамент — поясніть у закритті, що сталося.</div></div></div></div></div>`;
+}
+function vCkpi(){
+  const nc=S.dec['Д-2-04']==='nocount'?1:0;
+  return ph('Показники договору')+`<div class="card lead"><div class="ring" style="background:var(--blue-s);border-radius:50%;color:var(--blue)">${ic('file')}</div><div><div class="k">Договір з містом · зона Д-2</div><h3>Перевізник А · до 31.12.2028</h3><div class="m">Показники рахує місто з фактів: графік, GPS, відмітки, зважування, звернення</div></div></div>
+  <div class="kpis k4"><div class="kpi"><div class="l">Виконання рейсів</div><b>96,8<small>%</small></b><div class="d">за договором — не менше 98%</div><div class="t"><span class="chip y sm">${ic('alert')}нижче цілі</span></div></div><div class="kpi"><div class="l">Реакція на звернення</div><b>19<small>год</small></b><div class="d">медіана, за договором до 24 год</div><div class="t"><span class="chip ok sm">${ic('check')}у нормі</span></div></div><div class="kpi"><div class="l">Повнота GPS</div><b>99,1<small>%</small></b><div class="d">частка рейсів із треком</div><div class="t"><span class="chip ok sm">${ic('check')}у нормі</span></div></div><div class="kpi"><div class="l">Не зараховано точок</div><b>${3+nc}</b><div class="d">за листопад, рішення Департаменту</div><div class="t">${nc?`<span class="chip bad sm">${ic('alert')}+1 сьогодні</span>`:'<span class="chip g sm">за місяць</span>'}</div></div></div>`;
+}
+
+/* ================= ДЕПАРТАМЕНТ ================= */
+function vOver(){
+  const d=PER[S.period],nT=TRIPS.length,bad=TRIPS.filter(t=>tripState(t)[0]==='bad').length,y=TRIPS.filter(t=>tripState(t)[0]==='y').length;
+  const max=DIST[0][1];
+  return ph('Огляд')+
+  `<div class="card lead">${ring(nT-bad-y,nT)}<div><div class="k">${ic('route')}Сьогодні · вт, 10 листопада</div><h3>168 рейсів сьогодні · ${bad+y} потребують уваги</h3><div class="m">спірні чи невиконані: ${bad} <i>•</i> потребують пояснення: ${y}</div><div class="m" style="margin-top:4px">GPS 2 перевізників <i>•</i> вагові 3 об’єктів приймання <i>•</i> звернення 1551</div><div class="acts"><button class="btn" data-a="go" data-v="trips">Рейси і зіставлення</button><a class="lnk" data-a="go" data-v="creq">Заявки на контейнери${S.creq.filter(c=>c.status==='eval').length?' ('+S.creq.filter(c=>c.status==='eval').length+')':''}</a></div></div></div>
+  <div class="tools" style="margin-top:48px"><h2 class="h2" style="margin:0">Показники для керівництва КМДА</h2><div class="seg">${[['w','Тиждень'],['m','Місяць'],['y','Рік']].map(([k,t])=>`<button class="${S.period===k?'on':''}" data-a="period" data-p="${k}">${t}</button>`).join('')}</div></div>
+  <div class="kpis"><div class="kpi"><div class="l">Виконання графіків</div><b>${fmt(d.exec,1)}<small>%</small></b><div class="d">Частка підтверджених рейсів від запланованих</div></div><div class="kpi"><div class="l">Обсяг перевезення</div><b>${d.vol>=10000?fmt(d.vol/1000,1)+'<small>тис. т</small>':fmt(d.vol)+'<small>т</small>'}</b><div class="d">Тонни відходів за районами та потоками</div></div><div class="kpi"><div class="l">Скарги мешканців</div><b>${fmt(d.cmp,d.cmp<100?1:0)}</b><div class="d">Звернення на 1 000 адрес обслуговування</div></div><div class="kpi"><div class="l">Швидкість реагування</div><b>${d.react}<small>год</small></b><div class="d">Медіана від реєстрації до усунення</div></div><div class="kpi"><div class="l">Роздільне збирання</div><b>${d.sep>=10000?fmt(d.sep/1000,1)+'<small>тис. т</small>':fmt(d.sep)+'<small>т</small>'}</b><div class="d">Обсяги окремо зібраних потоків</div></div><div class="kpi"><div class="l">Стан інфраструктури</div><b>${fmt(d.infra,1)}<small>%</small></b><div class="d">Майданчиків, що потребують ремонту</div></div></div>
+  <div class="card bars"><div class="sec-h" style="margin-bottom:10px"><h3 style="font-size:18px">Обсяг перевезення за районами, т</h3><span style="color:var(--ink3);font-size:14px">${d.l}</span></div>${DIST.map(([n,s])=>`<div class="r" title="${n}: ${fmt(Math.round(d.vol*s/100))} т"><span>${n}</span><i style="width:${s/max*100}%"></i><b>${fmt(Math.round(d.vol*s/100))}</b></div>`).join('')}</div>
+  <p style="color:var(--ink3);font-size:14px;margin-top:12px">Умовні дані, щоб показати вигляд. У робочій системі показники з’являються лише після підключення фактичних джерел.</p>`;
+}
+function srcIcons(t){
+  const cmp=t.site==='Д-2-117'&&disputed();
+  const cell=(on,k,tt,cls)=>`<span class="src ${cls||(on?'y':'n')}" title="${tt}">${ic(k)}</span>`;
+  return `<div class="srcs">${cell(t.gps,'gps','GPS у точках')}${cell(t.mark,'mark','Відмітка водія',t.glass&&S.glass.moved?'x':null)}${cell(!!t.w,'scale','Зважування')}${cell(cmp,'msg','Скарга після рейсу',cmp?'c':'n')}</div>`;
+}
+function vTrips(){
+  const cnt=k=>TRIPS.filter(t=>k==='all'||tripState(t)[0]===k||(k==='bad'&&false)).length;
+  const L=TRIPS.filter(t=>{const k=tripState(t)[0];return S.tripF==='all'||k===S.tripF});
+  return ph('Рейси і зіставлення')+
+  `<div class="card sec" style="margin-top:0"><div class="info" style="margin-top:0">${ic('info')}<div>Статус рейсу — не з GPS, а зі <b>зіставлення джерел</b>: план, GPS, відмітка водія, зважування і звернення мешканців. Правила записано в договорах.</div></div>
+  <div class="fchips">${TF.map(([k,t])=>`<button class="${S.tripF===k?'on':''}" data-a="tf" data-f="${k}">${t}<em>${k==='all'?TRIPS.length:TRIPS.filter(x=>tripState(x)[0]===k).length}</em></button>`).join('')}</div>
+  <div class="thead"><span>Рейс</span><span>Перевізник</span><span class="hs">Джерела</span><span>Статус</span><span></span></div>
+  ${L.map(t=>{const st=tripState(t);return `<div class="trow" data-a="go" data-v="trip" data-s="${t.id}"><div><div class="rn">${t.id}</div><div class="rs">${STR[t.s][0]}</div></div><div class="rs"><b>${t.car}</b><br>машина ${t.m} · ${t.pts}</div>${srcIcons(t)}<span class="chip ${st[0]}">${ic(st[0]==='ok'?'checkc':st[0]==='bad'?'alert':st[0]==='b'?'info':'clock')}${st[1]}</span><span class="ar">${ic('arr')}</span></div>`}).join('')||'<div class="empty">Рейсів із таким статусом немає</div>'}</div>`;
+}
+function vTrip(id){
+  const t=TRIPS.find(x=>x.id===id)||TRIPS[0],st=tripState(t),d=S.dec[t.id];
+  const cmp=t.site==='Д-2-117'&&disputed();
+  const cells=srcCell('cal','y','План',`${t.pts.split(' з ')[1]} точок · ${STR[t.s][0].toLowerCase()}`)+
+   srcCell('gps',t.gps?'y':'n','GPS',t.gps?(t.glass?'зупинка біля Д-2-117 о 10:24':'усі зупинки в геозонах'):'немає треку з 05:40')+
+   srcCell('mark',t.glass?(S.glass.moved?'x':'n'):t.mark?'y':'n','Відмітка водія',t.glass?(S.glass.moved?'причина: заблоковано під’їзд, фото':'немає на 1 точці'):t.mark?(t.ph?'усі точки, з фото':'усі точки'):'немає')+
+   srcCell('scale',t.w?'y':'n','Зважування',t.w?`${t.w} · у межах очікуваного`:'рейс не зважено')+
+   srcCell('msg',cmp?'c':'n','Звернення',cmp?'скарга о 09:45: «не вивезли»':'скарг немає');
+  let acts='';
+  if(!d){
+    if(st[1]==='Спірне')acts=`<button class="btn dang" data-a="dec" data-s="${t.id}" data-d="nocount">Не зараховувати точку Д-2-117</button><button class="btn ghost" data-a="dec" data-s="${t.id}" data-d="count">Зарахувати рейс</button>`;
+    else if(st[0]==='y')acts=`<button class="btn" data-a="dec" data-s="${t.id}" data-d="ask">Запросити пояснення в перевізника</button>`;
+    else if(st[0]==='b')acts=`<button class="btn" data-a="dec" data-s="${t.id}" data-d="exc">Зарахувати з винятком</button><button class="btn ghost" data-a="dec" data-s="${t.id}" data-d="ask">Запросити пояснення</button>`;
+  }
+  return ph(`Рейс ${t.id} · ${STR[t.s][0].toLowerCase()}`,{sm:1,crumb:[['Рейси','trips'],[t.id]]})+
+  `<div class="card sec" style="margin-top:0"><div class="sec-h"><h3>П’ять джерел</h3><span class="chip g sm">${t.car} · машина ${t.m}</span></div><div class="smat">${cells}</div>
+   <div class="verdict ${st[0]}">${ic(st[0]==='ok'?'checkc':st[0]==='bad'?'alert':'info')}<div><b>${st[1]}</b><p>${st[2]}</p></div></div>
+   ${acts?`<div class="acts" style="margin-top:18px;gap:12px">${acts}</div>`:''}
+   ${cmp&&!d?`<div class="info">${ic('info')}<div>Фото мешканця 09:44 показує повний контейнер і пакети поруч. GPS-зупинка — 2 хвилини, вага в межах норми для маршруту. Схоже, один контейнер майданчика пропустили.</div></div>`:''}</div>`;
+}
+function vCreq(){
+  const st=[...S.creq.map(c=>({t:c.types.map(k=>STR[k][0]).join(' і ')+' · Д-2-117 · ОСББ «Прикладне»',d:c.created,st:c.status,go:c.id,dot:c.ddot})),
+    {t:'Скло · Д-1-208 · ОСББ «Каштан»',d:'28.10.2026',st:'appr'},{t:'Суха фракція · С-1-044 · КК «Житло-сервіс»',d:'21.10.2026',st:'rej'}];
+  return ph('Заявки на контейнери')+`<div class="card list" style="margin-top:0">${st.map(x=>`<div class="row" ${x.go?`data-a="go" data-v="creqd" data-s="${x.go}"`:'data-a="toast" data-t="Приклад заявки"'}>${x.dot?'<i class="dot"></i>':''}<div><h4>${x.t}</h4><div class="meta"><span>Подано:<b>${x.d}</b></span></div></div>${chip(x.st)}<span class="ar">${ic('arr')}</span></div>`).join('')}</div>`;
+}
+function vCreqd(id){
+  const c=creqById(id);if(!c)return ph('Заявка',{nolead:1});
+  const cd=S.cdec;
+  return ph('Заявка № '+c.id,{sm:1,crumb:[['Заявки на контейнери','creq'],['№ '+c.id]]})+
+  `<div class="card sec" style="margin-top:0"><div class="two"><div><div class="sec-h"><h3>Потреба</h3><span class="chip bad sm">${ic('alert')}висока</span></div>
+   <div class="rows2" style="margin-top:8px"><div><span>Майданчик</span><b>Д-2-117 · 6 будинків · ~1 450 мешканців</b></div><div><span>Заповнення до вивезення</span><b>до 112%</b></div><div><span>Переповнень за 30 днів</span><b>5</b></div><div><span>Звернень за 30 днів</span><b>${7+S.reps.length}</b></div><div><span>Найближчий контейнер для скла</span><b>420 м · Д-2-121</b></div><div><span>Пропозиції мешканців</span><b>${S.proposal?1:0}</b></div></div>
+   <div class="sec-h" style="margin-top:22px"><h3>Технічна можливість</h3></div>
+   <div class="rows2" style="margin-top:8px"><div><span>Місце на майданчику</span><b style="color:var(--ok)">є · фото інвентаризації 12.10</b></div><div><span>Під’їзд спецтранспорту</span><b style="color:var(--warn)">часто заблоковано зранку</b></div><div><span>Маршрут скла в зоні Д-2</span><b style="color:var(--ok)">вт, пт · Перевізник А</b></div></div></div>
+   <div><h3 style="font-size:22px">Рішення</h3>${c.status==='eval'?`
+    <label class="fl" style="margin-top:14px">Хто встановлює</label><div class="segs" style="margin-top:0">${[['kks','КП «Київкомунсервіс»'],['carA','Перевізник А']].map(x=>`<button class="${cd.exec===x[0]?'on':''}" data-a="cd" data-k="exec" data-val="${x[0]}">${x[1]}</button>`).join('')}</div>
+    <label class="fl" style="margin-top:14px">Строк</label><div class="segs" style="margin-top:0">${[['30','до 30.11.2026'],['15','до 15.12.2026']].map(x=>`<button class="${cd.date===x[0]?'on':''}" data-a="cd" data-k="date" data-val="${x[0]}">${x[1]}</button>`).join('')}</div>
+    <div class="info warn">${ic('alert')}<div>Під’їзд зранку заблоковано — рекомендуємо вивозити скло вдень.</div></div>
+    <div class="acts" style="margin-top:18px;gap:12px"><button class="btn" data-a="creq-ok" data-s="${c.id}">Погодити встановлення</button><button class="btn ghost" data-a="creq-no" data-s="${c.id}">Відмовити</button></div>`:
+    `<div class="verdict ${c.status==='appr'?'ok':'bad'}">${ic(c.status==='appr'?'checkc':'x')}<div><b>${c.status==='appr'?'Погоджено':'Відмовлено'}</b><p>${c.status==='appr'?`Встановлення до ${c.dec.date}. Виконавець: ${c.dec.exec}. ОСББ отримало рішення.`:c.dec.why}</p></div></div>`}</div></div></div>`;
+}
+function vContracts(){
+  return ph('Договори')+`<div class="card list" style="margin-top:0">${[['Зона Д-1 · Дарницький','Перевізник А','до 31.12.2028','96,1%'],['Зона Д-2 · Дарницький','Перевізник А','до 31.12.2028','96,8%'],['Зона С-1 · Святошинський','Перевізник Б','до 30.06.2029','97,9%'],['Зона С-2 · Святошинський','Перевізник Б','до 30.06.2029','93,4%']].map(r=>`<div class="row" data-a="toast" data-t="Картку договору в макеті не деталізовано"><div><h4>${r[0]}</h4><div class="meta"><span>Перевізник:<b>${r[1]}</b></span><span>Строк:<b>${r[2]}</b></span><span>Виконання:<b>${r[3]}</b></span></div></div>${parseFloat(r[3].replace(',','.'))>=98?chip('ok','У нормі'):chip('rev','Нижче 98%')}<span class="ar">${ic('arr')}</span></div>`).join('')}</div>`;
+}
+
+/* ================= РЕНДЕР ================= */
+const VIEWS={svc:vSvc,waste:vWaste,rep:vRep,bulky:vBulky,cont:vCont,rdet:()=>vRdet(S.sub[S.role]),bdet:()=>vBdet(S.sub[S.role]),
+ osbb:vOsbb,cdet:()=>vCdet(S.sub[S.role]),disp:vDisp,route:()=>vRoute(S.sub[S.role]),creps:vCreps,crep:()=>vCrep(S.sub[S.role]),ckpi:vCkpi,
+ over:vOver,trips:vTrips,trip:()=>vTrip(S.sub[S.role]),creq:vCreq,creqd:()=>vCreqd(S.sub[S.role]),contracts:vContracts};
+let lastKey='';
+function render(){
+  document.body.classList.toggle('base',!S.layer);
+  $$('.mock [data-role]').forEach(b=>{b.classList.toggle('on',b.dataset.role===S.role);b.disabled=!S.layer&&b.dataset.role!=='res'});
+  $('#layerSel').value=S.layer?'1':'0';
+  $('#uAva').textContent=RL[S.role].ava;$('#uName').textContent=RL[S.role].name;
+  renderSide();
+  let v=S.v[S.role];
+  if(['rep','bulky','cont'].includes(v)&&(!S.wz||S.wz.k!==v)){v=S.v[S.role]=v==='cont'?'osbb':(S.role==='osbb'?'svc':(S.from||'waste'))}
+  $('#main').innerHTML=(VIEWS[v]||PAGES[v]||vSvc)();
+  const key=S.role+v+(S.sub[S.role]||'')+(S.wz?S.wz.k+S.wz.step:'');
+  if(key!==lastKey){window.scrollTo(0,0);lastKey=key}
+  renderDD();renderChat();
+}
+function go(v,sub){
+  if(v==='waste'&&!S.layer)return;
+  if(['rdet','bdet'].includes(v)&&S.role==='res'){S.from=S.v.res==='svc'?'svc':(S.v.res==='rep'||S.v.res==='bulky')?(S.wz&&S.wz.from)||'waste':'waste'}
+  if(!['rep','bulky','cont'].includes(v))S.wz=null;
+  S.v[S.role]=v;S.sub[S.role]=sub||null;S.dd=null;
+  if(v==='rdet'){const r=rep(sub);if(r)r.dot=0}
+  if(v==='bdet'){const b=blk(sub);if(b)b.dot=0}
+  if(v==='crep'){const r=rep(sub);if(r)r.cdot=0}
+  if(v==='cdet'){const c=creqById(sub);if(c)c.dot=0}
+  if(v==='creqd'){const c=creqById(sub);if(c)c.ddot=0}
+  render();
+}
+function setRole(r){if(!S.layer&&r!=='res')return;S.role=r;S.dd=null;S.chat=false;render()}
+function toast(t){const el=$('#toast');el.innerHTML=t;el.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove('on'),2600)}
+function modal(h,wide){$('#mdl').className='mdl'+(wide?' wide':'');$('#mdl').innerHTML=`<button class="x" data-a="mclose">${ic('x')}</button>`+h;$('#ovl').hidden=false}
+function mclose(){$('#ovl').hidden=true;$('#mdl').innerHTML=''}
+
+/* дропдауни */
+function renderDD(){
+  const box=$('#ddBox');let h='';
+  if(S.dd==='city')h=`<div class="drop" style="left:233px">${[['Соціальна підтримка'],['Діти та освіта'],['Захисникам'],['Житло і комунальні послуги'],['Відходи','waste',1],['Бізнесу'],['Транспорт']].map(c=>`<a ${c[1]?`data-a="go" data-v="${c[1]}"`:'data-a="toast" data-t="Каталог послуг у макеті не деталізовано"'} class="${c[2]?'vx':''}">${c[0]}${c[2]?' <span class="chip pur sm" style="margin-left:auto">новий</span>':''}</a>`).join('')}</div>`;
+  if(S.dd==='a11y')h=`<div class="drop" style="right:150px"><button data-a="a11y">${ic('zoom')}${S.a11y?'Звичайний розмір':'Збільшити текст'}</button><button data-a="toast" data-t="Режим високої контрастності в макеті не деталізовано">${ic('info')}Висока контрастність</button></div>`;
+  if(S.dd==='user')h=`<div class="drop" style="right:-4px"><div class="cap">${RL[S.role].name}</div><button data-a="go" data-v="prof">${ic('user')}Мій профіль</button><button data-a="go" data-v="notif">${ic('bell')}Мої сповіщення</button><hr><button data-a="toast" data-t="Вихід у макеті вимкнено">${ic('logout')}Вийти</button></div>`;
+  box.innerHTML=h;
+  const f=$('.fpill .drop');if(f)f.remove();
+  if(S.dd==='stf'){const p=$('.fpill');if(p)p.insertAdjacentHTML('beforeend',`<div class="drop">${[['all','Усі'],['sub','Подано'],['rev','На розгляді'],['fix','На доопрацюванні']].map(([k,t])=>`<button data-a="stf" data-f="${k}">${t}${S.stF===k?' '+ic('check','s18'):''}</button>`).join('')}</div>`)}
+}
+
+/* чат */
+function renderChat(){
+  const c=$('#chat');c.hidden=!S.chat;if(!S.chat)return;
+  if(!S.chatLog)S.chatLog=[['bot','Вітаю! Я помічник Порталу послуг. Чим допомогти?']];
+  const qr=S.layer?[['late','Не вивезли сміття'],['bulky','Вивезти стару меблю'],['status','Статус моєї заяви']]:[['status','Статус моєї заяви']];
+  c.innerHTML=`<div class="chd">${ic('msg')}Помічник Порталу<button data-a="chat">×</button></div><div class="cbd">${S.chatLog.map(m=>`<div class="msg ${m[0]}">${m[1]}</div>`).join('')}<div class="qr">${qr.map(q=>`<button data-a="cq" data-q="${q[0]}">${q[1]}</button>`).join('')}</div></div>`;
+  const b=$('.cbd',c);b.scrollTop=b.scrollHeight;
+}
+function chatQ(q){
+  const L=S.chatLog;
+  if(q==='late'){L.push(['me','Не вивезли сміття']);L.push(['bot','Ваш майданчик — <b>Д-2-117</b> (вул. Прикладна, 12), перевізник — Перевізник А. Сьогодні о 06:31 він відмітив вивезення. Оформлю повідомлення — звернення одразу потрапить до відповідального. <br><button class="lnk sm" data-a="rep-start" style="margin-top:6px">Оформити →</button>'])}
+  if(q==='bulky'){L.push(['me','Вивезти стару меблю']);L.push(['bot','Можна замовити вивезення великогабаритних відходів на зручну дату. <br><button class="lnk sm" data-a="bulky-start" style="margin-top:6px">Замовити →</button>'])}
+  if(q==='status'){L.push(['me','Статус моєї заяви']);const r=S.reps[0];L.push(['bot',r?`Звернення № ${r.id}: <b>${(CH[r.status]||[])[2]||r.status}</b>.`:'Остання заява «Психологічна підтримка Захисникам і Захисницям» — <b>Подано</b>, розгляд до 12.07.2026.'])}
+  renderChat();
+}
+</script>
+
+<script>
+/* ================= ДІЇ ================= */
+function startWz(k,from){
+  if(k==='rep')S.wz={k,step:0,site:A().site,type:null,photo:false,comment:'',notif:true,from};
+  if(k==='bulky')S.wz={k,step:0,items:[],vol:null,day:null,slot:null,remind:true,from};
+  if(k==='cont')S.wz={k,step:0,types:S.proposal?['glass']:[],photo:false,from:'osbb'};
+  S.v[S.role]=k;S.dd=null;S.chat=false;mclose();render();
+}
+function submitRep(){
+  const w=S.wz,a=A(),n=String(118400+S.reps.length*7+2);
+  const dispute=w.site===a.site&&S.addr===0&&['late','over'].includes(w.type);
+  const r={id:'1551-26-'+n,type:w.type,addr:S.addr,site:w.site,created:TODAY+', 09:47',dl:'11.11.2026, 09:47',status:'sub',photo:w.photo,comment:w.comment||'',car:a.car,trip:dispute,dot:1,cdot:1,
+    ev:[['ok','Звернення зареєстровано','10.11.2026, 09:47 · 1551 № 26-'+n],['ok','Передано перевізнику',a.car+' · зона '+a.zone+' · строк 24 год']]};
+  if(dispute)r.ev.push(['w','Рейс Д-2-04 позначено як спірний','о 06:31 відмічено вивезення, звернення після рейсу']);
+  S.reps.unshift(r);w.id=r.id;w.step=3;
+  note('car',`Нове звернення: ${REPT[w.type][0].toLowerCase()} · вул. Прикладна, 12`,['crep',r.id]);
+  if(dispute)note('dep','Спірний рейс Д-2-04: скарга мешканця після відмітки «вивезено»',['trip','Д-2-04']);
+  note('osbb','Нове звернення мешканця щодо майданчика Д-2-117',['osbb']);
+  render();toast('Звернення подано');
+}
+function submitBulky(){
+  const w=S.wz,b={id:'ВГ-26-0'+(231+S.bulky.length),items:w.items,vol:w.vol,date:w.day+'.2026',slot:w.slot,status:'plan',created:TODAY,dot:1};
+  S.bulky.unshift(b);w.id=b.id;w.step=3;
+  note('res',`Вивезення великогабаритних відходів заплановано на ${b.date}, ${b.slot}`,['bdet',b.id]);
+  render();toast('Вивезення заплановано');
+}
+function submitCont(){
+  const w=S.wz,c={id:'КР-26-0'+(93+S.creq.length),types:w.types,created:TODAY,status:'eval',dot:0,ddot:1};
+  S.creq.unshift(c);w.id=c.id;w.step=3;
+  note('dep','Нова заявка на контейнери: майданчик Д-2-117',['creqd',c.id]);
+  render();toast('Заявку подано');
+}
+function addrModal(){
+  modal(`<h3>Адреса для сервісу «Відходи»</h3><p>Графік, майданчик і перевізника система визначає за адресою.</p><div style="display:flex;flex-direction:column;gap:8px;margin-top:16px">${ADDR.map((a,i)=>`<button class="opt${S.addr===i?' on':''}" data-a="set-addr" data-i="${i}"><span class="oi">${ic('pin')}</span><span><b>${a.a}</b><small>${a.src} · ${a.rayon} район · ${a.car}</small></span><span class="rd"></span></button>`).join('')}</div><div class="fld" style="margin-top:12px">${ic('plus')}<input placeholder="Додати іншу адресу"></div>`);
+}
+function searchModal(){
+  modal(`<div class="srch" style="padding:0"><h3>Пошук послуг</h3><div class="inp" style="margin-top:14px"><svg class="ic" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7"/><path d="M20.5 20.5l-5-5"/></svg><input id="sq" placeholder="Наприклад: сміття, школа, паркування" autofocus></div><div class="res" id="sres" style="margin-top:10px"></div></div>`,1);
+  const run=()=>{const q=($('#sq').value||'').toLowerCase().trim();
+    const L=[...SVC.filter(s=>S.layer||!s.vx).map(s=>({t:s.t,k:s.tag,a:s.a||'toast',kw:(s.t+' '+s.tag+(s.vx?' сміття вивезення контейнер майданчик відходи':'')).toLowerCase()})),...(S.layer?[{t:'Мій контейнерний майданчик і графік вивезення',k:'Відходи',a:'go',v:'waste',kw:'сміття графік вивезення майданчик контейнер відходи'}]:[])];
+    const R=q?L.filter(x=>q.split(/\s+/).every(w=>x.kw.includes(w.slice(0,5)))):L.slice(0,6);
+    $('#sres').innerHTML=R.map(x=>`<a data-a="${x.a}" ${x.v?`data-v="${x.v}"`:''} data-t="Сторінку послуги в макеті не деталізовано">${x.t}<small>${x.k}</small></a>`).join('')||'<p>Нічого не знайдено</p>'};
+  $('#sq').addEventListener('input',run);run();setTimeout(()=>$('#sq')&&$('#sq').focus(),50);
+}
+function contInfo(){
+  if(S.role==='osbb'){startWz('cont');return}
+  modal(`<h3>Контейнери для роздільного збирання</h3><p>Заявку на нові контейнери подає ОСББ або управитель будинку. Ваш будинок обслуговує <b>ОСББ «Прикладне»</b>.</p><p>Можемо передати голові вашу пропозицію разом із даними про майданчик: заповнення до 112% і найближчий контейнер для скла за 420 м.</p>${S.proposal?`<div class="info ok">${ic('checkc')}<div>Пропозицію вже передано голові ОСББ.</div></div>`:`<label class="fl" style="margin-top:16px">Що запропонувати</label><div class="segs" style="margin-top:0"><button class="on">Скло</button><button>Пластик</button><button>Батарейки й лампи</button></div>`}<div class="acts">${S.proposal?'<button class="btn" data-a="mclose">Добре</button>':'<button class="btn" data-a="propose">Запропонувати ОСББ</button><button class="btn ghost" data-a="mclose">Скасувати</button>'}</div>`);
+}
+function sortMap(){
+  modal(`<h3>Де викинути скло, батарейки й одяг</h3><p>Карта «Сортування сміття» вже є в «Київ Цифровому». Тут вона стає частиною розділу «Відходи» і бере дані з того самого реєстру майданчиків.</p><div class="segs"><button class="on">${'Скло'}</button><button>Пластик</button><button>Батарейки й лампи</button><button>Одяг · «Кошики добра»</button></div><div class="map" style="margin-top:14px">${mapSvg(S.addr)}</div><div class="rows2" style="margin-top:10px"><div><span>Д-2-121 · скло, батарейки</span><b>230 м</b></div><div><span>«Кошик добра» · ТЦ на Прикладній</span><b>350 м</b></div></div>`,1);
+}
+
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-a]');
+  if(!t){if(S.dd&&!e.target.closest('.drop')){S.dd=null;renderDD()}return}
+  const a=t.dataset.a,d=t.dataset;
+  if(t.closest('.tour'))return;
+  if(a!=='dd'&&S.dd&&!t.closest('.drop')){S.dd=null}
+  switch(a){
+   case'go':mclose();S.chat=false;go(d.v,d.s);break;
+   case'home':go(S.role==='res'||S.role==='osbb'?'svc':S.role==='car'?'disp':'over');break;
+   case'toast':toast(d.t||'У макеті не деталізовано');renderDD();break;
+   case'dd':S.dd=S.dd===d.d?null:d.d;renderDD();break;
+   case'stf':S.stF=d.f;S.dd=null;S.more=false;render();break;
+   case'tab':S.tab=d.t;S.more=false;render();break;
+   case'more':S.more=!S.more;render();break;
+   case'cat':S.cat=d.c;render();break;
+   case'search':S.dd=null;renderDD();searchModal();break;
+   case'a11y':S.a11y=!S.a11y;document.body.style.zoom=S.a11y?'1.12':'';S.dd=null;renderDD();break;
+   case'chat':S.chat=!S.chat;renderChat();break;
+   case'cq':chatQ(d.q);break;
+   case'mclose':mclose();break;
+   case'note':{const n=S.notes[+d.i];n.u=0;if(n.go)go(n.go[0],n.go[1]);else render();break}
+   case'rep-start':if(!S.layer)break;startWz('rep',S.v[S.role]==='svc'?'svc':'waste');break;
+   case'bulky-start':if(!S.layer)break;startWz('bulky',S.v[S.role]==='svc'?'svc':'waste');break;
+   case'cont-start':startWz('cont');break;
+   case'cont-info':contInfo();break;
+   case'sortmap':sortMap();break;
+   case'propose':S.proposal=true;note('osbb','Мешканець кв. 31 пропонує контейнер для скла на майданчику Д-2-117',['osbb']);mclose();toast('Пропозицію передано голові ОСББ «Прикладне»');render();break;
+   case'addr':addrModal();break;
+   case'set-addr':S.addr=+d.i;mclose();render();toast('Адреса: '+A().a);break;
+   case'notify':S.notify=!S.notify;render();toast(S.notify?'Сповіщатимемо про зміни графіка':'Сповіщення вимкнено');break;
+   case'to-sched':S.seen.sched=1;$('#sched')&&$('#sched').scrollIntoView({behavior:'smooth',block:'start'});break;
+   case'wz-set':S.wz[d.k]=d.val;if(d.k==='day')S.wz.slot=null;render();break;
+   case'wz-multi':{const L=S.wz[d.k],i=L.indexOf(d.val);i<0?L.push(d.val):L.splice(i,1);render();break}
+   case'wz-tg':S.wz[d.k]=!S.wz[d.k];render();break;
+   case'wz-photo':S.wz.photo=true;render();break;
+   case'wz-next':{const ta=$('textarea.fld');if(ta)S.wz.comment=ta.value;S.wz.step++;render();break}
+   case'wz-back':if(S.wz.step===0){go(S.wz.from||'waste')}else{S.wz.step--;render()}break;
+   case'rep-submit':submitRep();break;
+   case'bulky-submit':submitBulky();break;
+   case'cont-submit':submitCont();break;
+   case'rep-conf':{const r=rep(d.s);r.status='conf';r.closed=TODAY;r.ev.push(['ok','Ви підтвердили усунення',TODAY+', '+clock()]);note('car','Заявник підтвердив усунення · вул. Прикладна, 12',['crep',r.id]);render();toast('Дякуємо! Звернення закрито');break}
+   case'rep-ret':{const r=rep(d.s);r.status='ret';r.ev.push(['bad','Ви повернули звернення','проблема лишилась']);note('car','Заявник повернув звернення · вул. Прикладна, 12',['crep',r.id]);render();toast('Звернення повернуто перевізнику');break}
+   case'car-send':{const r=rep(d.s);r.status='work';r.ev.push(['ok','Машину направлено','машина 0417 · орієнтовно до 12:00']);note('res','Перевізник направив машину на майданчик Д-2-117',['rdet',r.id]);render();toast('Машину 0417 направлено');break}
+   case'car-close':{const r=rep(d.s);r.status='done';r.closePhoto=1;r.dot=1;r.ev.push(['ok','Усунено, фото з геоміткою',TODAY+', 11:20 · Перевізник А']);note('res','Звернення щодо майданчика Д-2-117 усунено — підтвердьте',['rdet',r.id]);render();toast('Звернення закрито з фото');break}
+   case'gl':S.glass[d.k]=d.val;render();break;
+   case'gl-photo':S.glass.photo=true;render();break;
+   case'gl-move':S.glass.moved=true;note('res','Скло на майданчику Д-2-117 сьогодні вивеземо о 14:00 замість 10:00–12:00: заблоковано під’їзд',['waste']);note('osbb','Скло на майданчику Д-2-117 перенесено на 14:00: заблоковано під’їзд',['osbb']);render();toast('Перенесено. Мешканців повідомлено');break;
+   case'dec':{S.dec[d.s]=d.d;const t=TRIPS.find(x=>x.id===d.s);
+     if(d.s==='Д-2-04'){const r=S.reps.find(x=>x.trip);if(r)r.ev.push(['w','Департамент перевірив рейс',d.d==='nocount'?'точку Д-2-117 не зараховано перевізнику':'рейс зараховано']);note('car',d.d==='nocount'?'Рейс Д-2-04: точку Д-2-117 не зараховано':'Рейс Д-2-04 зараховано',['ckpi'])}
+     render();toast({nocount:'Точку не зараховано. Перевізник побачить це в показниках',count:'Рейс зараховано',exc:'Зараховано з винятком',ask:'Запит перевізнику надіслано'}[d.d]);break}
+   case'tf':S.tripF=d.f;render();break;
+   case'period':S.period=d.p;render();break;
+   case'cd':S.cdec[d.k]=d.val;render();break;
+   case'creq-ok':{const c=creqById(d.s);c.status='appr';c.dot=1;c.dec={date:S.cdec.date==='30'?'30.11.2026':'15.12.2026',exec:S.cdec.exec==='kks'?'КП «Київкомунсервіс»':'Перевізник А'};note('osbb',`Заявку № ${c.id} погоджено: встановлення до ${c.dec.date}`,['cdet',c.id]);if(S.proposal)note('res','Вашу пропозицію підтримано: на майданчику Д-2-117 встановлять контейнер для скла',['waste']);render();toast('Погоджено. ОСББ отримало рішення');break}
+   case'creq-no':{const c=creqById(d.s);c.status='rej';c.dot=1;c.dec={why:'На майданчику немає місця без перекриття під’їзду. Запропоновано майданчик Д-2-118 (160 м).'};note('osbb',`Заявку № ${c.id} відхилено з обґрунтуванням`,['cdet',c.id]);render();toast('Відмову надіслано з обґрунтуванням');break}
+  }
+});
+$$('.mock [data-role]').forEach(b=>b.onclick=()=>setRole(b.dataset.role));
+$('#layerSel').onchange=e=>{S.layer=e.target.value==='1';if(!S.layer){S.role='res';if(!['svc','drafts','docs','events','spec','kids','biz','prof','notif'].includes(S.v.res))S.v.res='svc';S.cat='all'}render()};
+$('#resetBtn').onclick=()=>{const l=S.layer;S=S0();S.layer=l;mclose();render();toast('Демо скинуто')};
+$('#ovl').addEventListener('click',e=>{if(e.target.id==='ovl')mclose()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){mclose();S.dd=null;renderDD()}});
+
+/* ================= ПУТІВНИК ================= */
+const TOUR={open:false,flow:null,step:0,done:[],hl:null,scrolled:-1,flash:false};
+try{TOUR.done=JSON.parse(localStorage.getItem('vxTourDone')||'[]')}catch(e){}
+const fresh=(role,v)=>{const l=true;S=S0();S.layer=l;S.role=role||'res';if(v)S.v[S.role]=v;mclose();render()};
+const R=(r)=>({t:`Переключись на роль <b>«${{res:'Мешканець',osbb:'Голова ОСББ',car:'Перевізник',dep:'Департамент'}[r]}»</b> у темній панелі зверху.`,sel:`.mock [data-role="${r}"]`,done:()=>S.role===r});
+const FLOWS=[
+ {id:'site',name:'Мій майданчик за адресою',ds:'Мешканець бачить майданчик, перевізника, графік і факт вивезення',min:2,start:()=>fresh('res','svc'),steps:[
+  {t:'Це копія кабінету «Мої послуги» з Figma. У меню з’явився розділ <b>«Відходи»</b>. Відкрий його.',sel:'.sit[data-v="waste"]',done:()=>S.v.res==='waste'},
+  {t:'Картка «Сьогодні» показує не план, а факт: змішані вивезено о 06:31. Це підтвердили GPS, відмітка водія і зважування. Натисни <b>«Графік вивезення»</b>.',sel:'[data-a="to-sched"]',done:()=>S.seen.sched},
+  {t:'Графік за адресою: потоки за днями, сьогоднішній день підсвічено. Увімкни <b>«Сповіщати про зміни»</b>.',sel:'[data-a="notify"]',done:()=>S.notify},
+  {t:'Адреса — єдине, що потрібно від людини. Натисни на перемикач <b>адреси</b> над картою.',sel:'[data-a="addr"]',done:()=>!$('#ovl').hidden},
+  {t:'Обери адресу батьків — <b>просп. Перемоги, 37</b>.',sel:'[data-a="set-addr"][data-i="1"]',done:()=>S.addr===1},
+  {t:'Інший район, інший перевізник, інший графік. Людині не треба знати, хто такий балансоутримувач чи перевізник: система знає це сама.',manual:1}]},
+ {id:'late',name:'Не вивезли сміття',ds:'Звернення → перевізник → спірний рейс → рішення Департаменту → підтвердження',min:5,start:()=>fresh('res','svc'),steps:[
+  {t:'Мешканець бачить повні контейнери, хоча рейс відмічено. Відкрий розділ <b>«Відходи»</b>.',sel:'.sit[data-v="waste"]',done:()=>S.v.res==='waste'},
+  {t:'Натисни <b>«Повідомити про проблему»</b>.',sel:'.lead [data-a="rep-start"]',done:()=>S.wz&&S.wz.k==='rep'},
+  {t:'Майданчик уже обрано за адресою з профілю. Натисни <b>«Далі»</b>.',sel:'[data-a="wz-next"]',done:()=>S.wz&&S.wz.step>=1},
+  {t:'Обери <b>«Не вивезли вчасно»</b>.',sel:'[data-a="wz-set"][data-val="late"]',done:()=>S.wz&&S.wz.type==='late'},
+  {t:'Додай <b>фото</b>: воно отримає геомітку й час.',sel:'[data-a="wz-photo"]',done:()=>S.wz&&S.wz.photo},
+  {t:'Натисни <b>«Далі»</b>.',sel:'[data-a="wz-next"]',done:()=>S.wz&&S.wz.step>=2},
+  {t:'Система сама знайшла відповідального за договором і строк. Головне: о 06:31 рейс відмічено як виконаний, тож звернення зробить його <b>спірним</b>. Натисни <b>«Подати»</b>.',sel:'[data-a="rep-submit"]',done:()=>S.reps.length>0},
+  R('car'),
+  {t:'Звернення одразу прийшло перевізнику, який відповідає за цей майданчик. Відкрий <b>«Звернення»</b>.',sel:'.sit[data-v="creps"]',done:()=>S.v.car==='creps'||S.v.car==='crep'},
+  {t:'Відкрий нове звернення з вул. Прикладна, 12.',sel:'.row[data-v="crep"]',done:()=>S.v.car==='crep'},
+  {t:'Диспетчер бачить фото мешканця і всі дані рейсу. Натисни <b>«Направити машину»</b>.',sel:'[data-a="car-send"]',done:()=>S.reps[0]&&S.reps[0].status!=='sub'},
+  {t:'Машина приїхала. Натисни <b>«Закрити з фото»</b>.',sel:'[data-a="car-close"]',done:()=>S.reps[0]&&['done','conf'].includes(S.reps[0].status)},
+  R('dep'),
+  {t:'Департамент бачить рейси не за звітом перевізника, а за зіставленням джерел. Відкрий <b>«Рейси і зіставлення»</b>.',sel:'.sit[data-v="trips"]',done:()=>S.v.dep==='trips'||S.v.dep==='trip'},
+  {t:'Рейс <b>Д-2-04</b> позначено як спірний. Відкрий його.',sel:'.trow[data-s="Д-2-04"]',done:()=>S.v.dep==='trip'&&S.sub.dep==='Д-2-04'},
+  {t:'GPS, відмітка і вага кажуть «виконано», а звернення — «ні». Ухвали: <b>«Не зараховувати точку Д-2-117»</b>.',sel:'[data-a="dec"][data-d="nocount"]',done:()=>S.dec['Д-2-04']},
+  R('res'),
+  {t:'Відкрий <b>«Мої послуги»</b> в меню.',sel:'.sit[data-v="svc"]',done:()=>S.v.res==='svc'},
+  {t:'Звернення в «Поданих заявах» має позначку. Відкрий його.',sel:'#apps .row[data-v="rdet"]',done:()=>S.v.res==='rdet'},
+  {t:'Тут видно весь шлях і фото «після». Натисни <b>«Підтверджую, усунено»</b>.',sel:'[data-a="rep-conf"]',done:()=>S.reps[0]&&S.reps[0].status==='conf'}]},
+ {id:'glass',name:'Скло перенесли',ds:'Перевізник фіксує причину пропуску, мешканці отримують сповіщення',min:2,start:()=>{fresh('res','waste');S.notify=true;render()},steps:[
+  R('car'),
+  {t:'У диспетчерській видно пропущену точку на маршруті скла. Натисни <b>«Пропущена точка»</b>.',sel:'.lead [data-v="route"]',done:()=>S.v.car==='route'},
+  {t:'Машина була поруч о 10:24, але не завантажила контейнер. Причина з довідника — <b>«Заблоковано авто»</b> — вже обрана. Додай <b>фото від водія</b>.',sel:'[data-a="gl-photo"]',done:()=>S.glass.photo},
+  {t:'Натисни <b>«Перенести і повідомити мешканців»</b>.',sel:'[data-a="gl-move"]',done:()=>S.glass.moved},
+  R('res'),
+  {t:'Відкрий <b>«Мої сповіщення»</b>.',sel:'.sit[data-v="notif"]',done:()=>S.v.res==='notif'},
+  {t:'Мешканець дізнався про перенесення до того, як побачив повний контейнер. Відкрий сповіщення про скло.',sel:'#main .row[data-a="note"]',done:()=>S.v.res==='waste'},
+  {t:'У графіку і в картці «Сьогодні» — нове вікно і причина. Для Департаменту це рейс «перенесено з причиною», а не «не виконано».',manual:1}]},
+ {id:'bulky',name:'Шафа на вивезення',ds:'Замовлення великогабаритних відходів з вікном від перевізника',min:2,start:()=>fresh('res','svc'),steps:[
+  {t:'У «Послугах для вас» обери категорію <b>«Для житла»</b>.',sel:'.pills [data-c="zhytlo"]',done:()=>S.cat==='zhytlo'},
+  {t:'Відкрий <b>«Вивезення великогабаритних відходів»</b>.',sel:'.scard[data-a="bulky-start"]',done:()=>S.wz&&S.wz.k==='bulky'},
+  {t:'Обери <b>«Меблі»</b>.',sel:'[data-a="wz-multi"][data-val="Меблі"]',done:()=>S.wz&&S.wz.items.includes('Меблі')},
+  {t:'Обери обсяг <b>«1–3 м³»</b> і натисни «Далі».',sel:'[data-val="1–3 м³"]',done:()=>S.wz&&S.wz.vol==='1–3 м³'},
+  {t:'Натисни <b>«Далі»</b>.',sel:'[data-a="wz-next"]',done:()=>S.wz&&S.wz.step>=1},
+  {t:'Вільні дні беруться з графіка перевізника твоєї зони. Обери <b>п’ятницю, 13</b>.',sel:'[data-a="wz-set"][data-val="13.11"]',done:()=>S.wz&&S.wz.day==='13.11'},
+  {t:'Обери вікно <b>08:00–12:00</b>.',sel:'[data-a="wz-set"][data-val="08:00–12:00"]',done:()=>S.wz&&S.wz.slot},
+  {t:'Натисни <b>«Далі»</b>.',sel:'[data-a="wz-next"]',done:()=>S.wz&&S.wz.step>=2},
+  {t:'Фіолетова плашка чесно каже, що модель надання ще не визначена. Натисни <b>«Підтвердити»</b>.',sel:'[data-a="bulky-submit"]',done:()=>S.bulky.length>0},
+  {t:'Замовлення вже в «Поданих заявах» і в розділі «Відходи». Натисни <b>«До моїх послуг»</b>.',sel:'.wz [data-v="svc"]',done:()=>S.v.res==='svc'}]},
+ {id:'cont',name:'Контейнер для скла',ds:'Пропозиція мешканця → заявка ОСББ → рішення Департаменту',min:4,start:()=>fresh('res','waste'),steps:[
+  {t:'Мешканцю бракує контейнера для скла. Знайди внизу картку <b>«Встановлення контейнерів для роздільного збирання»</b>.',sel:'#main .scard[data-a="cont-info"]',done:()=>!$('#ovl').hidden},
+  {t:'Заявку подає ОСББ, але мешканець може запропонувати. Натисни <b>«Запропонувати ОСББ»</b>.',sel:'[data-a="propose"]',done:()=>S.proposal},
+  R('osbb'),
+  {t:'Голова бачить пропозицію і дані майданчика: заповнення 112%. Натисни <b>«Подати заявку на контейнери»</b>.',sel:'.lead [data-a="cont-start"]',done:()=>S.wz&&S.wz.k==='cont'},
+  {t:'Скло вже обрано з пропозиції. Додай <b>«Пластик»</b>.',sel:'[data-a="wz-multi"][data-val="plast"]',done:()=>S.wz&&S.wz.types.includes('plast')},
+  {t:'Натисни <b>«Далі»</b>.',sel:'[data-a="wz-next"]',done:()=>S.wz&&S.wz.step>=1},
+  {t:'Обґрунтування не треба писати: система підставила свої дані. Натисни <b>«Далі»</b>.',sel:'[data-a="wz-next"]',done:()=>S.wz&&S.wz.step>=2},
+  {t:'Натисни <b>«Подати заявку»</b>.',sel:'[data-a="cont-submit"]',done:()=>S.creq.length>0},
+  R('dep'),
+  {t:'Відкрий <b>«Заявки на контейнери»</b>.',sel:'.sit[data-v="creq"]',done:()=>S.v.dep==='creq'||S.v.dep==='creqd'},
+  {t:'Відкрий нову заявку від ОСББ «Прикладне».',sel:'.row[data-v="creqd"]',done:()=>S.v.dep==='creqd'},
+  {t:'Потреба й технічна можливість — з даних системи. Натисни <b>«Погодити встановлення»</b>.',sel:'[data-a="creq-ok"]',done:()=>S.creq[0]&&S.creq[0].status==='appr'},
+  R('osbb'),
+  {t:'Рішення прийшло з обґрунтуванням і строком, а мешканець отримав сповіщення, що його пропозицію підтримали.',manual:1}]},
+ {id:'gps',name:'Чому не лише GPS',ds:'Департамент розбирає рейси з різними поєднаннями джерел',min:2,start:()=>fresh('dep','trips'),steps:[
+  {t:'Кожен рейс має чотири значки: GPS, відмітка водія, зважування, скарга. Обери фільтр <b>«З винятком»</b>.',sel:'.fchips [data-f="b"]',done:()=>S.tripF==='b'},
+  {t:'Відкрий рейс <b>Д-1-12</b>.',sel:'.trow[data-s="Д-1-12"]',done:()=>S.v.dep==='trip'&&S.sub.dep==='Д-1-12'},
+  {t:'GPS-треку немає, але є відмітки з фото і вага. Якби рахували лише GPS, рейс вважався б невиконаним. Натисни <b>«Зарахувати з винятком»</b>.',sel:'[data-a="dec"][data-d="exc"]',done:()=>S.dec['Д-1-12']},
+  {t:'Повернись до списку — натисни <b>«Рейси»</b> над заголовком.',sel:'.crumb [data-v="trips"]',done:()=>S.v.dep==='trips'},
+  {t:'Обери фільтр <b>«Потребує пояснення»</b>.',sel:'.fchips [data-f="y"]',done:()=>S.tripF==='y'},
+  {t:'Відкрий рейс <b>Д-1-03</b>: машина пройшла маршрут, вага є, а відміток водія немає.',sel:'.trow[data-s="Д-1-03"]',done:()=>S.v.dep==='trip'&&S.sub.dep==='Д-1-03'},
+  {t:'Натисни <b>«Запросити пояснення в перевізника»</b>. Що зараховувати в таких випадках, визначає договір.',sel:'[data-a="dec"][data-d="ask"]',done:()=>S.dec['Д-1-03']}]}
+];
+function tourSave(){try{localStorage.setItem('vxTourDone',JSON.stringify(TOUR.done))}catch(e){}}
+const flowById=id=>FLOWS.find(f=>f.id===id);
+function tourTarget(){const f=flowById(TOUR.flow);if(!f)return null;const st=f.steps[TOUR.step];if(!st||!st.sel)return null;let el=null;try{el=document.querySelector(st.sel)}catch(e){}return el&&el.getClientRects().length?el:null}
+function tourHL(el){if(TOUR.hl===el)return;if(TOUR.hl)TOUR.hl.classList.remove('tour-hl');TOUR.hl=el;if(el)el.classList.add('tour-hl')}
+function tourRender(){
+  const box=$('#tour');box.hidden=!TOUR.open;document.body.classList.toggle('tour-open',TOUR.open);$('#tourbtn').classList.toggle('on',TOUR.open);
+  if(!TOUR.open){tourHL(null);return}
+  $('#tour-pr').textContent=TOUR.done.length+' з '+FLOWS.length+' пройдено';
+  const f=flowById(TOUR.flow);let h='';
+  if(!f){h='<p class="intro">Клікабельна копія кабінету «Мої послуги» з Figma і на ній — макет концепту «Відходи Києва»: мешканець, голова ОСББ, перевізник і Департамент.<br><br>Обери сценарій. Путівник підсвічує, куди натиснути, і сам переходить далі. Кожен сценарій починається з чистого демо.</p>'+
+    FLOWS.map((x,i)=>{const ok=TOUR.done.includes(x.id);return `<button class="fl${ok?' ok':''}" data-tflow="${x.id}"><span class="no">${ok?'✓':i+1}</span><span><span class="nm">${x.name}</span><span class="ds">${x.ds}</span></span><span class="rl">${x.min} хв</span></button>`}).join('')}
+  else if(TOUR.step>=f.steps.length){const i=FLOWS.indexOf(f),nx=FLOWS[i+1];
+    h=`<div class="kick">Сценарій ${i+1} з ${FLOWS.length}</div><h4>${f.name}</h4><div class="ok-msg" style="margin-top:0">Сценарій пройдено ✓</div><div class="ta">${nx?`<button class="tbn" data-tflow="${nx.id}">Далі: ${nx.name}</button>`:''}<button class="tbn g" data-tlist="1">Усі сценарії</button></div>`}
+  else{const st=f.steps[TOUR.step],j=FLOWS.indexOf(f);
+    h=`<div class="kick">Сценарій ${j+1} · крок ${TOUR.step+1} із ${f.steps.length}</div><h4>${f.name}</h4><div class="bar">${f.steps.map((_,k)=>`<i class="${k<TOUR.step?'d':k===TOUR.step?'c':''}"></i>`).join('')}</div><div class="txt">${st.t}</div>${TOUR.flash?'<div class="ok-msg">Готово ✓</div>':''}<div class="ta">${st.manual?`<button class="tbn" data-tnext="1">${TOUR.step===f.steps.length-1?'Завершити':'Далі'}</button>`:`<button class="tbn g" data-tdo="1">Зробити за мене</button>`}</div><div class="tlinks"><button data-trestart="1">↺ Почати спочатку</button><button data-tlist="1">Усі сценарії</button></div>`}
+  $('#tour-body').innerHTML=h;
+}
+function tourStart(id){const f=flowById(id);if(!f)return;TOUR.flow=id;TOUR.step=0;TOUR.scrolled=-1;TOUR.flash=false;TOUR.open=true;tourHL(null);f.start();tourRender()}
+function tourAdvance(){const f=flowById(TOUR.flow);if(!f)return;TOUR.step++;TOUR.scrolled=-1;tourHL(null);
+  if(TOUR.step>=f.steps.length&&!TOUR.done.includes(f.id)){TOUR.done.push(f.id);tourSave()}
+  TOUR.flash=TOUR.step<f.steps.length;tourRender();clearTimeout(TOUR._f);TOUR._f=setTimeout(()=>{if(TOUR.flash){TOUR.flash=false;tourRender()}},1300)}
+function tourTick(){
+  if(!TOUR.open||!TOUR.flow)return;const f=flowById(TOUR.flow);if(!f||TOUR.step>=f.steps.length){tourHL(null);return}
+  const st=f.steps[TOUR.step];if(!st.manual&&st.done()){tourAdvance();return}
+  const el=tourTarget();tourHL(el);
+  if(el&&TOUR.scrolled!==TOUR.step){TOUR.scrolled=TOUR.step;const r=el.getBoundingClientRect(),inFix=el.closest('.mdl,.mock,.chat');if(!inFix&&(r.top<110||r.bottom>innerHeight-20))el.scrollIntoView({behavior:'smooth',block:'center'})}
+}
+function tourDo(){const f=flowById(TOUR.flow);if(!f)return;const st=f.steps[TOUR.step];if(!st)return;if(st.act){st.act();return}const el=tourTarget();if(el)el.click()}
+document.addEventListener('click',e=>{let t;
+  if(e.target.closest('#tourbtn')){TOUR.open=!TOUR.open;tourRender();return}
+  if(e.target.closest('#tour-x')){TOUR.open=false;tourRender();return}
+  if(t=e.target.closest('[data-tflow]')){tourStart(t.dataset.tflow);return}
+  if(e.target.closest('[data-tlist]')){TOUR.flow=null;tourHL(null);tourRender();return}
+  if(e.target.closest('[data-tnext]')){tourAdvance();return}
+  if(e.target.closest('[data-trestart]')){tourStart(TOUR.flow);return}
+  if(e.target.closest('[data-tdo]')){tourDo();return}
+});
+setInterval(tourTick,300);
+
+/* ================= СТАРТ ================= */
+(()=>{const h=location.hash;
+  if(/clean/.test(h))document.body.classList.add('clean');
+  if(/base/.test(h))S.layer=false;
+  const m=h.match(/role=(\w+)/);if(m&&RL[m[1]])S.role=m[1];
+  const v=h.match(/v=(\w+)/);if(v)S.v[S.role]=v[1];
+  render();
+  const t=h.match(/tour=(\w+)/);if(t&&flowById(t[1]))tourStart(t[1]);else if(/tour/.test(h)){TOUR.open=true;tourRender()}else tourRender();
+})();
+</script>
+</body>
+</html>
