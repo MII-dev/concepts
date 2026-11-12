@@ -546,6 +546,97 @@ body:not(.base) .bx{display:none!important}
 .tour .tlinks a:hover{color:#1d1d1f}
 .tour .wt .spin{margin-top:0;border-color:#efe4ff;border-top-color:#7b2ff7}
 
+/* ===== авторизація між системами: рядок адреси, схема, журнал ===== */
+.abar{position:sticky;top:44px;z-index:59;background:#1f2227;border-top:1px solid #33373f;display:flex;align-items:center;gap:10px;padding:7px 16px;font:13px/1.3 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#b8bec8}
+body.clean .abar,body.clean .ascheme{display:none}
+.adots{display:flex;gap:5px;flex:none}.adots i{width:10px;height:10px;border-radius:50%;background:#454b55}
+.aurl{flex:1;min-width:0;height:30px;border-radius:8px;background:#2b2f36;display:flex;align-items:center;gap:7px;padding:0 12px;font:12.5px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:#8e95a0;white-space:nowrap;overflow:hidden}
+.aurl>span{overflow:hidden;text-overflow:ellipsis}
+.aurl .ic{width:14px;height:14px;color:#35c27a;stroke-width:2.2}
+.aurl b{color:#fff;font-weight:600}
+.aurl em{font-style:normal;color:#c9a8ff}
+.aurl u{text-decoration:none;color:#f0e6ff}
+.aurl.fl{animation:aurlf .8s ease-out}
+@keyframes aurlf{0%{background:#4c3a80}100%{background:#2b2f36}}
+.ahop{flex:none;font-weight:700;color:#e4d2ff;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.ahop .spin{width:13px;height:13px;border-width:2px;margin:0;border-color:#4c3a80;border-top-color:#c9a8ff}
+.ago{display:flex;align-items:center;gap:6px;flex:none}
+.ago button,.atg{border:1px solid #454b55;color:#c9ced6;border-radius:8px;padding:5px 10px;font-weight:600;font-size:12.5px;white-space:nowrap}
+.ago button:hover,.atg:hover{color:#fff;border-color:#6b727d}
+.ago button:disabled{opacity:.35;cursor:default}
+.ascheme{background:#24272d;color:#c9ced6;font:13px/1.4 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;padding:14px 16px 12px;border-top:1px solid #33373f}
+.asys,.acap,.alog{max-width:1336px;margin:0 auto}
+.asys{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding-bottom:22px}
+.sy{position:relative;background:#2f333a;border-radius:12px;padding:10px 12px;border:1px solid #3b4049;transition:border-color .2s,opacity .2s;min-width:0}
+.sy .sn{font-weight:700;color:#fff;font-size:14px;padding-right:56px}
+.sy .sd{font:11.5px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;color:#8e95a0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:2px}
+.sy .sr{font-size:12px;color:#9aa1ab;margin-top:2px}
+.sy .ss{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:12.5px;color:#8e95a0}
+.sy .ss i{width:9px;height:9px;border-radius:50%;border:1.5px solid #6b727d;flex:none}
+.sy .ss.on{color:#7ee2a8}.sy .ss.on i{background:#35c27a;border-color:#35c27a;box-shadow:0 0 0 3px rgba(53,194,122,.22)}
+.sy.dim{opacity:.42}
+.sy.src{border-color:#7ea6fa}
+.sy.dst{border-color:#c9a8ff;animation:apulse 1.2s ease-out infinite}
+@keyframes apulse{0%{box-shadow:0 0 0 0 rgba(123,47,247,.6)}100%{box-shadow:0 0 0 10px rgba(123,47,247,0)}}
+.sy .you{position:absolute;top:9px;right:9px;font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;background:#fff;color:#1d1d1f;border-radius:6px;padding:2px 6px}
+.acon{position:absolute;bottom:7px;height:3px;border-radius:2px;background:#5b8cff}
+.acon::before{content:'';position:absolute;top:-3px;width:9px;height:9px;border-radius:50%;background:#5b8cff}
+.acon.r::before{left:-4px}.acon.l::before{right:-4px}
+.acon::after{content:'';position:absolute;top:-5px;border:6.5px solid transparent}
+.acon.r::after{right:-12px;border-left:10px solid #5b8cff}.acon.l::after{left:-12px;border-right:10px solid #5b8cff}
+.acon.s{background:repeating-linear-gradient(90deg,#c9a8ff 0 8px,transparent 8px 13px);background-size:13px 3px;animation:adash .6s linear infinite}
+.acon.s.l{animation-direction:reverse}
+.acon.s::before{background:#c9a8ff}.acon.s.r::after{border-left-color:#c9a8ff}.acon.s.l::after{border-right-color:#c9a8ff}
+@keyframes adash{to{background-position:13px 0}}
+.acap{display:flex;align-items:flex-start;gap:10px;color:#dfe3e8;font-size:13.5px}
+.acap b{color:#fff}
+.ach{flex:none;font-size:11px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;border-radius:6px;padding:3px 7px;margin-top:1px;white-space:nowrap}
+.ach.b{background:#22396e;color:#a9c3ff}.ach.s{background:#3b2766;color:#d9c3ff}.ach.k{background:#3a3f48;color:#dfe3e8}.ach.i{background:#1e4a35;color:#9ee6bf}
+.alog{margin-top:10px}
+.alog>button{color:#b8bec8;font-weight:700;font-size:12.5px}
+.alog>button:hover{color:#fff}
+.alog ol{list-style:none;margin:8px 0 0;padding:0;max-height:250px;overflow:auto;border-top:1px solid #33373f}
+.alog li{display:grid;grid-template-columns:26px 120px minmax(0,1fr);gap:4px 10px;padding:8px 0;border-bottom:1px solid #33373f;align-items:start}
+.alog li .n{color:#8e95a0;font-weight:700}
+.alog li .ach{justify-self:start}
+.alog li .w{color:#fff;font-weight:600}
+.alog li .tc{grid-column:3;font:11.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:#9aa1ab;white-space:pre-wrap;word-break:break-all}
+.alog .aemp{color:#8e95a0;padding:8px 0}
+/* екрани зовнішніх систем */
+.ext-pg{display:none}
+body.ext .ext-pg{display:block}
+body.ext .hd,body.ext .banner,body.ext .layout,body.ext .foot,body.ext .fab,body.ext .chat{display:none!important}
+body.parout .side{display:none}
+body.parout .layout{grid-template-columns:minmax(0,984px);justify-content:center}
+.xpg{min-height:calc(100vh - 150px);background:var(--bg)}
+.xh{height:64px;background:#fff;border-bottom:1px solid var(--line)}
+.xh .wrap{height:64px;display:flex;align-items:center;gap:14px}
+.xh img{height:36px;width:auto}
+.xh .xt{font-size:15px;color:var(--ink3);padding-left:14px;border-left:1px solid var(--line2)}
+.xh .xr{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:15px}
+.xlogo{display:flex;align-items:center;gap:8px;font-size:20px;font-weight:700}
+.xb{padding:48px 0 72px}
+.xin{max-width:760px;margin:0 auto;padding:0 16px}
+.xcard{max-width:600px;margin:0 auto;padding:30px 32px 32px}
+.xcard h2{font-size:28px;line-height:36px;font-weight:600}
+.xcard .xs{font-size:15.5px;color:var(--ink3);margin-top:6px}
+.xm{display:flex;flex-direction:column;gap:8px;margin-top:20px}
+.xm .opt{align-items:center}
+.xreq{display:flex;align-items:center;gap:10px;margin-top:16px;padding:10px 14px;border-radius:12px;background:var(--grey-s);font-size:14.5px;color:var(--ink2)}
+.xreq b{color:var(--ink);font-weight:600}
+.xwait{display:flex;align-items:center;gap:18px;padding:22px 0 6px}
+.xwait .spin{width:40px;height:40px;border-width:4px;margin:0}
+.xpg.kyiv{background:#eceff7}.xpg.kyiv .xh{background:#101b3d;border-bottom:0;color:#fff}.xpg.kyiv .xt{color:#aeb8d3;border-left-color:#2c3a66}
+.xpg.sez{background:#eef6f1}.xpg.sez .xh{background:#14532d;border-bottom:0;color:#fff}.xpg.sez .xt{color:#b7dcc4;border-left-color:#2b6b45}
+.sezc{padding:26px 28px 28px}
+.btn.green{background:#1f7a46}.btn.green:hover{background:#17663a}
+@media(max-width:760px){
+  .abar{position:relative;top:0;flex-wrap:wrap}.adots{display:none}.aurl{flex-basis:100%}
+  .asys{grid-template-columns:1fr 1fr;padding-bottom:0;margin-bottom:12px}.acon{display:none}
+  .alog li{grid-template-columns:22px minmax(0,1fr)}.alog li .ach,.alog li>div,.alog li .tc{grid-column:2}
+  .xcard{padding:24px 20px}
+}
+
 /* вузькі екрани */
 @media(max-width:1180px){
   .layout{grid-template-columns:1fr;row-gap:0}
@@ -588,13 +679,21 @@ body:not(.base) .bx{display:none!important}
     <option value="1">кабінет + «Мої діти»</option>
     <option value="0">кабінет як у Figma</option>
   </select></label>
+  <span class="sep"></span>
+  <label>Авторизація: <select id="authSel">
+    <option value="kyivid">Спільний KyivID</option>
+    <option value="kitsoft">osvita як клієнт Kitsoft ID</option>
+  </select></label>
   <button class="tab" id="resetBtn">Скинути</button>
   <button class="tab tourbtn" id="tourbtn">🧭 Путівник</button>
   <a class="tab" href="../" target="_blank" rel="noopener">Повний прототип ↗</a>
   <span class="hint">Копія кабінету з Figma · дані демонстраційні</span>
 </div>
+<div class="abar" id="abar"></div>
+<div class="ascheme" id="ascheme"></div>
 
 <div class="page">
+  <div class="ext-pg" id="ext"></div>
   <header class="hd">
     <div class="wrap">
       <a class="logo" data-a="home" aria-label="Портал послуг"><img src="img/logo-blue.svg" alt="Портал послуг Kyiv.Digital"></a>
@@ -789,6 +888,7 @@ function sIcon(k){
    pass:`<rect x="15" y="14" width="36" height="37" rx="6" fill="${B}"/><rect x="21" y="20" width="10" height="10" rx="2" fill="${W}"/><rect x="35" y="20" width="10" height="10" rx="2" fill="${W}"/><rect x="21" y="35" width="10" height="10" rx="2" fill="${W}"/><rect x="35" y="35" width="4" height="4" fill="${L}"/><rect x="41" y="41" width="4" height="4" fill="${L}"/>`,
    wallet:`<path d="M18 20l21-7 3 7" fill="${L}"/><rect x="13" y="20" width="40" height="28" rx="5" fill="${B}"/><rect x="38" y="29" width="15" height="10" rx="3" fill="${L}"/><circle cx="43.5" cy="34" r="2" fill="${W}"/>`,
    addkid:`<circle cx="28" cy="23" r="7.5" fill="${B}"/><path d="M14 47c1.5-8.5 7-12.5 14-12.5s12.5 4 14 12.5z" fill="${L}"/><circle cx="45" cy="40" r="8.5" fill="${B}"/><path d="M45 35.5v9M40.5 40h9" stroke="${W}" stroke-width="2.4" stroke-linecap="round"/>`
+  ,kg:`<path d="M13 31L33 16l20 15v17H13z" fill="${B}"/><rect x="28" y="36" width="10" height="12" rx="2" fill="${W}"/><circle cx="49" cy="15" r="5" fill="${L}"/><rect x="18" y="35" width="6" height="6" rx="1.5" fill="${L}"/><rect x="42" y="35" width="6" height="6" rx="1.5" fill="${L}"/>`
   }[k]||'';
   return `<svg class="sic" viewBox="0 0 66 66"><defs><filter id="ks${k}" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#2b66f6" flood-opacity=".12"/></filter></defs><g filter="url(#ks${k})"><rect x="5.5" y="4.5" width="55" height="55" rx="11" fill="#fff" stroke="#b8d0fb"/></g>${g}</svg>`;
 }
@@ -811,7 +911,8 @@ const ageWord=n=>{const t=n%100,o=n%10;if(t>=11&&t<=14)return'років';if(o==
 const FAMILY={
  marko:{id:'KD-3F7K-9Q2M',name:'Марко',gen:'Марка',dat:'Марку',full:'Кравець Марко Романович',dob:'14.03.2014',age:12,school:'Ліцей №142, 6-Б',f:0,col:'#2b66f6',ini:'М'},
  sofia:{id:'KD-8M2R-4T6W',name:'Софія',gen:'Софії',dat:'Софії',full:'Кравець Софія Романівна',dob:'02.02.2018',age:8,school:'Гімназія №153, 2-А',f:1,col:'#7b2ff7',ini:'С'},
- olena:{id:'KD-5H9C-1V3N',name:'Олена',gen:'Олени',dat:'Олені',full:'Кравець Олена Романівна',dob:'09.11.2015',age:11,school:'Гімназія №153, 5-А',f:1,col:'#1f9d63',ini:'О'}
+ olena:{id:'KD-5H9C-1V3N',name:'Олена',gen:'Олени',dat:'Олені',full:'Кравець Олена Романівна',dob:'09.11.2015',age:11,school:'Гімназія №153, 5-А',f:1,col:'#1f9d63',ini:'О'},
+ daryna:{id:'KD-2P7D-6X4L',name:'Дарина',gen:'Дарини',dat:'Дарині',full:'Кравець Дарина Романівна',dob:'20.05.2022',age:4,school:'Дошкільня · заява в СЕЗ ЗДО',f:1,col:'#e0731f',ini:'Д',pre:1,cert:'І-ТВ № 482915'}
 };
 const kn=k=>FAMILY[k].name;
 const kage=k=>`${FAMILY[k].age} ${ageWord(FAMILY[k].age)}`;
@@ -869,8 +970,13 @@ const SVC=[
  {t:'Безоплатне паркування в Києві для Захисників та Захисниць',img:'svc-parkuvannia',tag:'Захисникам',cat:['zah']},
  {t:'Гуртки й секції з ваучером Activity Pass',svg:'pass',tag:'Діти та освіта',need:'<b>Потрібні дані:</b> нічого, дані дітей уже є у вашому профілі',cat:['dity'],vx:1,a:'go',v:'catalog'},
  {t:'Освітній гаманець дитини',svg:'wallet',tag:'Діти та освіта',need:'<b>Нараховано:</b> 4 000 ₴ на кожну дитину на 2026/2027 навчальний рік',cat:['dity'],vx:1,a:'go',v:'wallet'},
+ {t:'Запис до садочка (СЕЗ ЗДО)',svg:'kg',tag:'Діти та освіта',need:'<b>Потрібні дані:</b> нічого, перехід у СЕЗ ЗДО з вашим входом на Портал',cat:['dity'],vx:1,a:'sez-go'},
  {t:'Додати дитину до профілю',svg:'addkid',tag:'Діти та освіта',need:'<b>Потрібні дані:</b> нічого, зв’язок з дитиною береться з Демографічного реєстру',cat:['dity'],vx:1,a:'addkid-start'}
 ];
+
+/* авторизація: варіант і домени систем */
+let AUTHV='kyivid';
+const DOM={portal:'cabinet-services.kyivcity.gov.ua',kitsoft:'id-services.kyivcity.gov.ua',kyivid:'wso2id.kyivcity.gov.ua',sez:'osvita.kyivcity.gov.ua'};
 
 function S0(){return{
   role:'par',layer:true,
@@ -913,13 +1019,16 @@ function S0(){return{
    {r:'kid',t:'Заняття з шахів у суботу перенесено на 16:00 через повітряну тривогу',d:'11.11.2026, 10:22',u:0},
    {r:'kid',t:'Твій учнівський квиток продовжено до 31.08.2027',d:'02.09.2026',u:0}
   ],
-  chat:false,chatLog:null,dd:null,a11y:false
+  chat:false,chatLog:null,dd:null,a11y:false,
+  auth:{v:AUTHV,idp:{kitsoft:null,kyivid:null},portal:null,sez:null,sezRevoked:false,portalOut:false,flow:null,hop:null,confirm:null,st:'',log:[],logOpen:false,open:true},
+  at:'portal',url:DOM.portal+'/',sezV:'login',kidDev:null
 }}
 let S=S0();
 
 /* ================= ДОПОМІЖНЕ ================= */
 const allKids=()=>['marko','sofia',...S.added.map(a=>a.id)];
-const inProfile=k=>k==='marko'||k==='sofia'||S.added.some(a=>a.id===k);
+const inProfile=k=>k==='marko'||k==='sofia'||k==='daryna'||S.added.some(a=>a.id===k);
+const kidsAll=()=>[...allKids(),'daryna'];
 const codeLive=()=>!!S.code&&Date.now()<S.codeExp;
 const left=()=>{const l=Math.max(0,S.codeExp-Date.now()),m=Math.floor(l/60000),s=Math.floor(l%60000/1000);return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`};
 const pendReqs=()=>S.reqs.filter(r=>r.st==='pend');
@@ -1028,8 +1137,15 @@ function reqModal(id){
 }
 
 /* ================= БАТЬКО: МОЇ ДІТИ ================= */
+function preCard(k){
+  const F=FAMILY[k],A=S.auth,seam=VA()?!!A.idp.kyivid:!!A.idp.kitsoft;
+  return `<div class="card kcard vx"><div class="kh">${kava(k)}<div><h3>${F.name}, ${kage(k)}</h3><small>Дошкільня · <span class="mono">${F.id}</span></small></div>${chip('b','Садочок',1)}</div>
+    <div class="rows2"><div><span>Заява на садочок</span><b>у СЕЗ ЗДО</b></div><div><span>Свідоцтво про народження</span><b>${F.cert}</b></div><div><span>Вхід у СЕЗ ЗДО</span><b>${seam?chip('ok','без пароля',1):chip('y',VA()?'потрібен вхід KyivID':'потрібен вхід',1)}</b></div></div>
+    <div class="acts"><button class="btn sm" data-a="sez-go">Відкрити в СЕЗ ЗДО ${ic('arr','s20')}</button></div>
+    <p class="note-s">${VA()?'Варіант «Спільний KyivID»: без пароля, лише якщо на Портал ви входили через KyivID.':'Варіант Kitsoft ID: СЕЗ ЗДО приймає той самий вхід, що й Портал, будь-яким способом.'}</p></div>`;
+}
 function vKids(){
-  const cards=allKids().map(k=>{const F=FAMILY[k],vl=voucherLine(k),acc=S.access[k];
+  const cards=kidsAll().map(k=>{if(FAMILY[k].pre)return preCard(k);const F=FAMILY[k],vl=voucherLine(k),acc=S.access[k];
     const cl=(S.enr[k]||[]).map(id=>club(id).name).join(', ')||'поки немає';
     const act=S.reqs.filter(r=>r.ch===k&&['pend','review','queue'].includes(r.st));
     const unp=S.pay.filter(p=>p.ch===k&&!p.paid);
@@ -1311,7 +1427,7 @@ const howLogin=`<div class="kgrid" style="margin-top:10px"><div class="card sec"
 function vLogin(){
   const st=S.kstep;
   const head=`<div class="wz-h">${ring(st,3)}<div><div class="k">Крок ${st} із 3</div><h3>${st===1?'Увійди у свій кабінет':'Введи код, який отримав тато'}</h3></div></div>`;
-  const b=st===1?`<p class="pl">Введи свій ID. Код для входу прийде татові — у кабінет на Порталі і пушем у «Київ Цифровий».</p>
+  const b=st===1?`${S.kidDev==='bound'?`<div class="info ok" style="margin:0 0 20px;align-items:center;flex-wrap:wrap">${ic('laptop')}<div style="flex:1;min-width:220px"><b>Цей пристрій прив’язано до профілю Марка</b> · Chrome, macOS. Вхід без коду ще 30 днів.</div><button class="btn sm" data-a="kquick">Увійти як Марко</button></div>`:''}<p class="pl">Введи свій ID. Код для входу прийде татові — у кабінет на Порталі і пушем у «Київ Цифровий».</p>
     <label class="fl" style="margin-top:20px">Твій ID на Порталі</label><div class="fld">${ic('user')}<input id="lid" class="mono" value="${S.lid||FAMILY.marko.id}"></div>
     <div class="note-s" style="margin-top:8px">ID є на картці Activity Pass і в кабінеті батьків.</div>
     ${S.lerr?`<div class="err">${S.lerr}</div>`:''}
@@ -1354,10 +1470,247 @@ const PAGES={
  spec:()=>ph('Мої фахівці')+emptyCard('Поки немає обраних фахівців','Фахівці з’являться після запису до лікаря, психолога чи юриста через Портал.','users'),
  kidsvc:()=>ph('Послуги для дітей')+`<div class="sgrid" style="margin-top:0">${SVC.filter(s=>s.cat.includes('dity')&&(S.layer||!s.vx)).map(svcCard).join('')}</div>`,
  biz:()=>ph('Мій бізнес')+emptyCard('Бізнес не знайдено','За вашим РНОКПП немає ФОП чи компанії в ЄДР. Якщо ви представляєте компанію, увійдіть з КЕП організації.','brief'),
- prof:()=>ph('Мій профіль')+`<div class="card lead" style="display:block;min-height:0"><div class="kv"><div>ПІБ</div><div>Кравець Роман Іванович</div><div>Телефон</div><div>+380 •• ••• •• 31</div><div>E-mail</div><div>roman.demo@example.com</div><div>Адреса реєстрації</div><div>м. Київ, Солом’янський район</div><div>Пільгова категорія</div><div>Учасник бойових дій</div><div class="vx">Діти в профілі</div><div class="vx">${allKids().map(k=>`${kn(k)}, ${kage(k)}`).join(' · ')} — за Демографічним реєстром</div></div></div>`,
+ prof:()=>ph('Мій профіль')+`<div class="card lead" style="display:block;min-height:0"><div class="kv"><div>ПІБ</div><div>Кравець Роман Іванович</div><div>Телефон</div><div>+380 •• ••• •• 31</div><div>E-mail</div><div>roman.demo@example.com</div><div>Адреса реєстрації</div><div>м. Київ, Солом’янський район</div><div>Пільгова категорія</div><div>Учасник бойових дій</div><div class="vx">Діти в профілі</div><div class="vx">${kidsAll().map(k=>`${kn(k)}, ${kage(k)}`).join(' · ')} — за Демографічним реєстром</div></div></div>`,
  notif:()=>{const L=S.notes.filter(n=>n.r===S.role&&(S.layer||!n.vx));
    return ph('Мої сповіщення')+`<div class="card list" style="margin-top:0">${L.map(n=>`<div class="row" data-a="note" data-i="${S.notes.indexOf(n)}" style="grid-template-columns:minmax(0,1fr) 24px">${n.u?'<i class="dot"></i>':''}<div><h4 style="white-space:normal;font-size:18px;line-height:26px;font-weight:400">${n.t}</h4><div class="meta"><span>${n.d}</span></div></div><span class="ar">${ic('arr')}</span></div>`).join('')||'<div class="empty">Сповіщень немає</div>'}</div>`}
 };
+
+/* ================= АВТОРИЗАЦІЯ: ПОРТАЛ ↔ СЕЗ ЗДО ================= */
+/* Два варіанти:
+   kyivid  — «Спільний KyivID»: Портал входить через Kitsoft ID (KyivID — один зі способів), СЕЗ ЗДО — через KyivID.
+   kitsoft — «osvita як клієнт Kitsoft ID»: і Портал, і СЕЗ ЗДО входять через Kitsoft ID.
+   Кожен перехід — крок {from,to,ch:'b'|'s',at?,url?,t,tech,fx?,screen?,next?}. ch:'b' — через браузер (редирект), 's' — сервер↔сервер. */
+const HOP_MS=1200;let AUTH_T=0;
+const SYS=[['portal','Портал послуг','кабінет батьків'],['kitsoft','Kitsoft ID','сервіс входу Порталу'],['kyivid','KyivID','міський вхід (WSO2)'],['sez','СЕЗ ЗДО','садочки · osvita']];
+const SIX={portal:0,kitsoft:1,kyivid:2,sez:3};
+const MNAME={diia:'Дія',govid:'ID.GOV.UA',eds:'КЕП',bankid:'BankID',kyivid:'KyivID'};
+const SEZQ={no:'2024-1187',pos:37,d:'03.06.2024',yr:'2026/2027',kg:['ЗДО № 618 · Солом’янський р-н','ЗДО № 247 · Солом’янський р-н','ЗДО № 105 · Солом’янський р-н']};
+const VA=()=>S.auth.v==='kyivid';
+const U=(sys,p)=>DOM[sys]+p;
+const rnd=n=>Math.random().toString(36).slice(2,2+n);
+
+function runChain(hops,done){const A=S.auth;if(A.flow)return false;clearTimeout(AUTH_T);A.flow={hops,i:0,done,wait:false};authStep();return true}
+function authStep(){
+  const A=S.auth,f=A.flow;if(!f)return;
+  if(f.i>=f.hops.length){A.flow=null;A.hop=null;render();if(f.done)f.done();return}
+  const h=f.hops[f.i++];A.hop=h;
+  if(h.at)S.at=h.at;if(h.url)S.url=h.url;if(h.fx)h.fx();
+  A.log.push({ch:h.ch,from:h.from,to:h.to,t:h.t,tech:h.tech||''});
+  if(h.screen){f.wait=true;render();return}
+  render();AUTH_T=setTimeout(authStep,h.ms||HOP_MS);
+}
+function authNext(more){const f=S.auth.flow;if(!f||!f.wait)return;if(more)f.hops.splice(f.i,0,...more);f.wait=false;authStep()}
+function authAbort(){clearTimeout(AUTH_T);const A=S.auth;A.flow=null;A.hop=null;A.confirm=null}
+
+/* підтвердження особи в Kitsoft ID або KyivID */
+function confirmHops(sys,m){
+  const A=S.auth;
+  if(sys==='kyivid')return[
+   {from:'kyivid',to:'kyivid',ch:'b',t:'KyivID перевіряє, що це ви',tech:'KyivID: автентифікація користувача (спосіб усередині KyivID у макеті не деталізовано)',ms:1700,fx:()=>{A.confirm='kyivid'}},
+   {from:'kyivid',to:'kyivid',ch:'b',t:'KyivID запам’ятовує вхід — створює свою сесію в браузері',tech:'Set-Cookie: сесія KyivID',fx:()=>{A.confirm=null;A.idp.kyivid={m:'kyivid'}}}];
+  return[
+   {from:'kitsoft',to:'kitsoft',ch:'b',t:`Підтвердження входу через ${MNAME[m]}`,tech:`Kitsoft ID ↔ ${MNAME[m]}: підтвердження особи (у макеті — імітація)`,ms:1700,fx:()=>{A.confirm=m}},
+   {from:'kitsoft',to:'kitsoft',ch:'b',t:'Kitsoft ID запам’ятовує вхід — створює свою сесію в браузері',tech:`Set-Cookie: сесія Kitsoft ID · provider=${m}`,fx:()=>{A.confirm=null;A.idp.kitsoft={m}}}];
+}
+
+/* вхід на Портал */
+function hopsToPortal(m){
+  const A=S.auth,s=A.st||rnd(6);
+  return[
+   {from:'kitsoft',to:'portal',ch:'b',at:'portal',url:U('portal',`/auth?code=${rnd(10)}&state=${s}`),t:'Kitsoft ID повертає вас на Портал з одноразовим кодом',tech:`302 → https://${DOM.portal}/auth?code=…&state=${s}`},
+   {from:'portal',to:'kitsoft',ch:'s',t:'Портал обмінює код на токен і отримує ваші дані',tech:`POST https://${DOM.kitsoft}/oauth/token  (client_id=portal + secret) → access_token\nGET https://${DOM.kitsoft}/user/info → userId, ipn, email, provider=${m==='kyivid'?'wso2':m}`},
+   {from:'portal',to:'portal',ch:'b',url:U('portal','/cabinet'),t:'Портал створює свою сесію — ви в кабінеті',tech:'Сесію Порталу створено',fx:()=>{A.portal={m};A.portalOut=false}}];
+}
+function hopsViaKyivid(next){
+  const A=S.auth,has=!!A.idp.kyivid,s=rnd(6);
+  const back=()=>[
+   {from:'kyivid',to:'kitsoft',ch:'b',at:'kitsoft',url:U('kitsoft',`/authorise/wso2/callback?code=${rnd(10)}&state=${s}`),t:'KyivID повертає код у Kitsoft ID',tech:`302 → https://${DOM.kitsoft}/authorise/wso2/callback?code=…&state=${s}`},
+   {from:'kitsoft',to:'kyivid',ch:'s',t:'Kitsoft ID обмінює код на токен KyivID і бере ваші дані',tech:`POST https://${DOM.kyivid}/token → access_token\nGET https://${DOM.kyivid}/userinfo → sub, itin, email`},
+   {from:'kitsoft',to:'kitsoft',ch:'b',t:'Kitsoft ID створює свою сесію в браузері',tech:'Set-Cookie: сесія Kitsoft ID · provider=wso2 (KyivID)',fx:()=>{A.idp.kitsoft={m:'kyivid'}}},
+   ...next('kyivid')];
+  const first={from:'kitsoft',to:'kyivid',ch:'b',at:'kyivid',url:U('kyivid',`/authorize?client_id=kitsoft-portal&redirect_uri=https://${DOM.kitsoft}/authorise/wso2/callback&response_type=code&state=${s}`),
+   t:has?'Kitsoft ID передає вхід у KyivID':'Kitsoft ID передає вхід у KyivID. Сесії KyivID ще немає — треба увійти',
+   tech:`302 → GET https://${DOM.kyivid}/authorize?client_id=kitsoft-portal&response_type=code&state=${s}`,screen:has?null:'kyivid',req:'Портал послуг',next:back};
+  return has?[first,{from:'kyivid',to:'kyivid',ch:'b',t:'KyivID бачить вашу сесію і не питає пароль',tech:'Сесію KyivID знайдено → код видається одразу'},...back()]:[first];
+}
+function startPortalLogin(){
+  const A=S.auth;if(S.role!=='par'||A.flow||A.portal||S.at!=='portal')return;
+  const s=rnd(6),k=A.idp.kitsoft;A.st=s;
+  const first={from:'portal',to:'kitsoft',ch:'b',at:'kitsoft',url:U('kitsoft',`/authorise?client_id=portal&redirect_uri=https://${DOM.portal}/auth&response_type=code&state=${s}`),
+   t:k?'Портал відправляє вас у Kitsoft ID':'Портал відправляє вас на сторінку входу Kitsoft ID',
+   tech:`302 → GET https://${DOM.kitsoft}/authorise?client_id=portal&redirect_uri=…/auth&response_type=code&state=${s}`,screen:k?null:'methods',req:'Портал послуг',next:m=>hopsToPortal(m)};
+  runChain(k?[first,{from:'kitsoft',to:'kitsoft',ch:'b',t:`Kitsoft ID бачить вашу сесію (${MNAME[k.m]}) і не питає пароль`,tech:'Сесію Kitsoft ID знайдено → код видається одразу'},...hopsToPortal(k.m)]:[first],()=>toast('Ви увійшли на Портал'));
+}
+function pickMethod(m){
+  const A=S.auth,h=A.hop;if(!A.flow||!A.flow.wait||!h||h.screen!=='methods')return;
+  authNext(m==='kyivid'?hopsViaKyivid(h.next):[...confirmHops('kitsoft',m),...h.next(m)]);
+}
+function kyividOk(){
+  const A=S.auth,h=A.hop;if(!A.flow||!A.flow.wait||!h||h.screen!=='kyivid')return;
+  authNext([...confirmHops('kyivid'),...h.next()]);
+}
+function preLogin(){
+  const A=S.auth;
+  if(VA()){A.idp.kyivid={m:'kyivid'};A.idp.kitsoft={m:'kyivid'};A.portal={m:'kyivid'}}
+  else{A.idp.kitsoft={m:'diia'};A.portal={m:'diia'}}
+  A.log.push({ch:'i',from:'portal',to:'portal',t:`Тато увійшов на Портал раніше, на своєму телефоні (${MNAME[A.portal.m]})`,tech:'Сесія Порталу вже є'});
+  S.url=U('portal','/cabinet');
+}
+
+/* СЕЗ ЗДО */
+function hopsSezBackB(s,m){
+  const A=S.auth;
+  return[
+   {from:'kitsoft',to:'sez',ch:'b',at:'sez',url:U('sez',`/sp_first?code=${rnd(10)}&state=${s}`),t:'Kitsoft ID повертає вас у СЕЗ ЗДО з одноразовим кодом',tech:`302 → https://${DOM.sez}/sp_first?code=…&state=${s}  (state звірено)`},
+   {from:'sez',to:'kitsoft',ch:'s',t:'СЕЗ ЗДО обмінює код на токен',tech:`POST https://${DOM.kitsoft}/oauth/token  (client_id=osvita + secret) → access_token (8 год)`},
+   {from:'sez',to:'kitsoft',ch:'s',t:'СЕЗ ЗДО отримує ваші дані',tech:`GET https://${DOM.kitsoft}/user/info → userId, ipn, email (valid), provider=${m==='kyivid'?'wso2':m}`},
+   {from:'sez',to:'sez',ch:'b',url:U('sez','/cabinet'),t:'СЕЗ ЗДО знаходить заяву дитини за свідоцтвом про народження і РНОКПП та відкриває кабінет',tech:`Збіг: свідоцтво ${FAMILY.daryna.cert} + РНОКПП батька → заява № ${SEZQ.no}\nСесію СЕЗ ЗДО створено`,fx:()=>{A.sez={via:'kitsoft',m};A.sezRevoked=false;A.portalOut=false;S.sezV='home'}}];
+}
+function hopsSezBackA(s){
+  const A=S.auth;
+  return[
+   {from:'kyivid',to:'sez',ch:'b',at:'sez',url:U('sez',`/sp_first?code=${rnd(10)}&state=${s}`),t:'KyivID повертає вас у СЕЗ ЗДО з одноразовим кодом',tech:`302 → https://${DOM.sez}/sp_first?code=…&state=${s}`},
+   {from:'sez',to:'kyivid',ch:'s',t:'СЕЗ ЗДО обмінює код на токен KyivID',tech:`POST https://${DOM.kyivid}/token  (client_id=prod-openid-osvita + secret) → access_token, id_token`},
+   {from:'sez',to:'kyivid',ch:'s',t:'СЕЗ ЗДО отримує ваші дані',tech:`GET https://${DOM.kyivid}/userinfo → sub, email, email_verified\nGET emr.kyivcity.gov.ua/…/profiles → ПІБ, РНОКПП`},
+   {from:'sez',to:'sez',ch:'b',url:U('sez','/cabinet'),t:'СЕЗ ЗДО знаходить заяву за підтвердженим email і відкриває кабінет',tech:`Збіг: email roman.demo@example.com → заява № ${SEZQ.no}\nСесію СЕЗ ЗДО створено`,fx:()=>{A.sez={via:'kyivid',m:'kyivid'};A.portalOut=false;S.sezV='home'}}];
+}
+function hopsSezLogin(){
+  const A=S.auth,s=rnd(6);
+  if(VA()){
+    const has=!!A.idp.kyivid;
+    const first={from:'sez',to:'kyivid',ch:'b',at:'kyivid',url:U('kyivid',`/authorize?client_id=prod-openid-osvita&redirect_uri=https://${DOM.sez}/sp_first&response_type=code&state=${s}`),
+     t:has?'СЕЗ ЗДО відправляє вас у KyivID':'СЕЗ ЗДО відправляє вас у KyivID. Сесії KyivID немає — треба увійти ще раз',
+     tech:`302 → GET https://${DOM.kyivid}/authorize?client_id=prod-openid-osvita&redirect_uri=…/sp_first&state=${s}  (без prompt=login)`,screen:has?null:'kyivid',req:'СЕЗ ЗДО (садочки)',next:()=>hopsSezBackA(s)};
+    return has?[first,{from:'kyivid',to:'kyivid',ch:'b',t:'KyivID бачить вашу сесію і не питає пароль',tech:'Сесію KyivID знайдено → код видається одразу'},...hopsSezBackA(s)]:[first];
+  }
+  const k=A.idp.kitsoft;
+  const first={from:'sez',to:'kitsoft',ch:'b',at:'kitsoft',url:U('kitsoft',`/authorise?client_id=osvita&redirect_uri=https://${DOM.sez}/sp_first&response_type=code&state=${s}`),
+   t:k?'СЕЗ ЗДО відправляє вас у Kitsoft ID':'СЕЗ ЗДО відправляє вас на вхід у Kitsoft ID',
+   tech:`302 → GET https://${DOM.kitsoft}/authorise?client_id=osvita&redirect_uri=…/sp_first&response_type=code&state=${s}`,screen:k?null:'methods',req:'СЕЗ ЗДО (садочки)',next:m=>hopsSezBackB(s,m)};
+  return k?[first,{from:'kitsoft',to:'kitsoft',ch:'b',t:`Kitsoft ID бачить вашу сесію (${MNAME[k.m]}) і не показує сторінку входу`,tech:'Сесію Kitsoft ID знайдено → код видається одразу'},...hopsSezBackB(s,k.m)]:[first];
+}
+function sezGo(fromPortal){
+  const A=S.auth;if(S.role!=='par'||A.flow)return;
+  if(fromPortal&&S.at!=='portal')return;
+  const hops=[fromPortal
+   ?{from:'portal',to:'sez',ch:'b',at:'sez',url:U('sez','/sso/portal'),t:'Портал відкриває сайт садочків',tech:`GET https://${DOM.sez}/sso/portal`,fx:()=>{S.sezV='wait'}}
+   :{from:S.at,to:'sez',ch:'b',at:'sez',url:U('sez','/'),t:'Ви відкриваєте сайт садочків за адресою',tech:`GET https://${DOM.sez}/`,fx:()=>{S.sezV='wait'}}];
+  if(A.sez){
+    if(!VA()&&A.sezRevoked)hops.push(
+     {from:'sez',to:'kitsoft',ch:'s',t:'СЕЗ ЗДО перевіряє свій токен у Kitsoft ID — його вже видалено',tech:`GET https://${DOM.kitsoft}/user/info  (токен СЕЗ ЗДО) → 401 Unauthorized\n⚠ Доробка: СЕЗ ЗДО має регулярно перевіряти токен у Kitsoft ID`},
+     {from:'sez',to:'sez',ch:'b',url:U('sez','/'),t:'СЕЗ ЗДО закриває сесію — ви вийшли з Порталу',tech:'Сесію СЕЗ ЗДО закрито',fx:()=>{A.sez=null;A.sezRevoked=false;S.sezV='login'}});
+    else hops.push({from:'sez',to:'sez',ch:'b',url:U('sez','/cabinet'),t:A.portalOut?'СЕЗ ЗДО не знає, що ви вийшли з Порталу: її власна сесія ще діє':'У СЕЗ ЗДО вже є ваша сесія — вхід не потрібен',tech:'СЕЗ ЗДО: власна сесія (JWT) ще дійсна',fx:()=>{S.sezV='home'}});
+  }else if(fromPortal)hops.push(...hopsSezLogin());
+  else hops.push({from:'sez',to:'sez',ch:'b',t:'Сесії СЕЗ ЗДО немає — показуємо сторінку входу',tech:'СЕЗ ЗДО: сесії немає',fx:()=>{S.sezV='login'}});
+  mclose();S.chat=false;S.dd=null;
+  runChain(hops);
+}
+function sezLogin(){if(S.auth.flow||S.at!=='sez')return;runChain(hopsSezLogin())}
+function backToPortal(){
+  const A=S.auth;if(S.role!=='par'||S.at==='portal')return;
+  if(A.flow){if(!A.flow.wait){toast('Зачекайте: триває перехід між системами');return}authAbort()}
+  runChain([{from:S.at,to:'portal',ch:'b',at:'portal',url:U('portal',A.portal?'/cabinet':'/'),t:A.portal?'Ви повертаєтесь на Портал — його сесія ще діє, вхід не потрібен':'Ви повертаєтесь на Портал — тут ви не залогінені',tech:`GET https://${DOM.portal}/cabinet`}]);
+}
+function portalLogout(){
+  const A=S.auth;S.dd=null;if(A.flow||!A.portal||S.at!=='portal'){renderDD();return}
+  runChain([
+   {from:'portal',to:'kitsoft',ch:'b',at:'kitsoft',url:U('kitsoft','/logout'),t:'Портал відправляє вас на вихід у Kitsoft ID',tech:`GET https://${DOM.kitsoft}/logout`},
+   {from:'kitsoft',to:'kitsoft',ch:'b',t:VA()?'Kitsoft ID видаляє свою сесію і токени. Сесію KyivID він не закриває':'Kitsoft ID видаляє сесію і всі ваші токени, зокрема токен СЕЗ ЗДО',
+    tech:'AccessToken / RefreshToken / Session.destroy({ userId })'+(VA()?'\nKyivID: сесія лишається (вихід у WSO2 не викликається)':''),
+    fx:()=>{A.idp.kitsoft=null;A.portal=null;A.portalOut=true;if(!VA()&&A.sez)A.sezRevoked=true}},
+   {from:'kitsoft',to:'portal',ch:'b',at:'portal',url:U('portal','/'),t:'Ви на Порталі, вже без сесії',tech:`302 → https://${DOM.portal}/`}],()=>toast('Ви вийшли з Порталу'));
+}
+function sezLogout(){
+  const A=S.auth;if(A.flow||!A.sez)return;
+  runChain(VA()?[
+   {from:'sez',to:'kyivid',ch:'b',at:'kyivid',url:U('kyivid',`/connect/logout?post_logout_redirect_uri=https://${DOM.sez}/`),t:'СЕЗ ЗДО закриває свою сесію і відправляє вас на вихід із KyivID',tech:`GET https://${DOM.kyivid}/connect/logout?post_logout_redirect_uri=…  (end_session_endpoint)\n⚠ Доробка: зараз СЕЗ ЗДО лише видаляє свій токен`,fx:()=>{A.sez=null;S.sezV='login'}},
+   {from:'kyivid',to:'kyivid',ch:'b',t:'KyivID закриває свою сесію',tech:'Сесію KyivID видалено',fx:()=>{A.idp.kyivid=null}},
+   {from:'kyivid',to:'sez',ch:'b',at:'sez',url:U('sez','/'),t:'Ви на сайті садочків без сесії. Сесія Порталу лишається',tech:`302 → https://${DOM.sez}/`}]
+  :[{from:'sez',to:'sez',ch:'b',url:U('sez','/'),t:'СЕЗ ЗДО закриває лише свою сесію. Сесії Порталу і Kitsoft ID лишаються',tech:'Сесію СЕЗ ЗДО видалено',fx:()=>{A.sez=null;S.sezV='login'}}]);
+}
+
+/* Портал без сесії */
+function vGate(){
+  const A=S.auth,busy=!!A.flow;
+  return ph('Портал послуг')+`<div class="card lead" style="align-items:center;min-height:0">${busy?'<span class="spin" style="width:44px;height:44px;border-width:4px;margin:0"></span>':`<span class="kava" style="background:var(--blue-s);color:var(--blue)">${ic('user')}</span>`}
+   <div style="flex:1;min-width:0"><div class="k">${ic('lock','s18')}${busy?'Вхід триває':'Ви не увійшли'}</div><h3>${busy?'Завершуємо вхід…':'Увійдіть, щоб побачити кабінет'}</h3><div class="m">${busy?(A.hop?A.hop.t:''):'Вхід на Портал іде через Kitsoft ID — сервіс входу Порталу'}</div>
+   ${busy?'':`<div class="acts"><button class="btn" data-a="plogin">Увійти</button><a class="lnk" data-a="url-sez">Сайт садочків (СЕЗ ЗДО)</a></div>`}</div></div>
+   <div class="info ${VA()?'warn':'ok'}">${ic('info')}<div>${VA()
+    ?'<b>Варіант «Спільний KyivID».</b> Щоб потім перейти в СЕЗ ЗДО без пароля, на Портал треба входити через KyivID. Після Дії, ID.GOV.UA, КЕП чи BankID СЕЗ ЗДО попросить увійти ще раз.'
+    :'<b>Варіант «osvita як клієнт Kitsoft ID».</b> Входьте будь-яким способом: СЕЗ ЗДО приймає той самий вхід Kitsoft ID, тож у садочки можна перейти без пароля.'}</div></div>`;
+}
+
+/* екрани зовнішніх систем */
+function vExt(){
+  const A=S.auth,h=A.hop,w=!!(A.flow&&A.flow.wait);
+  const reqLine=r=>r?`<div class="xreq">${ic('shield','s18')}<span>Запит на вхід від: <b>${r}</b></span></div>`:'';
+  const wait=t=>`<div class="xwait"><span class="spin"></span><div><b style="font-size:19px;font-weight:600">${t}</b>${h?`<div class="note-s" style="margin-top:6px">${h.t}</div>`:''}</div></div>`;
+  if(S.at==='kitsoft'){
+    let body;
+    if(A.confirm&&A.confirm!=='kyivid')body=`<h2>Підтвердіть вхід</h2><p class="xs">${MNAME[A.confirm]}: ${{diia:'відскануйте QR-код у застосунку Дія',govid:'завершіть вхід на ID.GOV.UA',eds:'оберіть ключ і введіть пароль',bankid:'підтвердіть вхід у своєму банку'}[A.confirm]}</p>${wait('Чекаємо підтвердження…')}<p class="note-s">У макеті підтвердження імітоване.</p>`;
+    else if(w&&h&&h.screen==='methods'){
+      const kv=VA()&&h.req==='Портал послуг';
+      const M=[['diia','Дія','QR-код або Дія.Підпис','doc'],['govid','ID.GOV.UA','Інтегрована система електронної ідентифікації','shield'],['eds','КЕП','Файловий ключ або токен','key'],['bankid','BankID','Через ваш банк','card']];
+      body=`<h2>${h.req==='Портал послуг'?'Вхід на Портал послуг':'Вхід через Портал послуг'}</h2><p class="xs">Оберіть спосіб входу</p>${reqLine(h.req)}
+       <div class="xm">${kv?`<button class="opt" data-a="pm" data-m="kyivid"><span class="oi">${ic('lock')}</span><span><b>KyivID</b><small>Міський вхід</small></span><span class="chip ok sm" style="margin-left:auto">наскрізний вхід у СЕЗ ЗДО</span></button>`:''}
+       ${M.map(([m,n,d,i])=>`<button class="opt" data-a="pm" data-m="${m}"><span class="oi">${ic(i)}</span><span><b>${n}</b><small>${d}</small></span>${kv?'<span class="chip g sm" style="margin-left:auto">без наскрізного входу</span>':''}</button>`).join('')}</div>`;
+    }else body=`<h2>Kitsoft ID</h2>${reqLine(h&&h.req)}${wait('Перенаправляємо…')}`;
+    return `<div class="xpg kit"><div class="xh"><div class="wrap"><img src="img/logo-blue.svg" alt="Портал послуг"><span class="xt">Вхід · Kitsoft ID</span></div></div><div class="xb"><div class="card xcard">${body}</div></div></div>`;
+  }
+  if(S.at==='kyivid'){
+    let body;
+    if(A.confirm==='kyivid')body=`<h2>Вхід через KyivID</h2>${wait('Входимо…')}`;
+    else if(w&&h&&h.screen==='kyivid')body=`<h2>Вхід через KyivID</h2><p class="xs">Один вхід для міських сервісів Києва</p>${reqLine(h.req)}<div class="acts" style="margin-top:22px"><button class="btn" data-a="kyivid-ok">Увійти</button></div><p class="note-s">Спосіб входу всередині KyivID у макеті не деталізовано.</p>`;
+    else body=`<h2>KyivID</h2>${reqLine(h&&h.req)}${wait(A.flow?'Перенаправляємо…':'Сесію закрито')}`;
+    return `<div class="xpg kyiv"><div class="xh"><div class="wrap"><span class="xlogo">${ic('key')}KyivID</span><span class="xt">міський вхід</span></div></div><div class="xb"><div class="card xcard">${body}</div></div></div>`;
+  }
+  const F=FAMILY.daryna,q=SEZQ;let body;
+  if(A.sez&&S.sezV==='home'){
+    body=`<div class="card sezc"><div class="kh">${kava('daryna')}<div><h3>${F.full}</h3><small>${kage('daryna')} · свідоцтво ${F.cert}</small></div>${chip('queue',`У черзі · ${q.pos}-ме місце`,1)}</div>
+     <div class="kv" style="margin-top:18px"><div>Заява</div><div class="mono">№ ${q.no}</div><div>Подано</div><div>${q.d}</div><div>Навчальний рік</div><div>${q.yr}</div><div>Бажані садочки</div><div>${q.kg.join('<br>')}</div></div>
+     <div class="info ok">${ic('checkc')}<div><b>Як знайдено заяву.</b> ${A.sez.via==='kitsoft'?'За свідоцтвом про народження дитини і РНОКПП батька, які прийшли з Kitsoft ID.':'За підтвердженим email із KyivID: roman.demo@example.com.'}</div></div>
+     <div class="info">${ic('user')}<div>Ви увійшли як <b>Кравець Роман Іванович</b> · через ${A.sez.via==='kitsoft'?`Kitsoft ID (${MNAME[A.sez.m]})`:'KyivID'}</div></div>
+     <div class="acts" style="margin-top:22px;gap:14px"><button class="btn green" data-a="sez-back">${ic('back','s20')}Повернутися на Портал</button><button class="btn ghost" data-a="sez-logout">${ic('logout','s20')}Вийти</button></div></div>`;
+  }else if(A.flow)body=`<div class="card xcard">${wait('Перевіряємо вхід…')}</div>`;
+  else body=`<div class="card xcard"><h2>Вхід до кабінету</h2><p class="xs">Щоб побачити заяви на садочок, увійдіть</p>
+     <div class="acts" style="margin-top:22px;gap:14px">${VA()?`<button class="btn green" data-a="sez-login">Увійти через KyivID</button>`:`<button class="btn green" data-a="sez-login">Увійти через Портал послуг</button><button class="btn ghost" data-a="toast" data-t="Запасний вхід через KyivID на перехідний період. У макеті не деталізовано">KyivID</button>`}</div>
+     <div class="info">${ic('info')}<div>${VA()?'СЕЗ ЗДО приймає вхід через KyivID.':'«Портал послуг» тут — це Kitsoft ID, той самий вхід, що й на Порталі.'}</div></div>
+     <div class="acts" style="margin-top:16px"><a class="lnk sm" data-a="sez-back">← На Портал послуг</a></div></div>`;
+  return `<div class="xpg sez"><div class="xh"><div class="wrap"><span class="xlogo">${ic('home')}СЕЗ ЗДО</span><span class="xt">Запис до садочків Києва</span><span class="xr">${A.sez?`${ic('user','s20')}Роман К.`:'Не залогінено'}</span></div></div><div class="xb"><div class="xin">${body}</div></div></div>`;
+}
+
+/* рядок адреси, схема, журнал */
+let lastUrl='';
+function fmtUrl(u){const i=u.indexOf('/'),host=i<0?u:u.slice(0,i),rest=i<0?'':u.slice(i);
+  return `<b>${host}</b>`+rest.replace(/([?&])(client_id|redirect_uri|response_type|code|state|post_logout_redirect_uri)=([^&]*)/g,'$1<em>$2</em>=<u>$3</u>')}
+function sessTxt(k){const A=S.auth;
+  if(k==='portal')return A.portal&&('сесія · '+MNAME[A.portal.m]);
+  if(k==='kitsoft')return A.idp.kitsoft&&('сесія · '+MNAME[A.idp.kitsoft.m]);
+  if(k==='kyivid')return A.idp.kyivid&&'сесія є';
+  return A.sez&&(A.sezRevoked?'сесія · токен відкликано':'сесія є')}
+function renderAuth(){
+  const A=S.auth,kid=S.role==='kid',f=A.flow,h=A.hop;
+  const url=kid?U('portal',S.kidIn?'/kid/home':'/kid/login'):S.url;
+  $('#abar').innerHTML=`<span class="adots"><i></i><i></i><i></i></span><div class="aurl${url!==lastUrl?' fl':''}">${ic('lock')}<span>${fmtUrl(url)}</span></div>${f&&!kid?`<span class="ahop">${f.wait?'⏸ чекає на вас':'<span class="spin"></span>редирект'}</span>`:''}<div class="ago"><span>Перейти:</span><button data-a="url-portal"${kid?' disabled':''}>Портал</button><button data-a="url-sez"${kid?' disabled':''}>СЕЗ ЗДО</button></div><button class="atg" data-a="ascheme">Схема ${A.open?'▴':'▾'}</button>`;
+  lastUrl=url;
+  const box=$('#ascheme');
+  if(!A.open){box.hidden=true;return}
+  box.hidden=false;
+  if(kid){box.innerHTML=`<div class="acap"><span class="ach k">пристрій дитини</span><div>Вхід дитини — за ID і одноразовим кодом, який приходить батькам. Це власний механізм Порталу (Kitsoft ID); KyivID і СЕЗ ЗДО тут не задіяні. Сесії батька видно в ролі «Батько».</div></div>`;return}
+  const cards=SYS.map(([k,n,r])=>{const on=sessTxt(k),dim=k==='kyivid'&&!VA();
+    const cls=['sy',dim?'dim':'',h&&h.from===k&&h.from!==h.to?'src':'',h&&h.to===k?'dst':''].join(' ');
+    return `<div class="${cls}">${S.at===k?'<span class="you">ви тут</span>':''}<div class="sn">${n}</div><div class="sd">${DOM[k]}</div><div class="sr">${dim?'у цьому варіанті не задіяний':r}</div><div class="ss${on?' on':''}"><i></i>${on||'немає сесії'}</div></div>`}).join('');
+  let con='';
+  if(h&&h.from!==h.to){const a=SIX[h.from],b=SIX[h.to],lo=Math.min(a,b);con=`<div class="acon${h.ch==='s'?' s':''} ${b>a?'r':'l'}" style="left:${(lo+.5)*25}%;width:${Math.abs(b-a)*25}%"></div>`}
+  const cap=h?`<span class="ach ${h.ch}">${h.ch==='s'?'сервер ↔ сервер':'через браузер'}</span><div><b>Крок ${f?f.i:''}.</b> ${h.t}${h.ch==='s'?' <span style="color:#9aa1ab">(браузер цього не бачить)</span>':''}</div>`
+   :`<span class="ach i">${VA()?'Спільний KyivID':'Kitsoft ID'}</span><div>${VA()
+     ?'Портал входить через Kitsoft ID, СЕЗ ЗДО — через KyivID. Спільна між ними лише сесія KyivID, тому без пароля в садочки можна перейти, тільки якщо на Портал входили через KyivID.'
+     :'Портал і СЕЗ ЗДО входять через один сервіс — Kitsoft ID. Його сесія спільна, тому в садочки можна перейти без пароля після будь-якого способу входу на Портал.'}</div>`;
+  const CHN={b:'браузер',s:'сервер',i:'раніше'};
+  const log=`<div class="alog"><button data-a="alog">${A.logOpen?'▾':'▸'} Журнал авторизації (${A.log.length})</button>${A.logOpen?(A.log.length?`<ol>${A.log.map((x,i)=>`<li><span class="n">${i+1}</span><span class="ach ${x.ch}">${CHN[x.ch]}</span><div><span class="w">${SYS[SIX[x.from]][1]}${x.from!==x.to?' → '+SYS[SIX[x.to]][1]:''}</span> · ${x.t}</div>${x.tech?`<div class="tc">${x.tech}</div>`:''}</li>`).join('')}</ol>`:'<div class="aemp">Поки порожньо. Увійди на Портал — тут з’являться всі кроки.</div>'):''}</div>`;
+  box.innerHTML=`<div class="asys">${cards}${con}</div><div class="acap">${cap}</div>${log}`;
+  const ol=$('ol',box);if(ol)ol.scrollTop=ol.scrollHeight;
+}
 
 /* ================= РЕНДЕР ================= */
 const VIEWS={svc:vSvc,kids:vKids,addkid:vAddkid,approve:vApprove,pass:vPass,wallet:vWallet,pay:vPay,access:vAccess,catalog:vCatalog,club:()=>vClub(S.sub[S.role]),apply:vApply,
@@ -1366,21 +1719,26 @@ const KIDV=['kids','addkid','approve','pass','wallet','pay','access','catalog','
 const LOGV=['login','invite','bound'];
 let lastKey='';
 function render(){
+  const A=S.auth,parOut=S.role==='par'&&!A.portal,ext=S.role==='par'&&S.at!=='portal';
   document.body.classList.toggle('base',!S.layer);
+  document.body.classList.toggle('parout',parOut);
+  document.body.classList.toggle('ext',ext);
   $$('.mock [data-role]').forEach(b=>{b.classList.toggle('on',b.dataset.role===S.role);b.disabled=!S.layer&&b.dataset.role!=='par'});
   $('#layerSel').value=S.layer?'1':'0';
+  $('#authSel').value=A.v;
   if(S.role==='kid'){if(!S.kidIn&&!LOGV.includes(S.v.kid))S.v.kid='login';if(S.kidIn&&LOGV.includes(S.v.kid))S.v.kid='home'}
   const ava=$('#uAva'),un=$('#uName');
-  if(S.role==='par'){ava.textContent='РК';ava.style.background='';un.textContent='Роман К.'}
-  else if(S.kidIn){ava.textContent=FAMILY[S.kid].ini+'К';ava.style.background=FAMILY[S.kid].col;un.textContent=kn(S.kid)+' К.'}
+  if(S.role==='par'&&A.portal){ava.textContent='РК';ava.style.background='';un.textContent='Роман К.'}
+  else if(S.role==='kid'&&S.kidIn){ava.textContent=FAMILY[S.kid].ini+'К';ava.style.background=FAMILY[S.kid].col;un.textContent=kn(S.kid)+' К.'}
   else{ava.innerHTML=ic('user','s20');ava.style.background='';un.textContent='Увійти'}
   let v=S.v[S.role];
   if(['apply','addkid'].includes(v)&&(!S.wz||S.wz.k!==v)){v=S.v[S.role]=S.role==='kid'?'home':v==='addkid'?'kids':'catalog'}
   renderSide();
-  $('#main').innerHTML=(VIEWS[v]||PAGES[v]||(S.role==='kid'?vHome:vSvc))();
-  const key=S.role+v+(S.sub[S.role]||'')+(S.wz?S.wz.k+S.wz.step:'')+(v==='login'?S.kstep:'');
+  $('#main').innerHTML=parOut?vGate():(VIEWS[v]||PAGES[v]||(S.role==='kid'?vHome:vSvc))();
+  $('#ext').innerHTML=ext?vExt():'';
+  const key=S.role+(ext?S.at+S.sezV:'')+(parOut?'out':'')+v+(S.sub[S.role]||'')+(S.wz?S.wz.k+S.wz.step:'')+(v==='login'?S.kstep:'');
   if(key!==lastKey){window.scrollTo(0,0);lastKey=key}
-  afterRender();renderDD();renderChat();
+  afterRender();renderDD();renderChat();renderAuth();
 }
 function afterRender(){
   const ins=$$('#codebox input');
@@ -1403,10 +1761,11 @@ function setRole(r){if(!S.layer&&r!=='par')return;S.role=r;S.dd=null;S.chat=fals
 /* дропдауни */
 function renderDD(){
   const box=$('#ddBox');let h='';
-  if(S.dd==='city')h=`<div class="drop" style="left:233px">${[['Соціальна підтримка'],['Діти та освіта'],['Гуртки й секції','catalog',1],['Захисникам'],['Житло і комунальні послуги'],['Бізнесу'],['Транспорт']].map(c=>`<a ${c[1]?`data-a="go" data-v="${c[1]}"`:'data-a="toast" data-t="Каталог послуг у макеті не деталізовано"'} class="${c[2]?'vx':''}">${c[0]}${c[2]?' <span class="chip pur sm" style="margin-left:auto">новий</span>':''}</a>`).join('')}</div>`;
+  if(S.dd==='city')h=`<div class="drop" style="left:233px">${[['Соціальна підтримка'],['Діти та освіта'],['Гуртки й секції','catalog',1],['Садочки (СЕЗ ЗДО)','sez',1],['Захисникам'],['Житло і комунальні послуги'],['Бізнесу'],['Транспорт']].map(c=>`<a ${c[1]==='sez'?'data-a="sez-go"':c[1]?`data-a="go" data-v="${c[1]}"`:'data-a="toast" data-t="Каталог послуг у макеті не деталізовано"'} class="${c[2]?'vx':''}">${c[0]}${c[2]?' <span class="chip pur sm" style="margin-left:auto">новий</span>':''}</a>`).join('')}</div>`;
   if(S.dd==='a11y')h=`<div class="drop" style="right:150px"><button data-a="a11y">${ic('zoom')}${S.a11y?'Звичайний розмір':'Збільшити текст'}</button><button data-a="toast" data-t="Режим високої контрастності в макеті не деталізовано">${ic('info')}Висока контрастність</button></div>`;
   if(S.dd==='user'){
-    if(S.role==='par')h=`<div class="drop" style="right:-4px"><div class="cap">Роман Кравець</div><button data-a="go" data-v="prof">${ic('user')}Мій профіль</button><button data-a="go" data-v="notif">${ic('bell')}Мої сповіщення</button><hr><button data-a="toast" data-t="Вихід у макеті вимкнено">${ic('logout')}Вийти</button></div>`;
+    if(S.role==='par')h=S.auth.portal?`<div class="drop" style="right:-4px"><div class="cap">Роман Кравець</div><button data-a="go" data-v="prof">${ic('user')}Мій профіль</button><button data-a="go" data-v="notif">${ic('bell')}Мої сповіщення</button><hr><button data-a="plogout">${ic('logout')}Вийти</button></div>`
+      :`<div class="drop" style="right:-4px"><button data-a="plogin">${ic('user')}Увійти</button></div>`;
     else if(S.kidIn)h=`<div class="drop" style="right:-4px"><div class="cap">${FAMILY[S.kid].full}</div><button data-a="go" data-v="kprof">${ic('user')}Про мене</button><button data-a="go" data-v="notif">${ic('bell')}Мої сповіщення</button><hr><button data-a="klogout">${ic('logout')}Вийти</button></div>`;
     else h=`<div class="drop" style="right:-4px"><button data-a="go" data-v="login">${ic('user')}Вхід за ID</button><button data-a="go" data-v="invite">${ic('key')}Перший вхід за кодом</button></div>`;
   }
@@ -1607,11 +1966,29 @@ document.addEventListener('click',e=>{
    case'peekinv':S.peekInv=!S.peekInv;render();break;
    case'enter':login(d.k,'Safari, iPad');break;
    case'klogout':S.kidIn=false;S.dd=null;S.v.kid='login';S.kstep=1;render();toast('Ти вийшов з кабінету');break;
+   case'kquick':S.kidDev=null;login('marko','Chrome, macOS');break;
+   /* авторизація між системами */
+   case'plogin':S.dd=null;startPortalLogin();break;
+   case'pm':pickMethod(d.m);break;
+   case'kyivid-ok':kyividOk();break;
+   case'sez-go':sezGo(true);break;
+   case'url-sez':sezGo(false);break;
+   case'sez-back':case'url-portal':backToPortal();break;
+   case'sez-login':sezLogin();break;
+   case'sez-logout':sezLogout();break;
+   case'plogout':portalLogout();break;
+   case'alog':S.auth.logOpen=!S.auth.logOpen;renderAuth();break;
+   case'ascheme':S.auth.open=!S.auth.open;renderAuth();break;
   }
 });
 $$('.mock [data-role]').forEach(b=>b.onclick=()=>setRole(b.dataset.role));
 $('#layerSel').onchange=e=>{S.layer=e.target.value==='1';if(!S.layer){S.role='par';if(KIDV.includes(S.v.par))S.v.par='svc';S.wz=null;S.cat='all'}render()};
-$('#resetBtn').onclick=()=>{const l=S.layer;S=S0();S.layer=l;mclose();render();toast('Демо скинуто')};
+$('#resetBtn').onclick=()=>{clearTimeout(AUTH_T);const l=S.layer;S=S0();S.layer=l;mclose();render();toast('Демо скинуто')};
+$('#authSel').onchange=e=>{
+  AUTHV=e.target.value;clearTimeout(AUTH_T);const l=S.layer;S=S0();S.layer=l;mclose();
+  if(TOUR.open&&TOUR.flow&&flowById(TOUR.flow))tourStart(TOUR.flow);else render();
+  toast(AUTHV==='kyivid'?'Варіант «Спільний KyivID». Демо почато з нуля':'Варіант «osvita як клієнт Kitsoft ID». Демо почато з нуля');
+};
 $('#ovl').addEventListener('click',e=>{if(e.target.id==='ovl')mclose()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){mclose();S.dd=null;renderDD()}});
 setInterval(()=>{
@@ -1624,11 +2001,53 @@ setInterval(()=>{
 /* ================= ПУТІВНИК ================= */
 const TOUR={open:false,flow:null,step:0,done:[],hl:null,scrolled:-1,flash:false};
 try{TOUR.done=JSON.parse(localStorage.getItem('kidCabTourDone')||'[]')}catch(e){}
-const fresh=(role,v,o={})=>{S=S0();S.layer=true;S.role=role||'par';if(o.kidIn){S.kidIn=true;S.kid='marko';S.sess='12.12.2026';S.sessDev='Chrome, macOS'}if(v)S.v[S.role]=v;mclose();render()};
+const fresh=(role,v,o={})=>{clearTimeout(AUTH_T);S=S0();S.layer=true;S.role=role||'par';if(o.parIn)preLogin();if(o.kidIn){S.kidIn=true;S.kid='marko';S.sess='12.12.2026';S.sessDev='Chrome, macOS'}if(o.kidDev)S.kidDev=o.kidDev;if(v)S.v[S.role]=v;mclose();render()};
 const R=r=>({t:`Переключись на роль <b>«${{par:'Батько',kid:'Дитина'}[r]}»</b> у темній панелі зверху.`,sel:`.mock [data-role="${r}"]`,done:()=>S.role===r,act:()=>setRole(r)});
 const pyReq=()=>S.reqs.find(x=>x.club==='py'&&x.by==='kid');
+/* вхід батька на Портал; force — примусовий спосіб (наприклад, 'diia') */
+const PL=force=>[
+ {t:'Тато відкриває Портал послуг на телефоні. Він ще не увійшов. Натисни <b>«Увійти»</b>.<span class="why">Стеж за рядком адреси і схемою зверху: там видно кожен перехід між системами.</span>',sel:'#main [data-a="plogin"]',done:()=>!!S.auth.flow||!!S.auth.portal},
+ {t:()=>force==='diia'
+   ?'Портал передав вхід у Kitsoft ID — сервіс входу Порталу. Обери <b>Дія</b>.'+(VA()?'<span class="why">У цьому варіанті Дія — вхід повз KyivID. Подивимось, що буде із садочками.</span>':'')
+   :VA()?'Портал передав вхід у Kitsoft ID. Обери <b>KyivID</b>: лише так потім спрацює вхід у СЕЗ ЗДО без пароля.'
+   :'Портал передав вхід у Kitsoft ID — сервіс входу Порталу. Обери будь-який спосіб, наприклад <b>Дія</b>.<span class="why">У цьому варіанті СЕЗ ЗДО теж входить через Kitsoft ID, тому спосіб не важливий.</span>',
+  sel:()=>`[data-a="pm"][data-m="${force||(VA()?'kyivid':'diia')}"]`,done:()=>!!S.auth.portal||!!(S.auth.hop&&S.auth.hop.screen!=='methods')},
+ {t:'Kitsoft ID передав вхід у KyivID. Сесії KyivID ще немає, тож KyivID просить увійти. Натисни <b>«Увійти»</b>.',sel:'[data-a="kyivid-ok"]',skip:()=>!(VA()&&!force),done:()=>!!S.auth.idp.kyivid||!!S.auth.portal},
+ {t:'Вхід завершується: код повертається на Портал, Портал обмінює його на токен і створює свою сесію.',wait:'Перехід між системами…',done:()=>!!S.auth.portal&&!S.auth.flow}
+];
+/* вхід дитини на прив'язаному пристрої */
+const KL=()=>[{t:'Марко відкриває Портал на своєму ноутбуці. Пристрій уже прив’язано до його профілю, тому вхід без коду. Натисни <b>«Увійти як Марко»</b>.<span class="why">Вхід дитини — власний механізм Порталу. KyivID і СЕЗ ЗДО тут не задіяні. Тато вже увійшов на Портал на своєму телефоні.</span>',sel:'[data-a="kquick"]',done:()=>S.kidIn}];
+const SEZGO={t:'Ти в «Моїх дітях». У картці Дарини, 4 роки, натисни <b>«Відкрити в СЕЗ ЗДО»</b>.',sel:'#main [data-a="sez-go"]',done:()=>!!S.auth.flow||S.at==='sez'};
+const SEZIN=t=>({t,wait:'Перехід між системами…',done:()=>S.at==='sez'&&!!S.auth.sez&&!S.auth.flow});
 const FLOWS=[
- {id:'kidapply',name:'Дитина просить гурток, тато підтверджує',ds:'Заява з кабінету дитини → рішення батька → заклад → розклад',min:3,start:()=>fresh('kid','home',{kidIn:1}),steps:[
+ {id:'sez',name:'Перехід з Порталу в садочки',ds:'Вхід на Портал → кабінет СЕЗ ЗДО без пароля. Пройди в обох варіантах',min:3,start:()=>fresh('par','kids'),steps:[
+  ...PL(),
+  SEZGO,
+  SEZIN(()=>VA()?'Сайт садочків відправив тебе в KyivID. Сесія KyivID є з входу на Портал, тому пароль не потрібен.':'Сайт садочків відправив тебе в Kitsoft ID. Сесія Kitsoft ID є з входу на Портал, тому сторінка входу не показується.'),
+  {t:()=>VA()?'Ти в кабінеті СЕЗ ЗДО без пароля. Заяву знайдено за підтвердженим email із KyivID.':'Ти в кабінеті СЕЗ ЗДО без пароля. Заяву знайдено за свідоцтвом дитини і РНОКПП із Kitsoft ID.',sel:'#ext .sezc',manual:1},
+  {t:'Розгорни <b>«Журнал авторизації»</b> під схемою: там кожен крок із технічними деталями.<span class="why">«Браузер» — редирект, який видно в рядку адреси. «Сервер» — обмін коду на токен між системами, браузер його не бачить.</span>',sel:'[data-a="alog"]',done:()=>S.auth.logOpen},
+  {t:'Повернись на Портал: натисни <b>«Повернутися на Портал»</b>.',sel:'#ext [data-a="sez-back"]',done:()=>S.at==='portal'&&!S.auth.flow},
+  {t:()=>'Сесія Порталу жива, тому вхід не потрібен. '+(VA()?'На схемі зелені «лампочки» в усіх чотирьох систем.':'На схемі зелені «лампочки» в Порталу, Kitsoft ID і СЕЗ ЗДО; KyivID не задіяний.')+' Перемкни варіант у темній панелі й пройди сценарій ще раз, щоб порівняти.',sel:'#ascheme',manual:1}]},
+ {id:'diia',name:'Вхід через Дію напряму',ds:'На Портал входимо через Дію. Тут варіанти розходяться',min:3,start:()=>fresh('par','kids'),steps:[
+  ...PL('diia'),
+  {...SEZGO,t:'Натисни <b>«Відкрити в СЕЗ ЗДО»</b> у картці Дарини.'},
+  {t:'Сайт садочків відправив тебе в KyivID. Але на Портал ти входив через Дію, тому сесії KyivID немає — доведеться увійти ще раз. Натисни <b>«Увійти»</b>.',sel:'[data-a="kyivid-ok"]',skip:()=>!VA(),done:()=>!!S.auth.idp.kyivid||!!S.auth.sez},
+  SEZIN(()=>VA()?'KyivID видає код, СЕЗ ЗДО обмінює його на токен і відкриває кабінет.':'Kitsoft ID уже має твою сесію з Дії, тому повторний вхід не потрібен.'),
+  {t:()=>VA()?'<b>Підсумок.</b> У варіанті «Спільний KyivID» людина, що увійшла на Портал через Дію, у садочках входить ще раз. Без пароля працює лише вхід через KyivID.':'<b>Підсумок.</b> У варіанті Kitsoft ID спосіб входу на Портал не має значення: СЕЗ ЗДО бере ту саму сесію Kitsoft ID. Перемкни варіант і порівняй.',sel:'#ascheme',manual:1}]},
+ {id:'logout',name:'Вихід',ds:'Що буде із сесією садочків, коли виходиш з Порталу',min:3,start:()=>fresh('par','kids'),steps:[
+  ...PL(),
+  {...SEZGO,t:'Натисни <b>«Відкрити в СЕЗ ЗДО»</b> у картці Дарини.'},
+  SEZIN('Переходимо в садочки.'),
+  {t:'Повернись на Портал: <b>«Повернутися на Портал»</b>.',sel:'#ext [data-a="sez-back"]',done:()=>S.at==='portal'&&!S.auth.flow},
+  {t:'Відкрий меню користувача праворуч угорі.',sel:'.upill',done:()=>S.dd==='user'||!!S.auth.flow},
+  {t:'Натисни <b>«Вийти»</b>.',sel:'[data-a="plogout"]',done:()=>!!S.auth.flow||!S.auth.portal},
+  {t:()=>VA()?'Kitsoft ID видаляє свою сесію. Сесію KyivID він не закриває.':'Kitsoft ID видаляє сесію і всі твої токени, зокрема токен СЕЗ ЗДО.',wait:'Вихід…',done:()=>!S.auth.portal&&!S.auth.flow},
+  {t:()=>'Подивись на схему: '+(VA()?'Портал і Kitsoft ID згасли, а KyivID і СЕЗ ЗДО досі з сесією.':'Портал і Kitsoft ID згасли. У СЕЗ ЗДО сесія ще є, але її токен уже відкликано.'),sel:'#ascheme',manual:1},
+  {t:'Тепер відкрий сайт садочків напряму: кнопка <b>«СЕЗ ЗДО»</b> у рядку адреси.',sel:'#abar [data-a="url-sez"]',done:()=>!!S.auth.flow||S.at==='sez'},
+  {t:'Сайт садочків перевіряє, чи ти досі увійшов.',wait:'Перевірка…',done:()=>S.at==='sez'&&!S.auth.flow},
+  {t:()=>VA()?'<b>СЕЗ ЗДО досі пускає.</b> Вона не знає, що ти вийшов з Порталу: у неї своя сесія, а сесія KyivID теж жива. На спільному комп’ютері наступна людина потрапить у цей кабінет.':'<b>СЕЗ ЗДО закрила сесію:</b> перевірила свій токен у Kitsoft ID, а його вже видалено. Це спрацює, лише якщо СЕЗ ЗДО регулярно перевірятиме токен — це треба доробити.',sel:'#ext',manual:1}]},
+ {id:'kidapply',name:'Дитина просить гурток, тато підтверджує',ds:'Заява з кабінету дитини → рішення батька → заклад → розклад',min:3,start:()=>fresh('kid','login',{kidDev:'bound',parIn:1}),steps:[
+  ...KL(),
   {t:'Це кабінет Марка, 12 років, у дизайні нового кабінету Порталу. Зараз він ходить на шахи й робототехніку. У блоці <b>«Гуртки для тебе»</b> відкрий «Основи програмування Python».',sel:'.scard[data-s="py"]',done:()=>S.v.kid==='club'&&S.sub.kid==='py'},
   {t:'Бюджетна група, накладок з розкладом немає. Натисни <b>«Записатись»</b>.',sel:'[data-a="apply-start"]',done:()=>S.wz&&S.wz.k==='apply'},
   {t:'Дані підтягнулися з реєстрів, розклад перевірено. Натисни <b>«Далі»</b>.',sel:'[data-a="wz-next"]',done:()=>S.wz&&S.wz.step>=1},
@@ -1639,7 +2058,7 @@ const FLOWS=[
   {t:'Заяву передано в заклад. Рішення прийде за кілька секунд.',wait:'Заклад розглядає заяву…',done:()=>pyReq()&&!['pend','review'].includes(pyReq().st)},
   R('kid'),
   {t:'Python уже в тижні Марка (субота, 11:00), а сповіщення про зарахування отримали і він, і тато.',sel:'#week',manual:1}]},
- {id:'login',name:'Вхід дитини з нового пристрою',ds:'ID дитини і одноразовий код, який приходить батькові',min:2,start:()=>fresh('kid','login'),steps:[
+ {id:'login',name:'Вхід дитини з нового пристрою',ds:'ID дитини і одноразовий код, який приходить батькові',min:2,start:()=>fresh('kid','login',{parIn:1}),steps:[
   {t:'Марко відкрив Портал на новому комп’ютері. Пристрій не прив’язаний, тож потрібен код від тата. ID уже введено. Натисни <b>«Надіслати код татові»</b>.',sel:'[data-a="getcode"]',done:()=>S.kstep===2&&!!S.code},
   R('par'),
   {t:'Запит видно просто в «Моїх послугах». Відкрий у меню <b>«Доступ до кабінетів»</b>.',sel:'.sit[data-v="access"]',done:()=>S.v.par==='access'},
@@ -1647,7 +2066,8 @@ const FLOWS=[
   R('kid'),
   {t:'Введи код, який бачив тато.<span class="why">Забув? «Зробити за мене» введе його.</span>',sel:'#codebox',done:()=>S.kidIn,act:()=>{if(!codeLive())getCode();const c=S.code.split('');$$('#codebox input').forEach((b,i)=>{b.value=c[i]});verify()}},
   {t:'Марко у своєму кабінеті. Сесія діє 30 днів, і тато може завершити її будь-коли. Пройдися меню ліворуч.',sel:'#side',manual:1}]},
- {id:'voucher',name:'Ваучер на платний гурток',ds:'Місто платить 500 ₴ на місяць, батьки доплачують решту',min:3,start:()=>fresh('par','pass'),steps:[
+ {id:'voucher',name:'Ваучер на платний гурток',ds:'Місто платить 500 ₴ на місяць, батьки доплачують решту',min:4,start:()=>fresh('par','pass'),steps:[
+  ...PL(),
   {t:'Це Activity Pass дітей. Ваучер Софії вже працює на вокалі, а ваучер Марка вільний. Натисни <b>«Обрати гурток»</b> у картці Марка.',sel:'[data-a="vpick"][data-k="marko"]',done:()=>S.v.par==='catalog'},
   {t:'Каталог показує лише групи, які приймають ваучер. Відкрий <b>«Англійська через театр»</b>.',sel:'.scard[data-s="eng"]',done:()=>S.v.par==='club'&&S.sub.par==='eng'},
   {t:'Ціну вже пораховано: 900 ₴ на місяць, з них 500 ₴ платить місто. Натисни <b>«Записати Марка»</b>.',sel:'[data-a="apply-start"]',done:()=>S.wz&&S.wz.k==='apply'},
@@ -1657,7 +2077,8 @@ const FLOWS=[
   {t:'Заява в закладі. Рішення прийде за кілька секунд.',wait:'Заклад розглядає заяву…',done:()=>{const r=S.reqs.find(x=>x.club==='eng');return r&&r.st!=='review'}},
   {t:'Марка зараховано, ваучер закріпився за цим гуртком. Відкрий у меню <b>«Оплати»</b>.',sel:'.sit[data-v="pay"]',done:()=>S.v.par==='pay'},
   {t:'Рахунок за грудень: 900 ₴ мінус ваучер 500 ₴, до сплати 400 ₴. Свою частину місто платить закладу за фактично відмічені заняття.',sel:'.prow',manual:1}]},
- {id:'wallet',name:'Освітній гаманець',ds:'Ліміт для дитини, покупка квитка і запит на табір',min:3,start:()=>fresh('par','wallet',{kidIn:1}),steps:[
+ {id:'wallet',name:'Освітній гаманець',ds:'Ліміт для дитини, покупка квитка і запит на табір',min:4,start:()=>fresh('par','wallet',{kidIn:1}),steps:[
+  ...PL(),
   {t:'Гаманець Марка: 4 000 ₴ від міста на навчальний рік, 200 ₴ уже витрачено на театр. Дозволь Марку купувати самому до <b>200 ₴</b>.',sel:'[data-a="lim"][data-n="200"]',done:()=>S.wal.marko.lim===200},
   R('kid'),
   {t:'Відкрий у меню <b>«Освітній гаманець»</b>.',sel:'.sit[data-v="kwallet"]',done:()=>S.v.kid==='kwallet'},
@@ -1667,7 +2088,8 @@ const FLOWS=[
   {t:'Відкрий у меню <b>«Підтвердження»</b>.',sel:'.sit[data-v="approve"]',done:()=>S.v.par==='approve'},
   {t:'Тато бачить запит, ціну й залишок після оплати. Натисни <b>«Оплатити з гаманця»</b>.',sel:'[data-a="buy-ok"]',done:()=>S.preqs.some(r=>r.offer==='camp'&&r.st!=='pend')},
   {t:'Табір оплачено з гаманця, квиток уже в Activity Pass Марка. Кошти цільові: готівки, переказів і покупок у магазинах немає, а залишок 31 серпня повертається до бюджету.',manual:1}]},
- {id:'register',name:'Додати дитину і код запрошення',ds:'Батько додає дитину з реєстру, дитина прив’язує пристрій',min:3,start:()=>fresh('par','kids'),steps:[
+ {id:'register',name:'Додати дитину і код запрошення',ds:'Батько додає дитину з реєстру, дитина прив’язує пристрій',min:4,start:()=>fresh('par','kids'),steps:[
+  ...PL(),
   {t:'Олена, 11 років, ще жодного разу не була на Порталі. Зареєструвати її може лише батько чи мати. Натисни <b>«Додати дитину»</b>.',sel:'.addk',done:()=>S.wz&&S.wz.k==='addkid'},
   {t:'Портал сам знайшов дітей у Демографічному реєстрі. Обери <b>Олену</b>.',sel:'.opt[data-val="olena"]',done:()=>S.wz&&S.wz.kid==='olena'},
   {t:'Натисни <b>«Далі»</b>.',sel:'[data-a="wz-next"]',done:()=>S.wz&&S.wz.step>=1},
@@ -1680,12 +2102,14 @@ const FLOWS=[
   {t:'У меню входу обери <b>«Перший вхід за кодом»</b>.',sel:'.sit[data-v="invite"]',done:()=>S.v.kid==='invite'},
   {t:'Введи код і натисни <b>«Прив’язати пристрій»</b>.<span class="why">Забув код? «Зробити за мене» введе його.</span>',sel:'[data-a="bind"]',done:()=>(S.devices.olena||[]).length>0,act:()=>{const i=$('#linv');if(i&&S.invites.olena)i.value=S.invites.olena.code;bind()}},
   {t:'Пристрій Олени прив’язано, код більше не діє. Тато отримав сповіщення з назвою пристрою і може його відкликати.',sel:'#main .wz',manual:1}]},
- {id:'sofia',name:'Відкрити кабінет Софії',ds:'Дитина вже в профілі, але без власного кабінету',min:1,start:()=>fresh('par','access'),steps:[
+ {id:'sofia',name:'Відкрити кабінет Софії',ds:'Дитина вже в профілі, але без власного кабінету',min:2,start:()=>fresh('par','access'),steps:[
+  ...PL(),
   {t:'Софія, 8 років, уже є в профілі тата, але власного кабінету в неї немає. Натисни <b>«Відкрити кабінет для Софії»</b>.',sel:'[data-a="openkid"][data-k="sofia"]',done:()=>S.wz&&S.wz.k==='addkid'},
   {t:'Дані Софії вже підтверджені, тому одразу крок доступу. Натисни <b>«Далі»</b>.',sel:'[data-a="wz-next"]',done:()=>S.wz&&S.wz.step>=1},
   {t:'Натисни <b>«Підписати Дія.Підписом»</b>.',sel:'[data-a="sign"]',done:()=>S.access.sofia},
   {t:'Кабінет для Софії відкрито, і Портал одразу видав код запрошення. Далі все так само, як в Олени.',sel:'#invcard',manual:1}]},
- {id:'control',name:'Батьківський контроль доступу',ds:'Завершити сесію, вимкнути й повернути доступ',min:2,start:()=>fresh('par','access',{kidIn:1}),steps:[
+ {id:'control',name:'Батьківський контроль доступу',ds:'Завершити сесію, вимкнути й повернути доступ',min:3,start:()=>fresh('par','access',{kidIn:1}),steps:[
+  ...PL(),
   {t:'Марко зараз у своєму кабінеті: видно активну сесію і прив’язаний пристрій. Натисни <b>«Завершити»</b>, щоб розлогінити його.',sel:'[data-a="kill"]',done:()=>!S.kidIn},
   {t:'Сесію завершено, але Марко може попросити новий код. Щоб заборонити вхід повністю, натисни <b>«Вимкнути доступ»</b>.',sel:'[data-a="acc-tg"][data-k="marko"]',done:()=>!S.access.marko},
   R('kid'),
@@ -1694,26 +2118,27 @@ const FLOWS=[
   R('par'),
   {t:'Поверни доступ: натисни <b>«Увімкнути доступ»</b> у картці Марка.',sel:'[data-a="acc-tg"][data-k="marko"]',done:()=>S.access.marko},
   {t:'Доступ повернуто. Кожен вхід, підтвердження, прив’язка пристрою і завершення сесії записуються в журнал із часом, пристроєм і IP.',sel:'#main>.info',manual:1}]},
- {id:'pay',name:'Оплата абонемента',ds:'Ваучер зменшує рахунок, решта з гаманця',min:1,start:()=>fresh('par','notif'),steps:[
+ {id:'pay',name:'Оплата абонемента',ds:'Ваучер зменшує рахунок, решта з гаманця',min:2,start:()=>fresh('par','notif'),steps:[
+  ...PL(),
   {t:'У сповіщеннях тата — нагадування про абонемент Софії. Відкрий його.',sel:'#main .row[data-a="note"]',done:()=>S.v.par==='pay'},
   {t:'Рахунок за листопад уже зменшено ваучером: 640 − 500 = 140 ₴. Натисни <b>«З гаманця»</b>.',sel:'[data-a="payw"]',done:()=>S.pay.every(p=>p.paid)},
   {t:'Оплату зараховано, а в гаманці Софії поменшало на 140 ₴. У кабінеті дитини оплат немає взагалі.',sel:'#main .list',manual:1}]}
 ];
 function tourSave(){try{localStorage.setItem('kidCabTourDone',JSON.stringify(TOUR.done))}catch(e){}}
 const flowById=id=>FLOWS.find(f=>f.id===id);
-function tourTarget(){const f=flowById(TOUR.flow);if(!f)return null;const st=f.steps[TOUR.step];if(!st||!st.sel)return null;let el=null;try{el=document.querySelector(st.sel)}catch(e){}return el&&el.getClientRects().length?el:null}
+function tourTarget(){const f=flowById(TOUR.flow);if(!f)return null;const st=f.steps[TOUR.step];if(!st||!st.sel)return null;const sl=typeof st.sel==='function'?st.sel():st.sel;let el=null;try{el=document.querySelector(sl)}catch(e){}return el&&el.getClientRects().length?el:null}
 function tourHL(el){if(TOUR.hl===el)return;if(TOUR.hl)TOUR.hl.classList.remove('tour-hl');TOUR.hl=el;if(el)el.classList.add('tour-hl')}
 function tourRender(){
   const box=$('#tour');box.hidden=!TOUR.open;document.body.classList.toggle('tour-open',TOUR.open);$('#tourbtn').classList.toggle('on',TOUR.open);
   if(!TOUR.open){tourHL(null);return}
   $('#tour-pr').textContent=TOUR.done.length+' з '+FLOWS.length+' пройдено';
   const f=flowById(TOUR.flow);let h='';
-  if(!f){h='<p class="intro">Клікабельна копія кабінету «Мої послуги» з Figma і на ній — кабінет батька з розділом «Мої діти» та кабінет дитини з концепту «Мій Київ».<br><br>Обери сценарій. Путівник підсвічує, куди натиснути, і сам переходить далі. Кожен сценарій починається з чистого демо.</p><a class="doc" href="../concept.md" target="_blank" rel="noopener">📄 Концепт «Мій Київ»: повний документ<span>↗</span></a>'+
+  if(!f){h='<p class="intro">Клікабельна копія кабінету «Мої послуги» з Figma і на ній — кабінет батька з розділом «Мої діти» та кабінет дитини з концепту «Мій Київ».<br><br>Обери сценарій. Путівник підсвічує, куди натиснути, і сам переходить далі. Кожен сценарій починається з чистого демо і з входу користувача.<br><br><b>Авторизація.</b> Перемикач «Авторизація» в темній панелі обирає варіант: «Спільний KyivID» або «osvita як клієнт Kitsoft ID». Перші три сценарії, про садочки (СЕЗ ЗДО), пройди в обох варіантах, щоб побачити різницю. Рядок адреси, схема систем і журнал зверху показують кожен перехід.</p><a class="doc" href="../concept.md" target="_blank" rel="noopener">📄 Концепт «Мій Київ»: повний документ<span>↗</span></a>'+
     FLOWS.map((x,i)=>{const ok=TOUR.done.includes(x.id);return `<button class="fl${ok?' ok':''}" data-tflow="${x.id}"><span class="no">${ok?'✓':i+1}</span><span><span class="nm">${x.name}</span><span class="ds">${x.ds}</span></span><span class="rl">${x.min} хв</span></button>`}).join('')}
   else if(TOUR.step>=f.steps.length){const i=FLOWS.indexOf(f),nx=FLOWS[i+1];
     h=`<div class="kick">Сценарій ${i+1} з ${FLOWS.length}</div><h4>${f.name}</h4><div class="ok-msg" style="margin-top:0">Сценарій пройдено ✓</div><div class="ta">${nx?`<button class="tbn" data-tflow="${nx.id}">Далі: ${nx.name}</button>`:''}<button class="tbn g" data-tlist="1">Усі сценарії</button></div><div class="tlinks"><a href="../concept.md" target="_blank" rel="noopener">Концепт «Мій Київ» ↗</a></div>`}
   else{const st=f.steps[TOUR.step],j=FLOWS.indexOf(f);
-    h=`<div class="kick">Сценарій ${j+1} · крок ${TOUR.step+1} із ${f.steps.length}</div><h4>${f.name}</h4><div class="bar">${f.steps.map((_,k)=>`<i class="${k<TOUR.step?'d':k===TOUR.step?'c':''}"></i>`).join('')}</div><div class="txt">${st.t}</div>${st.wait?`<div class="wt"><span class="spin"></span>${st.wait}</div>`:''}${TOUR.flash?'<div class="ok-msg">Готово ✓</div>':''}<div class="ta">${st.manual?`<button class="tbn" data-tnext="1">${TOUR.step===f.steps.length-1?'Завершити':'Далі'}</button>`:st.wait?'':`<button class="tbn g" data-tdo="1">Зробити за мене</button>`}</div><div class="tlinks"><button data-trestart="1">↺ Почати спочатку</button><button data-tlist="1">Усі сценарії</button><a href="../concept.md" target="_blank" rel="noopener">Концепт ↗</a></div>`}
+    h=`<div class="kick">Сценарій ${j+1} · крок ${TOUR.step+1} із ${f.steps.length}</div><h4>${f.name}</h4><div class="bar">${f.steps.map((_,k)=>`<i class="${k<TOUR.step?'d':k===TOUR.step?'c':''}"></i>`).join('')}</div><div class="txt">${typeof st.t==='function'?st.t():st.t}</div>${st.wait?`<div class="wt"><span class="spin"></span>${st.wait}</div>`:''}${TOUR.flash?'<div class="ok-msg">Готово ✓</div>':''}<div class="ta">${st.manual?`<button class="tbn" data-tnext="1">${TOUR.step===f.steps.length-1?'Завершити':'Далі'}</button>`:st.wait?'':`<button class="tbn g" data-tdo="1">Зробити за мене</button>`}</div><div class="tlinks"><button data-trestart="1">↺ Почати спочатку</button><button data-tlist="1">Усі сценарії</button><a href="../concept.md" target="_blank" rel="noopener">Концепт ↗</a></div>`}
   $('#tour-body').innerHTML=h;
 }
 function tourStart(id){const f=flowById(id);if(!f)return;TOUR.flow=id;TOUR.step=0;TOUR.scrolled=-1;TOUR.flash=false;TOUR.open=true;tourHL(null);f.start();tourRender()}
@@ -1722,10 +2147,12 @@ function tourAdvance(){const f=flowById(TOUR.flow);if(!f)return;TOUR.step++;TOUR
   TOUR.flash=TOUR.step<f.steps.length;tourRender();clearTimeout(TOUR._f);TOUR._f=setTimeout(()=>{if(TOUR.flash){TOUR.flash=false;tourRender()}},1300)}
 function tourTick(){
   if(!TOUR.open||!TOUR.flow)return;const f=flowById(TOUR.flow);if(!f||TOUR.step>=f.steps.length){tourHL(null);return}
-  const st=f.steps[TOUR.step];if(!st.manual&&st.done()){tourAdvance();return}
+  const st=f.steps[TOUR.step];if(st.skip&&st.skip()){tourSkip();return}if(!st.manual&&st.done()){tourAdvance();return}
   const el=tourTarget();tourHL(el);
-  if(el&&TOUR.scrolled!==TOUR.step){TOUR.scrolled=TOUR.step;const r=el.getBoundingClientRect(),inFix=el.closest('.mdl,.mock,.chat');if(!inFix&&(r.top<110||r.bottom>innerHeight-20))el.scrollIntoView({behavior:'smooth',block:'center'})}
+  if(el&&TOUR.scrolled!==TOUR.step){TOUR.scrolled=TOUR.step;const r=el.getBoundingClientRect(),inFix=el.closest('.mdl,.mock,.chat,.abar');if(!inFix&&(r.top<140||r.bottom>innerHeight-20))el.scrollIntoView({behavior:'smooth',block:'center'})}
 }
+function tourSkip(){const f=flowById(TOUR.flow);if(!f)return;TOUR.step++;TOUR.scrolled=-1;tourHL(null);
+  if(TOUR.step>=f.steps.length&&!TOUR.done.includes(f.id)){TOUR.done.push(f.id);tourSave()}tourRender()}
 function tourDo(){const f=flowById(TOUR.flow);if(!f)return;const st=f.steps[TOUR.step];if(!st)return;if(st.act){st.act();return}const el=tourTarget();if(el)el.click()}
 document.addEventListener('click',e=>{let t;
   if(e.target.closest('#tourbtn')){TOUR.open=!TOUR.open;tourRender();return}
@@ -1740,6 +2167,8 @@ setInterval(tourTick,300);
 
 /* ================= СТАРТ ================= */
 (()=>{const h=decodeURIComponent(location.hash);
+  const au=h.match(/auth=(\w+)/);if(au&&['kyivid','kitsoft'].includes(au[1])){AUTHV=au[1];S.auth.v=AUTHV}
+  if(/[#&]par(&|$)/.test(h))preLogin();
   if(/clean/.test(h))document.body.classList.add('clean');
   if(/base/.test(h))S.layer=false;
   const m=h.match(/role=(\w+)/);if(m&&['par','kid'].includes(m[1]))S.role=m[1];
