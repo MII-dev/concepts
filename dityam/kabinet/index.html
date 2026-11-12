@@ -602,6 +602,27 @@ body.clean .abar,body.clean .ascheme{display:none}
 .alog li .w{color:#fff;font-weight:600}
 .alog li .tc{grid-column:3;font:11.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:#9aa1ab;white-space:pre-wrap;word-break:break-all}
 .alog .aemp{color:#8e95a0;padding:8px 0}
+/* крок postMessage: між сторінкою Порталу і рамкою */
+.ach.p{background:#4d3212;color:#ffd29e}
+.acon.p{background:repeating-linear-gradient(90deg,#ffb066 0 4px,transparent 4px 8px);background-size:8px 3px;animation:adash2 .5s linear infinite}
+.acon.p.l{animation-direction:reverse}
+.acon.p::before{background:#ffb066}.acon.p.r::after{border-left-color:#ffb066}.acon.p.l::after{border-right-color:#ffb066}
+@keyframes adash2{to{background-position:8px 0}}
+.sy .you.fr{background:#ffb066;color:#3a2208}
+/* рамка СЕЗ ЗДО (умовний iframe) у кабінеті Порталу */
+.ifr{position:relative;margin-top:30px;border-radius:22px;background:#fff;box-shadow:var(--sh);outline:2px dashed #b48cff;outline-offset:6px}
+.ifr-tag{position:absolute;top:-20px;left:22px;z-index:2;background:#7b2ff7;color:#fff;font:700 11px/1 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase;padding:5px 9px;border-radius:7px}
+.ifr-bar{display:flex;align-items:center;gap:8px;padding:10px 16px;background:#f3f5f9;border-bottom:1px solid var(--line);border-radius:22px 22px 0 0;font-size:12.5px;color:var(--ink3);white-space:nowrap;overflow:hidden}
+.ifr-bar .ic{color:var(--ok-i)}
+.ifr-bar .mono{overflow:hidden;text-overflow:ellipsis}
+.ifr-bar b{color:var(--ink);font-weight:600}
+.ifr-bar em{font-style:normal;color:#7b2ff7}.ifr-bar u{text-decoration:none;color:#5b12b5}
+.ifr-h{display:flex;align-items:center;gap:10px;background:#14532d;color:#fff;padding:12px 20px;font-size:15px}
+.ifr-h b{font-size:17px;font-weight:700}
+.ifr-h span{color:#b7dcc4;font-size:14px;padding-left:10px;border-left:1px solid #2b6b45}
+.ifr-h em{font-style:normal;margin-left:auto;display:flex;align-items:center;gap:6px;font-size:14px}
+.ifr-body{border-radius:0 0 22px 22px;overflow:hidden;background:#eef6f1;min-height:220px}
+.ifr-c{padding:24px 26px 26px;background:#fff;margin:16px;border-radius:18px}
 /* екрани зовнішніх систем */
 .ext-pg{display:none}
 body.ext .ext-pg{display:block}
@@ -970,7 +991,7 @@ const SVC=[
  {t:'Безоплатне паркування в Києві для Захисників та Захисниць',img:'svc-parkuvannia',tag:'Захисникам',cat:['zah']},
  {t:'Гуртки й секції з ваучером Activity Pass',svg:'pass',tag:'Діти та освіта',need:'<b>Потрібні дані:</b> нічого, дані дітей уже є у вашому профілі',cat:['dity'],vx:1,a:'go',v:'catalog'},
  {t:'Освітній гаманець дитини',svg:'wallet',tag:'Діти та освіта',need:'<b>Нараховано:</b> 4 000 ₴ на кожну дитину на 2026/2027 навчальний рік',cat:['dity'],vx:1,a:'go',v:'wallet'},
- {t:'Запис до садочка (СЕЗ ЗДО)',svg:'kg',tag:'Діти та освіта',need:'<b>Потрібні дані:</b> нічого, перехід у СЕЗ ЗДО з вашим входом на Портал',cat:['dity'],vx:1,a:'sez-go'},
+ {t:'Запис до садочка (СЕЗ ЗДО)',svg:'kg',tag:'Діти та освіта',need:'<b>Потрібні дані:</b> нічого, СЕЗ ЗДО відкривається прямо в кабінеті з вашим входом на Портал',cat:['dity'],vx:1,a:'go',v:'kg'},
  {t:'Додати дитину до профілю',svg:'addkid',tag:'Діти та освіта',need:'<b>Потрібні дані:</b> нічого, зв’язок з дитиною береться з Демографічного реєстру',cat:['dity'],vx:1,a:'addkid-start'}
 ];
 
@@ -1020,7 +1041,7 @@ function S0(){return{
    {r:'kid',t:'Твій учнівський квиток продовжено до 31.08.2027',d:'02.09.2026',u:0}
   ],
   chat:false,chatLog:null,dd:null,a11y:false,
-  auth:{v:AUTHV,idp:{kitsoft:null,kyivid:null},portal:null,sez:null,sezRevoked:false,portalOut:false,flow:null,hop:null,confirm:null,st:'',log:[],logOpen:false,open:true},
+  auth:{v:AUTHV,idp:{kitsoft:null,kyivid:null},portal:null,sez:null,sezRevoked:false,portalOut:false,flow:null,hop:null,confirm:null,st:'',log:[],logOpen:false,open:true,frame:null},
   at:'portal',url:DOM.portal+'/',sezV:'login',kidDev:null
 }}
 let S=S0();
@@ -1060,7 +1081,7 @@ function attBlock(k){
 /* ================= МЕНЮ ================= */
 const MENU={
  par:()=>[['Кабінет',[['svc','doc','Мої послуги'],['drafts','pen','Чернетки',2],['docs','docs','Мої документи']]],
-   ['Мої діти',[['kids','fam','Діти'],['approve','checkc','Підтвердження',pendReqs().length+pendBuys().length],['pass','qr','Гуртки й Activity Pass'],['wallet','wallet','Освітній гаманець'],['pay','card','Оплати',unpaid().length],['access','lock','Доступ до кабінетів',codeLive()?1:0]],1],
+   ['Мої діти',[['kids','fam','Діти'],['kg','home','Садочок · СЕЗ ЗДО'],['approve','checkc','Підтвердження',pendReqs().length+pendBuys().length],['pass','qr','Гуртки й Activity Pass'],['wallet','wallet','Освітній гаманець'],['pay','card','Оплати',unpaid().length],['access','lock','Доступ до кабінетів',codeLive()?1:0]],1],
    ['Мої розділи',[['events','cal','Обрані заходи'],['spec','users','Мої фахівці'],['kidsvc','kid','Послуги для дітей',0,0,1],['biz','brief','Мій бізнес']]],
    ['Акаунт',[['prof','user','Мій профіль'],['notif','bell','Мої сповіщення',unread('par')]]]],
  kid:()=>S.kidIn?[['Мій кабінет',[['home','star','Для мене'],['catalog','search','Гуртки й секції'],['kreq','doc','Мої заявки',S.reqs.filter(r=>r.ch===S.kid&&['pend','review'].includes(r.st)).length],['kpass','qr','Activity Pass'],['kwallet','wallet','Освітній гаманець']]],
@@ -1138,11 +1159,11 @@ function reqModal(id){
 
 /* ================= БАТЬКО: МОЇ ДІТИ ================= */
 function preCard(k){
-  const F=FAMILY[k],A=S.auth,seam=VA()?!!A.idp.kyivid:!!A.idp.kitsoft;
+  const F=FAMILY[k],A=S.auth,seam=!!A.portal;
   return `<div class="card kcard vx"><div class="kh">${kava(k)}<div><h3>${F.name}, ${kage(k)}</h3><small>Дошкільня · <span class="mono">${F.id}</span></small></div>${chip('b','Садочок',1)}</div>
-    <div class="rows2"><div><span>Заява на садочок</span><b>у СЕЗ ЗДО</b></div><div><span>Свідоцтво про народження</span><b>${F.cert}</b></div><div><span>Вхід у СЕЗ ЗДО</span><b>${seam?chip('ok','без пароля',1):chip('y',VA()?'потрібен вхід KyivID':'потрібен вхід',1)}</b></div></div>
-    <div class="acts"><button class="btn sm" data-a="sez-go">Відкрити в СЕЗ ЗДО ${ic('arr','s20')}</button></div>
-    <p class="note-s">${VA()?'Варіант «Спільний KyivID»: без пароля, лише якщо на Портал ви входили через KyivID.':'Варіант Kitsoft ID: СЕЗ ЗДО приймає той самий вхід, що й Портал, будь-яким способом.'}</p></div>`;
+    <div class="rows2"><div><span>Заява на садочок</span><b>у СЕЗ ЗДО</b></div><div><span>Свідоцтво про народження</span><b>${F.cert}</b></div><div><span>Де відкривається</span><b>${seam?chip('ok','у кабінеті, без пароля',1):chip('y','потрібен вхід',1)}</b></div></div>
+    <div class="acts"><button class="btn sm" data-a="go" data-v="kg">${ic('home','s20')}Садочок у кабінеті</button></div>
+    <p class="note-s">СЕЗ ЗДО відкривається рамкою прямо тут, на Порталі. ${VA()?'Рамка отримує від Порталу короткий підписаний токен Kitsoft ID.':'Рамка входить через той самий Kitsoft ID, що й Портал.'}</p></div>`;
 }
 function vKids(){
   const cards=kidsAll().map(k=>{if(FAMILY[k].pre)return preCard(k);const F=FAMILY[k],vl=voucherLine(k),acc=S.access[k];
@@ -1589,6 +1610,66 @@ function hopsSezLogin(){
    tech:`302 → GET https://${DOM.kitsoft}/authorise?client_id=osvita&redirect_uri=…/sp_first&response_type=code&state=${s}`,screen:k?null:'methods',req:'СЕЗ ЗДО (садочки)',next:m=>hopsSezBackB(s,m)};
   return k?[first,{from:'kitsoft',to:'kitsoft',ch:'b',t:`Kitsoft ID бачить вашу сесію (${MNAME[k.m]}) і не показує сторінку входу`,tech:'Сесію Kitsoft ID знайдено → код видається одразу'},...hopsSezBackB(s,k.m)]:[first];
 }
+/* ===== СЕЗ ЗДО у рамці (умовний iframe) всередині кабінету Порталу =====
+   kyivid  — рамка отримує від Порталу короткий підписаний токен Kitsoft ID (/user/jwt) через postMessage;
+   kitsoft — рамка сама проходить вхід у Kitsoft ID (редиректи всередині рамки, адреса Порталу не змінюється).
+   Сесія СЕЗ ЗДО в рамці живе лише в пам’яті рамки. */
+const FR=o=>{S.auth.frame=Object.assign(S.auth.frame||{},o)};
+function hopEmbedLoad(){
+  return {from:'portal',to:'sez',ch:'b',t:'Портал вбудовує сторінку СЕЗ ЗДО в рамку (iframe)',
+   tech:`<iframe src="https://${DOM.sez}/embed">\nСЕЗ ЗДО має дозволити вбудовування лише Порталу: Content-Security-Policy: frame-ancestors https://${DOM.portal}\n⚠ Зараз такого заголовка немає — сайт можна вбудувати будь-куди`,
+   fx:()=>FR({url:U('sez','/embed'),st:'load'})};
+}
+function hopEmbedReady(A,via,m){
+  return [
+   {from:'sez',to:'sez',ch:'b',t:'СЕЗ ЗДО знаходить заяву дитини і показує її в рамці',tech:`Збіг: свідоцтво ${FAMILY.daryna.cert} + РНОКПП батька → заява № ${SEZQ.no}\nСесія СЕЗ ЗДО — лише в пам’яті рамки`,fx:()=>{A.sez={via,m,embed:1};FR({url:U('sez','/embed/cabinet'),st:'ready'})}},
+   {from:'sez',to:'portal',ch:'p',t:'Рамка повідомляє свою висоту — Портал підлаштовує її під вміст',tech:`window.parent.postMessage({ type: 'resize', height: 1180 }, 'https://${DOM.portal}')`}];
+}
+function hopsEmbedA(){
+  const A=S.auth,m=(A.portal&&A.portal.m)||'diia';
+  return[
+   hopEmbedLoad(),
+   {from:'sez',to:'portal',ch:'p',t:'Рамка повідомляє Порталу, що завантажилась, і просить токен',tech:`window.parent.postMessage({ type: 'ready' }, 'https://${DOM.portal}')\nПортал перевіряє event.origin === 'https://${DOM.sez}'`},
+   {from:'portal',to:'kitsoft',ch:'s',t:'Портал бере в Kitsoft ID короткий підписаний токен для СЕЗ ЗДО',tech:`GET https://${DOM.kitsoft}/user/jwt  (Bearer токен Порталу; клієнт portal має grant user_jwt)\n→ JWT HS256 на 60 с: { userId, authTokens: { accessToken } }`},
+   {from:'portal',to:'sez',ch:'p',t:'Портал передає токен у рамку',tech:`iframe.contentWindow.postMessage({ type: 'token', jwt }, 'https://${DOM.sez}')\nТокен не потрапляє в адресу, логи і Referer`},
+   {from:'sez',to:'sez',ch:'b',t:'СЕЗ ЗДО перевіряє підпис і строк токена',tech:`POST https://${DOM.sez}/v1/auth/embed { jwt }\njwt.verify(jwt, спільний секрет jwt.secret Kitsoft ID) · строк 60 с`},
+   {from:'sez',to:'kitsoft',ch:'s',t:'СЕЗ ЗДО бере ваші дані з Kitsoft ID',tech:`GET https://${DOM.kitsoft}/user/info  (accessToken із JWT) → userId, ipn, email, provider=${m==='kyivid'?'wso2':m}`},
+   ...hopEmbedReady(A,'handoff',m)];
+}
+function hopsEmbedB(){
+  const A=S.auth,m=(A.idp.kitsoft&&A.idp.kitsoft.m)||(A.portal&&A.portal.m)||'diia',s=rnd(6);
+  const au=`/authorise?client_id=osvita&redirect_uri=https://${DOM.sez}/sp_first&response_type=code&state=${s}`;
+  return[
+   hopEmbedLoad(),
+   {from:'sez',to:'kitsoft',ch:'b',t:'Рамка сама йде в Kitsoft ID по вхід. Редирект — лише всередині рамки, адреса Порталу вгорі не змінюється',tech:`302 у рамці → GET https://${DOM.kitsoft}${au}\nCookie сесії Kitsoft ID доходить у рамку: Портал, Kitsoft ID і СЕЗ ЗДО — один сайт kyivcity.gov.ua`,fx:()=>FR({url:U('kitsoft',au),st:'kit'})},
+   {from:'kitsoft',to:'kitsoft',ch:'b',t:`Kitsoft ID бачить сесію (${MNAME[m]}) і одразу видає код — сторінку входу не показує`,tech:'Сесію Kitsoft ID знайдено → код видається одразу\n⚠ Cookie сесії Kitsoft ID живе 1 год (maxAge). Після цього Kitsoft ID показав би сторінку входу, а в рамці її показувати не можна — рамка має попросити Портал оновити вхід'},
+   {from:'kitsoft',to:'sez',ch:'b',t:'Kitsoft ID повертає код у рамку СЕЗ ЗДО',tech:`302 у рамці → https://${DOM.sez}/sp_first?code=…&state=${s}`,fx:()=>FR({url:U('sez',`/sp_first?code=${rnd(10)}&state=${s}`),st:'load'})},
+   {from:'sez',to:'kitsoft',ch:'s',t:'СЕЗ ЗДО обмінює код на токен',tech:`POST https://${DOM.kitsoft}/oauth/token  (client_id=osvita + secret) → access_token`},
+   {from:'sez',to:'kitsoft',ch:'s',t:'СЕЗ ЗДО бере ваші дані з Kitsoft ID',tech:`GET https://${DOM.kitsoft}/user/info → userId, ipn, email, provider=${m==='kyivid'?'wso2':m}`},
+   ...hopEmbedReady(A,'kitsoft',m)];
+}
+function kgOpen(){
+  const A=S.auth;if(S.role!=='par'||!A.portal||A.flow||A.frame||S.v.par!=='kg'||S.at!=='portal')return;
+  FR({url:U('sez','/embed'),st:'load'});
+  runChain(VA()?hopsEmbedA():hopsEmbedB());
+}
+function vKg(){
+  const A=S.auth,F=FAMILY.daryna,fr=A.frame||{url:U('sez','/embed'),st:'load'};
+  return ph('Садочок',{sm:1,crumb:[['Мої діти','kids'],['Садочок']]})+
+   `<div class="card lead" style="min-height:0;align-items:center">${kava('daryna')}<div style="flex:1;min-width:0"><div class="k">${ic('home','s18')}СЕЗ ЗДО у кабінеті Порталу</div><h3>${F.name}, ${kage('daryna')} · заява на садочок</h3><div class="m">Нижче — сторінка СЕЗ ЗДО, вбудована в Портал рамкою. Окремо входити не треба</div></div></div>
+   <div class="ifr"><span class="ifr-tag">iframe · ${DOM.sez}</span><div class="ifr-bar">${ic('lock','s16')}<span class="mono">${fmtUrl(fr.url)}</span></div><div class="ifr-body">${frameBody(fr)}</div></div>
+   <div class="info">${ic('info')}<div>Адреса вгорі не змінюється: ви весь час на Порталі. ${VA()?'Рамка отримує від Порталу короткий підписаний токен Kitsoft ID через postMessage.':'Рамка сама входить через Kitsoft ID за сесією, яка вже є після входу на Портал.'}</div></div>`;
+}
+function frameBody(fr){
+  const A=S.auth,F=FAMILY.daryna,q=SEZQ,h=A.hop,ready=fr.st==='ready'&&A.sez;
+  const head=`<div class="ifr-h">${ic('home','s20')}<b>СЕЗ ЗДО</b><span>Запис до садочків Києва</span>${ready?`<em>${ic('user','s16')}Роман К.</em>`:''}</div>`;
+  if(!ready)return (fr.st==='kit'?'':head)+`<div class="ifr-c"><div class="xwait" style="padding:6px 0"><span class="spin"></span><div><b style="font-size:19px;font-weight:600">${fr.st==='kit'?'Kitsoft ID перевіряє сесію…':'Вхід у СЕЗ ЗДО…'}</b>${h?`<div class="note-s" style="margin-top:6px">${h.t}</div>`:''}</div></div></div>`;
+  return head+`<div class="ifr-c"><div class="kh">${kava('daryna')}<div><h3>${F.full}</h3><small>${kage('daryna')} · свідоцтво ${F.cert}</small></div>${chip('queue',`У черзі · ${q.pos}-ме місце`,1)}</div>
+    <div class="kv" style="margin-top:18px"><div>Заява</div><div class="mono">№ ${q.no}</div><div>Подано</div><div>${q.d}</div><div>Навчальний рік</div><div>${q.yr}</div><div>Бажані садочки</div><div>${q.kg.join('<br>')}</div></div>
+    <div class="info ok">${ic('checkc')}<div><b>Як знайдено заяву.</b> За свідоцтвом про народження дитини і РНОКПП батька, які прийшли з Kitsoft ID.</div></div>
+    <div class="info">${ic('user')}<div><b>Кравець Роман Іванович</b> · вхід на Портал через ${MNAME[A.sez.m]||'—'}. ${A.sez.via==='handoff'?'Рамка отримала токен від Порталу.':'Рамка увійшла через Kitsoft ID.'}</div></div></div>`;
+}
+
 function sezGo(fromPortal){
   const A=S.auth;if(S.role!=='par'||A.flow)return;
   if(fromPortal&&S.at!=='portal')return;
@@ -1596,7 +1677,7 @@ function sezGo(fromPortal){
    ?{from:'portal',to:'sez',ch:'b',at:'sez',url:U('sez','/sso/portal'),t:'Портал відкриває сайт садочків',tech:`GET https://${DOM.sez}/sso/portal`,fx:()=>{S.sezV='wait'}}
    :{from:S.at,to:'sez',ch:'b',at:'sez',url:U('sez','/'),t:'Ви відкриваєте сайт садочків за адресою',tech:`GET https://${DOM.sez}/`,fx:()=>{S.sezV='wait'}}];
   if(A.sez){
-    if(!VA()&&A.sezRevoked)hops.push(
+    if(A.sezRevoked)hops.push(
      {from:'sez',to:'kitsoft',ch:'s',t:'СЕЗ ЗДО перевіряє свій токен у Kitsoft ID — його вже видалено',tech:`GET https://${DOM.kitsoft}/user/info  (токен СЕЗ ЗДО) → 401 Unauthorized\n⚠ Доробка: СЕЗ ЗДО має регулярно перевіряти токен у Kitsoft ID`},
      {from:'sez',to:'sez',ch:'b',url:U('sez','/'),t:'СЕЗ ЗДО закриває сесію — ви вийшли з Порталу',tech:'Сесію СЕЗ ЗДО закрито',fx:()=>{A.sez=null;A.sezRevoked=false;S.sezV='login'}});
     else hops.push({from:'sez',to:'sez',ch:'b',url:U('sez','/cabinet'),t:A.portalOut?'СЕЗ ЗДО не знає, що ви вийшли з Порталу: її власна сесія ще діє':'У СЕЗ ЗДО вже є ваша сесія — вхід не потрібен',tech:'СЕЗ ЗДО: власна сесія (JWT) ще дійсна',fx:()=>{S.sezV='home'}});
@@ -1613,11 +1694,12 @@ function backToPortal(){
 }
 function portalLogout(){
   const A=S.auth;S.dd=null;if(A.flow||!A.portal||S.at!=='portal'){renderDD();return}
-  runChain([
+  const pre=A.frame?[{from:'portal',to:'sez',ch:'p',t:'Портал просить рамку СЕЗ ЗДО закрити свою сесію',tech:`iframe.contentWindow.postMessage({ type: 'logout' }, 'https://${DOM.sez}')\nСЕЗ ЗДО очищає сесію рамки, рамка зникає разом із кабінетом`,fx:()=>{if(A.sez&&A.sez.embed)A.sez=null;A.frame=null}}]:[];
+  runChain([...pre,
    {from:'portal',to:'kitsoft',ch:'b',at:'kitsoft',url:U('kitsoft','/logout'),t:'Портал відправляє вас на вихід у Kitsoft ID',tech:`GET https://${DOM.kitsoft}/logout`},
-   {from:'kitsoft',to:'kitsoft',ch:'b',t:VA()?'Kitsoft ID видаляє свою сесію і токени. Сесію KyivID він не закриває':'Kitsoft ID видаляє сесію і всі ваші токени, зокрема токен СЕЗ ЗДО',
+   {from:'kitsoft',to:'kitsoft',ch:'b',t:VA()?'Kitsoft ID видаляє свою сесію і всі ваші токени, зокрема той, що отримала СЕЗ ЗДО. Сесію KyivID він не закриває':'Kitsoft ID видаляє сесію і всі ваші токени, зокрема токен СЕЗ ЗДО',
     tech:'AccessToken / RefreshToken / Session.destroy({ userId })'+(VA()?'\nKyivID: сесія лишається (вихід у WSO2 не викликається)':''),
-    fx:()=>{A.idp.kitsoft=null;A.portal=null;A.portalOut=true;if(!VA()&&A.sez)A.sezRevoked=true}},
+    fx:()=>{A.idp.kitsoft=null;A.portal=null;A.portalOut=true;if(A.sez&&A.sez.via!=='kyivid')A.sezRevoked=true}},
    {from:'kitsoft',to:'portal',ch:'b',at:'portal',url:U('portal','/'),t:'Ви на Порталі, вже без сесії',tech:`302 → https://${DOM.portal}/`}],()=>toast('Ви вийшли з Порталу'));
 }
 function sezLogout(){
@@ -1635,9 +1717,9 @@ function vGate(){
   return ph('Портал послуг')+`<div class="card lead" style="align-items:center;min-height:0">${busy?'<span class="spin" style="width:44px;height:44px;border-width:4px;margin:0"></span>':`<span class="kava" style="background:var(--blue-s);color:var(--blue)">${ic('user')}</span>`}
    <div style="flex:1;min-width:0"><div class="k">${ic('lock','s18')}${busy?'Вхід триває':'Ви не увійшли'}</div><h3>${busy?'Завершуємо вхід…':'Увійдіть, щоб побачити кабінет'}</h3><div class="m">${busy?(A.hop?A.hop.t:''):'Вхід на Портал іде через Kitsoft ID — сервіс входу Порталу'}</div>
    ${busy?'':`<div class="acts"><button class="btn" data-a="plogin">Увійти</button><a class="lnk" data-a="url-sez">Сайт садочків (СЕЗ ЗДО)</a></div>`}</div></div>
-   <div class="info ${VA()?'warn':'ok'}">${ic('info')}<div>${VA()
-    ?'<b>Варіант «Спільний KyivID».</b> Щоб потім перейти в СЕЗ ЗДО без пароля, на Портал треба входити через KyivID. Після Дії, ID.GOV.UA, КЕП чи BankID СЕЗ ЗДО попросить увійти ще раз.'
-    :'<b>Варіант «osvita як клієнт Kitsoft ID».</b> Входьте будь-яким способом: СЕЗ ЗДО приймає той самий вхід Kitsoft ID, тож у садочки можна перейти без пароля.'}</div></div>`;
+   <div class="info ok">${ic('info')}<div>${VA()
+    ?'<b>Варіант «Спільний KyivID».</b> Входьте будь-яким способом: СЕЗ ЗДО відкриється рамкою прямо в кабінеті й отримає від Порталу короткий підписаний токен Kitsoft ID.'
+    :'<b>Варіант «osvita як клієнт Kitsoft ID».</b> Входьте будь-яким способом: СЕЗ ЗДО відкриється рамкою прямо в кабінеті й увійде через той самий Kitsoft ID.'}</div></div>`;
 }
 
 /* екрани зовнішніх систем */
@@ -1649,11 +1731,13 @@ function vExt(){
     let body;
     if(A.confirm&&A.confirm!=='kyivid')body=`<h2>Підтвердіть вхід</h2><p class="xs">${MNAME[A.confirm]}: ${{diia:'відскануйте QR-код у застосунку Дія',govid:'завершіть вхід на ID.GOV.UA',eds:'оберіть ключ і введіть пароль',bankid:'підтвердіть вхід у своєму банку'}[A.confirm]}</p>${wait('Чекаємо підтвердження…')}<p class="note-s">У макеті підтвердження імітоване.</p>`;
     else if(w&&h&&h.screen==='methods'){
-      const kv=VA()&&h.req==='Портал послуг';
+      const pr=h.req==='Портал послуг',kv=VA()&&pr;
+      const seam=pr?'<span class="chip ok sm" style="margin-left:auto">наскрізний вхід у СЕЗ ЗДО</span>':'';
       const M=[['diia','Дія','QR-код або Дія.Підпис','doc'],['govid','ID.GOV.UA','Інтегрована система електронної ідентифікації','shield'],['eds','КЕП','Файловий ключ або токен','key'],['bankid','BankID','Через ваш банк','card']];
-      body=`<h2>${h.req==='Портал послуг'?'Вхід на Портал послуг':'Вхід через Портал послуг'}</h2><p class="xs">Оберіть спосіб входу</p>${reqLine(h.req)}
-       <div class="xm">${kv?`<button class="opt" data-a="pm" data-m="kyivid"><span class="oi">${ic('lock')}</span><span><b>KyivID</b><small>Міський вхід</small></span><span class="chip ok sm" style="margin-left:auto">наскрізний вхід у СЕЗ ЗДО</span></button>`:''}
-       ${M.map(([m,n,d,i])=>`<button class="opt" data-a="pm" data-m="${m}"><span class="oi">${ic(i)}</span><span><b>${n}</b><small>${d}</small></span>${kv?'<span class="chip g sm" style="margin-left:auto">без наскрізного входу</span>':''}</button>`).join('')}</div>`;
+      body=`<h2>${pr?'Вхід на Портал послуг':'Вхід через Портал послуг'}</h2><p class="xs">Оберіть спосіб входу</p>${reqLine(h.req)}
+       <div class="xm">${kv?`<button class="opt" data-a="pm" data-m="kyivid"><span class="oi">${ic('lock')}</span><span><b>KyivID</b><small>Міський вхід</small></span>${seam}</button>`:''}
+       ${M.map(([m,n,d,i])=>`<button class="opt" data-a="pm" data-m="${m}"><span class="oi">${ic(i)}</span><span><b>${n}</b><small>${d}</small></span>${seam}</button>`).join('')}</div>
+       ${pr?`<div class="info ok">${ic('checkc')}<div>${VA()?'Будь-який спосіб дає наскрізний вхід у СЕЗ ЗДО: її рамка в кабінеті отримає від Порталу короткий підписаний токен Kitsoft ID (<span class="mono">/user/jwt</span>).':'Будь-який спосіб дає наскрізний вхід у СЕЗ ЗДО: її рамка в кабінеті входить через той самий Kitsoft ID.'}</div></div>`:''}`;
     }else body=`<h2>Kitsoft ID</h2>${reqLine(h&&h.req)}${wait('Перенаправляємо…')}`;
     return `<div class="xpg kit"><div class="xh"><div class="wrap"><img src="img/logo-blue.svg" alt="Портал послуг"><span class="xt">Вхід · Kitsoft ID</span></div></div><div class="xb"><div class="card xcard">${body}</div></div></div>`;
   }
@@ -1668,13 +1752,13 @@ function vExt(){
   if(A.sez&&S.sezV==='home'){
     body=`<div class="card sezc"><div class="kh">${kava('daryna')}<div><h3>${F.full}</h3><small>${kage('daryna')} · свідоцтво ${F.cert}</small></div>${chip('queue',`У черзі · ${q.pos}-ме місце`,1)}</div>
      <div class="kv" style="margin-top:18px"><div>Заява</div><div class="mono">№ ${q.no}</div><div>Подано</div><div>${q.d}</div><div>Навчальний рік</div><div>${q.yr}</div><div>Бажані садочки</div><div>${q.kg.join('<br>')}</div></div>
-     <div class="info ok">${ic('checkc')}<div><b>Як знайдено заяву.</b> ${A.sez.via==='kitsoft'?'За свідоцтвом про народження дитини і РНОКПП батька, які прийшли з Kitsoft ID.':'За підтвердженим email із KyivID: roman.demo@example.com.'}</div></div>
-     <div class="info">${ic('user')}<div>Ви увійшли як <b>Кравець Роман Іванович</b> · через ${A.sez.via==='kitsoft'?`Kitsoft ID (${MNAME[A.sez.m]})`:'KyivID'}</div></div>
+     <div class="info ok">${ic('checkc')}<div><b>Як знайдено заяву.</b> ${A.sez.via!=='kyivid'?'За свідоцтвом про народження дитини і РНОКПП батька, які прийшли з Kitsoft ID.':'За підтвердженим email із KyivID: roman.demo@example.com.'}</div></div>
+     <div class="info">${ic('user')}<div>Ви увійшли як <b>Кравець Роман Іванович</b> · ${A.sez.via==='handoff'?`з Порталу послуг, за токеном Kitsoft ID (вхід через ${MNAME[A.sez.m]})`:A.sez.via==='kitsoft'?`через Kitsoft ID (${MNAME[A.sez.m]})`:'через KyivID'}</div></div>
      <div class="acts" style="margin-top:22px;gap:14px"><button class="btn green" data-a="sez-back">${ic('back','s20')}Повернутися на Портал</button><button class="btn ghost" data-a="sez-logout">${ic('logout','s20')}Вийти</button></div></div>`;
   }else if(A.flow)body=`<div class="card xcard">${wait('Перевіряємо вхід…')}</div>`;
   else body=`<div class="card xcard"><h2>Вхід до кабінету</h2><p class="xs">Щоб побачити заяви на садочок, увійдіть</p>
      <div class="acts" style="margin-top:22px;gap:14px">${VA()?`<button class="btn green" data-a="sez-login">Увійти через KyivID</button>`:`<button class="btn green" data-a="sez-login">Увійти через Портал послуг</button><button class="btn ghost" data-a="toast" data-t="Запасний вхід через KyivID на перехідний період. У макеті не деталізовано">KyivID</button>`}</div>
-     <div class="info">${ic('info')}<div>${VA()?'СЕЗ ЗДО приймає вхід через KyivID.':'«Портал послуг» тут — це Kitsoft ID, той самий вхід, що й на Порталі.'}</div></div>
+     <div class="info">${ic('info')}<div>${VA()?'Напряму СЕЗ ЗДО приймає вхід через KyivID. Якщо ви вже на Порталі, переходьте звідти кнопкою «Відкрити в СЕЗ ЗДО»: так спрацює будь-який спосіб входу.':'«Портал послуг» тут — це Kitsoft ID, той самий вхід, що й на Порталі.'}</div></div>
      <div class="acts" style="margin-top:16px"><a class="lnk sm" data-a="sez-back">← На Портал послуг</a></div></div>`;
   return `<div class="xpg sez"><div class="xh"><div class="wrap"><span class="xlogo">${ic('home')}СЕЗ ЗДО</span><span class="xt">Запис до садочків Києва</span><span class="xr">${A.sez?`${ic('user','s20')}Роман К.`:'Не залогінено'}</span></div></div><div class="xb"><div class="xin">${body}</div></div></div>`;
 }
@@ -1682,15 +1766,18 @@ function vExt(){
 /* рядок адреси, схема, журнал */
 let lastUrl='';
 function fmtUrl(u){const i=u.indexOf('/'),host=i<0?u:u.slice(0,i),rest=i<0?'':u.slice(i);
-  return `<b>${host}</b>`+rest.replace(/([?&])(client_id|redirect_uri|response_type|code|state|post_logout_redirect_uri)=([^&]*)/g,'$1<em>$2</em>=<u>$3</u>')}
+  return `<b>${host}</b>`+rest.replace(/([?&])(client_id|redirect_uri|response_type|code|state|token|post_logout_redirect_uri)=([^&]*)/g,'$1<em>$2</em>=<u>$3</u>')}
 function sessTxt(k){const A=S.auth;
   if(k==='portal')return A.portal&&('сесія · '+MNAME[A.portal.m]);
   if(k==='kitsoft')return A.idp.kitsoft&&('сесія · '+MNAME[A.idp.kitsoft.m]);
   if(k==='kyivid')return A.idp.kyivid&&'сесія є';
-  return A.sez&&(A.sezRevoked?'сесія · токен відкликано':'сесія є')}
+  return A.sez&&(A.sez.embed?'сесія в рамці':A.sezRevoked?'сесія · токен відкликано':'сесія є')}
+const CHL={b:'через браузер',s:'сервер ↔ сервер',p:'postMessage',k:'усередині',i:'раніше'};
+const CHS={b:'браузер',s:'сервер',p:'postMessage',k:'усередині',i:'раніше'};
+const chCls=x=>x.ch==='b'&&x.from===x.to?'k':x.ch;
 function renderAuth(){
   const A=S.auth,kid=S.role==='kid',f=A.flow,h=A.hop;
-  const url=kid?U('portal',S.kidIn?'/kid/home':'/kid/login'):S.url;
+  const url=kid?U('portal',S.kidIn?'/kid/home':'/kid/login'):S.at==='portal'&&A.portal&&S.v.par==='kg'?U('portal','/cabinet/kindergarten'):S.url;
   $('#abar').innerHTML=`<span class="adots"><i></i><i></i><i></i></span><div class="aurl${url!==lastUrl?' fl':''}">${ic('lock')}<span>${fmtUrl(url)}</span></div>${f&&!kid?`<span class="ahop">${f.wait?'⏸ чекає на вас':'<span class="spin"></span>редирект'}</span>`:''}<div class="ago"><span>Перейти:</span><button data-a="url-portal"${kid?' disabled':''}>Портал</button><button data-a="url-sez"${kid?' disabled':''}>СЕЗ ЗДО</button></div><button class="atg" data-a="ascheme">Схема ${A.open?'▴':'▾'}</button>`;
   lastUrl=url;
   const box=$('#ascheme');
@@ -1699,23 +1786,22 @@ function renderAuth(){
   if(kid){box.innerHTML=`<div class="acap"><span class="ach k">пристрій дитини</span><div>Вхід дитини — за ID і одноразовим кодом, який приходить батькам. Це власний механізм Порталу (Kitsoft ID); KyivID і СЕЗ ЗДО тут не задіяні. Сесії батька видно в ролі «Батько».</div></div>`;return}
   const cards=SYS.map(([k,n,r])=>{const on=sessTxt(k),dim=k==='kyivid'&&!VA();
     const cls=['sy',dim?'dim':'',h&&h.from===k&&h.from!==h.to?'src':'',h&&h.to===k?'dst':''].join(' ');
-    return `<div class="${cls}">${S.at===k?'<span class="you">ви тут</span>':''}<div class="sn">${n}</div><div class="sd">${DOM[k]}</div><div class="sr">${dim?'у цьому варіанті не задіяний':r}</div><div class="ss${on?' on':''}"><i></i>${on||'немає сесії'}</div></div>`}).join('');
+    return `<div class="${cls}">${S.at===k?'<span class="you">ви тут</span>':k==='sez'&&A.frame&&S.at==='portal'?'<span class="you fr">у рамці</span>':''}<div class="sn">${n}</div><div class="sd">${DOM[k]}</div><div class="sr">${dim?'у цьому варіанті не задіяний':r}</div><div class="ss${on?' on':''}"><i></i>${on||'немає сесії'}</div></div>`}).join('');
   let con='';
-  if(h&&h.from!==h.to){const a=SIX[h.from],b=SIX[h.to],lo=Math.min(a,b);con=`<div class="acon${h.ch==='s'?' s':''} ${b>a?'r':'l'}" style="left:${(lo+.5)*25}%;width:${Math.abs(b-a)*25}%"></div>`}
-  const cap=h?`<span class="ach ${h.ch}">${h.ch==='s'?'сервер ↔ сервер':'через браузер'}</span><div><b>Крок ${f?f.i:''}.</b> ${h.t}${h.ch==='s'?' <span style="color:#9aa1ab">(браузер цього не бачить)</span>':''}</div>`
+  if(h&&h.from!==h.to){const a=SIX[h.from],b=SIX[h.to],lo=Math.min(a,b);con=`<div class="acon${h.ch==='s'||h.ch==='p'?' '+h.ch:''} ${b>a?'r':'l'}" style="left:${(lo+.5)*25}%;width:${Math.abs(b-a)*25}%"></div>`}
+  const cap=h?`<span class="ach ${chCls(h)}">${CHL[chCls(h)]}</span><div><b>Крок ${f?f.i:''}.</b> ${h.t}${h.ch==='s'?' <span style="color:#9aa1ab">(браузер цього не бачить)</span>':h.ch==='p'?' <span style="color:#9aa1ab">(у браузері, між сторінкою Порталу і рамкою)</span>':''}</div>`
    :`<span class="ach i">${VA()?'Спільний KyivID':'Kitsoft ID'}</span><div>${VA()
-     ?'Портал входить через Kitsoft ID, СЕЗ ЗДО — через KyivID. Спільна між ними лише сесія KyivID, тому без пароля в садочки можна перейти, тільки якщо на Портал входили через KyivID.'
-     :'Портал і СЕЗ ЗДО входять через один сервіс — Kitsoft ID. Його сесія спільна, тому в садочки можна перейти без пароля після будь-якого способу входу на Портал.'}</div>`;
-  const CHN={b:'браузер',s:'сервер',i:'раніше'};
-  const log=`<div class="alog"><button data-a="alog">${A.logOpen?'▾':'▸'} Журнал авторизації (${A.log.length})</button>${A.logOpen?(A.log.length?`<ol>${A.log.map((x,i)=>`<li><span class="n">${i+1}</span><span class="ach ${x.ch}">${CHN[x.ch]}</span><div><span class="w">${SYS[SIX[x.from]][1]}${x.from!==x.to?' → '+SYS[SIX[x.to]][1]:''}</span> · ${x.t}</div>${x.tech?`<div class="tc">${x.tech}</div>`:''}</li>`).join('')}</ol>`:'<div class="aemp">Поки порожньо. Увійди на Портал — тут з’являться всі кроки.</div>'):''}</div>`;
+     ?'Портал входить через Kitsoft ID. СЕЗ ЗДО відкривається рамкою в кабінеті Порталу і отримує від нього короткий підписаний токен Kitsoft ID (/user/jwt) через postMessage, тому наскрізно працює будь-який спосіб входу. Напряму СЕЗ ЗДО входить через KyivID.'
+     :'Портал і СЕЗ ЗДО входять через один сервіс — Kitsoft ID. СЕЗ ЗДО відкривається рамкою в кабінеті Порталу і сама входить через Kitsoft ID за наявною сесією, тому наскрізно працює будь-який спосіб входу.'}</div>`;
+  const log=`<div class="alog"><button data-a="alog">${A.logOpen?'▾':'▸'} Журнал авторизації (${A.log.length})</button>${A.logOpen?(A.log.length?`<ol>${A.log.map((x,i)=>`<li><span class="n">${i+1}</span><span class="ach ${chCls(x)}">${CHS[chCls(x)]}</span><div><span class="w">${SYS[SIX[x.from]][1]}${x.from!==x.to?' → '+SYS[SIX[x.to]][1]:''}</span> · ${x.t}</div>${x.tech?`<div class="tc">${x.tech}</div>`:''}</li>`).join('')}</ol>`:'<div class="aemp">Поки порожньо. Увійди на Портал — тут з’являться всі кроки.</div>'):''}</div>`;
   box.innerHTML=`<div class="asys">${cards}${con}</div><div class="acap">${cap}</div>${log}`;
   const ol=$('ol',box);if(ol)ol.scrollTop=ol.scrollHeight;
 }
 
 /* ================= РЕНДЕР ================= */
-const VIEWS={svc:vSvc,kids:vKids,addkid:vAddkid,approve:vApprove,pass:vPass,wallet:vWallet,pay:vPay,access:vAccess,catalog:vCatalog,club:()=>vClub(S.sub[S.role]),apply:vApply,
+const VIEWS={svc:vSvc,kids:vKids,kg:vKg,addkid:vAddkid,approve:vApprove,pass:vPass,wallet:vWallet,pay:vPay,access:vAccess,catalog:vCatalog,club:()=>vClub(S.sub[S.role]),apply:vApply,
  home:vHome,kreq:vKreq,kpass:vKpass,kwallet:vKwallet,kprof:vKprof,login:vLogin,invite:vInvite,bound:vBound};
-const KIDV=['kids','addkid','approve','pass','wallet','pay','access','catalog','club','apply'];
+const KIDV=['kids','kg','addkid','approve','pass','wallet','pay','access','catalog','club','apply'];
 const LOGV=['login','invite','bound'];
 let lastKey='';
 function render(){
@@ -1739,6 +1825,8 @@ function render(){
   const key=S.role+(ext?S.at+S.sezV:'')+(parOut?'out':'')+v+(S.sub[S.role]||'')+(S.wz?S.wz.k+S.wz.step:'')+(v==='login'?S.kstep:'');
   if(key!==lastKey){window.scrollTo(0,0);lastKey=key}
   afterRender();renderDD();renderChat();renderAuth();
+  // Сторінка «Садочок»: рамка СЕЗ ЗДО входить сама, щойно сторінка відкрилась.
+  if(S.role==='par'&&A.portal&&v==='kg'&&S.at==='portal'&&!A.frame&&!A.flow)setTimeout(kgOpen,0);
 }
 function afterRender(){
   const ins=$$('#codebox input');
@@ -1753,6 +1841,8 @@ function afterRender(){
 function go(v,sub){
   if(!S.layer&&KIDV.includes(v))return;
   if(!['apply','addkid'].includes(v))S.wz=null;
+  // Пішли зі сторінки «Садочок» — рамка зникає разом із сесією, що жила в ній.
+  const A=S.auth;if(v!=='kg'&&A.frame&&!A.flow){A.frame=null;if(A.sez&&A.sez.embed)A.sez=null}
   S.v[S.role]=v;S.sub[S.role]=sub||null;S.dd=null;
   render();
 }
@@ -1761,7 +1851,7 @@ function setRole(r){if(!S.layer&&r!=='par')return;S.role=r;S.dd=null;S.chat=fals
 /* дропдауни */
 function renderDD(){
   const box=$('#ddBox');let h='';
-  if(S.dd==='city')h=`<div class="drop" style="left:233px">${[['Соціальна підтримка'],['Діти та освіта'],['Гуртки й секції','catalog',1],['Садочки (СЕЗ ЗДО)','sez',1],['Захисникам'],['Житло і комунальні послуги'],['Бізнесу'],['Транспорт']].map(c=>`<a ${c[1]==='sez'?'data-a="sez-go"':c[1]?`data-a="go" data-v="${c[1]}"`:'data-a="toast" data-t="Каталог послуг у макеті не деталізовано"'} class="${c[2]?'vx':''}">${c[0]}${c[2]?' <span class="chip pur sm" style="margin-left:auto">новий</span>':''}</a>`).join('')}</div>`;
+  if(S.dd==='city')h=`<div class="drop" style="left:233px">${[['Соціальна підтримка'],['Діти та освіта'],['Гуртки й секції','catalog',1],['Садочки (СЕЗ ЗДО)','kg',1],['Захисникам'],['Житло і комунальні послуги'],['Бізнесу'],['Транспорт']].map(c=>`<a ${c[1]?`data-a="go" data-v="${c[1]}"`:'data-a="toast" data-t="Каталог послуг у макеті не деталізовано"'} class="${c[2]?'vx':''}">${c[0]}${c[2]?' <span class="chip pur sm" style="margin-left:auto">новий</span>':''}</a>`).join('')}</div>`;
   if(S.dd==='a11y')h=`<div class="drop" style="right:150px"><button data-a="a11y">${ic('zoom')}${S.a11y?'Звичайний розмір':'Збільшити текст'}</button><button data-a="toast" data-t="Режим високої контрастності в макеті не деталізовано">${ic('info')}Висока контрастність</button></div>`;
   if(S.dd==='user'){
     if(S.role==='par')h=S.auth.portal?`<div class="drop" style="right:-4px"><div class="cap">Роман Кравець</div><button data-a="go" data-v="prof">${ic('user')}Мій профіль</button><button data-a="go" data-v="notif">${ic('bell')}Мої сповіщення</button><hr><button data-a="plogout">${ic('logout')}Вийти</button></div>`
@@ -1971,7 +2061,7 @@ document.addEventListener('click',e=>{
    case'plogin':S.dd=null;startPortalLogin();break;
    case'pm':pickMethod(d.m);break;
    case'kyivid-ok':kyividOk();break;
-   case'sez-go':sezGo(true);break;
+   case'sez-go':mclose();S.chat=false;go('kg');break;
    case'url-sez':sezGo(false);break;
    case'sez-back':case'url-portal':backToPortal();break;
    case'sez-login':sezLogin();break;
@@ -2008,8 +2098,8 @@ const pyReq=()=>S.reqs.find(x=>x.club==='py'&&x.by==='kid');
 const PL=force=>[
  {t:'Тато відкриває Портал послуг на телефоні. Він ще не увійшов. Натисни <b>«Увійти»</b>.<span class="why">Стеж за рядком адреси і схемою зверху: там видно кожен перехід між системами.</span>',sel:'#main [data-a="plogin"]',done:()=>!!S.auth.flow||!!S.auth.portal},
  {t:()=>force==='diia'
-   ?'Портал передав вхід у Kitsoft ID — сервіс входу Порталу. Обери <b>Дія</b>.'+(VA()?'<span class="why">У цьому варіанті Дія — вхід повз KyivID. Подивимось, що буде із садочками.</span>':'')
-   :VA()?'Портал передав вхід у Kitsoft ID. Обери <b>KyivID</b>: лише так потім спрацює вхід у СЕЗ ЗДО без пароля.'
+   ?'Портал передав вхід у Kitsoft ID — сервіс входу Порталу. Обери <b>Дія</b>.'+(VA()?'<span class="why">KyivID тут не задіяний. Подивимось, чи спрацює наскрізний вхід у садочки.</span>':'')
+   :VA()?'Портал передав вхід у Kitsoft ID. Усі способи дають наскрізний вхід у СЕЗ ЗДО. Для прикладу обери <b>KyivID</b> — побачиш, як Kitsoft ID передає вхід у KyivID.'
    :'Портал передав вхід у Kitsoft ID — сервіс входу Порталу. Обери будь-який спосіб, наприклад <b>Дія</b>.<span class="why">У цьому варіанті СЕЗ ЗДО теж входить через Kitsoft ID, тому спосіб не важливий.</span>',
   sel:()=>`[data-a="pm"][data-m="${force||(VA()?'kyivid':'diia')}"]`,done:()=>!!S.auth.portal||!!(S.auth.hop&&S.auth.hop.screen!=='methods')},
  {t:'Kitsoft ID передав вхід у KyivID. Сесії KyivID ще немає, тож KyivID просить увійти. Натисни <b>«Увійти»</b>.',sel:'[data-a="kyivid-ok"]',skip:()=>!(VA()&&!force),done:()=>!!S.auth.idp.kyivid||!!S.auth.portal},
@@ -2017,35 +2107,32 @@ const PL=force=>[
 ];
 /* вхід дитини на прив'язаному пристрої */
 const KL=()=>[{t:'Марко відкриває Портал на своєму ноутбуці. Пристрій уже прив’язано до його профілю, тому вхід без коду. Натисни <b>«Увійти як Марко»</b>.<span class="why">Вхід дитини — власний механізм Порталу. KyivID і СЕЗ ЗДО тут не задіяні. Тато вже увійшов на Портал на своєму телефоні.</span>',sel:'[data-a="kquick"]',done:()=>S.kidIn}];
-const SEZGO={t:'Ти в «Моїх дітях». У картці Дарини, 4 роки, натисни <b>«Відкрити в СЕЗ ЗДО»</b>.',sel:'#main [data-a="sez-go"]',done:()=>!!S.auth.flow||S.at==='sez'};
-const SEZIN=t=>({t,wait:'Перехід між системами…',done:()=>S.at==='sez'&&!!S.auth.sez&&!S.auth.flow});
+const KGGO={t:'Ти в «Моїх дітях». У картці Дарини, 4 роки, натисни <b>«Садочок у кабінеті»</b>.',sel:'#main [data-a="go"][data-v="kg"]',done:()=>S.v.par==='kg'};
+const KGIN=t=>({t,wait:'Рамка СЕЗ ЗДО входить…',done:()=>!!(S.auth.frame&&S.auth.frame.st==='ready')&&!S.auth.flow});
 const FLOWS=[
- {id:'sez',name:'Перехід з Порталу в садочки',ds:'Вхід на Портал → кабінет СЕЗ ЗДО без пароля. Пройди в обох варіантах',min:3,start:()=>fresh('par','kids'),steps:[
+ {id:'sez',name:'Садочок у кабінеті Порталу',ds:'СЕЗ ЗДО відкривається рамкою (iframe) прямо в кабінеті — без переходу і без пароля. Пройди в обох варіантах',min:3,start:()=>fresh('par','kids'),steps:[
   ...PL(),
-  SEZGO,
-  SEZIN(()=>VA()?'Сайт садочків відправив тебе в KyivID. Сесія KyivID є з входу на Портал, тому пароль не потрібен.':'Сайт садочків відправив тебе в Kitsoft ID. Сесія Kitsoft ID є з входу на Портал, тому сторінка входу не показується.'),
-  {t:()=>VA()?'Ти в кабінеті СЕЗ ЗДО без пароля. Заяву знайдено за підтвердженим email із KyivID.':'Ти в кабінеті СЕЗ ЗДО без пароля. Заяву знайдено за свідоцтвом дитини і РНОКПП із Kitsoft ID.',sel:'#ext .sezc',manual:1},
-  {t:'Розгорни <b>«Журнал авторизації»</b> під схемою: там кожен крок із технічними деталями.<span class="why">«Браузер» — редирект, який видно в рядку адреси. «Сервер» — обмін коду на токен між системами, браузер його не бачить.</span>',sel:'[data-a="alog"]',done:()=>S.auth.logOpen},
-  {t:'Повернись на Портал: натисни <b>«Повернутися на Портал»</b>.',sel:'#ext [data-a="sez-back"]',done:()=>S.at==='portal'&&!S.auth.flow},
-  {t:()=>'Сесія Порталу жива, тому вхід не потрібен. '+(VA()?'На схемі зелені «лампочки» в усіх чотирьох систем.':'На схемі зелені «лампочки» в Порталу, Kitsoft ID і СЕЗ ЗДО; KyivID не задіяний.')+' Перемкни варіант у темній панелі й пройди сценарій ще раз, щоб порівняти.',sel:'#ascheme',manual:1}]},
- {id:'diia',name:'Вхід через Дію напряму',ds:'На Портал входимо через Дію. Тут варіанти розходяться',min:3,start:()=>fresh('par','kids'),steps:[
+  KGGO,
+  KGIN(()=>VA()?'Рамка СЕЗ ЗДО завантажилась і попросила в Порталу токен. Портал узяв у Kitsoft ID підписаний токен на 60 с і передав його в рамку через postMessage.':'Рамка СЕЗ ЗДО сама пішла в Kitsoft ID — редирект відбувається лише всередині рамки. Сесія Kitsoft ID вже є після входу на Портал, тому сторінка входу не показується.'),
+  {t:()=>'СЕЗ ЗДО працює в рамці всередині кабінету. Подивись на рядок адреси вгорі: ти весь час лишався на Порталі.'+(VA()?'':' Власна адреса рамки — у смужці над нею.'),sel:'#main .ifr',manual:1},
+  {t:'Розгорни <b>«Журнал авторизації»</b> під схемою: там кожен крок із технічними деталями.<span class="why">«Браузер» — редирект. «Сервер» — обмін між системами, браузер його не бачить. «postMessage» — повідомлення між сторінкою Порталу і рамкою.</span>',sel:'[data-a="alog"]',done:()=>S.auth.logOpen},
+  {t:()=>'На схемі СЕЗ ЗДО позначено «у рамці». '+(VA()?'Помаранчеві кроки — postMessage: рамка просить токен, Портал його передає.':'Редиректи рамки видно в журналі, хоча адреса Порталу не мінялась.')+' Перемкни варіант у темній панелі й пройди сценарій ще раз, щоб порівняти.',sel:'#ascheme',manual:1}]},
+ {id:'diia',name:'Вхід через Дію',ds:'На Портал входимо через Дію — садочок у кабінеті все одно відкривається без пароля',min:3,start:()=>fresh('par','kids'),steps:[
   ...PL('diia'),
-  {...SEZGO,t:'Натисни <b>«Відкрити в СЕЗ ЗДО»</b> у картці Дарини.'},
-  {t:'Сайт садочків відправив тебе в KyivID. Але на Портал ти входив через Дію, тому сесії KyivID немає — доведеться увійти ще раз. Натисни <b>«Увійти»</b>.',sel:'[data-a="kyivid-ok"]',skip:()=>!VA(),done:()=>!!S.auth.idp.kyivid||!!S.auth.sez},
-  SEZIN(()=>VA()?'KyivID видає код, СЕЗ ЗДО обмінює його на токен і відкриває кабінет.':'Kitsoft ID уже має твою сесію з Дії, тому повторний вхід не потрібен.'),
-  {t:()=>VA()?'<b>Підсумок.</b> У варіанті «Спільний KyivID» людина, що увійшла на Портал через Дію, у садочках входить ще раз. Без пароля працює лише вхід через KyivID.':'<b>Підсумок.</b> У варіанті Kitsoft ID спосіб входу на Портал не має значення: СЕЗ ЗДО бере ту саму сесію Kitsoft ID. Перемкни варіант і порівняй.',sel:'#ascheme',manual:1}]},
+  {...KGGO,t:'Натисни <b>«Садочок у кабінеті»</b> у картці Дарини.'},
+  KGIN(()=>VA()?'Сесії KyivID немає, але вона й не потрібна: рамка отримує від Порталу підписаний токен Kitsoft ID, виданий після входу через Дію.':'Рамка бере ту саму сесію Kitsoft ID, що з’явилась після входу через Дію.'),
+  {t:()=>VA()?'<b>Підсумок.</b> Вхід через Дію теж наскрізний: рамка отримала токен через <span class="mono">/user/jwt</span>, а KyivID на схемі так і лишився без сесії. Так само спрацюють ID.GOV.UA, КЕП і BankID.':'<b>Підсумок.</b> Спосіб входу на Портал не має значення: рамка СЕЗ ЗДО бере ту саму сесію Kitsoft ID. Перемкни варіант і порівняй.',sel:'#main .ifr',manual:1}]},
  {id:'logout',name:'Вихід',ds:'Що буде із сесією садочків, коли виходиш з Порталу',min:3,start:()=>fresh('par','kids'),steps:[
   ...PL(),
-  {...SEZGO,t:'Натисни <b>«Відкрити в СЕЗ ЗДО»</b> у картці Дарини.'},
-  SEZIN('Переходимо в садочки.'),
-  {t:'Повернись на Портал: <b>«Повернутися на Портал»</b>.',sel:'#ext [data-a="sez-back"]',done:()=>S.at==='portal'&&!S.auth.flow},
+  {...KGGO,t:'Натисни <b>«Садочок у кабінеті»</b> у картці Дарини.'},
+  KGIN('Рамка СЕЗ ЗДО входить.'),
   {t:'Відкрий меню користувача праворуч угорі.',sel:'.upill',done:()=>S.dd==='user'||!!S.auth.flow},
   {t:'Натисни <b>«Вийти»</b>.',sel:'[data-a="plogout"]',done:()=>!!S.auth.flow||!S.auth.portal},
-  {t:()=>VA()?'Kitsoft ID видаляє свою сесію. Сесію KyivID він не закриває.':'Kitsoft ID видаляє сесію і всі твої токени, зокрема токен СЕЗ ЗДО.',wait:'Вихід…',done:()=>!S.auth.portal&&!S.auth.flow},
-  {t:()=>'Подивись на схему: '+(VA()?'Портал і Kitsoft ID згасли, а KyivID і СЕЗ ЗДО досі з сесією.':'Портал і Kitsoft ID згасли. У СЕЗ ЗДО сесія ще є, але її токен уже відкликано.'),sel:'#ascheme',manual:1},
-  {t:'Тепер відкрий сайт садочків напряму: кнопка <b>«СЕЗ ЗДО»</b> у рядку адреси.',sel:'#abar [data-a="url-sez"]',done:()=>!!S.auth.flow||S.at==='sez'},
+  {t:()=>'Портал спершу просить рамку закрити свою сесію (postMessage), потім Kitsoft ID видаляє сесію і всі токени.'+(VA()?' Сесію KyivID він не закриває.':''),wait:'Вихід…',done:()=>!S.auth.portal&&!S.auth.flow},
+  {t:()=>'Подивись на схему: Портал, Kitsoft ID і СЕЗ ЗДО згасли — сесія рамки закрилась разом із кабінетом.'+(VA()?' А сесія KyivID жива.':''),sel:'#ascheme',manual:1},
+  {t:'Перевіримо: відкрий сайт садочків напряму — кнопка <b>«СЕЗ ЗДО»</b> у рядку адреси.',sel:'#abar [data-a="url-sez"]',done:()=>!!S.auth.flow||S.at==='sez'},
   {t:'Сайт садочків перевіряє, чи ти досі увійшов.',wait:'Перевірка…',done:()=>S.at==='sez'&&!S.auth.flow},
-  {t:()=>VA()?'<b>СЕЗ ЗДО досі пускає.</b> Вона не знає, що ти вийшов з Порталу: у неї своя сесія, а сесія KyivID теж жива. На спільному комп’ютері наступна людина потрапить у цей кабінет.':'<b>СЕЗ ЗДО закрила сесію:</b> перевірила свій токен у Kitsoft ID, а його вже видалено. Це спрацює, лише якщо СЕЗ ЗДО регулярно перевірятиме токен — це треба доробити.',sel:'#ext',manual:1}]},
+  {t:()=>'<b>СЕЗ ЗДО просить увійти:</b> сесія рамки жила лише в рамці й закрилась разом із кабінетом.'+(VA()?'<span class="why">Але сесія KyivID лишилась: «Увійти через KyivID» тут пройде без пароля. Щоб цього не було, вихід із Порталу має закривати й сесію KyivID.</span>':''),sel:'#ext',manual:1}]},
  {id:'kidapply',name:'Дитина просить гурток, тато підтверджує',ds:'Заява з кабінету дитини → рішення батька → заклад → розклад',min:3,start:()=>fresh('kid','login',{kidDev:'bound',parIn:1}),steps:[
   ...KL(),
   {t:'Це кабінет Марка, 12 років, у дизайні нового кабінету Порталу. Зараз він ходить на шахи й робототехніку. У блоці <b>«Гуртки для тебе»</b> відкрий «Основи програмування Python».',sel:'.scard[data-s="py"]',done:()=>S.v.kid==='club'&&S.sub.kid==='py'},
