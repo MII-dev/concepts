@@ -539,6 +539,11 @@ body:not(.base) .bx{display:none!important}
 /* путівник: доповнення */
 .tour .why{display:block;margin-top:8px;font-size:13px;color:#6e6e6e}
 .tour .wt{display:flex;gap:10px;align-items:center;margin-top:14px;color:#5b12b5;font-weight:700;font-size:13.5px}
+.tour .doc{display:flex;align-items:center;gap:10px;border:1px solid #e5e5ea;border-radius:12px;padding:11px 12px;margin:0 0 14px;font-weight:700;font-size:14px;color:#1d1d1f;text-decoration:none}
+.tour .doc:hover{border-color:#7b2ff7;background:#faf6ff}
+.tour .doc span{margin-left:auto;color:#7b2ff7}
+.tour .tlinks a{color:#6e6e6e;font-size:13px}
+.tour .tlinks a:hover{color:#1d1d1f}
 .tour .wt .spin{margin-top:0;border-color:#efe4ff;border-top-color:#7b2ff7}
 
 /* вузькі екрани */
@@ -1703,12 +1708,12 @@ function tourRender(){
   if(!TOUR.open){tourHL(null);return}
   $('#tour-pr').textContent=TOUR.done.length+' з '+FLOWS.length+' пройдено';
   const f=flowById(TOUR.flow);let h='';
-  if(!f){h='<p class="intro">Клікабельна копія кабінету «Мої послуги» з Figma і на ній — кабінет батька з розділом «Мої діти» та кабінет дитини з концепту «Мій Київ».<br><br>Обери сценарій. Путівник підсвічує, куди натиснути, і сам переходить далі. Кожен сценарій починається з чистого демо.</p>'+
+  if(!f){h='<p class="intro">Клікабельна копія кабінету «Мої послуги» з Figma і на ній — кабінет батька з розділом «Мої діти» та кабінет дитини з концепту «Мій Київ».<br><br>Обери сценарій. Путівник підсвічує, куди натиснути, і сам переходить далі. Кожен сценарій починається з чистого демо.</p><a class="doc" href="../concept.md" target="_blank" rel="noopener">📄 Концепт «Мій Київ»: повний документ<span>↗</span></a>'+
     FLOWS.map((x,i)=>{const ok=TOUR.done.includes(x.id);return `<button class="fl${ok?' ok':''}" data-tflow="${x.id}"><span class="no">${ok?'✓':i+1}</span><span><span class="nm">${x.name}</span><span class="ds">${x.ds}</span></span><span class="rl">${x.min} хв</span></button>`}).join('')}
   else if(TOUR.step>=f.steps.length){const i=FLOWS.indexOf(f),nx=FLOWS[i+1];
-    h=`<div class="kick">Сценарій ${i+1} з ${FLOWS.length}</div><h4>${f.name}</h4><div class="ok-msg" style="margin-top:0">Сценарій пройдено ✓</div><div class="ta">${nx?`<button class="tbn" data-tflow="${nx.id}">Далі: ${nx.name}</button>`:''}<button class="tbn g" data-tlist="1">Усі сценарії</button></div>`}
+    h=`<div class="kick">Сценарій ${i+1} з ${FLOWS.length}</div><h4>${f.name}</h4><div class="ok-msg" style="margin-top:0">Сценарій пройдено ✓</div><div class="ta">${nx?`<button class="tbn" data-tflow="${nx.id}">Далі: ${nx.name}</button>`:''}<button class="tbn g" data-tlist="1">Усі сценарії</button></div><div class="tlinks"><a href="../concept.md" target="_blank" rel="noopener">Концепт «Мій Київ» ↗</a></div>`}
   else{const st=f.steps[TOUR.step],j=FLOWS.indexOf(f);
-    h=`<div class="kick">Сценарій ${j+1} · крок ${TOUR.step+1} із ${f.steps.length}</div><h4>${f.name}</h4><div class="bar">${f.steps.map((_,k)=>`<i class="${k<TOUR.step?'d':k===TOUR.step?'c':''}"></i>`).join('')}</div><div class="txt">${st.t}</div>${st.wait?`<div class="wt"><span class="spin"></span>${st.wait}</div>`:''}${TOUR.flash?'<div class="ok-msg">Готово ✓</div>':''}<div class="ta">${st.manual?`<button class="tbn" data-tnext="1">${TOUR.step===f.steps.length-1?'Завершити':'Далі'}</button>`:st.wait?'':`<button class="tbn g" data-tdo="1">Зробити за мене</button>`}</div><div class="tlinks"><button data-trestart="1">↺ Почати спочатку</button><button data-tlist="1">Усі сценарії</button></div>`}
+    h=`<div class="kick">Сценарій ${j+1} · крок ${TOUR.step+1} із ${f.steps.length}</div><h4>${f.name}</h4><div class="bar">${f.steps.map((_,k)=>`<i class="${k<TOUR.step?'d':k===TOUR.step?'c':''}"></i>`).join('')}</div><div class="txt">${st.t}</div>${st.wait?`<div class="wt"><span class="spin"></span>${st.wait}</div>`:''}${TOUR.flash?'<div class="ok-msg">Готово ✓</div>':''}<div class="ta">${st.manual?`<button class="tbn" data-tnext="1">${TOUR.step===f.steps.length-1?'Завершити':'Далі'}</button>`:st.wait?'':`<button class="tbn g" data-tdo="1">Зробити за мене</button>`}</div><div class="tlinks"><button data-trestart="1">↺ Почати спочатку</button><button data-tlist="1">Усі сценарії</button><a href="../concept.md" target="_blank" rel="noopener">Концепт ↗</a></div>`}
   $('#tour-body').innerHTML=h;
 }
 function tourStart(id){const f=flowById(id);if(!f)return;TOUR.flow=id;TOUR.step=0;TOUR.scrolled=-1;TOUR.flash=false;TOUR.open=true;tourHL(null);f.start();tourRender()}
