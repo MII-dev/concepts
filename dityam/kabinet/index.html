@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Мої діти — Портал послуг · макет «Мій Київ»</title>
+<link rel="preload" href="fonts/Daikon-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Daikon-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:Daikon;font-weight:400;font-style:normal;font-display:swap;src:url(fonts/Daikon-Regular.woff2) format("woff2")}
+@font-face{font-family:Daikon;font-weight:600;font-style:normal;font-display:swap;src:url(fonts/Daikon-SemiBold.woff2) format("woff2")}
+@font-face{font-family:Daikon;font-weight:700;font-style:normal;font-display:swap;src:url(fonts/Daikon-Bold.woff2) format("woff2")}
+:root{
+  --bg:#f0f5fc;--white:#fff;
+  --ink:#030616;--ink2:#364153;--ink3:#4a5567;--mut:#8e95a0;
+  --blue:#2b66f6;--blue-d:#2457ce;--blue-h:#1f55db;--blue-ink:#173e93;--blue-s:#f0f5fc;--blue-l:#e1ecfd;
+  --pill:#e1e7ef;--line:#eceff4;--line2:#e1e7ef;
+  --ok:#295e48;--ok-s:#effdf6;--ok-i:#1f9d63;
+  --warn:#88451d;--warn-s:#fef8de;--warn-i:#c98a12;
+  --grey-s:#f2f5f9;
+  --bad:#9b2c2c;--bad-s:#fdeeee;--bad-i:#d64545;
+  --pur:#7b2ff7;
+  --sh:0 6px 20px rgba(23,62,147,.06);
+  --sh2:0 12px 40px rgba(3,6,22,.16);
+  --wrap:1336px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:Daikon,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:16px;line-height:1.4;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+h1,h2,h3,h4,p{margin:0}
+a{color:inherit;text-decoration:none;cursor:pointer}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
+input,select,textarea{font:inherit;color:var(--ink)}
+svg{display:block;flex:none}
+[hidden]{display:none!important}
+.ic{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ic.s20{width:20px;height:20px}.ic.s18{width:18px;height:18px}.ic.s16{width:16px;height:16px}
+
+/* ===== службова панель макета ===== */
+.mock{background:#2b2f36;color:#b8bec8;display:flex;align-items:center;gap:6px;padding:0 16px;min-height:44px;font:13px/1.2 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;flex-wrap:wrap;position:sticky;top:0;z-index:60}
+.mock .lbl{font-weight:700;color:#fff;margin-right:6px;white-space:nowrap}
+.mock .tab{border:1px solid #454b55;color:#c9ced6;border-radius:8px;padding:5px 13px;font-weight:600;white-space:nowrap;font-size:13px}
+.mock .tab:hover{color:#fff;border-color:#6b727d}
+.mock .tab.on{background:#fff;color:#1d1d1f;border-color:#fff}
+.mock .tab:disabled{opacity:.35;cursor:default}
+.mock .sep{width:1px;height:22px;background:#454b55;margin:0 6px}
+.mock label{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.mock select{background:#1f2227;color:#fff;border:1px solid #454b55;border-radius:8px;padding:4px 8px;font-size:13px}
+.mock .hint{margin-left:auto;opacity:.75;white-space:nowrap}
+.mock .tourbtn{border-color:#8b5cf6;color:#e4d2ff}
+.mock .tourbtn.on,.mock .tourbtn:hover{background:#7b2ff7;border-color:#7b2ff7;color:#fff}
+body.clean .mock{display:none}
+
+/* ===== шапка ===== */
+.wrap{width:var(--wrap);max-width:calc(100% - 48px);margin:0 auto}
+.hd{background:#fff;height:72px;position:relative;z-index:30}
+.hd .wrap{height:72px;display:flex;align-items:center}
+.logo{display:block;margin-left:4px}
+.logo img{height:43px;width:auto;display:block}
+.hnav{display:flex;align-items:center;gap:25px;margin-left:44px}
+.hnav>button,.hnav>a{display:flex;align-items:center;gap:8px;font-size:16px;color:var(--ink);height:40px;-webkit-text-stroke:.3px currentColor}
+.hnav .ic{width:20px;height:20px;stroke-width:1.8}
+.hright{margin-left:auto;display:flex;align-items:center;gap:24px}
+.hbtn{display:flex;align-items:center;gap:6px;font-size:16px;height:40px;color:var(--ink);-webkit-text-stroke:.3px currentColor}
+.hbtn .ic{width:24px;height:24px;stroke-width:1.7}
+.upill{display:flex;align-items:center;gap:8px;height:48px;padding:0 10px 0 3px;border:1px solid var(--line2);border-radius:24px;background:#fff;font-size:16px;font-weight:600;margin-right:-4px}
+.ava{width:40px;height:40px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:16px;font-weight:600;letter-spacing:.01em}
+.upill .ic{width:20px;height:20px;stroke-width:1.8}
+.drop{position:absolute;top:64px;background:#fff;border-radius:16px;box-shadow:var(--sh2);padding:8px;min-width:240px;z-index:50}
+.drop a,.drop button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:11px 14px;border-radius:10px;font-size:15.5px}
+.drop a:hover,.drop button:hover{background:var(--blue-s)}
+.drop .cap{font-size:12.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:.03em;padding:8px 14px 4px}
+.drop hr{border:0;border-top:1px solid var(--line);margin:6px 4px}
+
+/* ===== банер ===== */
+.banner{position:absolute;left:0;right:0;top:72px;height:220px;background-color:#2758da;background-image:var(--ban),linear-gradient(90deg,#2253c9 0%,#2457cf 26%,#285ee0 50%,#2961e8 72%,#2b66f6 100%);background-repeat:repeat-x,no-repeat;background-position:center bottom,0 0;background-size:480px 220px,100% 100%;z-index:0}
+.page{position:relative}
+
+/* ===== каркас ===== */
+.layout{position:relative;z-index:1;display:grid;grid-template-columns:308px minmax(0,984px);column-gap:41px;align-items:start}
+.side{background:#fff;border-radius:0 0 24px 24px;padding:20px 20px 20px;align-self:start}
+.side .who{margin:2px 0 14px;padding:12px 18px 14px;border-radius:14px;background:var(--blue-s)}
+.side .who b{display:block;font-size:15px;font-weight:600}
+.side .who span{display:block;font-size:13px;color:var(--ink3);margin-top:2px;line-height:1.35}
+.scap{font-size:13.5px;line-height:20px;color:var(--ink3);text-transform:uppercase;padding-left:18px;margin:24px 0 8px}
+.scap:first-child{margin-top:0}
+.sit{display:flex;align-items:center;gap:10px;height:48px;padding:0 14px 0 16px;border-radius:12px;font-size:16px;color:var(--ink);-webkit-text-stroke:.3px currentColor;margin-bottom:2px;width:100%;text-align:left;position:relative}
+.sit .ic{color:var(--ink2)}
+.sit:hover{background:#f6f9fd}
+.sit.on{background:var(--blue-s)}
+.sit.on .ic{color:var(--blue)}
+.sit .cnt{-webkit-text-stroke:0;margin-left:auto;min-width:22px;height:22px;border-radius:11px;background:var(--blue-s);color:var(--blue-ink);font-size:12.5px;font-weight:600;display:grid;place-items:center;padding:0 6px}
+.sit.on .cnt{background:#fff}
+.sit .new{margin-left:auto;font-size:11px;font-weight:600;color:var(--pur);background:#f3e8ff;border-radius:6px;padding:2px 6px}
+.main{min-width:0;padding-bottom:0}
+
+/* ===== заголовок сторінки ===== */
+.ph{height:173px;padding-top:65px;color:#fff;position:relative}
+.ph h1{font-size:66px;line-height:72px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ph.sm{padding-top:58px}
+.ph.sm h1{font-size:44px;line-height:52px}
+.crumb{position:absolute;top:30px;left:0;display:flex;gap:8px;align-items:center;font-size:15px;color:rgba(255,255,255,.82)}
+.crumb a:hover{color:#fff;text-decoration:underline}
+.crumb .ic{width:16px;height:16px}
+.ph.nolead{height:220px}
+
+/* ===== картки ===== */
+.card{background:#fff;border-radius:24px;box-shadow:var(--sh)}
+.lead{display:flex;gap:25px;padding:25px 28px 24px;min-height:194px}
+.ring{width:57px;height:57px;flex:none;position:relative;display:grid;place-items:center;font-size:16px;font-weight:400;color:var(--ink)}
+.ring>svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.ring>span{position:relative;font-size:15.5px}
+.ring.ok{color:var(--ok-i)}
+.lead .k{display:flex;align-items:center;gap:8px;font-size:13.5px;line-height:20px;color:var(--ink3);text-transform:uppercase}
+.lead .k .ic{width:18px;height:18px;stroke-width:1.6}
+.lead h3{font-size:23px;line-height:30px;font-weight:600;margin-top:3px}
+.lead .m{font-size:16.3px;line-height:22px;color:var(--ink3);margin-top:7px;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center}
+.lead .m i{font-style:normal;color:var(--ink3)}
+.acts{display:flex;align-items:center;gap:39px;margin-top:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 24px;border-radius:24px;background:var(--blue);color:#fff;font-size:18.5px;font-weight:600;white-space:nowrap;transition:background .15s}
+.btn:hover{background:var(--blue-h)}
+.btn.sec{background:var(--blue-s);color:var(--blue)}
+.btn.sec:hover{background:var(--blue-l)}
+.btn.ghost{background:#fff;color:var(--ink);border:1px solid var(--line2)}
+.btn.ghost:hover{border-color:var(--blue);color:var(--blue)}
+.btn.sm{height:40px;font-size:15.5px;padding:0 18px}
+.btn.dang{background:var(--bad-s);color:var(--bad)}
+.btn:disabled{opacity:.45;cursor:default}
+.lnk{color:var(--blue);font-size:18.5px;font-weight:600;white-space:nowrap}
+.lnk:hover{text-decoration:underline}
+.lnk.sm{font-size:15.5px}
+
+/* ===== секції ===== */
+.h2{font-size:37.4px;line-height:44px;font-weight:600;margin:48px 0 0}
+.sub{font-size:15.8px;line-height:22px;color:var(--ink2);margin-top:12px}
+.tools{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:18px}
+.seg{display:inline-flex;align-items:center;background:var(--pill);border-radius:24px;padding:4px;height:48px}
+.seg button{height:40px;padding:0 18px;border-radius:20px;font-size:16.5px;color:var(--ink2);display:flex;align-items:center;gap:6px}
+.seg button.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 1px 3px rgba(3,6,22,.08)}
+.seg .b2{background:var(--blue);color:#fff;font-size:13px;font-weight:600;border-radius:10px;padding:1px 7px;line-height:18px}
+.fpill{position:relative}
+.fpill>button{display:flex;align-items:center;gap:5px;height:48px;padding:0 16px 0 22px;border-radius:24px;background:#fff;border:1px solid #e6ebf2;font-size:16px;color:var(--ink2)}
+.fpill>button b{color:var(--ink);font-weight:600;margin-right:6px}
+.fpill .drop{top:56px;right:0}
+
+/* список заяв */
+.list{margin-top:20px;padding:0 28px}
+#ddBox .drop{top:-4px}
+.row{display:grid;grid-template-columns:minmax(0,1fr) 216px 24px;column-gap:20px;align-items:center;padding:24px 0 25px;border-bottom:1px solid var(--line);position:relative;cursor:pointer}
+.list>.row:last-child{border-bottom:0}
+.row .dot{position:absolute;left:-20px;top:33px;width:10px;height:10px;border-radius:50%;background:var(--blue)}
+.row h4{font-size:20.6px;line-height:28px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .meta{display:flex;gap:32px;margin-top:4px;font-size:14.6px;line-height:22px;flex-wrap:wrap}
+.row .meta span{color:var(--ink2)}
+.row .meta b{font-weight:400;color:var(--ink);margin-left:6px;-webkit-text-stroke:.3px currentColor}
+.row .ar{color:var(--ink)}
+.row:hover h4{color:var(--blue)}
+.more-l{display:inline-flex;align-items:center;gap:6px;color:var(--blue);font-size:16.4px;font-weight:600;padding:20px 12px 22px}
+.more-l .ic{width:20px;height:20px;stroke-width:2}
+.empty{padding:36px 0;color:var(--ink3);text-align:center}
+
+/* чипи */
+.chip{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 10px;border-radius:8px;font-size:14px;white-space:nowrap;justify-self:start;max-width:100%}
+.chip .ic{width:16px;height:16px;stroke-width:1.8}
+.chip.b{background:var(--blue-s);color:var(--blue-ink)}
+.chip.g{background:var(--grey-s);color:var(--ink2)}
+.chip.y{background:var(--warn-s);color:var(--warn)}
+.chip.ok{background:var(--ok-s);color:var(--ok)}
+.chip.bad{background:var(--bad-s);color:var(--bad)}
+.chip.pur{background:#f3e8ff;color:#5b12b5}
+.chip.sm{height:26px;font-size:13.5px;padding:0 8px;border-radius:7px}
+
+/* послуги для вас */
+.pills{display:flex;gap:8px;margin-top:22px;flex-wrap:wrap}
+.pills button{height:44px;padding:0 28px;border-radius:22px;background:var(--pill);font-size:16px;color:var(--ink)}
+.pills button:hover{background:#d6dde8}
+.pills button.on{background:var(--blue-d);color:#fff}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:21px}
+.scard{min-height:290px;padding:24px 24px 24px 18px;display:flex;flex-direction:column;cursor:pointer;transition:box-shadow .15s}
+.scard:hover{box-shadow:0 10px 30px rgba(23,62,147,.12)}
+.scard .sic{width:66px;height:66px;display:block}
+.scard h4{font-size:23px;line-height:28px;font-weight:600;margin:11px 0 0 6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.scard .need{font-size:14px;line-height:20px;color:var(--ink2);margin:8px 0 0 6px}
+.scard .need b{color:var(--ink);font-weight:600}
+.scard .tags{display:flex;gap:10px;margin:auto 0 0 6px;padding-top:20px;flex-wrap:wrap}
+.tag{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 10px;border-radius:8px;font-size:14px;white-space:nowrap}
+.tag.on{background:var(--ok-s);color:var(--ok)}
+.tag.cat{background:var(--blue-s);color:var(--blue-ink)}
+.tag.osbb{background:#f3e8ff;color:#5b12b5}
+.tag .ic{width:16px;height:16px;stroke-width:1.8}
+.findrow{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:26px}
+.findrow p{font-size:15.6px}
+.findrow .btn{width:188px;font-size:20px}
+
+/* ===== футер ===== */
+.foot{background:var(--ink);color:#fff;margin-top:55px;padding:48px 0 0;min-height:423px}
+.fgrid{display:grid;grid-template-columns:minmax(0,1fr) 272px 292px;column-gap:0}
+.foot .flogo img{height:48px;width:auto;display:block}
+.foot .fcap{font-size:14px;line-height:20px;text-transform:uppercase;color:#cccdd1;white-space:nowrap}
+.foot .fcol a{display:block;font-size:17px;font-weight:600;margin-top:18px}
+.foot .fcol .fcap{margin-top:3px}
+.fsup{margin-top:48px}
+.fcont{display:grid;grid-template-columns:312px 312px;column-gap:24px;margin-top:20px}
+.fcont .l{font-size:16px;color:#cccdd1}
+.fcont .v{display:flex;align-items:center;gap:12px;font-size:17px;font-weight:600;margin-top:17px;padding-bottom:16px;border-bottom:1px solid #30323f}
+.fcont .v .ic{width:22px;height:22px;stroke-width:1.5;color:#cccdd1}
+.stores{display:flex;gap:10px;margin-top:22px}
+.store{white-space:nowrap;height:44px;border:1px solid #c9cbd2;border-radius:8px;display:flex;align-items:center;gap:8px;padding:0 10px 0 9px;background:#000}
+.store small{display:block;font-size:9px;line-height:10px;letter-spacing:.02em}
+.store b{display:block;font-size:18px;line-height:20px;font-weight:600;letter-spacing:-.01em;font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.socs{display:flex;gap:12px;margin-top:20px}
+.soc{width:44px;height:44px;border:1.5px solid #fff;border-radius:50%;display:grid;place-items:center}
+.soc svg{width:20px;height:20px}
+.fbot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:76px;padding-bottom:58px}
+.fbot .cp{display:flex;gap:26px;font-size:14px;line-height:20px;color:#9a9ba1;align-items:flex-end}
+.fbot a{font-size:16px;font-weight:600}
+
+/* ===== чат ===== */
+.fab{position:fixed;right:24px;bottom:24px;width:72px;height:72px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;z-index:45;box-shadow:0 6px 18px rgba(3,6,22,.25)}
+.fab .ic{width:34px;height:34px;stroke-width:1.7}
+.chat{position:fixed;right:24px;bottom:108px;width:360px;max-height:520px;background:#fff;border-radius:20px;box-shadow:var(--sh2);z-index:46;display:flex;flex-direction:column;overflow:hidden}
+.chat .chd{background:var(--ink);color:#fff;padding:14px 18px;display:flex;align-items:center;gap:10px;font-weight:600}
+.chat .chd button{margin-left:auto;color:#cfd3da;font-size:22px;line-height:1}
+.chat .cbd{padding:16px;overflow:auto;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:86%;padding:10px 13px;border-radius:14px;font-size:14.5px;line-height:1.4}
+.msg.bot{background:var(--blue-s);align-self:flex-start;border-bottom-left-radius:4px}
+.msg.me{background:var(--blue);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.qr{display:flex;flex-wrap:wrap;gap:6px}
+.qr button{border:1px solid var(--line2);border-radius:16px;padding:6px 12px;font-size:13.5px;background:#fff}
+.qr button:hover{border-color:var(--blue);color:var(--blue)}
+
+/* ===== модалки, тост ===== */
+.ovl{position:fixed;inset:0;background:rgba(3,6,22,.42);z-index:70;display:grid;place-items:center;padding:20px}
+.mdl{background:#fff;border-radius:24px;width:min(560px,100%);max-height:calc(100vh - 40px);overflow:auto;padding:28px 28px 26px;position:relative;box-shadow:var(--sh2)}
+.mdl.wide{width:min(760px,100%)}
+.mdl h3{font-size:24px;line-height:30px;font-weight:600;padding-right:36px}
+.mdl .x{position:absolute;right:18px;top:18px;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:var(--ink2)}
+.mdl .x:hover{background:var(--blue-s)}
+.mdl p{color:var(--ink2);margin-top:10px;line-height:1.5}
+.mdl .acts{margin-top:22px;gap:12px}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:13px 20px;border-radius:14px;font-size:15px;opacity:0;pointer-events:none;transition:.25s;z-index:80;max-width:min(560px,calc(100vw - 40px));text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%)}
+.srch{width:min(720px,100%);padding:22px}
+.srch .inp{display:flex;align-items:center;gap:10px;border:1px solid var(--line2);border-radius:24px;height:52px;padding:0 18px}
+.srch input{border:0;outline:0;flex:1;font-size:17px;background:none}
+.srch .res a{display:flex;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:12px;font-size:16px}
+.srch .res a:hover{background:var(--blue-s)}
+.srch .res small{color:var(--ink3)}
+
+/* ===== форми, майстер ===== */
+.wz{padding:25px 28px 28px}
+.wz-h{display:flex;gap:25px;align-items:center}
+.wz-h .k{font-size:14px;line-height:20px;color:var(--ink3);text-transform:uppercase;letter-spacing:.02em}
+.wz-h h3{font-size:22px;line-height:30px;font-weight:600;margin-top:3px}
+.wz-b{margin-top:24px;border-top:1px solid var(--line);padding-top:24px}
+.wz-f{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:28px}
+.fl{font-size:15px;color:var(--ink2);margin:0 0 8px;display:block}
+.fld{display:flex;align-items:center;gap:10px;border:1px solid var(--line2);border-radius:14px;height:52px;padding:0 16px;background:#fff;font-size:16.5px}
+.fld .ic{color:var(--ink3)}
+.fld input{border:0;outline:0;flex:1;font-size:16.5px;background:none;min-width:0}
+textarea.fld{height:auto;min-height:92px;padding:14px 16px;width:100%;resize:vertical;outline:0}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.opt{display:flex;align-items:flex-start;gap:12px;text-align:left;border:1px solid var(--line2);border-radius:16px;padding:14px 16px;background:#fff;transition:.15s;width:100%}
+.opt:hover{border-color:#b8c9ea}
+.opt.on{border-color:var(--blue);background:var(--blue-s);box-shadow:inset 0 0 0 1px var(--blue)}
+.opt .oi{width:40px;height:40px;border-radius:12px;background:var(--blue-s);color:var(--blue);display:grid;place-items:center;flex:none}
+.opt.on .oi{background:#fff}
+.opt b{display:block;font-size:16px;font-weight:600;line-height:22px}
+.opt small{display:block;font-size:13.5px;color:var(--ink3);margin-top:2px;line-height:1.35}
+.opt .rd{width:22px;height:22px;border-radius:50%;border:2px solid #c3cddd;flex:none;margin-top:1px;margin-left:auto}
+.opt.on .rd{border:7px solid var(--blue)}
+.ph-add{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.pht{width:120px;height:90px;border-radius:12px;position:relative;overflow:hidden;background:#8d9aae}
+.pht svg{width:100%;height:100%}
+.pht span{position:absolute;left:6px;bottom:6px;background:rgba(3,6,22,.72);color:#fff;font-size:11px;border-radius:6px;padding:2px 6px}
+.addph{width:120px;height:90px;border-radius:12px;border:1.5px dashed #b8c9ea;color:var(--blue);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:13.5px;font-weight:600}
+.addph:hover{background:var(--blue-s)}
+.chk{display:flex;align-items:center;gap:10px;font-size:15.5px;margin-top:18px;cursor:pointer}
+.chk i{width:22px;height:22px;border-radius:6px;border:2px solid #c3cddd;display:grid;place-items:center;flex:none}
+.chk.on i{background:var(--blue);border-color:var(--blue)}
+.chk.on i::after{content:"";width:10px;height:5px;border:2.2px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.kv{display:grid;grid-template-columns:220px 1fr;gap:0;font-size:16px}
+.kv>div{padding:13px 0;border-bottom:1px solid var(--line)}
+.kv>div:nth-child(odd){color:var(--ink2)}
+.kv>div:nth-child(even){font-weight:600}
+.kv>div:nth-last-child(-n+2){border-bottom:0}
+.info{display:flex;gap:12px;border-radius:16px;padding:14px 16px;background:var(--blue-s);font-size:15px;line-height:1.5;color:var(--ink2);margin-top:16px}
+.info .ic{color:var(--blue);margin-top:1px}
+.info b{color:var(--ink);font-weight:600}
+.info.warn{background:var(--warn-s)}.info.warn .ic{color:var(--warn-i)}
+.info.ok{background:var(--ok-s)}.info.ok .ic{color:var(--ok-i)}
+.info.pur{background:#f6effe}.info.pur .ic{color:var(--pur)}
+.days{display:flex;gap:8px;flex-wrap:wrap}
+.day{width:86px;border:1px solid var(--line2);border-radius:14px;padding:10px 6px;text-align:center;background:#fff}
+.day b{display:block;font-size:20px;font-weight:600}
+.day small{display:block;font-size:12.5px;color:var(--ink3)}
+.day.on{border-color:var(--blue);background:var(--blue-s);box-shadow:inset 0 0 0 1px var(--blue)}
+.day:disabled{opacity:.4;cursor:default}
+.slots{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.slots button{height:40px;padding:0 16px;border-radius:20px;border:1px solid var(--line2);font-size:15.5px;background:#fff}
+.slots button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+
+.sec{padding:24px 28px 26px;margin-top:20px}
+.two{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:28px}
+.rows2>div{display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15.5px}
+.rows2>div:last-child{border-bottom:0}
+.rows2 span{color:var(--ink2)}
+.rows2 b{font-weight:600;text-align:right}
+.rows2 a{color:var(--blue);font-weight:600}
+.sch{width:100%;border-collapse:separate;border-spacing:0;font-size:15px}
+.sch th{font-weight:400;color:var(--ink3);font-size:14px;text-transform:uppercase;letter-spacing:.02em;padding:0 6px 12px;text-align:center}
+.sch th:first-child{text-align:left;padding-left:0}
+.sch th.td{color:var(--blue);font-weight:600}
+.sch td{padding:6px;text-align:center;border-top:1px solid var(--line)}
+.sch td:first-child{text-align:left;padding-left:0;white-space:nowrap}
+.sch td.td{background:var(--blue-s)}
+.sch tr:first-child td.td{border-radius:12px 12px 0 0}
+.sch tr:last-child td.td{border-radius:0 0 12px 12px}
+.slot{display:inline-block;font-size:13px;color:var(--ink2);background:var(--grey-s);border-radius:7px;padding:4px 7px;white-space:nowrap}
+.slot.today{background:#fff;color:var(--ink);font-weight:600;box-shadow:inset 0 0 0 1px var(--line2)}
+.slot.moved{background:var(--warn-s);color:var(--warn)}
+.slot.done{background:var(--ok-s);color:var(--ok)}
+.sn{display:inline-flex;align-items:center;gap:8px}
+.sn i{width:10px;height:10px;border-radius:3px;flex:none}
+.tg{display:flex;align-items:center;gap:10px;font-size:16px;cursor:pointer;user-select:none}
+.tg i{width:44px;height:26px;border-radius:13px;background:#c9d2e0;position:relative;transition:.2s;flex:none}
+.tg i::after{content:"";position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.tg.on i{background:var(--blue)}
+.tg.on i::after{left:21px}
+.hist>div{display:grid;grid-template-columns:110px 130px 1fr;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line);font-size:15px}
+.hist span{color:var(--ink2)}
+.sec-h{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.sec-h h3{font-size:22px;line-height:30px;font-weight:600}
+/* таймлайн */
+.tl{position:relative;margin-top:6px}
+.tl>div{position:relative;padding:0 0 18px 34px}
+.tl>div::before{content:"";position:absolute;left:9px;top:22px;bottom:-2px;width:2px;background:var(--line2)}
+.tl>div:last-child::before{display:none}
+.tl>div::after{content:"";position:absolute;left:3px;top:4px;width:10px;height:10px;border-radius:50%;background:#fff;border:3px solid var(--blue)}
+.tl>div.ok::after{border-color:var(--ok-i);background:var(--ok-i)}
+.tl>div.w::after{border-color:var(--warn-i)}
+.tl>div.bad::after{border-color:var(--bad-i)}
+.tl>div.pend::after{border-color:#c3cddd}
+.tl b{display:block;font-weight:600;font-size:16px;line-height:22px}
+.tl small{display:block;color:var(--ink3);font-size:14px;margin-top:2px}
+.tl>div.pend b{color:var(--ink3);font-weight:400}
+.trk{display:flex;gap:6px;margin-top:16px}
+.trk span{flex:1;text-align:center;font-size:13.5px;padding:9px 4px;border-radius:10px;background:var(--grey-s);color:var(--ink3)}
+.trk span.d{background:var(--ok-s);color:var(--ok)}
+.trk span.c{background:var(--blue);color:#fff;font-weight:600}
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}
+.kpis.k4{grid-template-columns:repeat(4,1fr)}
+.kpi{background:#fff;border-radius:20px;padding:18px 20px;box-shadow:var(--sh)}
+.kpi .l{font-size:13.5px;color:var(--ink3);text-transform:uppercase;letter-spacing:.02em}
+.kpi b{display:block;font-size:34px;line-height:42px;font-weight:600;margin-top:6px;font-variant-numeric:tabular-nums}
+.kpi b small{font-size:18px;color:var(--ink2);margin-left:4px;font-weight:600}
+.kpi .d{font-size:13.5px;color:var(--ink2);margin-top:2px;line-height:1.35}
+.kpi .t{margin-top:10px}
+.verdict{display:flex;gap:16px;align-items:center;border-radius:18px;padding:18px 20px;margin-top:16px}
+.verdict.ok{background:var(--ok-s)}.verdict.bad{background:var(--bad-s)}.verdict.y{background:var(--warn-s)}.verdict.b{background:var(--blue-s)}.verdict.g{background:var(--grey-s)}
+.verdict b{font-size:20px;font-weight:600;display:block}
+.verdict p{font-size:15px;color:var(--ink2);margin-top:2px}
+.prog{height:8px;border-radius:4px;background:var(--line);overflow:hidden;display:flex;margin-top:8px;width:100%}
+.prog i{display:block;height:100%}
+.segs{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.segs button{height:38px;padding:0 15px;border-radius:19px;border:1px solid var(--line2);font-size:15px;background:#fff}
+.segs button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+/* ===== путівник ===== */
+.tour{position:fixed;right:22px;bottom:22px;width:370px;max-height:calc(100vh - 80px);display:flex;flex-direction:column;background:#fff;border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.28),0 0 0 1px rgba(0,0,0,.05);z-index:65;overflow:hidden;font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.tour .th{background:#2b2f36;color:#fff;padding:13px 14px 13px 18px;display:flex;align-items:center;gap:10px;flex:none}
+.tour .th b{font-size:15px}
+.tour .th .pr{font-size:12.5px;color:#b8bec8;margin-left:auto}
+.tour .th button{color:#b8bec8;font-size:20px;line-height:1;padding:2px 6px;border-radius:8px}
+.tour .th button:hover{color:#fff;background:#3a3f48}
+.tour .tb{padding:18px 20px 20px;overflow:auto;color:#1d1d1f;font-size:14.5px;line-height:1.5}
+.tour .intro{color:#323232;margin:0 0 14px}
+.tour .fl{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:1px solid #e5e5ea;border-radius:12px;padding:10px 12px;margin-bottom:8px;font:inherit}
+.tour .fl:hover{border-color:#7b2ff7;background:#faf6ff}
+.tour .fl .no{width:26px;height:26px;border-radius:50%;background:#f3e8ff;color:#5b12b5;font-weight:800;font-size:12.5px;display:grid;place-items:center;flex:none}
+.tour .fl.ok .no{background:#e8f7ea;color:#1f7a2e}
+.tour .fl .nm{font-weight:700;font-size:14px;line-height:1.3;display:block}
+.tour .fl .ds{font-size:12.5px;color:#6e6e6e;margin-top:2px;line-height:1.35;display:block}
+.tour .fl .rl{margin-left:auto;font-size:12px;color:#6e6e6e;white-space:nowrap}
+.tour .kick{font-size:12px;font-weight:800;color:#7b2ff7;letter-spacing:.04em;text-transform:uppercase}
+.tour h4{font-size:17px;margin:4px 0 12px}
+.tour .bar{display:flex;gap:4px;margin-bottom:16px}
+.tour .bar i{flex:1;height:4px;border-radius:4px;background:#e5e5ea}
+.tour .bar i.d{background:#35ac46}
+.tour .bar i.c{background:#7b2ff7}
+.tour .ok-msg{background:#e8f7ea;color:#1f7a2e;border-radius:10px;padding:10px 12px;font-weight:700;font-size:13.5px;margin-top:14px}
+.tour .ta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;align-items:center}
+.tour .ta .tbn{padding:10px 16px;font:700 13.5px/1.2 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;border-radius:10px;background:#7b2ff7;color:#fff}
+.tour .ta .tbn:hover{background:#6420d4}
+.tour .ta .tbn.g{background:#f1f1f4;color:#1d1d1f}
+.tour .tlinks{display:flex;gap:18px;margin-top:12px}
+.tour .tlinks button{color:#6e6e6e;font-size:13px}
+.tour .tlinks button:hover{color:#1d1d1f}
+.tour-hl{outline:3px solid #7b2ff7!important;outline-offset:4px;animation:tpulse 1.6s ease-out infinite}
+@keyframes tpulse{0%{box-shadow:0 0 0 0 rgba(123,47,247,.45)}70%{box-shadow:0 0 0 14px rgba(123,47,247,0)}100%{box-shadow:0 0 0 0 rgba(123,47,247,0)}}
+@media(min-width:1500px){body.tour-open .fab{right:414px}body.tour-open .chat{right:414px}}
+
+/* шар «Figma як є» */
+body.base .vx{display:none!important}
+body:not(.base) .bx{display:none!important}
+.btn.sec{margin-top:0;padding:0 24px}
+.btn.sm.sec{padding:0 18px}
+.main>.info{margin-top:20px}
+.main>.info:not(.warn):not(.ok):not(.pur){background:#fff;box-shadow:var(--sh)}
+
+/* ===== мої діти ===== */
+.kava{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:22px;font-weight:600;flex:none}
+.kava.sm{width:42px;height:42px;font-size:17px}
+.kava.xs{width:28px;height:28px;font-size:13px}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;letter-spacing:.02em}
+.cap2{font-size:13.5px;line-height:20px;color:var(--ink3);text-transform:uppercase}
+.pl{font-size:16.5px;line-height:1.5;color:var(--ink2)}
+.h3s{font-size:20px;line-height:28px;font-weight:600}
+.note-s{font-size:14px;color:var(--ink3);margin-top:12px;line-height:1.45}
+.kgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start}
+.kcard{padding:24px 26px 22px;display:flex;flex-direction:column}
+.kh{display:flex;align-items:center;gap:16px}
+.kh>div{min-width:0}
+.kh h3{font-size:23px;line-height:30px;font-weight:600}
+.kh small{display:block;font-size:14.5px;color:var(--ink3);margin-top:1px}
+.kh>.chip,.kh>.qrb{margin-left:auto}
+.kcard .rows2{margin-top:12px}
+.kcard>.acts{margin-top:16px;gap:12px}
+.rows2 b .chip{vertical-align:middle}
+.addk{border:1.5px dashed #b8c9ea;box-shadow:none;background:transparent;display:flex;align-items:center;gap:18px;padding:22px 26px;margin-top:10px;width:100%;text-align:left;border-radius:24px}
+.addk:hover{background:#fff}
+.addk .oi{width:48px;height:48px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;flex:none}
+.addk b{display:block;font-size:19px;font-weight:600;color:var(--blue)}
+.addk small{display:block;font-size:14.5px;color:var(--ink3);margin-top:2px}
+.lim3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}
+.lim3 .card{padding:20px 22px}
+.lim3 h4{font-size:17px;font-weight:600}
+.lim3 p{font-size:14.5px;color:var(--ink2);margin-top:6px;line-height:1.45}
+.opt:disabled{opacity:.6;cursor:default}
+.opt:disabled:hover{border-color:var(--line2)}
+#week{overflow-x:auto}
+.slot.nw{background:#f3e8ff;color:#5b12b5;font-weight:600}
+
+/* потребує рішення */
+.alert{display:flex;align-items:center;gap:20px;padding:20px 24px;margin-top:16px;box-shadow:inset 0 0 0 2px #dcc6fb,var(--sh)}
+.alert>div{min-width:0}
+.alert .ai{width:52px;height:52px;border-radius:50%;background:#f3e8ff;color:var(--pur);display:grid;place-items:center;flex:none}
+.alert .k{font-size:13.5px;line-height:20px;color:#5b12b5;text-transform:uppercase}
+.alert h3{font-size:20px;line-height:27px;font-weight:600;margin-top:2px}
+.alert .m{font-size:14.5px;color:var(--ink3);margin-top:3px}
+.alert .btn{margin-left:auto}
+.dec{padding:24px 28px 26px;margin-top:16px;box-shadow:inset 0 0 0 2px #dcc6fb,var(--sh)}
+.dec:first-child{margin-top:0}
+.dec .top{display:flex;gap:20px;align-items:flex-start}
+.dec .k{font-size:13.5px;line-height:20px;color:#5b12b5;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.dec h3{font-size:23px;line-height:30px;font-weight:600;margin-top:4px}
+.dec .m{font-size:15px;color:var(--ink3);margin-top:3px}
+.dec .kv{margin-top:16px}
+.dec .acts{margin-top:20px;gap:12px}
+
+/* Activity Pass */
+.qrb{background:#fff;border-radius:12px;padding:8px;box-shadow:inset 0 0 0 1px var(--line2);flex:none}
+.qrb svg{display:block}
+.vch{display:flex;align-items:center;gap:16px;margin-top:18px;padding:14px 16px;border-radius:16px;background:var(--blue-s)}
+.vch>div{flex:1;min-width:0}
+.vch b{display:block;font-size:16.5px;font-weight:600;margin-top:2px}
+.vch small{display:block;font-size:14px;color:var(--ink2);margin-top:2px}
+.att>div{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:13px 0;border-top:1px solid var(--line)}
+.att>div:first-child{border-top:0}
+.att b{font-weight:600}
+.att .n{font-weight:600;white-space:nowrap}
+.dots{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.dots i{width:16px;height:16px;border-radius:5px;background:var(--ok-i)}
+.dots i.x{background:var(--bad-i)}
+.dots i.n{background:#fff;box-shadow:inset 0 0 0 1.5px #c3cddd}
+
+/* гаманець */
+.big{font-size:52px;line-height:60px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:6px}
+.seg.sm{height:44px}
+.seg.sm button{height:36px;font-size:15px;padding:0 14px}
+.ogrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}
+.ocard{padding:20px 20px 18px;display:flex;flex-direction:column}
+.ocard .t{display:flex;align-items:center;gap:10px}
+.ocard .t .oi{width:44px;height:44px;border-radius:12px;background:var(--blue-s);color:var(--blue);display:grid;place-items:center;flex:none}
+.ocard .t b{margin-left:auto;font-size:19px;font-weight:600;white-space:nowrap}
+.ocard h4{font-size:18px;line-height:24px;font-weight:600;margin-top:14px}
+.ocard p{font-size:14px;color:var(--ink2);margin-top:4px;line-height:1.4;flex:1}
+.ocard .acts{margin-top:14px;gap:10px}
+
+/* оплати */
+.prow{display:grid;grid-template-columns:minmax(0,1fr) 170px 230px 220px;column-gap:20px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line)}
+.list>.prow:last-child{border-bottom:0}
+.prow h4{font-size:19px;line-height:26px;font-weight:600}
+.prow .meta{font-size:14.5px;color:var(--ink2);margin-top:3px}
+.prow .meta b{color:var(--ink);font-weight:600}
+.prow .sum b{display:block;font-size:20px;font-weight:600}
+.prow .sum small{display:block;font-size:13px;color:var(--ink3)}
+.prow .pa{display:flex;gap:8px;justify-content:flex-end}
+
+/* доступ, коди */
+.sess{margin-top:10px}
+.sess>div{display:flex;align-items:center;gap:12px;padding:13px 0;border-top:1px solid var(--line);font-size:15.5px}
+.sess>div>div{min-width:0}
+.sess i.d{width:10px;height:10px;border-radius:50%;background:var(--ok-i);flex:none}
+.sess i.d.g{background:#c3cddd}
+.sess i.d.p{background:var(--pur)}
+.sess small{display:block;color:var(--ink3);font-size:13.5px}
+.sess .lnk{margin-left:auto;font-size:15px}
+.lnk.bad{color:var(--bad)}
+.bigcode{font-size:46px;line-height:54px;font-weight:600;letter-spacing:.16em;font-variant-numeric:tabular-nums}
+.code{display:flex;gap:10px;margin-top:20px}
+.code input{width:58px;height:66px;border:1px solid var(--line2);border-radius:14px;text-align:center;font-size:28px;font-weight:600;outline:0;background:#fff}
+.code input:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-l)}
+.code input.f{border-color:#b8c9ea}
+.code.bad input{border-color:var(--bad-i)}
+.code.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.err{color:var(--bad);font-size:15px;margin-top:12px;line-height:1.45}
+.demo{margin-top:22px;font-size:14px;color:var(--ink3);border-top:1px dashed var(--line2);padding-top:14px;line-height:1.5}
+.demo a{color:var(--pur);font-weight:600}
+.inv{display:flex;gap:28px;align-items:center}
+.how{margin:18px 0 0;padding:0;list-style:none;counter-reset:h}
+.how li{counter-increment:h;position:relative;padding:0 0 12px 40px;font-size:15.5px;color:var(--ink2);line-height:1.45}
+.how li::before{content:counter(h);position:absolute;left:0;top:-2px;width:28px;height:28px;border-radius:50%;background:var(--blue-s);color:var(--blue-ink);font-weight:600;font-size:14px;display:grid;place-items:center}
+.how b{color:var(--ink);font-weight:600}
+.spin{width:18px;height:18px;border-radius:50%;border:2.5px solid var(--blue-l);border-top-color:var(--blue);animation:sp 1s linear infinite;flex:none;margin-top:2px}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* гурток */
+.cl{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:32px}
+.price{border-radius:18px;background:var(--blue-s);padding:20px}
+.price>b{display:block;font-size:32px;line-height:40px;font-weight:600;margin-top:2px}
+.price>small{display:block;font-size:14px;color:var(--ink2);margin-top:2px}
+.price .btn{width:100%;margin-top:18px}
+.tag.wq{background:var(--warn-s);color:var(--warn)}
+
+/* путівник: доповнення */
+.tour .why{display:block;margin-top:8px;font-size:13px;color:#6e6e6e}
+.tour .wt{display:flex;gap:10px;align-items:center;margin-top:14px;color:#5b12b5;font-weight:700;font-size:13.5px}
+.tour .wt .spin{margin-top:0;border-color:#efe4ff;border-top-color:#7b2ff7}
+
+/* вузькі екрани */
+@media(max-width:1180px){
+  .layout{grid-template-columns:1fr;row-gap:0}
+  .side{border-radius:0 0 20px 20px;display:flex;gap:4px;overflow-x:auto;padding:10px 12px}
+  .side .scap,.side .who{display:none}
+  .sit{width:auto;white-space:nowrap;flex:none;margin:0}
+  .ph{height:150px;padding-top:40px}
+  .hnav{display:none}
+  .two,.g2,.cl{grid-template-columns:1fr}
+  .prow{grid-template-columns:minmax(0,1fr) 150px 210px}
+  .prow .pa{grid-column:1/-1;justify-content:flex-start;margin-top:12px}
+}
+@media(max-width:760px){
+  .ph h1{font-size:40px;line-height:48px}
+  .sgrid,.kpis,.g3,.kgrid,.ogrid,.lim3{grid-template-columns:1fr}
+  .row{grid-template-columns:minmax(0,1fr) 24px}.row h4{white-space:normal}.row .chip{grid-column:1;grid-row:2;margin-top:10px}.row .ar{grid-row:1/3;grid-column:2}
+  .fgrid{grid-template-columns:1fr}.fcont{grid-template-columns:1fr}
+  .hright .hbtn span{display:none}.upill span{display:none}
+  .mock .hint{display:none}
+  .tour{left:10px;right:10px;width:auto;bottom:10px;max-height:55vh}
+  .lead,.alert,.inv,.dec .top{flex-direction:column;align-items:flex-start}
+  .alert .btn{margin-left:0}
+  .prow{grid-template-columns:1fr;row-gap:8px}
+  .code input{width:44px;height:54px;font-size:22px}
+  .kv{grid-template-columns:1fr}.kv>div:nth-child(odd){padding-bottom:0;border-bottom:0}
+  .tools{flex-wrap:wrap}
+  .bigcode{font-size:34px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="mock" id="mock">
+  <span class="lbl">Макет · Мій Київ</span>
+  <button class="tab on" data-role="par">Батько</button>
+  <button class="tab" data-role="kid">Дитина</button>
+  <span class="sep"></span>
+  <label>Шар: <select id="layerSel">
+    <option value="1">кабінет + «Мої діти»</option>
+    <option value="0">кабінет як у Figma</option>
+  </select></label>
+  <button class="tab" id="resetBtn">Скинути</button>
+  <button class="tab tourbtn" id="tourbtn">🧭 Путівник</button>
+  <a class="tab" href="../" target="_blank" rel="noopener">Повний прототип ↗</a>
+  <span class="hint">Копія кабінету з Figma · дані демонстраційні</span>
+</div>
+
+<div class="page">
+  <header class="hd">
+    <div class="wrap">
+      <a class="logo" data-a="home" aria-label="Портал послуг"><img src="img/logo-blue.svg" alt="Портал послуг Kyiv.Digital"></a>
+      <nav class="hnav">
+        <button data-a="dd" data-d="city">Міські послуги <svg class="ic" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+        <a data-a="toast" data-t="«Часті запитання» в макеті не деталізовано">Часті запитання</a>
+      </nav>
+      <div class="hright">
+        <button class="hbtn" data-a="search"><svg class="ic" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7"/><path d="M20.5 20.5l-5-5"/></svg><span>Пошук</span></button>
+        <button class="hbtn" data-a="dd" data-d="a11y"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="7.2" r="1.3" fill="currentColor" stroke="none"/><path d="M7.5 10l4.5 1 4.5-1M12 11v3.2M12 14.2l-2.4 4.3M12 14.2l2.4 4.3"/></svg><span>Доступність</span></button>
+        <button class="upill" data-a="dd" data-d="user"><span class="ava" id="uAva">РК</span><span id="uName">Роман К.</span><svg class="ic" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+      </div>
+    </div>
+    <div class="wrap" style="position:relative;height:0"><div id="ddBox"></div></div>
+  </header>
+
+  <div class="banner"></div>
+
+  <div class="wrap layout">
+    <aside class="side" id="side"></aside>
+    <main class="main" id="main"></main>
+  </div>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="fgrid">
+        <div>
+          <a class="flogo" data-a="home"><img src="img/logo-white.svg" alt="Портал послуг"></a>
+          <div class="fsup">
+            <div class="fcap">Підтримка</div>
+            <div class="fcont">
+              <div><div class="l">Контактний номер:</div><div class="v"><svg class="ic" viewBox="0 0 24 24"><path d="M5 4h3.5l1.7 4.3-2.3 1.4a11 11 0 005.4 5.4l1.4-2.3L19 14.5V18a2 2 0 01-2 2A15 15 0 013 6a2 2 0 012-2z"/></svg>+38 (044) 366-80-22</div></div>
+              <div><div class="l">E-mail підтримка:</div><div class="v"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6l8.5 7 8.5-7"/></svg>portal.support@kyivcity.gov.ua</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="fcol">
+          <div class="fcap">Міська платформа</div>
+          <a data-a="dd" data-d="city">Міські послуги</a>
+          <a data-a="toast" data-t="«Часті запитання» в макеті не деталізовано">Часті запитання</a>
+        </div>
+        <div>
+          <div class="fcap" style="margin-top:3px">Мобільний застосунок Kyiv Digital</div>
+          <div class="stores">
+            <a class="store" data-a="toast" data-t="Посилання на Google Play"><svg width="26" height="28" viewBox="0 0 26 28"><path d="M1.5 1.2L14.6 14 1.5 26.8c-.4-.3-.6-.8-.6-1.4V2.6c0-.6.2-1.1.6-1.4z" fill="#2ec4f3"/><path d="M19 9.6L14.6 14 1.5 1.2c.5-.4 1.2-.4 1.9 0z" fill="#3fdc7f"/><path d="M19 18.4L3.4 26.8c-.7.4-1.4.4-1.9 0L14.6 14z" fill="#f5384a"/><path d="M24 12.2c1 .6 1 2 0 2.6l-5 2.9L14.6 14 19 9.6z" fill="#ffc72c"/></svg><span><small>GET IT ON</small><b>Google Play</b></span></a>
+            <a class="store" data-a="toast" data-t="Посилання на App Store"><svg width="22" height="26" viewBox="0 0 22 26" fill="#fff"><path d="M18.2 13.8c0-3 2.5-4.5 2.6-4.6-1.4-2.1-3.6-2.4-4.4-2.4-1.9-.2-3.6 1.1-4.6 1.1-.9 0-2.4-1.1-4-1-2 0-3.9 1.2-5 3-2.1 3.7-.5 9.2 1.5 12.2 1 1.5 2.2 3.1 3.8 3 1.5-.1 2.1-1 3.9-1s2.4 1 4 1c1.7 0 2.7-1.5 3.7-3 1.2-1.7 1.6-3.3 1.7-3.4-.1 0-3.2-1.2-3.2-4.9zM15.2 4.9c.8-1 1.4-2.4 1.2-3.8-1.2.1-2.6.8-3.5 1.8-.8.9-1.4 2.3-1.2 3.7 1.3.1 2.6-.7 3.5-1.7z"/></svg><span><small>Download on the</small><b>App Store</b></span></a>
+          </div>
+          <div class="fcap" style="margin-top:37px">Соціальні мережі</div>
+          <div class="socs">
+            <a class="soc" data-a="toast" data-t="Telegram"><svg viewBox="0 0 24 24" fill="#fff"><path d="M21.5 3.6L2.9 10.8c-1.3.5-1.2 1.2-.2 1.5l4.8 1.5 1.8 5.6c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.4-1.2zM8.4 13.5l9.6-6.1c.5-.3.9-.1.5.2l-8.2 7.4-.3 3.4z"/></svg></a>
+            <a class="soc" data-a="toast" data-t="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".9" fill="#fff" stroke="none"/></svg></a>
+            <a class="soc" data-a="toast" data-t="Facebook"><svg viewBox="0 0 24 24" fill="#fff"><path d="M13.6 21v-7.6h2.6l.4-3h-3V8.5c0-.9.3-1.5 1.5-1.5h1.6V4.3c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.9v3h2.6V21z"/></svg></a>
+            <a class="soc" data-a="toast" data-t="YouTube"><svg viewBox="0 0 24 24" fill="#fff"><path d="M21.6 7.2a2.6 2.6 0 00-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4a2.6 2.6 0 00-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.8a2.6 2.6 0 001.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.6 2.6 0 001.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3z"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="fbot">
+        <div class="cp"><span>©2026</span><span>Вебпортал надання електронних послуг.<br>Київська міська державна адміністрація, Київська міська рада</span></div>
+        <a data-a="toast" data-t="«Умови користування» в макеті не деталізовано">Умови користування</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<button class="fab" id="fab" data-a="chat" aria-label="Чат-помічник"><svg class="ic" viewBox="0 0 24 24"><path d="M12 4c4.7 0 8.5 3.1 8.5 7s-3.8 7-8.5 7c-1 0-2-.1-2.9-.4L5 19.5l1.1-3.6C4.5 14.6 3.5 12.9 3.5 11c0-3.9 3.8-7 8.5-7z"/><path d="M8.5 10h7M8.5 13h4.5"/></svg></button>
+<div class="chat" id="chat" hidden></div>
+<div class="ovl" id="ovl" hidden><div class="mdl" id="mdl"></div></div>
+<div class="toast" id="toast"></div>
+<div class="tour" id="tour" hidden>
+  <div class="th"><b>🧭 Путівник</b><span class="pr" id="tour-pr"></span><button id="tour-x" title="Згорнути">×</button></div>
+  <div class="tb" id="tour-body"></div>
+</div>
+
+<script>
+/* ================= БАЗА ================= */
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const P={
+ doc:'<path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>',
+ pen:'<path d="M5 15.5L15.5 5a2.1 2.1 0 013 3L8 18.5l-4 1z"/><path d="M13.5 7l3 3M4 21.5c2-.2 3.4-1.6 4.8-1.6 1.5 0 1.6 1.4 3.2 1.4 1.3 0 2.4-.9 3.5-1.6"/>',
+ docs:'<path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5"/><path d="M13.5 11.5v4a1.75 1.75 0 01-3.5 0v-4.5a1 1 0 012 0v4"/>',
+ cal:'<rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+ users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 19.5c.8-3.4 3.4-5 6.5-5s5.7 1.6 6.5 5"/><path d="M15.5 4.8a3.5 3.5 0 010 6.4M18 14.8c1.8.7 3 2.3 3.5 4.7"/>',
+ kid:'<circle cx="14.5" cy="9.5" r="5.5"/><path d="M10.6 13.4L6 18"/><circle cx="5" cy="19" r="2"/><path d="M12.5 7.5a3 3 0 014 0"/>',
+ brief:'<rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0110.5 4h3A1.5 1.5 0 0115 5.5V7M3 12.5h18"/>',
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4.5 20c1-3.6 3.9-5.5 7.5-5.5s6.5 1.9 7.5 5.5"/>',
+ bell:'<path d="M6 16v-5a6 6 0 0112 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 004 0"/>',
+ bin:'<path d="M4 7h16M9.5 7V4.5h5V7M6 7l1 13h10l1-13"/><path d="M10 11v5M14 11v5"/>',
+ home:'<path d="M4 11l8-7 8 7v9a1 1 0 01-1 1h-5v-6h-4v6H5a1 1 0 01-1-1z"/>',
+ truck:'<path d="M2.5 6.5h11.5v9.5H2.5zM14 9.5h4l3 3.5v3h-7"/><circle cx="6.5" cy="17.5" r="2"/><circle cx="17" cy="17.5" r="2"/>',
+ inbox:'<path d="M4 13l2.5-8h11L20 13v6H4z"/><path d="M4 13h4.5l1 2h5l1-2H20"/>',
+ chart:'<path d="M4 20V4M4 20h16"/><path d="M8.5 16v-5M12.5 16V8M16.5 16v-3"/>',
+ route:'<circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H16a3 3 0 000-6H8a3 3 0 010-6h7.5"/>',
+ bins:'<path d="M2.5 9h8M3.5 9l.8 10h5.4l.8-10M5 9V7h3v2M13.5 9h8M14.5 9l.8 10h5.4l.8-10M16 9V7h3v2"/>',
+ file:'<path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5M9 12.5h6M9 16.5h6"/>',
+ plane:'<path d="M21 3L10.5 13.5M21 3l-6.5 18-4-7.5L3 9.5z"/>',
+ clock:'<path d="M4.5 12a7.5 7.5 0 107.5-7.5A7.6 7.6 0 005 8.2"/><path d="M4.5 4.5v3.8h3.8M12 8v4l2.8 1.8"/>',
+ docsearch:'<path d="M12.5 3H6.5A1.5 1.5 0 005 4.5v15A1.5 1.5 0 006.5 21H11"/><path d="M12.5 3l5 5v2.5"/><circle cx="15.5" cy="16" r="3"/><path d="M17.8 18.3l2.2 2.2"/>',
+ check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+ checkc:'<circle cx="12" cy="12" r="8.5"/><path d="M8 12.3l2.8 2.8 5.4-5.5"/>',
+ x:'<path d="M6 6l12 12M18 6L6 18"/>',
+ alert:'<path d="M12 4l9 16H3z"/><path d="M12 10v4M12 17v.3"/>',
+ info:'<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8v.3"/>',
+ arr:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+ chev:'<path d="M6 9l6 6 6-6"/>',
+ chevu:'<path d="M6 15l6-6 6 6"/>',
+ chevr:'<path d="M9 6l6 6-6 6"/>',
+ pin:'<path d="M12 21s7-6.2 7-11.5A7 7 0 005 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
+ cam:'<path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>',
+ gps:'<circle cx="12" cy="12" r="2.6"/><circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>',
+ mark:'<rect x="4" y="4" width="16" height="16" rx="3.5"/><path d="M8.5 12.3l2.4 2.4 4.6-4.9"/>',
+ scale:'<path d="M4 20h16M6 20l2-11h8l2 11"/><circle cx="12" cy="6" r="2"/>',
+ msg:'<path d="M4 5h16v11H9l-5 4z"/><path d="M12 8v3.5M12 13.6v.3"/>',
+ sofa:'<path d="M5 11V8a2 2 0 012-2h10a2 2 0 012 2v3"/><path d="M3 12a2 2 0 014 0v2h10v-2a2 2 0 014 0v5H3z"/><path d="M5 17v2M19 17v2"/>',
+ tv:'<rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/>',
+ bed:'<path d="M3 19V7M3 14h18v5M21 14v-2a3 3 0 00-3-3h-7v5"/><circle cx="7" cy="11" r="1.6"/>',
+ door:'<path d="M6 21V4h12v17M4 21h16"/><path d="M14.5 12.5h.5"/>',
+ bath:'<path d="M4 12h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4z"/><path d="M6 12V6a2 2 0 014 0M7 19l-1 2M17 19l1 2"/>',
+ dots:'<path d="M6 12h.01M12 12h.01M18 12h.01" stroke-width="3"/>',
+ over:'<path d="M5 10h14l-1.2 10H6.2z"/><path d="M12 3v5M9.5 5.5L12 3l2.5 2.5"/>',
+ spill:'<path d="M4 9h10l-1 9H5z"/><path d="M16 14.5l2.5 1.5M17 11h3.5M15.5 18.5l1.3 2"/>',
+ broken:'<path d="M5 8h14l-1.2 12H6.2z"/><path d="M11.5 8l-1 4 3 2-1 4"/>',
+ dump:'<path d="M3 19h18M4.5 19l3.5-6 3 3 3.5-5.5L19 19"/><circle cx="16" cy="6" r="1.5"/>',
+ car:'<path d="M5 16v-4l2-4h10l2 4v4z"/><circle cx="8" cy="16.5" r="1.5"/><circle cx="16" cy="16.5" r="1.5"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ back:'<path d="M19 12H5M11 6l-6 6 6 6"/>',
+ ret:'<path d="M9 14L4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 010 11H11"/>',
+ leaf:'<path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14z"/><path d="M5 19l7-7"/>',
+ glass:'<path d="M9 3h6M10 3v4l-2 3v10a1 1 0 001 1h6a1 1 0 001-1V10l-2-3V3"/>',
+ bat:'<rect x="7" y="5" width="10" height="16" rx="2"/><path d="M10 3h4M12 10v5M9.5 12.5h5"/>',
+ shirt:'<path d="M8 4l-5 3 2 4 2-1v10h10V10l2 1 2-4-5-3a4 4 0 01-8 0z"/>',
+ zoom:'<circle cx="10.5" cy="10.5" r="7"/><path d="M20.5 20.5l-5-5M10.5 7.5v6M7.5 10.5h6"/>',
+ logout:'<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/>'
+};
+const ic=(n,c='')=>`<svg class="ic ${c}" viewBox="0 0 24 24">${P[n]||''}</svg>`;
+/* ================= ІЛЮСТРАЦІЇ ================= */
+(function(){
+  const win=(x0,y0,c,r,dx,dy,w,h)=>{let s='';for(let j=0;j<r;j++)for(let i=0;i<c;i++)s+=`<rect x='${x0+i*dx}' y='${y0+j*dy}' width='${w}' height='${h}'/>`;return s};
+  let sp='';for(let a=0;a<360;a+=30){const r=a*Math.PI/180;sp+=`<line x1='300' y1='236' x2='${(300+64*Math.cos(r)).toFixed(1)}' y2='${(236+64*Math.sin(r)).toFixed(1)}'/>`}
+  let cab='';for(let a=0;a<360;a+=30){const r=a*Math.PI/180;cab+=`<circle cx='${(300+68*Math.cos(r)).toFixed(1)}' cy='${(236+68*Math.sin(r)).toFixed(1)}' r='4.5'/>`}
+  const svg=`<svg xmlns='http://www.w3.org/2000/svg' width='480' height='220' viewBox='0 0 480 220'><g fill='#fff' fill-opacity='.075'><rect x='8' y='74' width='70' height='146'/><rect x='20' y='52' width='46' height='24'/><rect x='32' y='34' width='22' height='20'/><rect x='42' y='12' width='2' height='24'/><rect x='100' y='134' width='58' height='86'/><rect x='112' y='108' width='34' height='28'/><path d='M129 70c-12 8-17 19-17 30v8h34v-8c0-11-5-22-17-30z'/><rect x='128' y='44' width='2' height='28'/><rect x='123' y='51' width='12' height='2'/><rect x='176' y='166' width='74' height='54'/><rect x='186' y='152' width='54' height='16'/><rect x='392' y='76' width='10' height='144'/><rect x='386' y='68' width='22' height='9'/><path d='M397 32c-3 0-5 3-5 6v10l-12-8-2 3 14 11v14h10V54l14-11-2-3-12 8V38c0-3-2-6-5-6z'/><rect x='420' y='102' width='56' height='118'/><rect x='430' y='86' width='36' height='18'/><rect x='446' y='70' width='4' height='18'/>${cab}</g><g fill='#06134a' fill-opacity='.10'>${win(15,84,6,13,10,10,5,5)}${win(427,110,5,11,10,10,5,5)}${win(183,174,7,4,10,11,5,6)}${win(118,146,4,6,11,12,4,6)}</g><g fill='none' stroke='#fff' stroke-opacity='.10' stroke-width='3'><circle cx='300' cy='236' r='64'/><circle cx='300' cy='236' r='12'/>${sp}</g><g fill='none' stroke='#fff' stroke-opacity='.22' stroke-width='1.6' stroke-linecap='round'><path d='M214 66l5 3 5-3'/><path d='M232 56l4 2.5 4-2.5'/><path d='M346 96l4 2.5 4-2.5'/><path d='M84 30l4 2.5 4-2.5'/></g></svg>`;
+  document.documentElement.style.setProperty('--ban',`url("data:image/svg+xml,${encodeURIComponent(svg)}")`);
+})();
+function ring(a,b,kind,tx){
+  const r=24.5,c=2*Math.PI*r,p=b?Math.min(1,a/b):1,col=kind==='ok'?'#1f9d63':kind==='w'?'#e0a100':'#2b66f6';
+  const txt=tx||(kind==='ok'?ic('check'):b>9?Math.round(p*100)+'%':`${a}/${b}`);
+  return `<div class="ring ${kind==='ok'?'ok':''}"><svg width="57" height="57" viewBox="0 0 57 57"><circle cx="28.5" cy="28.5" r="${r}" fill="none" stroke="#e1e7ef" stroke-width="4.5"/><circle cx="28.5" cy="28.5" r="${r}" fill="none" stroke="${col}" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="${(c*p).toFixed(1)} ${c.toFixed(1)}"/></svg><span>${txt}</span></div>`;
+}
+/* ================= ОБОЛОНКА З КАБІНЕТУ «ВІДХОДИ» ================= */
+const ph=(t,o={})=>`<div class="ph${o.sm?' sm':''}${o.nolead?' nolead':''}">${o.crumb?`<div class="crumb">${o.crumb.map(c=>c[1]?`<a data-a="go" data-v="${c[1]}"${c[2]?` data-s="${c[2]}"`:''}>${c[0]}</a>`:`<span>${c[0]}</span>`).join(ic('chevr'))}</div>`:''}<h1>${t}</h1></div>`;
+function wzShell(title,crumb,steps,body,foot){
+  const w=S.wz,last=w.step>=steps.length;
+  return ph(title,{sm:1,crumb})+`<div class="card wz"><div class="wz-h">${last?ring(1,1,'ok'):ring(w.step+1,steps.length)}<div><div class="k">${last?'Готово':`Крок ${w.step+1} із ${steps.length}`}</div><h3>${last?(w.doneT||'Подано'):steps[w.step]}</h3></div></div><div class="wz-b">${body}</div>${foot||''}</div>`;
+}
+function wzFoot(canNext,nextT,act){
+  return `<div class="wz-f"><button class="btn ghost" data-a="wz-back">${ic('back','s20')}Назад</button><button class="btn" data-a="${act||'wz-next'}" ${canNext?'':'disabled'}>${nextT||'Далі'}</button></div>`;
+}
+function simpleList(rows){return `<div class="card list" style="margin-top:0">${rows.map(r=>`<div class="row" data-a="${r.a||'toast'}" ${r.v?`data-v="${r.v}"`:''} data-t="${r.tt||'У макеті не деталізовано'}">${r.dot?'<i class="dot"></i>':''}<div><h4>${r.t}</h4><div class="meta">${r.m.map(m=>`<span>${m[0]}${m[1]?`:<b>${m[1]}</b>`:''}</span>`).join('')}</div></div>${r.c||'<span></span>'}<span class="ar">${ic('arr')}</span></div>`).join('')}</div>`}
+function emptyCard(t,d,icn){return `<div class="card lead" style="align-items:center">${`<div class="ring" style="background:var(--blue-s);border-radius:50%;color:var(--blue)">${ic(icn)}</div>`}<div><h3 style="margin-top:0">${t}</h3><div class="m">${d}</div></div></div>`}
+function toast(t){const el=$('#toast');el.innerHTML=t;el.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove('on'),2600)}
+function modal(h,wide){$('#mdl').className='mdl'+(wide?' wide':'');$('#mdl').innerHTML=`<button class="x" data-a="mclose">${ic('x')}</button>`+h;$('#ovl').hidden=false}
+function mclose(){$('#ovl').hidden=true;$('#mdl').innerHTML=''}
+
+/* ================= ДОДАТКОВІ ІКОНКИ ================= */
+Object.assign(P,{
+ fam:'<circle cx="8" cy="7" r="3"/><circle cx="17" cy="9.5" r="2.2"/><path d="M3 20c.6-3.6 2.6-5.5 5-5.5s4.4 1.9 5 5.5M14 20c.4-2.4 1.6-3.8 3-3.8s2.6 1.4 3 3.8"/>',
+ wallet:'<path d="M4 7.5V17a2 2 0 002 2h13a1 1 0 001-1v-3"/><path d="M4 7.5A2.5 2.5 0 016.5 5H17v3"/><path d="M20 11h-4a2 2 0 000 4h4z"/>',
+ qr:'<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2M20 14v.01M18 18h2v2M14 18v2h2"/>',
+ lock:'<rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 018 0v2.5"/>',
+ key:'<circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l2.5 2.5M14 9l2 2"/>',
+ laptop:'<rect x="5" y="5" width="14" height="10" rx="1.5"/><path d="M3 18.5h18"/>',
+ ticket:'<path d="M4 7.5A1.5 1.5 0 015.5 6h13A1.5 1.5 0 0120 7.5V10a2 2 0 000 4v2.5a1.5 1.5 0 01-1.5 1.5h-13A1.5 1.5 0 014 16.5V14a2 2 0 000-4z"/><path d="M14 7.5v9" stroke-dasharray="2 2.2"/>',
+ card:'<rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M3 10h18M7 15h4"/>',
+ star:'<path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/>',
+ shield:'<path d="M12 3l7 3v5.5c0 4.5-3 8-7 9.5-4-1.5-7-5-7-9.5V6z"/><path d="M9 12l2 2 4-4"/>',
+ search:'<circle cx="10.5" cy="10.5" r="7"/><path d="M20.5 20.5l-5-5"/>',
+ planet:'<circle cx="12" cy="12" r="5"/><path d="M4.6 15.6c-1.5 1.6-1.9 2.9-1.3 3.4 1.4 1 6.8-1.6 11.9-6.1s8.6-8.9 7.5-9.9c-.6-.5-2 0-3.6 1.3"/>',
+ mask:'<path d="M5 5h10v5a5 5 0 01-10 0z"/><path d="M8 8.5h.01M12 8.5h.01M8.5 11.5c.8.6 2.2.6 3 0"/><path d="M15 9.5h4v5a5 5 0 01-7.5 4.3"/>',
+ museum:'<path d="M4 9.5L12 4l8 5.5M5 20h14M6.5 10.5v7M10 10.5v7M14 10.5v7M17.5 10.5v7"/>',
+ wave:'<path d="M3 16c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0M3 20c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0"/><circle cx="15" cy="6.5" r="2"/><path d="M7 12.5l4-4.5 3 2"/>',
+ bulb:'<path d="M9 18h6M10 21h4M12 3a6 6 0 00-3.5 10.9V16h7v-2.1A6 6 0 0012 3z"/>',
+ tent:'<path d="M3 20L12 4l9 16zM9 20l3-5 3 5"/>'
+});
+function sIcon(k){
+  const B='#2b66f6',L='#7ea6fa',W='#fff';
+  const g={
+   robo:`<rect x="18" y="24" width="30" height="21" rx="5" fill="${B}"/><circle cx="27" cy="34.5" r="3.2" fill="${W}"/><circle cx="39" cy="34.5" r="3.2" fill="${W}"/><rect x="31.5" y="16" width="3" height="8" rx="1.5" fill="${L}"/><circle cx="33" cy="15" r="3" fill="${L}"/><rect x="13" y="30" width="5" height="9" rx="2" fill="${L}"/><rect x="48" y="30" width="5" height="9" rx="2" fill="${L}"/>`,
+   vokal:`<path d="M27 44V21l17-4v21" stroke="${B}" stroke-width="3.6" fill="none" stroke-linejoin="round"/><ellipse cx="22.5" cy="44" rx="6" ry="5" fill="${B}"/><ellipse cx="39.5" cy="40" rx="6" ry="5" fill="${L}"/>`,
+   py:`<rect x="14" y="18" width="38" height="29" rx="5" fill="${B}"/><path d="M26 27l-5 5.5 5 5.5M40 27l5 5.5-5 5.5M35.5 25l-5 15" stroke="${W}" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`,
+   eng:`<path d="M14 18h25a3 3 0 013 3v14a3 3 0 01-3 3H25l-7 6v-6h-4a3 3 0 01-3-3V21a3 3 0 013-3z" fill="${B}"/><path d="M45 26h5a3 3 0 013 3v11a3 3 0 01-3 3h-2v5l-6-5h-7a3 3 0 01-3-3v-1h6a5 5 0 005-5z" fill="${L}"/><path d="M19 27h17M19 32h11" stroke="${W}" stroke-width="2.4" stroke-linecap="round"/>`,
+   swim:`<circle cx="40" cy="20" r="5" fill="${L}"/><path d="M21 32l9-10 9 5" stroke="${B}" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 38c4-3 8-3 12 0s8 3 12 0 8-3 12 0" stroke="${B}" stroke-width="3.6" fill="none" stroke-linecap="round"/><path d="M13 46c4-3 8-3 12 0s8 3 12 0 8-3 12 0" stroke="${L}" stroke-width="3.6" fill="none" stroke-linecap="round"/>`,
+   chess:`<circle cx="33" cy="19" r="6" fill="${B}"/><path d="M27 27h12l-2 4 3 11H26l3-11z" fill="${B}"/><rect x="20" y="42" width="26" height="6" rx="2" fill="${L}"/>`,
+   pass:`<rect x="15" y="14" width="36" height="37" rx="6" fill="${B}"/><rect x="21" y="20" width="10" height="10" rx="2" fill="${W}"/><rect x="35" y="20" width="10" height="10" rx="2" fill="${W}"/><rect x="21" y="35" width="10" height="10" rx="2" fill="${W}"/><rect x="35" y="35" width="4" height="4" fill="${L}"/><rect x="41" y="41" width="4" height="4" fill="${L}"/>`,
+   wallet:`<path d="M18 20l21-7 3 7" fill="${L}"/><rect x="13" y="20" width="40" height="28" rx="5" fill="${B}"/><rect x="38" y="29" width="15" height="10" rx="3" fill="${L}"/><circle cx="43.5" cy="34" r="2" fill="${W}"/>`,
+   addkid:`<circle cx="28" cy="23" r="7.5" fill="${B}"/><path d="M14 47c1.5-8.5 7-12.5 14-12.5s12.5 4 14 12.5z" fill="${L}"/><circle cx="45" cy="40" r="8.5" fill="${B}"/><path d="M45 35.5v9M40.5 40h9" stroke="${W}" stroke-width="2.4" stroke-linecap="round"/>`
+  }[k]||'';
+  return `<svg class="sic" viewBox="0 0 66 66"><defs><filter id="ks${k}" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#2b66f6" flood-opacity=".12"/></filter></defs><g filter="url(#ks${k})"><rect x="5.5" y="4.5" width="55" height="55" rx="11" fill="#fff" stroke="#b8d0fb"/></g>${g}</svg>`;
+}
+function qrSVG(t,px){
+  const n=25,c=px/n;let h=2166136261,r='';
+  for(let i=0;i<t.length;i++){h^=t.charCodeAt(i);h=Math.imul(h,16777619)>>>0}
+  const rnd=()=>{h=(h^(h<<13))>>>0;h=(h^(h>>>17))>>>0;h=(h^(h<<5))>>>0;return h};
+  const R=(x,y,w,f)=>{r+=`<rect x="${(x*c).toFixed(2)}" y="${(y*c).toFixed(2)}" width="${(w*c).toFixed(2)}" height="${(w*c).toFixed(2)}" fill="${f}"/>`};
+  for(let y=0;y<n;y++)for(let x=0;x<n;x++){if((x<8&&y<8)||(x>n-9&&y<8)||(x<8&&y>n-9))continue;if(rnd()%100<47)R(x,y,1,'#030616')}
+  [[0,0],[n-7,0],[0,n-7]].forEach(p=>{R(p[0],p[1],7,'#030616');R(p[0]+1,p[1]+1,5,'#fff');R(p[0]+2,p[1]+2,3,'#030616')});
+  return `<svg width="${px}" height="${px}" viewBox="0 0 ${px} ${px}" shape-rendering="crispEdges">${r}</svg>`;
+}
+
+/* ================= ДАНІ ================= */
+const TODAY='12.11.2026',TD=3;
+const DAYS=['Пн','Вт','Ср','Чт','Пт','Сб','Нд'],DAYF=['понеділок','вівторок','середа','четвер','пʼятниця','субота','неділя'];
+const VOUCHER=500;
+const money=n=>{const neg=n<0;n=Math.abs(n);return (neg?'−':'')+String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' ₴'};
+const ageWord=n=>{const t=n%100,o=n%10;if(t>=11&&t<=14)return'років';if(o===1)return'рік';if(o>=2&&o<=4)return'роки';return'років'};
+const FAMILY={
+ marko:{id:'KD-3F7K-9Q2M',name:'Марко',gen:'Марка',dat:'Марку',full:'Кравець Марко Романович',dob:'14.03.2014',age:12,school:'Ліцей №142, 6-Б',f:0,col:'#2b66f6',ini:'М'},
+ sofia:{id:'KD-8M2R-4T6W',name:'Софія',gen:'Софії',dat:'Софії',full:'Кравець Софія Романівна',dob:'02.02.2018',age:8,school:'Гімназія №153, 2-А',f:1,col:'#7b2ff7',ini:'С'},
+ olena:{id:'KD-5H9C-1V3N',name:'Олена',gen:'Олени',dat:'Олені',full:'Кравець Олена Романівна',dob:'09.11.2015',age:11,school:'Гімназія №153, 5-А',f:1,col:'#1f9d63',ini:'О'}
+};
+const kn=k=>FAMILY[k].name;
+const kage=k=>`${FAMILY[k].age} ${ageWord(FAMILY[k].age)}`;
+const kava=(k,c='')=>`<span class="kava ${c}" style="background:${FAMILY[k].col}">${FAMILY[k].ini}</span>`;
+const gv=(k,m,f)=>FAMILY[k].f?f:m;
+const CLUBS=[
+ {id:'py',name:'Основи програмування Python',org:'Мала академія наук',sorg:'МАН',addr:'просп. Берестейський, 37',rayon:'Солом’янський',amin:11,amax:16,dd:[5],tm:'11:00',time:'сб · 11:00–13:00',pay:'free',pr:0,v:0,seats:7,grp:'Група П-3 · початковий рівень',road:'18 хв громадським транспортом',about:'Базовий курс Python: алгоритми, робота з даними, перші проєкти. Підготовка до конкурсу Малої академії наук.'},
+ {id:'robo',name:'Робототехніка та конструювання',org:'ЦДЮТ «Дивосвіт»',sorg:'ЦДЮТ «Дивосвіт»',addr:'вул. Гарматна, 26/2',rayon:'Солом’янський',amin:10,amax:14,dd:[0,2],tm:'17:30',time:'пн, ср · 17:30–19:00',pay:'free',pr:0,v:0,seats:3,grp:'Група Б-2 · середній рівень',road:'12 хв пішки від школи',about:'Діти складають і програмують роботів на платформі Arduino, беруть участь у міських змаганнях.'},
+ {id:'eng',name:'Англійська через театр',org:'Будинок дитячої творчості',sorg:'БДТ',addr:'вул. Козелецька, 5',rayon:'Солом’янський',amin:9,amax:14,dd:[1,3],tm:'16:30',time:'вт, чт · 16:30–18:00',pay:'paid',pr:900,v:1,seats:4,grp:'Група А-3 · рівень A2',road:'10 хв пішки від школи',about:'Англійська через театральні постановки: ролі, діалоги, вистава англійською наприкінці семестру. Акредитована програма, приймає ваучер Activity Pass.'},
+ {id:'chess',name:'Шаховий клуб «Дебют»',org:'Будинок дитячої творчості',sorg:'БДТ',addr:'вул. Козелецька, 5',rayon:'Солом’янський',amin:7,amax:14,dd:[2,5],tm:'15:00',time:'ср, сб · 15:00–16:30',pay:'free',pr:0,v:0,seats:4,grp:'Група Ш-2',road:'10 хв пішки від школи',about:'Теорія дебютів, турнірна практика, участь у першості району та міста.'},
+ {id:'vokal',name:'Академічний вокал',org:'Київська дитяча школа мистецтв №2',sorg:'ШМ №2',addr:'вул. Січових Стрільців, 50',rayon:'Шевченківський',amin:7,amax:12,dd:[1,3],tm:'16:00',time:'вт, чт · 16:00–17:30',pay:'paid',pr:640,v:1,seats:5,grp:'Група В-1 · базовий рівень',road:'25 хв громадським транспортом',about:'Постановка голосу, сольний і ансамблевий спів, участь у концертах школи мистецтв.'},
+ {id:'swim',name:'Плавання — початкова підготовка',org:'ДЮСШ №14',sorg:'ДЮСШ №14',addr:'вул. Мельникова, 46',rayon:'Шевченківський',amin:8,amax:12,dd:[0,4],tm:'18:00',time:'пн, пт · 18:00–19:00',pay:'paid',pr:450,v:1,seats:0,grp:'Група початкової підготовки',road:'30 хв громадським транспортом',about:'Початкове навчання плаванню, групи до 12 дітей, тренери вищої категорії.'}
+];
+const club=id=>CLUBS.find(c=>c.id===id);
+const OFFERS=[
+ {id:'planet',cat:'Музеї',ic:'planet',name:'Київський планетарій',sub:'Дитячий квиток, програма «Подорож Сонячною системою»',price:150,when:'сб, 14.11 · 12:00'},
+ {id:'puppet',cat:'Театри',ic:'mask',name:'Театр ляльок',sub:'Вистава «Снігова королева», дитячий квиток',price:200,when:'нд, 22.11 · 11:00'},
+ {id:'museum',cat:'Музеї',ic:'museum',name:'Музей історії Києва',sub:'Квиток і майстер-клас «Київ 1900-х»',price:120,when:'будь-який день до 30.11'},
+ {id:'pool',cat:'Спорт',ic:'wave',name:'Басейн «Юність»',sub:'Абонемент на 4 вільні плавання',price:480,when:'до 31.12'},
+ {id:'course',cat:'Освітні курси',ic:'bulb',name:'Курс «Юний інженер»',sub:'8 занять у лабораторії Малої академії наук',price:1200,when:'листопад–грудень'},
+ {id:'camp',cat:'Табори',ic:'tent',name:'Денний табір «Зимові канікули»',sub:'5 днів, 9:00–17:00, харчування включено',price:2400,when:'26–30.12'}
+];
+const offer=id=>OFFERS.find(o=>o.id===id);
+
+/* кабінет «Мої послуги» з Figma */
+const APPS=[
+ {t:'Психологічна підтримка Захисникам і Захисницям',d:'12.06.2026',r:'12.07.2026',st:'sub',dot:1},
+ {t:'Запис дитини до школи',d:'6.06.2026',r:'16.06.2026',st:'fix',ch:'Софія'},
+ {t:'Реабілітація для ветеранів та їхніх сімей',d:'5.05.2026',r:'20.06.2026',st:'rev'},
+ {t:'Переведення дитини в нову школу',d:'5.05.2026',r:'20.06.2026',st:'rev',ch:'Марко'},
+ {t:'Компенсація вартості проїзду для Захисників і Захисниць',d:'28.04.2026',r:'28.05.2026',st:'rev'},
+ {t:'Направлення на санаторно-курортне лікування',d:'21.04.2026',r:'21.06.2026',st:'sub'},
+ {t:'Запис дитини до закладу позашкільної освіти',d:'14.04.2026',r:'14.05.2026',st:'fix',ch:'Софія'},
+ {t:'Допомога на поховання',d:'02.04.2026',r:'02.05.2026',st:'rev'},
+ {t:'Отримання талонів на паливо',d:'27.03.2026',r:'27.04.2026',st:'sub'},
+ {t:'Безоплатна юридична консультація',d:'18.03.2026',r:'18.04.2026',st:'rev'},
+ {t:'Компенсація за найм житла',d:'05.03.2026',r:'05.05.2026',st:'rev'}
+];
+const DONE=[
+ {t:'Безоплатне паркування в Києві для Захисників та Захисниць',d:'02.06.2026',r:'09.06.2026',st:'ok',dot:1},
+ {t:'Одноразова допомога при пошкодженні житла - 10 000 грн',d:'14.05.2026',r:'24.05.2026',st:'ok',dot:1},
+ {t:'Запис до гуртка «Робототехніка»',d:'02.02.2026',r:'12.02.2026',st:'ok',ch:'Марко'}
+];
+const CH={sub:['b','plane','Подано'],fix:['g','clock','На доопрацювання'],rev:['y','docsearch','На розгляді'],ok:['ok','checkc','Виконано'],
+ pend:['pur','fam','Чекає вашого рішення'],review:['y','docsearch','На розгляді закладу'],enrolled:['ok','checkc','Зараховано'],queue:['y','clock','У черзі'],issued:['ok','checkc','Видано'],rejected:['bad','x','Відхилено'],no:['bad','x','Відхилено']};
+const chip=(k,txt,sm)=>{const c=CH[k]||[k,'info',k];return `<span class="chip ${c[0]}${sm?' sm':''}">${ic(c[1])}${txt||c[2]}</span>`};
+const stTxt=r=>{if(S.role==='kid'){if(r.st==='pend')return'Чекає на тата';if(r.st==='rejected')return'Тато відхилив'}else if(r.st==='rejected')return'Відхилено вами';if(r.st==='queue')return`У черзі, ${r.r}`;return null};
+const NEED='<b>Потрібні дані:</b> серія та номер паспорта або номер ID-картки, посвідчення учасника бойових дій';
+const SVC=[
+ {t:'Одноразова допомога при пошкодженні житла - 10 000 грн',img:'svc-zhytlo-dopomoga',tag:'Соціальна підтримка',cat:['zhytlo']},
+ {t:'Погодження розміщення літніх та сезонних майданчиків біля кафе та ресторанів',img:'svc-biz-maidanchyky',tag:'Бізнесу',cat:['biz']},
+ {t:'Одноразова матеріальна допомога малозабезпеченим киянам',img:'svc-malozabezpecheni',tag:'Соціальна підтримка',cat:[]},
+ {t:'Часткове відшкодування вартості незалежних джерел електричної енергії',img:'svc-energia',tag:'Відновлення та енергоефективність',cat:['zhytlo']},
+ {t:'Запис дитини до школи',img:'svc-shkola',tag:'Діти та освіта',cat:['dity']},
+ {t:'Безоплатне паркування в Києві для Захисників та Захисниць',img:'svc-parkuvannia',tag:'Захисникам',cat:['zah']},
+ {t:'Гуртки й секції з ваучером Activity Pass',svg:'pass',tag:'Діти та освіта',need:'<b>Потрібні дані:</b> нічого, дані дітей уже є у вашому профілі',cat:['dity'],vx:1,a:'go',v:'catalog'},
+ {t:'Освітній гаманець дитини',svg:'wallet',tag:'Діти та освіта',need:'<b>Нараховано:</b> 4 000 ₴ на кожну дитину на 2026/2027 навчальний рік',cat:['dity'],vx:1,a:'go',v:'wallet'},
+ {t:'Додати дитину до профілю',svg:'addkid',tag:'Діти та освіта',need:'<b>Потрібні дані:</b> нічого, зв’язок з дитиною береться з Демографічного реєстру',cat:['dity'],vx:1,a:'addkid-start'}
+];
+
+function S0(){return{
+  role:'par',layer:true,
+  v:{par:'svc',kid:'home'},sub:{par:null,kid:null},
+  tab:'act',stF:'all',more:false,cat:'all',wz:null,
+  kid:'marko',kidIn:false,sess:null,sessDev:'',lkid:null,lid:'',kstep:1,code:null,codeExp:0,codeAt:'',tries:0,lerr:'',peek:false,linv:'',peekInv:false,bound:null,
+  access:{marko:true,sofia:false,olena:false},opened:{marko:true},added:[],
+  devices:{marko:[{d:'Chrome, macOS · Київ',since:'12.09.2026, 18:40'}]},invites:{},
+  seq:14871,
+  reqs:[
+   {id:14870,t:'Запис у секцію «Плавання — початкова підготовка»',club:'swim',ch:'sofia',by:'par',d:'19.09.2026',tm:'09:41',st:'queue',rl:'Місце в черзі',r:'12-те',
+    ev:[['ok','Подано з кабінету батька','19.09.2026, 09:41'],['ok','Передано до закладу','ДЮСШ №14'],['w','Поставлено в чергу','вільних місць немає · зараз 12-те місце']]},
+   {id:14869,t:'Довідка про навчання',ch:'marko',by:'kid',d:'11.09.2026',tm:'12:30',st:'issued',rl:'Видано',r:'12.09.2026',dec:'ok',
+    ev:[['ok','Подав Марко зі свого кабінету','11.09.2026, 12:30'],['ok','Підтверджено батьком','11.09.2026, 19:02 · Роман Кравець'],['ok','Довідку видано','Ліцей №142 · 12.09.2026']]}
+  ],
+  enr:{marko:['chess','robo'],sofia:['vokal'],olena:[]},fresh:[],
+  voucher:{marko:null,sofia:'vokal',olena:null},
+  att:{marko:{chess:[1,1,1,1,0,1,1,1],robo:[1,1,1,0,1,1,1]},sofia:{vokal:[1,1,0,1,1,1,1]},olena:{}},
+  pay:[
+   {id:1,t:'Листопад 2026',svc:'Академічний вокал, ШМ №2',ch:'sofia',full:640,v:500,paid:false,due:'до 30.11'},
+   {id:2,t:'Жовтень 2026',svc:'Академічний вокал, ШМ №2',ch:'sofia',full:640,v:500,paid:true,how:'карткою'},
+   {id:3,t:'Вересень 2026',svc:'Академічний вокал, ШМ №2',ch:'sofia',full:640,v:500,paid:true,how:'карткою'}
+  ],
+  wal:{
+   marko:{bal:3800,lim:0,tx:[{d:'14.10.2026',t:'Театр ляльок · «Лускунчик»',s:-200},{d:'01.09.2026',t:'Пільгова надбавка: дитина з родини Захисника',s:2000},{d:'01.09.2026',t:'Базова сума на 2026/2027 навчальний рік',s:2000}]},
+   sofia:{bal:4000,lim:0,tx:[{d:'01.09.2026',t:'Пільгова надбавка: дитина з родини Захисника',s:2000},{d:'01.09.2026',t:'Базова сума на 2026/2027 навчальний рік',s:2000}]},
+   olena:{bal:4000,lim:0,tx:[{d:'01.09.2026',t:'Пільгова надбавка: дитина з родини Захисника',s:2000},{d:'01.09.2026',t:'Базова сума на 2026/2027 навчальний рік',s:2000}]}
+  },
+  wkid:'marko',preqs:[],pseq:1,
+  tickets:[{kid:'marko',ic:'mask',t:'Театр ляльок · «Лускунчик»',when:'14.10.2026',used:1}],
+  notify:{in:true,out:true},questsOn:true,
+  catF:'all',catKid:'marko',
+  notes:[
+   {r:'par',t:'Абонемент Софії за листопад (вокал): 140 ₴ після ваучера, сплатити до 30.11',d:'12.11.2026, 09:00',u:1,go:['pay'],vx:1},
+   {r:'par',t:'Марко відмітився на занятті «Робототехніка» · ЦДЮТ «Дивосвіт», 17:34',d:'11.11.2026, 17:34',u:0,go:['pass'],vx:1},
+   {r:'par',t:'У ДЮСШ №14 рухається черга на плавання: Софія тепер 12-та',d:'09.11.2026, 11:30',u:0,go:['svc'],vx:1},
+   {r:'par',t:'Заяву «Психологічна підтримка Захисникам і Захисницям» подано',d:'12.06.2026',u:1},
+   {r:'par',t:'Завершіть заяву «Оздоровлення дітей у супроводі дорослого»: залишилось 3 кроки',d:'08.11.2026',u:1,go:['drafts']},
+   {r:'par',t:'Нові послуги в розділі «Послуги для вас»',d:'05.11.2026',u:0,go:['svc']},
+   {r:'kid',t:'Заняття з шахів у суботу перенесено на 16:00 через повітряну тривогу',d:'11.11.2026, 10:22',u:0},
+   {r:'kid',t:'Твій учнівський квиток продовжено до 31.08.2027',d:'02.09.2026',u:0}
+  ],
+  chat:false,chatLog:null,dd:null,a11y:false
+}}
+let S=S0();
+
+/* ================= ДОПОМІЖНЕ ================= */
+const allKids=()=>['marko','sofia',...S.added.map(a=>a.id)];
+const inProfile=k=>k==='marko'||k==='sofia'||S.added.some(a=>a.id===k);
+const codeLive=()=>!!S.code&&Date.now()<S.codeExp;
+const left=()=>{const l=Math.max(0,S.codeExp-Date.now()),m=Math.floor(l/60000),s=Math.floor(l%60000/1000);return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`};
+const pendReqs=()=>S.reqs.filter(r=>r.st==='pend');
+const pendBuys=()=>S.preqs.filter(r=>r.st==='pend');
+const unpaid=()=>S.pay.filter(p=>!p.paid);
+const unread=r=>S.notes.filter(n=>n.r===r&&n.u&&(S.layer||!n.vx)).length;
+let _min=2;function clock(){_min+=3;const h=10+Math.floor(_min/60),m=_min%60;return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`}
+function note(r,t,go,vx=1){S.notes.unshift({r,t,d:TODAY+', '+clock(),u:1,go,vx})}
+const walSum=k=>{let cr=0,sp=0;S.wal[k].tx.forEach(t=>{if(t.s>0)cr+=t.s;else sp-=t.s});return{cr,sp}};
+function voucherLine(k){const v=S.voucher[k];if(!v)return{t:'Ще не використано',s:`до ${money(VOUCHER)} на місяць на одну платну групу`,on:0};const c=club(v);return{t:`${c.name}, ${c.sorg}`,s:`${money(VOUCHER)} з ${money(c.pr)} на місяць · доплата ${money(c.pr-VOUCHER)}`,on:1}}
+function payInfo(c,k){
+  if(c.pay==='free')return{full:0,v:0,due:0,txt:'Бюджетна група: безкоштовно, ваучер не витрачається.'};
+  const used=S.voucher[k],can=c.v&&(!used||used===c.id);
+  if(can)return{full:c.pr,v:VOUCHER,due:c.pr-VOUCHER,txt:`${money(c.pr)} на місяць. Ваучер Activity Pass покриває ${money(VOUCHER)}, доплата ${money(c.pr-VOUCHER)} з освітнього гаманця або карткою.`};
+  if(c.v&&used)return{full:c.pr,v:0,due:c.pr,txt:`${money(c.pr)} на місяць. Ваучер уже використано на «${club(used).name}», тому повна вартість.`};
+  return{full:c.pr,v:0,due:c.pr,txt:`${money(c.pr)} на місяць. Заклад не приймає ваучер.`};
+}
+function conflicts(c,k){const out=[];(S.enr[k]||[]).forEach(id=>{const e=club(id);if(e.id===c.id)return;c.dd.forEach(d=>{if(e.dd.includes(d)&&e.tm===c.tm)out.push(`${DAYS[d]} ${e.tm} · ${e.name}`)})});return out}
+function genInvite(){const a='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<8;i++){s+=a.charAt(Math.floor(Math.random()*a.length));if(i===3)s+='-'}return s}
+function inviteFor(k){S.invites[k]={code:genInvite(),exp:'13.11.2026, '+clock()};return S.invites[k]}
+function spend(k,o,why){const w=S.wal[k];w.bal-=o.price;w.tx.unshift({d:TODAY,t:`${o.name} · ${why}`,s:-o.price});S.tickets.unshift({kid:k,ic:o.ic,t:o.name,when:o.when})}
+const txRow=t=>`<div class="row" style="grid-template-columns:120px minmax(0,1fr) 140px;cursor:default;padding:18px 0"><span style="color:var(--ink2);font-size:15px">${t.d}</span><h4 style="font-size:17px;line-height:24px;white-space:normal">${t.t}</h4><b style="text-align:right;font-weight:600;color:${t.s>0?'var(--ok-i)':'var(--ink)'}">${t.s>0?'+':''}${money(t.s)}</b></div>`;
+function attBlock(k){
+  const a=S.att[k]||{},ks=Object.keys(a);
+  if(!ks.length)return `<div style="color:var(--ink3);padding:12px 0">Регулярних занять поки немає.</div>`;
+  return ks.map(id=>{const d=a[id],c=club(id),n=d.filter(Boolean).length;return `<div><div><b>${c.name}</b><div class="dots">${d.map(x=>`<i class="${x?'':'x'}" title="${x?'було':'пропуск'}"></i>`).join('')}<i class="n" title="наступне заняття"></i></div></div><span class="n">${d.length?`${n} з ${d.length}`:'нове'}</span></div>`}).join('');
+}
+
+/* ================= МЕНЮ ================= */
+const MENU={
+ par:()=>[['Кабінет',[['svc','doc','Мої послуги'],['drafts','pen','Чернетки',2],['docs','docs','Мої документи']]],
+   ['Мої діти',[['kids','fam','Діти'],['approve','checkc','Підтвердження',pendReqs().length+pendBuys().length],['pass','qr','Гуртки й Activity Pass'],['wallet','wallet','Освітній гаманець'],['pay','card','Оплати',unpaid().length],['access','lock','Доступ до кабінетів',codeLive()?1:0]],1],
+   ['Мої розділи',[['events','cal','Обрані заходи'],['spec','users','Мої фахівці'],['kidsvc','kid','Послуги для дітей',0,0,1],['biz','brief','Мій бізнес']]],
+   ['Акаунт',[['prof','user','Мій профіль'],['notif','bell','Мої сповіщення',unread('par')]]]],
+ kid:()=>S.kidIn?[['Мій кабінет',[['home','star','Для мене'],['catalog','search','Гуртки й секції'],['kreq','doc','Мої заявки',S.reqs.filter(r=>r.ch===S.kid&&['pend','review'].includes(r.st)).length],['kpass','qr','Activity Pass'],['kwallet','wallet','Освітній гаманець']]],
+   ['Акаунт',[['kprof','user','Про мене'],['notif','bell','Мої сповіщення',unread('kid')]]]]
+  :[['Вхід до кабінету',[['login','user','Вхід за ID'],['invite','key','Перший вхід за кодом']]]]
+};
+const PARENT={par:{addkid:'kids',catalog:'pass',club:'pass',apply:'pass'},kid:{club:'catalog',apply:'catalog',bound:'invite'}};
+function renderSide(){
+  const r=S.role;let v=S.v[r];
+  if(v==='addkid'&&S.wz&&S.wz.from==='access')v='access';else if(PARENT[r][v])v=PARENT[r][v];
+  let h='';
+  if(r==='kid')h=S.kidIn?`<div class="who"><b>${kn(S.kid)} К.</b><span>${kage(S.kid)} · ${FAMILY[S.kid].school}</span></div>`:`<div class="who"><b>Кабінет дитини</b><span>Новий пристрій · Chrome, Windows</span></div>`;
+  MENU[r]().forEach(([cap,items,gvx])=>{h+=`<div class="scap${gvx?' vx':''}">${cap}</div>`;items.forEach(([k,i,t,c,ivx,bx])=>{h+=`<button class="sit${v===k?' on':''}${gvx||ivx?' vx':''}${bx?' bx':''}" data-a="go" data-v="${k}">${ic(i)}<span>${t}</span>${c?`<span class="cnt">${c}</span>`:''}</button>`})});
+  $('#side').innerHTML=h;
+}
+
+/* ================= БАТЬКО: МОЇ ПОСЛУГИ ================= */
+function kidRows(done){
+  if(!S.layer)return[];
+  return S.reqs.filter(r=>['enrolled','issued','rejected'].includes(r.st)===done).map(r=>({t:r.t,d:r.d,r:r.r,rl:r.rl,st:r.st,txt:stTxt(r),ch:kn(r.ch),kid:r.ch,by:r.by,dot:r.dot,rid:r.id}));
+}
+function appRow(x){
+  const m=[`<span>Подано:<b>${x.d}</b></span>`];
+  if(x.r)m.push(`<span>${x.rl||'Розгляд до'}:<b>${x.r}</b></span>`);
+  if(S.layer&&x.ch)m.push(`<span class="vx">Дитина:<b>${x.ch}</b></span>`);
+  if(S.layer&&x.by==='kid')m.push(`<span class="vx">${gv(x.kid,'Подав','Подала')}:<b>${gv(x.kid,'сам','сама')} зі свого кабінету</b></span>`);
+  const act=x.rid?`data-a="req" data-s="${x.rid}"`:x.go?`data-a="go" data-v="${x.go[0]}"${x.go[1]?` data-s="${x.go[1]}"`:''}`:`data-a="toast" data-t="Картку заяви в макеті не деталізовано"`;
+  return `<div class="row" ${act}>${x.dot?'<i class="dot"></i>':''}<div><h4>${x.t}</h4><div class="meta">${m.join('')}</div></div>${chip(x.st,x.txt)}<span class="ar">${ic('arr')}</span></div>`;
+}
+function alertCard(){
+  if(!S.layer)return'';
+  const pr=pendReqs(),pb=pendBuys(),live=codeLive(),n=pr.length+pb.length+(live?1:0);
+  if(!n)return'';
+  let h3,m,v='approve',icn='fam';
+  if(live&&n===1){h3=`${kn(S.lkid)} ${gv(S.lkid,'входить','входить')} у свій кабінет з нового пристрою`;m=`Код підтвердження: <b class="mono" style="color:var(--ink)">${S.code}</b> · продиктуйте його, якщо це ${gv(S.lkid,'він','вона')}`;v='access';icn='lock'}
+  else if(n===1&&pr.length){const r=pr[0];h3=`${kn(r.ch)} просить записати ${gv(r.ch,'його','її')} на гурток «${club(r.club).name}»`;m=`Заява № 2026-ПО-${r.id} · ${r.d}, ${r.tm} · заклад отримає її лише після вашого підтвердження`}
+  else if(n===1){const r=pb[0],o=offer(r.offer);h3=`${kn(r.kid)} просить оплатити з гаманця «${o.name}» · ${money(o.price)}`;m=`${r.d}, ${r.tm} · залишок гаманця ${money(S.wal[r.kid].bal)}`}
+  else{h3=`${n} запити від дітей чекають на ваше рішення`;m=[pr.length?`заяв на гуртки: ${pr.length}`:'',pb.length?`покупок з гаманця: ${pb.length}`:'',live?'запит на вхід: 1':''].filter(Boolean).join(' · ');if(!pr.length&&!pb.length)v='access'}
+  return `<div class="card alert vx"><div class="ai">${ic(icn)}</div><div><div class="k">Потребує вашого рішення</div><h3>${h3}</h3><div class="m">${m}</div></div><button class="btn sm" data-a="go" data-v="${v}">Переглянути</button></div>`;
+}
+function vSvc(){
+  const f=S.stF,map={sub:['sub','pend'],rev:['rev','review','queue'],fix:['fix']};
+  const act=[...kidRows(false),...APPS].filter(x=>f==='all'||(map[f]||[]).includes(x.st));
+  const done=[...kidRows(true),...DONE];
+  const src=S.tab==='act'?act:done;
+  const shown=S.more?src:src.slice(0,4),rest=src.length-shown.length;
+  const flbl={all:'Усі',sub:'Подано',rev:'На розгляді',fix:'На доопрацюванні'}[f];
+  const cards=SVC.filter(s=>(S.layer||!s.vx)&&(S.cat==='all'||s.cat.includes(S.cat)));
+  return ph('Мої послуги')+
+  `<div class="card lead">${ring(2,5)}<div><div class="k">${ic('pen')}Завершіть останню заяву</div><h3>Оздоровлення дітей у супроводі дорослого</h3><div class="m">2/5 кроків <i>•</i> Відомості про заявника</div><div class="acts"><button class="btn" data-a="toast" data-t="Форму послуги «Оздоровлення дітей» в макеті не деталізовано">Продовжити</button><a class="lnk" data-a="go" data-v="drafts">Всі чернетки</a></div></div></div>
+  ${alertCard()}
+  <h2 class="h2">Подані заяви</h2>
+  <div class="tools"><div class="seg"><button class="${S.tab==='act'?'on':''}" data-a="tab" data-t="act">Активні</button><button class="${S.tab==='done'?'on':''}" data-a="tab" data-t="done">Завершені <span class="b2">+2</span></button></div>
+   <div class="fpill"><button data-a="dd" data-d="stf">Статус: <b>${flbl}</b>${ic('chev','s20')}</button></div></div>
+  <div class="card list" id="apps">${shown.map(appRow).join('')||'<div class="empty">Заяв із таким статусом немає</div>'}
+   ${rest>0?`<button class="more-l" data-a="more">Переглянути більше (${rest}) ${ic('chev')}</button>`:S.more&&src.length>4?`<button class="more-l" data-a="more">Згорнути ${ic('chevu')}</button>`:''}</div>
+  <h2 class="h2" style="margin-top:41px">Послуги для вас</h2>
+  <p class="sub">Підібрали на основі вашого профілю. Оберіть категорію для зручності</p>
+  <div class="pills">${[['all','Всі'],['zah','Вам як захиснику'],['dity','Вашим дітям'],['zhytlo','Для житла'],['biz','Бізнесу']].map(([k,t])=>`<button class="${S.cat===k?'on':''}" data-a="cat" data-c="${k}">${t}</button>`).join('')}</div>
+  <div class="sgrid">${cards.map(svcCard).join('')}</div>
+  <div class="findrow"><p>Не знайшли потрібне? Скористайтеся пошуком на сторінці міських послуг.</p><button class="btn" data-a="search">Усі послуги</button></div>`;
+}
+function svcCard(s){
+  const act=s.a?`data-a="${s.a}"${s.v?` data-v="${s.v}"`:''}`:`data-a="toast" data-t="Сторінку послуги в макеті не деталізовано"`;
+  return `<div class="card scard${s.vx?' vx':''}" ${act}>${s.img?`<img class="sic" src="img/${s.img}.png" alt="">`:sIcon(s.svg)}<h4>${s.t}</h4><p class="need">${s.need||NEED}</p><div class="tags"><span class="tag on"><svg class="ic" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg>Онлайн</span><span class="tag ${s.vx?'osbb':'cat'}">${s.tag}</span></div></div>`;
+}
+function reqModal(id){
+  const r=S.reqs.find(x=>x.id===id);if(!r)return;const c=r.club&&club(r.club);r.dot=0;
+  modal(`<div class="cap2">Заява № 2026-ПО-${r.id}</div><h3 style="margin-top:4px">${r.t}</h3><div style="margin-top:12px">${chip(r.st,stTxt(r))}</div>
+   <div class="kv" style="margin-top:16px"><div>Дитина</div><div>${FAMILY[r.ch].full}</div><div>Заявник</div><div>${r.by==='kid'?`${kn(r.ch)}, зі свого кабінету`:'Роман Кравець, батько'}</div>${c?`<div>Заклад</div><div>${c.org}</div><div>Розклад</div><div>${c.time}</div>`:''}</div>
+   ${r.ev?`<div class="tl" style="margin-top:22px">${r.ev.map(e=>`<div class="${e[0]}"><b>${e[1]}</b><small>${e[2]}</small></div>`).join('')}</div>`:''}
+   <div class="acts">${r.st==='pend'&&S.role==='par'?`<button class="btn" data-a="go" data-v="approve">До підтвердження</button>`:''}<button class="btn ghost" data-a="mclose">Закрити</button></div>`);
+  render();
+}
+
+/* ================= БАТЬКО: МОЇ ДІТИ ================= */
+function vKids(){
+  const cards=allKids().map(k=>{const F=FAMILY[k],vl=voucherLine(k),acc=S.access[k];
+    const cl=(S.enr[k]||[]).map(id=>club(id).name).join(', ')||'поки немає';
+    const act=S.reqs.filter(r=>r.ch===k&&['pend','review','queue'].includes(r.st));
+    const unp=S.pay.filter(p=>p.ch===k&&!p.paid);
+    return `<div class="card kcard"><div class="kh">${kava(k)}<div><h3>${F.name}, ${kage(k)}</h3><small>${F.school} · <span class="mono">${F.id}</span></small></div></div>
+    <div class="rows2"><div><span>Гуртки</span><b>${cl}</b></div><div><span>Ваучер Activity Pass</span><b>${vl.on?club(S.voucher[k]).name:'не використано'}</b></div><div><span>Освітній гаманець</span><b>${money(S.wal[k].bal)}</b></div><div><span>Активні заяви</span><b>${act.length?act.map(r=>chip(r.st,stTxt(r),1)).join(' '):'немає'}</b></div>${unp.length?`<div><span>До сплати</span><b>${money(unp.reduce((a,p)=>a+p.full-p.v,0))} · <a data-a="go" data-v="pay">сплатити</a></b></div>`:''}<div><span>Власний кабінет</span><b>${acc?chip('ok','Відкрито',1):S.opened[k]?chip('bad','Доступ вимкнено',1):'не відкрито'}</b></div></div>
+    <div class="acts"><button class="btn sm sec" data-a="go" data-v="pass">Activity Pass</button><button class="btn sm ghost" data-a="wkid" data-k="${k}">Гаманець</button>${S.opened[k]?`<a class="lnk sm" data-a="go" data-v="access">Доступ до кабінету</a>`:`<a class="lnk sm" data-a="openkid" data-k="${k}">Відкрити кабінет</a>`}</div></div>`}).join('');
+  return ph('Мої діти')+`<div class="kgrid">${cards}</div>
+  <button class="card addk" data-a="addkid-start"><span class="oi">${ic('plus')}</span><span><b>Додати дитину</b><small>Зв’язок «батько — дитина» підтверджується за Демографічним реєстром, без сканів документів</small></span></button>
+  <h2 class="h2">Межі розділу</h2><p class="sub">Чого в «Моїх дітях» свідомо немає</p>
+  <div class="lim3"><div class="card"><h4>Кишенькових грошей</h4><p>Освітній гаманець — цільові кошти міста лише для акредитованих закладів. Готівки, переказів і покупок у магазинах немає.</p></div><div class="card"><h4>Рейтингів дітей</h4><p>Квести й досягнення без таблиць лідерів: ні між дітьми, ні між класами, ні між школами.</p></div><div class="card"><h4>Стеження за дитиною</h4><p>Жодного GPS. Батьки бачать лише відмітки з журналу закладу: дитина прийшла на заняття чи ні.</p></div></div>`;
+}
+
+/* майстер: додати дитину / відкрити кабінет */
+function vAddkid(){
+  const w=S.wz,fromAcc=w.from==='access';
+  const steps=fromAcc?['Доступ до кабінету','Згода батька']:['Дитина','Дані з реєстрів','Доступ до кабінету','Згода батька'];
+  const k=w.kid,F=k&&FAMILY[k],st=steps[w.step];
+  const crumb=fromAcc?[['Доступ до кабінетів','access'],['Відкрити кабінет']]:[['Мої діти','kids'],['Додати дитину']];
+  const T=fromAcc?`Кабінет для ${F.gen}`:'Додати дитину';
+  const src=t=>` <span class="chip g sm" style="margin-left:6px">${t}</span>`;
+  if(w.step>=steps.length){
+    w.doneT=fromAcc?`Кабінет для ${F.gen} відкрито`:`${F.name} ${gv(k,'доданий','додана')} до профілю`;
+    return wzShell(T,crumb,steps,`<div class="kv"><div>Дитина</div><div>${F.full}, ${kage(k)}</div><div>ID дитини</div><div class="mono">${F.id}</div><div>Згода</div><div>Підписано Дія.Підписом · Роман Кравець · ${w.at}</div><div>Власний кабінет</div><div>${w.acc?'Відкрито':'Не відкрито, можна будь-коли'}</div></div>${w.acc?inviteBlock(k):''}
+     <div class="acts" style="margin-top:22px;gap:24px"><button class="btn" data-a="go" data-v="kids">До профілів дітей</button><a class="lnk" data-a="go" data-v="access">Доступ до кабінетів</a></div>`);
+  }
+  if(st==='Дитина')return wzShell(T,crumb,steps,
+   `<label class="fl">Діти, пов’язані з вами в Демографічному реєстрі — за актовим записом про народження</label>
+    <div style="display:flex;flex-direction:column;gap:8px">${Object.keys(FAMILY).map(id=>{const c=FAMILY[id],inp=inProfile(id);return `<button class="opt${w.kid===id?' on':''}" ${inp?'disabled':`data-a="wz-set" data-k="kid" data-val="${id}"`}>${kava(id,'sm')}<span><b>${c.full}</b><small>${c.dob} · ${kage(id)} · ${c.school}</small></span>${inp?'<span class="chip ok sm" style="margin-left:auto">уже в профілі</span>':'<span class="rd"></span>'}</button>`}).join('')}</div>
+    <div class="info">${ic('info')}<div><b>Дитини немає у списку?</b> Опіка, усиновлення, народження за кордоном, помилка в реєстрі — <a class="lnk sm" data-a="toast" data-t="Ручне додавання: свідоцтво про народження або рішення органу опіки, перевірка через Службу у справах дітей до 3 робочих днів">додати вручну</a>.</div></div>
+    <div class="info pur">${ic('info')}<div><b>Дітям від 14 років</b> реєстрація батьками не потрібна. Підліток входить власною ID-карткою та Дія.Підписом, а Портал сам зв’язує його профіль із вашим і надсилає вам сповіщення.</div></div>`,
+   wzFoot(!!w.kid));
+  if(st==='Дані з реєстрів')return wzShell(T,crumb,steps,
+   `<div style="display:flex;align-items:center;gap:16px;margin-bottom:8px">${kava(k)}<div><b style="font-size:19px;font-weight:600">${F.full}</b><div style="color:var(--ink3);font-size:15px">${kage(k)} · ${F.school}</div></div></div>
+    <div class="kv"><div>ПІБ</div><div>${F.full}${src('Демографічний реєстр')}</div><div>Дата народження</div><div>${F.dob}${src('Демографічний реєстр')}</div><div>Ваш зв’язок</div><div>Батько, актовий запис про народження${src('ДРАЦС')}</div><div>Заклад освіти</div><div>${F.school}${src('АІКОМ')}</div><div>Місце проживання</div><div>Солом’янський район, м. Київ${src('Реєстр громади')}</div><div>Пільгова категорія</div><div>Дитина з родини Захисника${src('ЄІССС')}</div></div>
+    <div class="chk${w.ok?' on':''}" data-a="wz-tg" data-k="ok"><i></i>Дані правильні</div>
+    <div class="info">${ic('info')}<div>Бачите помилку? Портал ці дані не редагує. Їх виправляють там, де вони виникли: ПІБ і дату народження — у відділі ДРАЦС, заклад освіти — у школі. Після цього профіль оновиться сам.</div></div>`,
+   wzFoot(w.ok));
+  if(st==='Доступ до кабінету')return wzShell(T,crumb,steps,
+   `<label class="fl">Чи потрібен ${F.dat} власний кабінет?</label>
+    <div class="g2"><button class="opt${w.acc?' on':''}" data-a="wz-set" data-k="acc" data-val="1"><span class="oi">${ic('lock')}</span><span><b>Відкрити кабінет</b><small>${F.name} бачить свій розклад, гуртки й документи і може ${gv(k,'сам','сама')} подавати заяви — вони йдуть вам на підтвердження</small></span><span class="rd"></span></button>${fromAcc?'':`<button class="opt${w.acc?'':' on'}" data-a="wz-set" data-k="acc" data-val="0"><span class="oi">${ic('fam')}</span><span><b>Поки без кабінету</b><small>Профіль видно лише у вашому кабінеті. Відкрити власний можна будь-коли</small></span><span class="rd"></span></button>`}</div>
+    ${w.acc?`<label class="fl" style="margin-top:22px">Що дозволено в кабінеті</label>${['Бачити розклад, гуртки й документи','Шукати гуртки й подавати заяви, які йдуть вам на підтвердження','Купувати з освітнього гаманця в межах вашого ліміту','Отримувати сповіщення від закладів'].map(p=>`<div class="chk on" style="margin-top:10px;cursor:default"><i></i>${p}</div>`).join('')}
+    <div class="kv" style="margin-top:20px"><div>Перший вхід</div><div>За одноразовим кодом запрошення, який ви отримаєте після підпису</div><div>Далі</div><div>Без коду на прив’язаному пристрої; на новому — ID дитини і код, який приходить вам</div><div>Сесія</div><div>30 днів, ви можете завершити її будь-коли</div><div>Від 14 років</div><div>Вхід переходить на власну ID-картку та Дія.Підпис, вам прийде сповіщення</div></div>
+    <div class="info warn">${ic('lock')}<div>Оплат, скасування зарахування і зміни персональних даних у кабінеті дитини немає. Ці дії лишаються тільки у вас.</div></div>`:''}`,
+   wzFoot(true));
+  return wzShell(T,crumb,steps,
+   `<div class="card" style="box-shadow:inset 0 0 0 1px var(--line2);padding:20px 22px;border-radius:18px"><b style="font-size:17px;font-weight:600">Згода на обробку персональних даних дитини</b>
+    <p class="pl" style="margin-top:10px">Я, Кравець Роман Іванович, як законний представник дитини ${F.full}, ${F.dob} р. н., погоджуюсь:</p>
+    <ul class="pl" style="margin:8px 0 0;padding-left:22px">${fromAcc?'':'<li>створити профіль дитини на Порталі послуг і підтягувати в нього дані з реєстрів, перелічених на попередньому кроці;</li>'}${w.acc?'<li>відкрити дитині власний кабінет із входом за кодом запрошення та одноразовими кодами, які приходять мені;</li>':''}<li>передавати закладам позашкільної освіти лише дані, потрібні для розгляду заяви, і лише після мого підтвердження кожної заяви.</li></ul>
+    <p class="note-s">Згоду можна відкликати в розділі «Мої діти». Тоді профіль і кабінет дитини буде видалено, а історія заяв лишиться у вашому кабінеті.</p></div>
+    ${w.signing?`<div class="info pur"><span class="spin"></span><div><b>Очікуємо підтвердження в Дії…</b> Відкрийте застосунок Дія на телефоні: там запит на підпис від Порталу послуг.</div></div>`:''}`,
+   w.signing?'':wzFoot(true,'Підписати Дія.Підписом','sign'));
+}
+function inviteBlock(k){
+  const F=FAMILY[k],dv=S.devices[k]||[];let inv=S.invites[k];
+  if(dv.length&&!inv)return `<div class="info ok" id="invcard">${ic('checkc')}<div><b>Пристрій ${F.gen} прив’язано:</b> ${dv[0].d} · ${dv[0].since}. Відкликати можна в розділі «Доступ до кабінетів».</div></div>`;
+  if(!inv)inv=inviteFor(k);
+  return `<div class="card" id="invcard" style="box-shadow:inset 0 0 0 2px #dcc6fb;padding:22px 24px;margin-top:22px;border-radius:20px"><div class="inv"><div style="flex:1;min-width:0"><div class="cap2" style="color:#5b12b5">Код запрошення</div><b style="display:block;font-size:22px;line-height:30px;font-weight:600;margin-top:2px">Передайте цей код ${F.dat}</b><div class="bigcode mono" style="margin-top:12px">${inv.code}</div><div class="note-s" style="margin-top:4px">Одноразовий · діє до ${inv.exp} · лише для профілю ${F.gen}</div><div style="margin-top:12px"><a class="lnk sm" data-a="reinvite" data-k="${k}">Згенерувати новий код</a></div></div><div class="qrb">${qrSVG('INV-'+inv.code,140)}</div></div>
+   <ol class="how"><li><b>${F.name} відкриває Портал</b> — «Увійти», далі «Перший вхід за кодом»</li><li><b>Вводить код або сканує QR</b> — пристрій прив’язується до профілю</li><li><b>Вам приходить сповіщення</b> з назвою пристрою, його можна відкликати</li><li><b>Далі вхід без коду</b> 30 днів; на новому пристрої — ID <span class="mono">${F.id}</span> і код від вас</li></ol></div>`;
+}
+function finishSign(w){
+  if(S.wz!==w||!w.signing)return;
+  const k=w.kid,F=FAMILY[k],fromAcc=w.from==='access';
+  w.signing=false;w.at=TODAY+', '+clock();
+  if(!inProfile(k))S.added.push({id:k,date:w.at});
+  S.access[k]=w.acc;if(w.acc)S.opened[k]=true;
+  if(w.acc&&!(S.devices[k]||[]).length)inviteFor(k);
+  const tail=w.acc?` Код запрошення: <b>${S.invites[k].code}</b>, передайте його ${F.dat}.`:'';
+  note('par',(fromAcc?`Кабінет для ${F.gen} відкрито. Згоду підписано Дія.Підписом.`:`${F.name}: профіль створено, дані підтягнуто з реєстрів, згоду підписано Дія.Підписом.`)+tail,['access']);
+  w.step=fromAcc?2:4;render();
+  toast(fromAcc?`Кабінет для ${F.gen} відкрито`:`${F.name} тепер у розділі «Мої діти»`);
+}
+
+/* підтвердження */
+function decReq(r){
+  const c=club(r.club),pi=payInfo(c,r.ch),cf=conflicts(c,r.ch);
+  return `<div class="card dec"><div class="top"><div style="flex:1;min-width:0"><div class="k">${ic('doc','s18')}Заява на гурток · від ${FAMILY[r.ch].gen}</div><h3>${c.name}</h3><div class="m">${kn(r.ch)}, ${kage(r.ch)} · заява № 2026-ПО-${r.id} · ${r.d}, ${r.tm} · з кабінету дитини</div></div>${kava(r.ch)}</div>
+   <div class="kv"><div>Заклад</div><div>${c.org}, ${c.rayon} р-н, ${c.addr}</div><div>Група і розклад</div><div>${c.grp} · ${c.time}</div><div>Оплата</div><div>${pi.txt}</div><div>Накладки в розкладі</div><div>${cf.length?`<span class="chip y sm">${cf.join('; ')}</span>`:'Немає'}</div><div>Дорога від школи</div><div>${c.road}</div></div>
+   <div class="acts"><button class="btn" data-a="req-ok" data-s="${r.id}">Підтвердити</button><button class="btn ghost" data-a="req-no" data-s="${r.id}">Відхилити</button></div></div>`;
+}
+function decBuy(r){
+  const o=offer(r.offer),w=S.wal[r.kid];
+  return `<div class="card dec"><div class="top"><div style="flex:1;min-width:0"><div class="k">${ic('wallet','s18')}Покупка з освітнього гаманця · просить ${kn(r.kid)}</div><h3>${o.name} · ${money(o.price)}</h3><div class="m">${o.sub} · ${o.when}</div></div>${kava(r.kid)}</div>
+   <div class="kv"><div>Залишок гаманця</div><div>${money(w.bal)} → після оплати ${money(w.bal-o.price)}</div><div>Ліміт самостійних покупок</div><div>${w.lim?`до ${money(w.lim)}`:'усе через вас'}</div><div>Запит</div><div>${r.d}, ${r.tm}</div></div>
+   <div class="acts"><button class="btn" data-a="buy-ok" data-s="${r.id}">Оплатити з гаманця</button><button class="btn ghost" data-a="buy-no" data-s="${r.id}">Відмовити</button></div></div>`;
+}
+function vApprove(){
+  const pr=pendReqs(),pb=pendBuys();
+  const hist=[...S.reqs.filter(r=>r.by==='kid'&&r.dec).map(r=>({t:r.t,k:r.ch,d:r.d,dec:r.dec})),...S.preqs.filter(r=>r.st!=='pend').map(r=>({t:`Покупка з гаманця: ${offer(r.offer).name} · ${money(offer(r.offer).price)}`,k:r.kid,d:r.d,dec:r.st}))];
+  return ph('Підтвердження')+
+   (pr.length||pb.length?pr.map(decReq).join('')+pb.map(decBuy).join(''):emptyCard('Немає запитів, що чекають на ваше рішення','Коли дитина подасть заяву на гурток або попросить оплатити щось із гаманця, запит з’явиться тут і в сповіщеннях.','checkc'))+
+   `<div class="info">${ic('info')}<div>Тут заяви й покупки, які діти ініціювали зі своїх кабінетів. <b>Без вашого рішення</b> заклад заяву не отримує, а гроші з гаманця не списуються. Ваші власні заяви за дітей ідуть у заклад одразу.</div></div>
+   <h2 class="h2">Історія рішень</h2><div class="card list" style="margin-top:20px">${hist.length?hist.map(x=>`<div class="row" style="cursor:default"><div><h4>${x.t}</h4><div class="meta"><span>Дитина:<b>${kn(x.k)}</b></span><span>Подано:<b>${x.d}</b></span></div></div>${x.dec==='ok'?chip('ok','Підтверджено вами'):chip('bad','Відхилено вами')}<span></span></div>`).join(''):'<div class="empty">Рішень поки не було</div>'}</div>`;
+}
+
+/* Activity Pass */
+function vPass(){
+  const cards=allKids().map(k=>{const F=FAMILY[k],vl=voucherLine(k);
+   return `<div class="card kcard"><div class="kh">${kava(k)}<div><h3>${F.name}, ${kage(k)}</h3><small class="mono">${F.id}</small></div><div class="qrb">${qrSVG(F.id,60)}</div></div>
+   <div class="vch"><div><div class="cap2">Ваучер 2026/2027</div><b>${vl.t}</b><small>${vl.s}</small></div>${vl.on?chip('ok','Діє',1):`<button class="btn sm" data-a="vpick" data-k="${k}">Обрати гурток</button>`}</div>
+   <div class="cap2" style="margin-top:18px">Відвідування</div><div class="att">${attBlock(k)}</div></div>`}).join('');
+  return ph('Гуртки й Activity Pass')+`<div class="kgrid">${cards}</div>
+  <div class="kgrid" style="margin-top:10px"><div class="card sec" style="margin-top:0"><h3 class="h3s">Сповіщення про відвідування</h3>
+    <label class="tg${S.notify.in?' on':''}" data-a="ntf" data-k="in" style="margin-top:16px"><i></i>Коли дитина відмітилась на занятті</label>
+    <label class="tg${S.notify.out?' on':''}" data-a="ntf" data-k="out" style="margin-top:12px"><i></i>Якщо дитина не прийшла на заняття</label>
+    <p class="note-s">Жодного GPS-трекінгу: сповіщення приходить лише з журналу закладу.</p></div>
+   <div class="card sec" style="margin-top:0"><h3 class="h3s">Дозволи</h3><label class="tg${S.questsOn?' on':''}" data-a="quests" style="margin-top:16px"><i></i>Квести міста</label>
+    <p class="note-s">Ви бачите, які квести дитина пройшла, але не час і місце кожної відмітки. Участь у шкільному самоврядуванні не потребує вашого підтвердження, а голоси таємні й від вас.</p></div></div>
+  <div class="info">${ic('ticket')}<div><b>Як працює ваучер.</b> Кожна дитина-киянин має ваучер до ${money(VOUCHER)} на місяць на одну платну регулярну групу, з вересня по травень, у комунальному чи акредитованому приватному закладі. Місто платить закладу за фактично відмічені заняття, близько 62,5 ₴ за заняття. Бюджетні групи безкоштовні й ваучер не витрачають. Перенести ваучер на інший гурток можна раз на семестр.</div></div>
+  <div class="findrow"><p>Шукаєте новий гурток для дитини?</p><button class="btn" data-a="go" data-v="catalog">Гуртки й секції</button></div>`;
+}
+
+/* каталог і гурток (обидві ролі) */
+const curKid=()=>S.role==='kid'?S.kid:S.catKid;
+function clubCard(c,k){
+  const en=(S.enr[k]||[]).includes(c.id),rq=S.reqs.find(r=>r.club===c.id&&r.ch===k&&['pend','review','queue'].includes(r.st));
+  const st=en?`<span class="tag on">${ic('checkc')}${S.role==='kid'?'Ти вже ходиш':`${kn(k)} ${gv(k,'ходить','ходить')}`}</span>`:rq?chip(rq.st,stTxt(rq)):c.seats?`<span class="tag cat">Вільних місць: ${c.seats}</span>`:`<span class="tag wq">Місць немає · черга</span>`;
+  return `<div class="card scard" data-a="go" data-v="club" data-s="${c.id}">${sIcon(c.id)}<h4>${c.name}</h4><p class="need"><b>${c.org}</b> · ${c.rayon} р-н, ${c.addr}<br>${c.time} · ${c.amin}–${c.amax} років</p><div class="tags">${c.pay==='free'?`<span class="tag on">${ic('check')}Безкоштовно</span>`:`<span class="tag cat">${money(c.pr)} / міс</span>`}${c.v?`<span class="tag osbb">${ic('ticket')}Ваучер</span>`:''}${st}</div></div>`;
+}
+function vCatalog(){
+  const k=curKid(),F=FAMILY[k];
+  const L=CLUBS.filter(c=>F.age>=c.amin&&F.age<=c.amax).filter(c=>S.catF==='all'||(S.catF==='free'&&c.pay==='free')||(S.catF==='voucher'&&c.v));
+  const top=S.role==='par'?`<div class="card lead" style="min-height:0;align-items:center">${kava(k)}<div style="flex:1;min-width:0"><div class="k">${ic('fam','s18')}Підбираємо для дитини</div><h3>${F.name}, ${kage(k)} · ${F.school}</h3><div class="m">Вік, район і зайнятий час — з профілю дитини</div></div><div class="seg sm">${allKids().map(x=>`<button class="${x===k?'on':''}" data-a="catkid" data-k="${x}">${kn(x)}</button>`).join('')}</div></div>`
+   :`<div class="card lead" style="min-height:0;align-items:center"><span class="kava" style="background:var(--blue-s);color:var(--blue)">${ic('search')}</span><div><div class="k">Гуртки для тебе</div><h3>Підібрали за віком і районом: ${kage(k)}, Солом’янський</h3><div class="m">Заява піде татові на підтвердження. Оплачувати нічого не треба</div></div></div>`;
+  return ph('Гуртки й секції')+top+
+   `<div class="tools" style="margin-top:30px"><div class="pills" style="margin:0">${[['all','Усі'],['free','Безкоштовні'],['voucher','З ваучером Activity Pass']].map(([x,t])=>`<button class="${S.catF===x?'on':''}" data-a="catf" data-f="${x}">${t}</button>`).join('')}</div><span style="color:var(--ink3);font-size:15px">У макеті ${L.length} · у реєстрі 1 154 групи</span></div>
+   <div class="sgrid">${L.map(c=>clubCard(c,k)).join('')||'<div class="empty">Нічого не знайдено</div>'}</div>`;
+}
+function vClub(id){
+  const c=club(id);if(!c)return vCatalog();
+  const k=curKid(),F=FAMILY[k],pi=payInfo(c,k),cf=conflicts(c,k),kidM=S.role==='kid';
+  const en=(S.enr[k]||[]).includes(c.id),rq=S.reqs.find(r=>r.club===c.id&&r.ch===k&&['pend','review','queue'].includes(r.st));
+  const fit=F.age>=c.amin&&F.age<=c.amax;
+  const cta=en?`<div class="info ok">${ic('checkc')}<div>${kidM?'Ти вже ходиш на цей гурток':`${F.name} вже ходить на цей гурток`}.</div></div>`:rq?`<div style="margin-top:16px">${chip(rq.st,stTxt(rq))}</div>`:!fit?`<div class="info warn">${ic('alert')}<div>Група для ${c.amin}–${c.amax} років.</div></div>`:`<button class="btn" data-a="apply-start" data-s="${c.id}">${kidM?(c.seats?'Записатись':'Стати в чергу'):(c.seats?`Записати ${F.gen}`:`Поставити ${F.gen} в чергу`)}</button>`;
+  return ph(c.name,{sm:1,crumb:[['Гуртки й секції','catalog'],[c.name]]})+
+  `<div class="card sec" style="margin-top:0"><div class="cl"><div><div style="display:flex;gap:18px;align-items:center">${sIcon(c.id)}<div><div class="cap2">${c.org}</div><h3 style="font-size:24px;line-height:32px;font-weight:600">${c.grp}</h3></div></div>
+   <p class="pl" style="margin-top:16px">${c.about}</p>
+   <div class="rows2" style="margin-top:12px"><div><span>Адреса</span><b>${c.rayon} р-н, ${c.addr}</b></div><div><span>Розклад</span><b>${c.time}</b></div><div><span>Вік</span><b>${c.amin}–${c.amax} років</b></div><div><span>Вільних місць</span><b>${c.seats||'немає · запис у чергу'}</b></div><div><span>Дорога від школи</span><b>${c.road}</b></div><div><span>Накладки з розкладом ${kidM?'':F.gen}</span><b>${cf.length?cf.join('; '):'немає'}</b></div></div></div>
+   <div><div class="price"><div class="cap2">${c.pay==='free'?'Бюджетна група':'Платна група'}</div><b>${c.pay==='free'?'0 ₴':money(pi.due)}</b><small>${c.pay==='free'?'за рахунок міста':pi.v?`на місяць після ваучера · повна ціна ${money(c.pr)}`:'на місяць'}</small>${c.v?`<div style="margin-top:12px"><span class="chip pur sm">${ic('ticket')}приймає ваучер Activity Pass</span></div>`:''}${cta}</div>
+   <div class="info">${ic('info')}<div>${kidM?'Заява піде <b>татові на підтвердження</b>. Заклад отримає її лише після цього.':'Ваша заява йде в заклад одразу, без додаткових підтверджень.'}</div></div></div></div></div>`;
+}
+function applyLive(r){
+  if(r.st==='review')return `<div class="info"><span class="spin"></span><div>Заклад розглядає заяву. Рішення прийде у сповіщення за кілька секунд.</div></div>`;
+  if(r.st==='enrolled')return `<div class="info ok">${ic('checkc')}<div><b>${FAMILY[r.ch].gen} зараховано.</b> Гурток уже в розкладі дитини${club(r.club).pay==='free'?'':', рахунок — у розділі «Оплати»'}.</div></div>`;
+  if(r.st==='queue')return `<div class="info warn">${ic('clock')}<div>Місць немає — заяву поставлено в чергу, ${r.r} місце.</div></div>`;
+  return '';
+}
+function vApply(){
+  const w=S.wz,c=club(w.club),k=w.kid,F=FAMILY[k],pi=payInfo(c,k),kidM=w.by==='kid',cf=conflicts(c,k);
+  const crumb=[['Гуртки й секції','catalog'],[c.name,'club',c.id],['Заява']];
+  const steps=['Група і розклад','Перевірте і подайте'];
+  const T='Запис до гуртка';
+  if(w.step===0)return wzShell(T,crumb,steps,
+   `<label class="fl">Заявник</label><div class="opt on" style="cursor:default"><span class="oi">${ic(kidM?'user':'fam')}</span><span><b>${kidM?`${F.full} — ти`:'Роман Кравець — батько'}</b><small>${kidM?'заява з кабінету дитини, потрібне підтвердження тата':'заява з кабінету батька, йде до закладу одразу'}</small></span></div>
+    ${kidM?'':`<label class="fl" style="margin-top:20px">Дитина</label><div class="fld">${kava(k,'xs')}<input value="${F.full}, ${kage(k)} · ${F.school}" readonly><span class="chip g sm">з реєстрів</span></div>`}
+    <label class="fl" style="margin-top:20px">Група</label><div class="opt on" style="cursor:default"><span class="oi">${ic('cal')}</span><span><b>${c.grp}</b><small>${c.time} · ${c.org}, ${c.addr}</small></span><span class="rd"></span></div>
+    <div class="info ${cf.length?'warn':'ok'}">${ic(cf.length?'alert':'checkc')}<div>${cf.length?`Накладка з розкладом: ${cf.join('; ')}`:`Накладок немає. ${kidM?'Твій тиждень':'Тиждень '+F.gen}: ${(S.enr[k]||[]).map(id=>`${club(id).name} (${club(id).time})`).join(', ')||'поки без гуртків'}.`}</div></div>
+    ${c.seats?'':`<div class="info warn">${ic('clock')}<div>Вільних місць немає. Заява стане в чергу, а коли місце звільниться, прийде сповіщення.</div></div>`}`,
+   wzFoot(true));
+  if(w.step===1)return wzShell(T,crumb,steps,
+   `<div class="kv"><div>Дитина</div><div>${F.full}</div><div>Гурток</div><div>${c.name}</div><div>Заклад</div><div>${c.org}</div><div>Група</div><div>${c.grp}</div><div>Розклад</div><div>${c.time}</div><div>Оплата</div><div>${c.pay==='free'?'Безкоштовно, за рахунок міста':pi.txt}</div></div>
+    ${kidM?`<div class="info pur">${ic('fam')}<div>Заява піде <b>татові, Роману Кравцю</b>, у розділ «Підтвердження». Заклад отримає її лише після його рішення. Оплачувати нічого не треба: це робить тато.</div></div>`
+     :`<div class="info">${ic('info')}<div>Заклад отримає лише дані, потрібні для розгляду: ПІБ, дату народження, заклад освіти і ваш контакт. Строк розгляду — до 5 робочих днів.</div></div>
+     <div class="chk${w.agree?' on':''}" data-a="wz-tg" data-k="agree"><i></i>Погоджуюсь на обробку персональних даних дитини для розгляду заяви</div>`}`,
+   wzFoot(kidM||w.agree,kidM?'Надіслати татові':'Подати заяву','apply-submit'));
+  const r=S.reqs.find(x=>x.id===w.id);w.doneT=kidM?'Заяву надіслано татові':'Заяву подано';
+  return wzShell(T,crumb,steps,kidM
+   ?`<p class="pl" style="font-size:17px">Заява <b>№ 2026-ПО-${r.id}</b> на «${c.name}» чекає на рішення тата. Коли він вирішить, тобі прийде сповіщення.</p><div class="trk"><span class="d">Подано</span><span class="${r.st==='pend'?'c':'d'}">Рішення тата</span><span class="${r.st==='review'?'c':['enrolled','queue'].includes(r.st)?'d':''}">Рішення закладу</span><span class="${r.st==='enrolled'?'d':''}">Розклад</span></div><div class="acts" style="margin-top:22px;gap:24px"><button class="btn" data-a="go" data-v="kreq">Мої заявки</button><a class="lnk" data-a="go" data-v="home">На головну</a></div>`
+   :`<p class="pl" style="font-size:17px">Заява <b>№ 2026-ПО-${r.id}</b> на «${c.name}» передана в ${c.org}.</p>${applyLive(r)}<div class="acts" style="margin-top:22px;gap:24px"><button class="btn" data-a="go" data-v="svc">До моїх послуг</button><a class="lnk" data-a="go" data-v="kids">Мої діти</a></div>`);
+}
+
+/* гаманець */
+function vWallet(){
+  const ks=allKids();if(!ks.includes(S.wkid))S.wkid='marko';
+  const k=S.wkid,F=FAMILY[k],w=S.wal[k],sm=walSum(k),reqs=S.preqs.filter(r=>r.kid===k&&r.st==='pend');
+  return ph('Освітній гаманець')+
+  `<div class="card lead" style="min-height:0;display:block"><div class="tools" style="margin:0;align-items:flex-start"><div><div class="k">${ic('wallet','s18')}Залишок · ${F.name}, ${kage(k)}</div><div class="big">${money(w.bal)}</div></div><div class="seg sm">${ks.map(x=>`<button class="${x===k?'on':''}" data-a="wkid2" data-k="${x}">${kn(x)}</button>`).join('')}</div></div>
+   <div class="prog" style="height:10px;margin-top:14px"><i style="width:${Math.round(w.bal/sm.cr*100)}%;background:var(--blue)"></i></div>
+   <div class="m" style="margin-top:12px">Нараховано містом <b style="color:var(--ink);font-weight:600">${money(sm.cr)}</b> <i>•</i> витрачено ${money(sm.sp)} <i>•</i> діє до 31.08.2027, залишок повертається до бюджету</div></div>
+  <div class="card sec"><h3 class="h3s">Що ${F.name} може купувати ${gv(k,'сам','сама')}</h3><p class="note-s" style="margin-top:4px">Покупки понад ліміт приходять вам у розділ «Підтвердження».</p>
+   <div class="seg" style="margin-top:16px">${[0,100,200,300].map(n=>`<button class="${w.lim===n?'on':''}" data-a="lim" data-n="${n}">${n?'до '+n+' ₴':'Усе через мене'}</button>`).join('')}</div>
+   <p class="note-s">${S.access[k]?'Ліміт діє в кабінеті дитини.':`У ${F.gen} немає власного кабінету, тож купуєте лише ви.`}</p></div>
+  ${reqs.length?`<h2 class="h2">Запити від ${F.gen}</h2>${reqs.map(decBuy).join('')}`:''}
+  <h2 class="h2">Оплатити з гаманця</h2><p class="sub">Лише акредитовані заклади: музеї, театри, спорт, табори, освітні курси</p>
+  <div class="ogrid">${OFFERS.map(o=>`<div class="card ocard"><div class="t"><span class="oi">${ic(o.ic)}</span><span class="chip g sm">${o.cat}</span><b>${money(o.price)}</b></div><h4>${o.name}</h4><p>${o.sub} · ${o.when}</p><div class="acts"><button class="btn sm ghost" data-a="pbuy" data-s="${o.id}">Оплатити для ${F.gen}</button></div></div>`).join('')}</div>
+  <h2 class="h2">Історія</h2><div class="card list" style="margin-top:20px">${w.tx.map(txRow).join('')}</div>
+  <div class="info">${ic('info')}<div><b>Правила гаманця.</b> Кошти цільові: лише акредитовані надавачі за категоріями гуртки, спорт, музеї, театри, табори, освітні курси. Готівки й переказів немає. Це не банківський рахунок, а облік бюджетного призначення, тому ліцензія на електронні гроші не потрібна. Ваучер на гурток окремий і з гаманця не списується.</div></div>`;
+}
+
+/* оплати */
+function vPay(){
+  const n=unpaid().length,sum=unpaid().reduce((a,p)=>a+p.full-p.v,0);
+  const rows=S.pay.map(p=>{const due=p.full-p.v;return `<div class="prow"><div><h4>${p.t} · ${p.svc}</h4><div class="meta">Дитина: <b>${kn(p.ch)}</b></div></div><div class="sum"><b>${money(due)}</b>${p.v?`<small>${money(p.full)} − ваучер ${money(p.v)}</small>`:''}</div><div>${p.paid?chip('ok',`Сплачено ${p.how}`):chip('bad',`Не сплачено, ${p.due}`)}</div><div class="pa">${p.paid?`<a class="lnk sm" data-a="toast" data-t="Квитанцію в макеті не деталізовано">Квитанція</a>`:`<button class="btn sm" data-a="payw" data-s="${p.id}">З гаманця</button><button class="btn sm ghost" data-a="payc" data-s="${p.id}">Карткою</button>`}</div></div>`}).join('');
+  return ph('Оплати')+
+  `<div class="card lead" style="min-height:0;align-items:center">${n?ring(0,1,'w','!'):ring(1,1,'ok')}<div><div class="k">${ic('card','s18')}Абонементи й рахунки дітей</div><h3>${n?`До сплати ${money(sum)}`:'Усе сплачено'}</h3><div class="m">Оплачувати можна лише тут: у кабінеті дитини оплат немає взагалі</div></div></div>
+  <div class="card list" style="margin-top:20px">${rows}<div class="prow"><div><h4>2026/2027 · Бюджетні групи</h4><div class="meta">Дитина: <b>Марко</b> · шахи, робототехніка</div></div><div class="sum"><b>0 ₴</b></div><div>${chip('ok','За рахунок міста')}</div><div class="pa"></div></div></div>
+  <div class="info">${ic('ticket')}<div>Ваучер Activity Pass уже віднято від рахунку: місто платить закладу свою частину за фактично відмічені заняття, а вам лишається доплата.</div></div>`;
+}
+
+/* доступ до кабінетів */
+function vAccess(){
+  const live=codeLive();
+  const req=live?`<div class="card dec" id="accreq" style="margin-top:0"><div class="top"><div style="flex:1;min-width:0"><div class="k">${ic('lock','s18')}Запит на вхід</div><h3>${kn(S.lkid)} входить у свій кабінет з нового пристрою</h3><div class="m">${TODAY}, ${S.codeAt} · Київ · Chrome, Windows · ID <span class="mono">${FAMILY[S.lkid].id}</span></div></div>${kava(S.lkid)}</div>
+    <div style="display:flex;align-items:center;gap:28px;margin-top:18px;flex-wrap:wrap"><div class="bigcode">${S.code}</div><div style="font-size:15px;color:var(--ink3)">Код дійсний ще<br><b style="color:var(--ink);font-weight:600" id="accT">${left()}</b></div><button class="btn ghost" style="margin-left:auto" data-a="blockcode">Це не ${gv(S.lkid,'він','вона')} — заблокувати</button></div>
+    <div class="info">${ic('info')}<div>Продиктуйте код дитині, якщо вона поруч. Код діє 5 хвилин і лише для цього входу.</div></div></div>`
+   :`<div class="card lead" style="min-height:0;align-items:center"><span class="kava" style="background:var(--blue-s);color:var(--blue)">${ic('lock')}</span><div><div class="k">Запити на вхід</div><h3>Активних запитів немає</h3><div class="m">Коли дитина входитиме з нового пристрою, тут з’явиться код підтвердження</div></div></div>`;
+  const cards=allKids().map(k=>{const F=FAMILY[k],on=S.access[k],dv=S.devices[k]||[],inv=S.invites[k];let body='';
+    if(on){const ses=S.kidIn&&S.kid===k;
+     body=`<div class="sess">${ses?`<div><i class="d"></i><div>Активна сесія · ${S.sessDev}<small>діє до ${S.sess}</small></div><a class="lnk bad" data-a="kill">Завершити</a></div>`:`<div><i class="d g"></i><div>Активних сесій немає<small>${dv.length?'останній вхід — 10.11.2026':'ще не входила'}</small></div></div>`}
+      ${dv.map((x,i)=>`<div><i class="d"></i><div>${x.d}<small>пристрій прив’язано ${x.since}</small></div><a class="lnk bad" data-a="revoke" data-k="${k}" data-i="${i}">Відкликати</a></div>`).join('')}
+      ${inv?`<div><i class="d p"></i><div>Код запрошення <b class="mono">${inv.code}</b><small>одноразовий, діє до ${inv.exp}</small></div><a class="lnk" data-a="reinvite" data-k="${k}">Новий код</a></div>`:''}
+      ${!dv.length&&!inv?`<div><i class="d g"></i><div>Прив’язаних пристроїв немає</div><a class="lnk" data-a="reinvite" data-k="${k}">Створити код запрошення</a></div>`:''}</div>
+      <div class="acts"><button class="btn sm ghost" data-a="acc-tg" data-k="${k}">Вимкнути доступ</button></div>`}
+    else if(S.opened[k])body=`<p class="note-s">Доступ вимкнено вами. Дитина не може увійти навіть з прив’язаного пристрою, а коди входу не надсилаються.</p><div class="acts"><button class="btn sm" data-a="acc-tg" data-k="${k}">Увімкнути доступ</button></div>`;
+    else body=`<p class="note-s">Усі сервіси ${F.gen} доступні у вашому кабінеті, в розділі «Мої діти». Власний кабінет можна відкрити будь-коли.</p><div class="acts"><button class="btn sm" data-a="openkid" data-k="${k}">Відкрити кабінет для ${F.gen}</button></div>`;
+    return `<div class="card kcard"><div class="kh">${kava(k)}<div><h3>${F.name}, ${kage(k)}</h3><small>${on?(dv.length?'пристрій прив’язано':'очікує на перший вхід'):S.opened[k]?'доступ вимкнено вами':'власного кабінету немає'}</small><small class="mono">${F.id}</small></div>${on?chip('ok','Увімкнено',1):S.opened[k]?chip('bad','Вимкнено',1):chip('g','Немає',1)}</div>${body}</div>`}).join('');
+  return ph('Доступ до кабінетів')+req+`<h2 class="h2">Кабінети дітей</h2><div class="kgrid" style="margin-top:20px">${cards}</div>
+  <div class="info">${ic('shield')}<div><b>Що фіксується в журналі.</b> Кожен вхід дитини, кожне підтвердження або відмова батька, кожне завершення сесії — з часом, пристроєм і IP. Це і є технічне підтвердження батьківської згоди, якого вимагає робота з персональними даними дитини.</div></div>`;
+}
+
+/* ================= ДИТИНА ================= */
+function nextLesson(k){
+  for(let o=0;o<8;o++){const d=(TD+o)%7;const L=(S.enr[k]||[]).map(club).filter(c=>c.dd.includes(d)).sort((a,b)=>a.tm.localeCompare(b.tm));
+    if(L.length){const c=L[0],day=12+o,lbl=o===0?'Сьогодні':o===1?'Завтра':DAYF[d][0].toUpperCase()+DAYF[d].slice(1);return{c,when:`${lbl}, ${day}.11 · ${c.tm}`}}}
+  return null;
+}
+function weekTable(k){
+  const L=(S.enr[k]||[]).map(club);
+  if(!L.length)return `<div class="empty">Поки без гуртків. Знайди свій — заява піде татові на підтвердження.</div>`;
+  return `<table class="sch"><thead><tr><th>Гурток</th>${DAYS.map((d,i)=>`<th class="${i===TD?'td':''}">${d}${i===TD?' · сьогодні':''}</th>`).join('')}</tr></thead><tbody>${L.map(c=>`<tr><td><span class="sn"><i style="background:${S.fresh.includes(c.id)?'#7b2ff7':'#2b66f6'}"></i>${c.name}</span></td>${DAYS.map((d,i)=>`<td class="${i===TD?'td':''}">${c.dd.includes(i)?`<span class="slot${S.fresh.includes(c.id)?' nw':i===TD?' today':''}">${c.tm}</span>`:''}</td>`).join('')}</tr>`).join('')}</tbody></table>${S.fresh.length?`<div class="note-s">Фіолетовим — нові гуртки, на які тебе щойно зарахували.</div>`:''}`;
+}
+function kreqRow(r){return `<div class="row" data-a="req" data-s="${r.id}">${r.dot?'<i class="dot"></i>':''}<div><h4>${r.t}</h4><div class="meta"><span>Подано:<b>${r.d}</b></span>${r.r?`<span>${r.rl}:<b>${r.r}</b></span>`:''}<span>${r.by==='kid'?'Подав(ла):<b>ти</b>':'Подав:<b>тато</b>'}</span></div></div>${chip(r.st,stTxt(r))}<span class="ar">${ic('arr')}</span></div>`}
+function vHome(){
+  const k=S.kid,F=FAMILY[k],en=S.enr[k]||[],nx=nextLesson(k);
+  const mine=S.reqs.filter(r=>r.ch===k&&['pend','review','queue'].includes(r.st));
+  const rec=CLUBS.filter(c=>F.age>=c.amin&&F.age<=c.amax&&!en.includes(c.id)).slice(0,4);
+  return ph(`Привіт, ${F.name}!`)+
+  `<div class="card lead">${ring(1,1,'',ic('cal'))}<div><div class="k">${ic('clock')}Найближче заняття</div><h3>${nx?`${nx.when} · ${nx.c.name}`:'Поки немає занять'}</h3><div class="m">${nx?`${nx.c.org}, ${nx.c.addr} <i>•</i> ${nx.c.grp}`:'Знайди гурток — заява піде татові на підтвердження'}</div><div class="acts"><button class="btn" data-a="go" data-v="kpass">Мій Activity Pass</button><a class="lnk" data-a="go" data-v="catalog">Знайти гурток</a></div></div></div>
+  <h2 class="h2">Мій тиждень</h2><div class="card sec" id="week">${weekTable(k)}</div>
+  ${mine.length?`<h2 class="h2">Мої заявки</h2><div class="card list" style="margin-top:20px">${mine.map(kreqRow).join('')}</div>`:''}
+  <h2 class="h2">Гуртки для тебе</h2><p class="sub">Підібрали за віком і районом. Заява піде татові на підтвердження</p>
+  <div class="sgrid">${rec.map(c=>clubCard(c,k)).join('')}</div>
+  <div class="findrow"><p>Квести міста, колекція Києва і шкільне самоврядування — у повному прототипі «Мій Київ».</p><a class="btn" href="../" target="_blank" rel="noopener">Відкрити ↗</a></div>`;
+}
+function vKreq(){
+  const L=S.reqs.filter(r=>r.ch===S.kid);
+  return ph('Мої заявки')+(L.length?`<div class="card list" style="margin-top:0">${L.map(kreqRow).join('')}</div>`:emptyCard('Заявок поки немає','Знайди гурток — заява піде татові на підтвердження.','doc'))+
+  `<div class="info">${ic('info')}<div>Твої заяви спершу бачить тато. Заклад отримує їх лише після його підтвердження. Оплатити чи скасувати зарахування може тільки тато.</div></div>`;
+}
+function vKpass(){
+  const k=S.kid,F=FAMILY[k],vl=voucherLine(k),tk=S.tickets.filter(t=>t.kid===k);
+  return ph('Activity Pass')+
+  `<div class="card sec" style="margin-top:0"><div class="inv"><div class="qrb">${qrSVG(F.id,168)}</div><div style="flex:1;min-width:0"><div class="cap2">Activity Pass · 2026/2027</div><h3 style="font-size:28px;line-height:36px;font-weight:600;margin-top:4px">${F.full}</h3><div class="mono" style="font-size:17px;color:var(--ink2);margin-top:4px">${F.id}</div>
+   <p class="note-s">Покажи QR на вході до гуртка — так заклад відмітить, що ти ${gv(k,'прийшов','прийшла')}, а тато отримає сповіщення. Без GPS: відмітка лише з журналу закладу.</p>
+   <div class="vch"><div><div class="cap2">Ваучер міста</div><b>${vl.t}</b><small>${vl.s}</small></div>${vl.on?chip('ok','Діє',1):''}</div></div></div></div>
+  <h2 class="h2">Відвідування</h2><div class="card sec att">${attBlock(k)}</div>
+  <h2 class="h2">Мої квитки</h2><div class="card list" style="margin-top:20px">${tk.length?tk.map(t=>`<div class="row" style="cursor:default"><div><h4>${t.t}</h4><div class="meta"><span>Коли:<b>${t.when}</b></span></div></div>${t.used?chip('g','Використано'):chip('ok','Активний')}<span></span></div>`).join(''):'<div class="empty">Квитків поки немає</div>'}</div>`;
+}
+function vKwallet(){
+  const k=S.kid,F=FAMILY[k],w=S.wal[k],sm=walSum(k),reqs=S.preqs.filter(r=>r.kid===k);
+  return ph('Освітній гаманець')+
+  `<div class="card lead" style="min-height:0;display:block"><div class="k">${ic('wallet','s18')}На твоєму освітньому рахунку</div><div class="big">${money(w.bal)}</div>
+   <div class="prog" style="height:10px;margin-top:14px"><i style="width:${Math.round(w.bal/sm.cr*100)}%;background:var(--blue)"></i></div>
+   <div class="m" style="margin-top:12px">${w.lim?`Можеш купувати ${gv(k,'сам','сама')} до <b style="color:var(--ink);font-weight:600">${money(w.lim)}</b> за раз. Дорожче — через тата.`:'Кожну покупку підтверджує тато.'} <i>•</i> діє до 31.08.2027</div></div>
+  ${reqs.length?`<h2 class="h2">Мої запити</h2><div class="card list" style="margin-top:20px">${reqs.map(r=>{const o=offer(r.offer);return `<div class="row" style="cursor:default"><div><h4>${o.name}</h4><div class="meta"><span>Ціна:<b>${money(o.price)}</b></span><span>Запит:<b>${r.d}, ${r.tm}</b></span></div></div>${r.st==='pend'?chip('pend','Чекає на тата'):r.st==='ok'?chip('ok','Оплачено'):chip('bad','Тато відмовив')}<span></span></div>`}).join('')}</div>`:''}
+  <h2 class="h2">Що можна взяти</h2><p class="sub">Квитки й абонементи в акредитованих закладах</p>
+  <div class="ogrid">${OFFERS.map(o=>{const pend=reqs.some(r=>r.offer===o.id&&r.st==='pend'),own=o.price<=w.lim,got=S.tickets.some(t=>t.kid===k&&t.t===o.name&&!t.used);
+    return `<div class="card ocard"><div class="t"><span class="oi">${ic(o.ic)}</span><span class="chip g sm">${o.cat}</span><b>${money(o.price)}</b></div><h4>${o.name}</h4><p>${o.sub} · ${o.when}</p><div class="acts">${got?chip('ok','Квиток у тебе',1):pend?chip('pend','Запит у тата',1):`<button class="btn sm${own?'':' sec'}" data-a="kbuy" data-s="${o.id}">${own?'Купити':'Попросити тата'}</button>`}</div></div>`}).join('')}</div>
+  <h2 class="h2">Історія</h2><div class="card list" style="margin-top:20px">${w.tx.map(txRow).join('')}</div>
+  <div class="info pur">${ic('info')}<div><b>Це не кишенькові гроші.</b> Готівку зняти чи переказати не можна, платити можна лише акредитованим закладам. Бали й досягнення квестів на гривні не обмінюються.</div></div>`;
+}
+function vKprof(){
+  const k=S.kid,F=FAMILY[k];
+  return ph('Про мене')+`<div class="card lead" style="display:block;min-height:0"><div class="kv"><div>ПІБ</div><div>${F.full}</div><div>Дата народження</div><div>${F.dob}</div><div>Заклад освіти</div><div>${F.school}</div><div>Район проживання</div><div>Солом’янський</div><div>ID на Порталі</div><div class="mono">${F.id}</div><div>Спосіб входу</div><div>Прив’язаний пристрій; на новому — ID і код від тата</div><div>Від 14 років</div><div>Той самий ID плюс вхід ID-карткою та Дія.Підписом</div><div>Поточна сесія</div><div>${S.sessDev} · до ${S.sess}</div><div>Батько</div><div>Кравець Роман Іванович · Демографічний реєстр</div></div></div>
+  <div class="info warn">${ic('lock')}<div><b>Що ти не можеш зробити у своєму кабінеті:</b> оплатити, скасувати зарахування, змінити персональні дані, дати згоду на обробку даних. Усе це робить тато у своєму кабінеті.</div></div>
+  <div class="acts" style="margin-top:20px"><button class="btn ghost" data-a="klogout">${ic('logout','s20')}Вийти</button></div>`;
+}
+const howLogin=`<div class="kgrid" style="margin-top:10px"><div class="card sec" style="margin-top:0"><h3 class="h3s">Як це працює</h3><ol class="how"><li><b>Тато чи мама додає тебе</b> у своєму кабінеті й отримує код запрошення</li><li><b>Ти вводиш код запрошення</b> на своєму пристрої, і він прив’язується до профілю</li><li><b>Далі вхід без коду</b> 30 днів</li><li><b>На новому пристрої</b> — твій ID і код, який приходить татові</li></ol></div>
+  <div class="card sec" style="margin-top:0"><h3 class="h3s">Чому не пароль</h3><p class="note-s">Ім’я й дата народження не унікальні, а пароль діти забувають і передають друзям. Код від батьків — це і вхід, і батьківська згода на кожен новий пристрій.</p><div class="info pur">${ic('info')}<div><b>Від 14 років</b> до того самого ID додається вхід власною ID-карткою та Дія.Підписом. Історія, гуртки й гаманець зберігаються.</div></div></div></div>`;
+function vLogin(){
+  const st=S.kstep;
+  const head=`<div class="wz-h">${ring(st,3)}<div><div class="k">Крок ${st} із 3</div><h3>${st===1?'Увійди у свій кабінет':'Введи код, який отримав тато'}</h3></div></div>`;
+  const b=st===1?`<p class="pl">Введи свій ID. Код для входу прийде татові — у кабінет на Порталі і пушем у «Київ Цифровий».</p>
+    <label class="fl" style="margin-top:20px">Твій ID на Порталі</label><div class="fld">${ic('user')}<input id="lid" class="mono" value="${S.lid||FAMILY.marko.id}"></div>
+    <div class="note-s" style="margin-top:8px">ID є на картці Activity Pass і в кабінеті батьків.</div>
+    ${S.lerr?`<div class="err">${S.lerr}</div>`:''}
+    <div class="wz-f"><span></span><button class="btn" data-a="getcode">Надіслати код татові</button></div>`
+   :`<p class="pl">Ми надіслали 6 цифр Роману Кравцю. Попроси тата продиктувати код.</p>
+    <div class="code${S.lerr?' bad':''}" id="codebox">${'<input maxlength="1" inputmode="numeric" autocomplete="off">'.repeat(6)}</div>
+    ${S.lerr?`<div class="err">${S.lerr}</div>`:''}
+    <div style="display:flex;gap:22px;align-items:center;margin-top:16px;font-size:15px;color:var(--ink3);flex-wrap:wrap"><span id="kT">${codeLive()?`Код дійсний ще <b style="color:var(--ink)">${left()}</b>`:'<b style="color:var(--bad)">Код недійсний</b>'}</span><a class="lnk sm" data-a="getcode">Надіслати ще раз</a><a class="lnk sm" style="color:var(--ink3)" data-a="kback">Змінити ID</a></div>
+    <div class="wz-f"><span></span><button class="btn" data-a="verify">Увійти</button></div>
+    <div class="demo"><b>Це макет.</b> Код справжній і щоразу новий. Його видно в ролі «Батько» → «Доступ до кабінетів» або в сповіщеннях батька. Щоб не перемикатись — <a data-a="peek">показати код тут</a>${S.peek&&S.code?` <b class="mono" style="color:var(--ink)">${S.code}</b>`:''}.</div>`;
+  return ph('Кабінет дитини')+`<div class="card wz">${head}<div class="wz-b">${b}</div></div>${howLogin}`;
+}
+function vInvite(){
+  const act=Object.keys(S.invites);
+  return ph('Кабінет дитини')+`<div class="card wz"><div class="wz-h">${ring(1,2)}<div><div class="k">Перший вхід</div><h3>Введи код запрошення від батьків</h3></div></div><div class="wz-b">
+   <p class="pl">Код одноразовий. Його можна ввести або відсканувати QR з екрана тата чи мами.</p>
+   <label class="fl" style="margin-top:20px">Код запрошення</label><div class="fld">${ic('key')}<input id="linv" class="mono" placeholder="XXXX-XXXX" style="text-transform:uppercase;letter-spacing:.14em" value="${S.linv}"></div>
+   ${S.lerr?`<div class="err">${S.lerr}</div>`:''}
+   <div class="wz-f"><span></span><button class="btn" data-a="bind">Прив’язати пристрій</button></div>
+   <div class="demo"><b>Це макет.</b> Код з’являється в кабінеті батька одразу після того, як він додав дитину. <a data-a="peekinv">Показати активні коди</a>${S.peekInv?(act.length?': '+act.map(x=>`<b class="mono" style="color:var(--ink)">${S.invites[x].code}</b> (${kn(x)})`).join(', '):': активних кодів немає'):''}.</div></div></div>${howLogin}`;
+}
+function vBound(){
+  const k=S.bound,F=FAMILY[k];
+  return ph('Кабінет дитини')+`<div class="card wz"><div class="wz-h">${ring(1,1,'ok')}<div><div class="k">Готово</div><h3>Привіт, ${F.name}! Пристрій прив’язано</h3></div></div><div class="wz-b"><div class="kv"><div>Профіль</div><div>${F.full}</div><div>ID</div><div class="mono">${F.id}</div><div>Пристрій</div><div>${(S.devices[k]||[{d:'—'}])[0].d}</div><div>Далі</div><div>Вхід без коду 30 днів. На новому пристрої — ID і код від батьків</div></div><div class="wz-f"><span></span><button class="btn" data-a="enter" data-k="${k}">Відкрити мій кабінет</button></div></div></div>`;
+}
+
+/* ================= ІНШІ СТОРІНКИ ================= */
+const PAGES={
+ drafts:()=>ph('Чернетки')+simpleList([
+   {t:'Оздоровлення дітей у супроводі дорослого',m:[['Крок','2 з 5'],['Змінено','08.11.2026']],c:'<span class="chip g">'+ic('pen')+'Чернетка</span>',tt:'Форму послуги в макеті не деталізовано'},
+   {t:'Компенсація вартості навчання водінню',m:[['Крок','1 з 4'],['Змінено','21.10.2026']],c:'<span class="chip g">'+ic('pen')+'Чернетка</span>',tt:'Форму послуги в макеті не деталізовано'}]),
+ docs:()=>ph('Мої документи')+simpleList([
+   {t:'Паспорт громадянина України (ID-картка)',m:[['Джерело','Дія'],['Дійсний до','14.03.2031']],c:chip('ok','Підтверджено')},
+   {t:'Посвідчення учасника бойових дій',m:[['Джерело','Мінветеранів'],['Видано','02.09.2023']],c:chip('ok','Підтверджено')},
+   {t:'Свідоцтво про народження дитини',m:[['Джерело','ДРАЦС'],['Дитина','Марко, 2014']],c:chip('ok','Підтверджено')},
+   {t:'Свідоцтво про народження дитини',m:[['Джерело','ДРАЦС'],['Дитина','Софія, 2018']],c:chip('ok','Підтверджено')}]),
+ events:()=>ph('Обрані заходи')+simpleList([
+   {t:'Новорічна вистава в Театрі ляльок',m:[['Дата','27.12.2026, 11:00'],['Для','дітей 6–10 років']],c:'<span class="chip b">'+ic('cal')+'Обрано</span>'},
+   {t:'Першість району з шахів серед школярів',m:[['Дата','21.11.2026, 10:00'],['Місце','БДТ, вул. Козелецька, 5']],c:'<span class="chip b">'+ic('cal')+'Я йду</span>'}]),
+ spec:()=>ph('Мої фахівці')+emptyCard('Поки немає обраних фахівців','Фахівці з’являться після запису до лікаря, психолога чи юриста через Портал.','users'),
+ kidsvc:()=>ph('Послуги для дітей')+`<div class="sgrid" style="margin-top:0">${SVC.filter(s=>s.cat.includes('dity')&&(S.layer||!s.vx)).map(svcCard).join('')}</div>`,
+ biz:()=>ph('Мій бізнес')+emptyCard('Бізнес не знайдено','За вашим РНОКПП немає ФОП чи компанії в ЄДР. Якщо ви представляєте компанію, увійдіть з КЕП організації.','brief'),
+ prof:()=>ph('Мій профіль')+`<div class="card lead" style="display:block;min-height:0"><div class="kv"><div>ПІБ</div><div>Кравець Роман Іванович</div><div>Телефон</div><div>+380 •• ••• •• 31</div><div>E-mail</div><div>roman.demo@example.com</div><div>Адреса реєстрації</div><div>м. Київ, Солом’янський район</div><div>Пільгова категорія</div><div>Учасник бойових дій</div><div class="vx">Діти в профілі</div><div class="vx">${allKids().map(k=>`${kn(k)}, ${kage(k)}`).join(' · ')} — за Демографічним реєстром</div></div></div>`,
+ notif:()=>{const L=S.notes.filter(n=>n.r===S.role&&(S.layer||!n.vx));
+   return ph('Мої сповіщення')+`<div class="card list" style="margin-top:0">${L.map(n=>`<div class="row" data-a="note" data-i="${S.notes.indexOf(n)}" style="grid-template-columns:minmax(0,1fr) 24px">${n.u?'<i class="dot"></i>':''}<div><h4 style="white-space:normal;font-size:18px;line-height:26px;font-weight:400">${n.t}</h4><div class="meta"><span>${n.d}</span></div></div><span class="ar">${ic('arr')}</span></div>`).join('')||'<div class="empty">Сповіщень немає</div>'}</div>`}
+};
+
+/* ================= РЕНДЕР ================= */
+const VIEWS={svc:vSvc,kids:vKids,addkid:vAddkid,approve:vApprove,pass:vPass,wallet:vWallet,pay:vPay,access:vAccess,catalog:vCatalog,club:()=>vClub(S.sub[S.role]),apply:vApply,
+ home:vHome,kreq:vKreq,kpass:vKpass,kwallet:vKwallet,kprof:vKprof,login:vLogin,invite:vInvite,bound:vBound};
+const KIDV=['kids','addkid','approve','pass','wallet','pay','access','catalog','club','apply'];
+const LOGV=['login','invite','bound'];
+let lastKey='';
+function render(){
+  document.body.classList.toggle('base',!S.layer);
+  $$('.mock [data-role]').forEach(b=>{b.classList.toggle('on',b.dataset.role===S.role);b.disabled=!S.layer&&b.dataset.role!=='par'});
+  $('#layerSel').value=S.layer?'1':'0';
+  if(S.role==='kid'){if(!S.kidIn&&!LOGV.includes(S.v.kid))S.v.kid='login';if(S.kidIn&&LOGV.includes(S.v.kid))S.v.kid='home'}
+  const ava=$('#uAva'),un=$('#uName');
+  if(S.role==='par'){ava.textContent='РК';ava.style.background='';un.textContent='Роман К.'}
+  else if(S.kidIn){ava.textContent=FAMILY[S.kid].ini+'К';ava.style.background=FAMILY[S.kid].col;un.textContent=kn(S.kid)+' К.'}
+  else{ava.innerHTML=ic('user','s20');ava.style.background='';un.textContent='Увійти'}
+  let v=S.v[S.role];
+  if(['apply','addkid'].includes(v)&&(!S.wz||S.wz.k!==v)){v=S.v[S.role]=S.role==='kid'?'home':v==='addkid'?'kids':'catalog'}
+  renderSide();
+  $('#main').innerHTML=(VIEWS[v]||PAGES[v]||(S.role==='kid'?vHome:vSvc))();
+  const key=S.role+v+(S.sub[S.role]||'')+(S.wz?S.wz.k+S.wz.step:'')+(v==='login'?S.kstep:'');
+  if(key!==lastKey){window.scrollTo(0,0);lastKey=key}
+  afterRender();renderDD();renderChat();
+}
+function afterRender(){
+  const ins=$$('#codebox input');
+  ins.forEach((b,i)=>{
+    b.addEventListener('input',()=>{b.value=b.value.replace(/\D/g,'').slice(0,1);b.classList.toggle('f',!!b.value);if(b.value&&i<5)ins[i+1].focus();if(ins.every(x=>x.value))setTimeout(verify,120)});
+    b.addEventListener('keydown',e=>{if(e.key==='Backspace'&&!b.value&&i>0){ins[i-1].focus();ins[i-1].value='';ins[i-1].classList.remove('f')}if(e.key==='Enter')verify()});
+    b.addEventListener('paste',e=>{e.preventDefault();const dg=(e.clipboardData.getData('text')||'').replace(/\D/g,'').slice(0,6).split('');dg.forEach((c,j)=>{if(ins[j]){ins[j].value=c;ins[j].classList.add('f')}});if(dg.length===6)setTimeout(verify,120)});
+  });
+  const lid=$('#lid');if(lid)lid.addEventListener('keydown',e=>{if(e.key==='Enter')getCode()});
+  const li=$('#linv');if(li)li.addEventListener('keydown',e=>{if(e.key==='Enter')bind()});
+}
+function go(v,sub){
+  if(!S.layer&&KIDV.includes(v))return;
+  if(!['apply','addkid'].includes(v))S.wz=null;
+  S.v[S.role]=v;S.sub[S.role]=sub||null;S.dd=null;
+  render();
+}
+function setRole(r){if(!S.layer&&r!=='par')return;S.role=r;S.dd=null;S.chat=false;mclose();render()}
+
+/* дропдауни */
+function renderDD(){
+  const box=$('#ddBox');let h='';
+  if(S.dd==='city')h=`<div class="drop" style="left:233px">${[['Соціальна підтримка'],['Діти та освіта'],['Гуртки й секції','catalog',1],['Захисникам'],['Житло і комунальні послуги'],['Бізнесу'],['Транспорт']].map(c=>`<a ${c[1]?`data-a="go" data-v="${c[1]}"`:'data-a="toast" data-t="Каталог послуг у макеті не деталізовано"'} class="${c[2]?'vx':''}">${c[0]}${c[2]?' <span class="chip pur sm" style="margin-left:auto">новий</span>':''}</a>`).join('')}</div>`;
+  if(S.dd==='a11y')h=`<div class="drop" style="right:150px"><button data-a="a11y">${ic('zoom')}${S.a11y?'Звичайний розмір':'Збільшити текст'}</button><button data-a="toast" data-t="Режим високої контрастності в макеті не деталізовано">${ic('info')}Висока контрастність</button></div>`;
+  if(S.dd==='user'){
+    if(S.role==='par')h=`<div class="drop" style="right:-4px"><div class="cap">Роман Кравець</div><button data-a="go" data-v="prof">${ic('user')}Мій профіль</button><button data-a="go" data-v="notif">${ic('bell')}Мої сповіщення</button><hr><button data-a="toast" data-t="Вихід у макеті вимкнено">${ic('logout')}Вийти</button></div>`;
+    else if(S.kidIn)h=`<div class="drop" style="right:-4px"><div class="cap">${FAMILY[S.kid].full}</div><button data-a="go" data-v="kprof">${ic('user')}Про мене</button><button data-a="go" data-v="notif">${ic('bell')}Мої сповіщення</button><hr><button data-a="klogout">${ic('logout')}Вийти</button></div>`;
+    else h=`<div class="drop" style="right:-4px"><button data-a="go" data-v="login">${ic('user')}Вхід за ID</button><button data-a="go" data-v="invite">${ic('key')}Перший вхід за кодом</button></div>`;
+  }
+  box.innerHTML=h;
+  const f=$('.fpill .drop');if(f)f.remove();
+  if(S.dd==='stf'){const p=$('.fpill');if(p)p.insertAdjacentHTML('beforeend',`<div class="drop">${[['all','Усі'],['sub','Подано'],['rev','На розгляді'],['fix','На доопрацюванні']].map(([k,t])=>`<button data-a="stf" data-f="${k}">${t}${S.stF===k?' '+ic('check','s18'):''}</button>`).join('')}</div>`)}
+}
+
+/* чат */
+function renderChat(){
+  const c=$('#chat');c.hidden=!S.chat;if(!S.chat)return;
+  if(!S.chatLog)S.chatLog=[['bot',S.role==='kid'?'Привіт! Я помічник Порталу. Чим допомогти?':'Вітаю! Я помічник Порталу послуг. Чим допомогти?']];
+  const qr=!S.layer?[['status','Статус моєї заяви']]:S.role==='kid'?[['club','Хочу новий гурток'],['wallet','Скільки в моєму гаманці']]:[['club','Записати дитину на гурток'],['wallet','Скільки в гаманцях дітей'],['status','Статус моєї заяви']];
+  c.innerHTML=`<div class="chd">${ic('msg')}Помічник Порталу<button data-a="chat">×</button></div><div class="cbd">${S.chatLog.map(m=>`<div class="msg ${m[0]}">${m[1]}</div>`).join('')}<div class="qr">${qr.map(q=>`<button data-a="cq" data-q="${q[0]}">${q[1]}</button>`).join('')}</div></div>`;
+  const b=$('.cbd',c);b.scrollTop=b.scrollHeight;
+}
+function chatQ(q){
+  const L=S.chatLog,kid=S.role==='kid';
+  if(q==='club'){L.push(['me',kid?'Хочу новий гурток':'Записати дитину на гурток']);L.push(['bot',(kid?'Підберу гурток за твоїм віком і районом. Заява піде татові на підтвердження.':'Підберу гурток за віком і районом дитини. Ваучер Activity Pass покриває до 500 ₴ на місяць на одну платну групу.')+'<br><button class="lnk sm" data-a="go" data-v="catalog" style="margin-top:6px">Відкрити каталог →</button>'])}
+  if(q==='wallet'){L.push(['me',kid?'Скільки в моєму гаманці':'Скільки в гаманцях дітей']);L.push(['bot',kid?`На твоєму освітньому рахунку <b>${money(S.wal[S.kid].bal)}</b>.<br><button class="lnk sm" data-a="go" data-v="kwallet" style="margin-top:6px">Гаманець →</button>`:`${allKids().map(k=>`${kn(k)}: <b>${money(S.wal[k].bal)}</b>`).join(', ')}.<br><button class="lnk sm" data-a="go" data-v="wallet" style="margin-top:6px">Гаманець →</button>`])}
+  if(q==='status'){L.push(['me','Статус моєї заяви']);const r=S.layer&&S.reqs[0];L.push(['bot',r?`«${r.t}» (${kn(r.ch)}): <b>${stTxt(r)||(CH[r.st]||[])[2]}</b>.`:'Остання заява «Психологічна підтримка Захисникам і Захисницям» — <b>Подано</b>, розгляд до 12.07.2026.'])}
+  renderChat();
+}
+
+/* ================= ДІЇ ================= */
+function submitApply(){
+  const w=S.wz,c=club(w.club),k=w.kid,F=FAMILY[k],id=++S.seq,tm=clock(),kidM=w.by==='kid';
+  const r={id,t:`Запис до гуртка «${c.name}»`,club:c.id,ch:k,by:w.by,d:TODAY,tm,st:kidM?'pend':'review',dot:1,
+   ev:[['ok',kidM?`Подав${gv(k,'','ла')} ${F.name} зі свого кабінету`:'Подано з кабінету батька',`${TODAY}, ${tm}`]]};
+  if(kidM){r.ev.push(['pend','Чекає підтвердження батька','заклад заяву ще не бачить']);
+    note('par',`<b>${F.name} ${gv(k,'подав','подала')} заяву на гурток «${c.name}».</b> Потрібне ваше підтвердження.`,['approve']);
+    note('kid',`Твою заяву на «${c.name}» надіслано татові на підтвердження.`,['kreq'])}
+  else{r.ev.push(['ok','Передано до закладу',c.org]);r.rl='Розгляд до';r.r='19.11.2026';
+    note('kid',`Тато записав тебе на гурток «${c.name}». Заява на розгляді закладу.`,['kreq'])}
+  S.reqs.unshift(r);w.id=id;w.step=2;
+  if(!kidM)decide(id);
+  render();toast(kidM?'Заяву надіслано татові':'Заяву подано до закладу');
+}
+function decide(id){setTimeout(()=>{
+  const r=S.reqs.find(x=>x.id===id);if(!r||r.st!=='review')return;
+  const c=club(r.club),k=r.ch,F=FAMILY[k];
+  if(c.seats>0){
+    r.st='enrolled';r.rl='Зараховано';r.r=TODAY;r.dot=1;
+    if(!S.enr[k].includes(c.id))S.enr[k].push(c.id);
+    if(!S.fresh.includes(c.id))S.fresh.push(c.id);
+    S.att[k][c.id]=S.att[k][c.id]||[];
+    r.ev.push(['ok',`Зараховано: ${c.grp}`,`${TODAY}, ${clock()} · ${c.org}`]);
+    if(c.pay!=='free'){const pi=payInfo(c,k);if(pi.v)S.voucher[k]=c.id;
+      S.pay.unshift({id:S.pay.length+10,t:'Грудень 2026',svc:`${c.name}, ${c.sorg}`,ch:k,full:c.pr,v:pi.v,paid:false,due:'до 05.12'});
+      note('par',pi.v?`Ваучер Activity Pass ${F.gen} застосовано до «${c.name}»: місто платить ${money(pi.v)} на місяць, ваша доплата ${money(pi.due)}. Рахунок — у розділі «Оплати».`:`Рахунок за «${c.name}» — у розділі «Оплати».`,['pay'])}
+    note('par',`<b>${F.gen} зараховано</b> до гуртка «${c.name}», ${c.org}. Перше заняття — ${c.time}.`,['kids']);
+    note('kid',`<b>Тебе зараховано до гуртка «${c.name}»</b>. Перше заняття — ${c.time}.`,['home']);
+    toast(`Заклад ухвалив рішення: ${F.gen} зараховано до гуртка «${c.name}»`);
+  }else{
+    r.st='queue';r.rl='Місце в черзі';r.r='4-те';r.ev.push(['w','Поставлено в чергу','вільних місць немає · 4-те місце']);
+    note('par',`Заяву на «${c.name}» поставлено в чергу: вільних місць немає.`,['svc']);note('kid',`Місць у групі «${c.name}» немає — тебе поставили в чергу.`,['kreq']);
+    toast('Заклад ухвалив рішення: місць немає, заяву поставлено в чергу');
+  }
+  render();
+},3500)}
+function decideBuy(id,ok){
+  const r=S.preqs.find(x=>x.id===id);if(!r||r.st!=='pend')return;const o=offer(r.offer),k=r.kid,F=FAMILY[k];
+  if(ok){if(S.wal[k].bal<o.price){toast('Недостатньо коштів у гаманці');return}
+    r.st='ok';spend(k,o,'підтвердив тато');note('kid',`<b>Тато оплатив «${o.name}»</b> з твого гаманця. Квиток уже в Activity Pass.`,['kpass']);
+    toast(`Оплачено з гаманця ${F.gen}. Квиток у ${gv(k,'його','її')} Activity Pass`)}
+  else{r.st='no';note('kid',`Тато не підтвердив «${o.name}».`,['kwallet']);toast('Запит відхилено. Дитина отримала сповіщення')}
+  render();
+}
+function kidBuy(id){
+  const k=S.kid,o=offer(id),w=S.wal[k],F=FAMILY[k];
+  if(o.price>w.bal){toast('На рахунку не вистачає коштів');return}
+  if(o.price<=w.lim){spend(k,o,gv(k,'купив сам','купила сама'));
+    note('par',`${F.name} ${gv(k,'купив','купила')} «${o.name}» за ${money(o.price)} з освітнього гаманця, у межах вашого ліміту ${money(w.lim)}.`,['wallet']);
+    note('kid',`Квиток «${o.name}» уже в твоєму Activity Pass.`,['kpass']);render();toast('Куплено. Квиток у твоєму Activity Pass');return}
+  if(S.preqs.some(r=>r.kid===k&&r.offer===id&&r.st==='pend'))return;
+  S.preqs.unshift({id:S.pseq++,kid:k,offer:id,st:'pend',d:TODAY,tm:clock()});
+  note('par',`<b>${F.name} просить оплатити з гаманця</b> «${o.name}», ${money(o.price)}. Підтвердіть у розділі «Підтвердження».`,['approve']);
+  render();toast('Запит надіслано татові');
+}
+function payRow(id,how){
+  const p=S.pay.find(x=>x.id===id);if(!p||p.paid)return;const due=p.full-p.v,k=p.ch;
+  if(how==='wallet'){const w=S.wal[k];if(w.bal<due){toast(`У гаманці ${FAMILY[k].gen} недостатньо коштів`);return}
+    w.bal-=due;w.tx.unshift({d:TODAY,t:`Абонемент · ${p.svc} · ${p.t.toLowerCase()}${p.v?' (після ваучера)':''}`,s:-due})}
+  p.paid=true;p.how=how==='wallet'?'з гаманця':'карткою';
+  S.notes.forEach(n=>{if(n.r==='par'&&n.go&&n.go[0]==='pay')n.u=0});
+  note('par',`Оплату ${money(due)} за «${p.svc}» (${p.t.toLowerCase()}, ${kn(k)}) зараховано ${p.how}. Квитанція — у розділі «Оплати».`,['pay']);
+  render();toast(`Оплачено ${p.how}. Квитанція в розділі «Оплати»`);
+}
+function getCode(){
+  const inp=$('#lid');const id=(inp?inp.value:(S.lid||FAMILY.marko.id)).trim().toUpperCase();S.lid=id;
+  const k=Object.keys(FAMILY).find(x=>FAMILY[x].id===id);
+  S.kstep=1;
+  if(!k){S.lerr='Такого ID немає. Перевір картку Activity Pass.';render();return}
+  if(!inProfile(k)||!S.access[k]){S.lerr='Кабінет для цього ID не відкрито або тато вимкнув доступ. Попроси тата: «Мої діти» → «Доступ до кабінетів».';render();return}
+  S.code=Array.from({length:6},()=>Math.floor(Math.random()*10)).join('');S.codeExp=Date.now()+300000;S.codeAt=clock();S.tries=0;S.lkid=k;S.lerr='';S.kstep=2;S.peek=false;
+  note('par',`<b>Код входу для ${FAMILY[k].gen}: ${S.code}</b> — дійсний 5 хвилин. Якщо це не ваша дитина, заблокуйте код у розділі «Доступ до кабінетів».`,['access']);
+  render();toast('Код надіслано татові');setTimeout(()=>{const b=$('#codebox input');if(b)b.focus()},60);
+}
+function verify(){
+  const val=$$('#codebox input').map(b=>b.value).join('');
+  if(!codeLive()){S.lerr='Код уже недійсний. Натисни «Надіслати ще раз».';render();return}
+  if(val.length<6){S.lerr='Введи всі 6 цифр.';render();return}
+  if(val!==S.code){S.tries++;if(S.tries>=3){S.code=null;S.lerr='Тричі неправильно. Код заблоковано — попроси новий.'}else S.lerr=`Неправильний код. Залишилось спроб: ${3-S.tries}.`;
+    render();const cb=$('#codebox');if(cb){cb.classList.add('shake');const f=$('#codebox input');if(f)f.focus()}return}
+  login(S.lkid,'Chrome, Windows');
+}
+function login(k,dev){
+  const F=FAMILY[k];S.kidIn=true;S.kid=k;S.code=null;S.lerr='';S.kstep=1;S.sess='12.12.2026';S.sessDev=dev;S.chatLog=null;
+  note('kid','Вхід до кабінету підтверджено. Сесія діє до 12.12.2026.');
+  note('par',`${F.name} ${gv(k,'увійшов','увійшла')} до свого кабінету · ${dev}`,['access']);
+  S.v.kid='home';render();toast('Вхід виконано. Сесія діє 30 днів — тато може її завершити будь-коли');
+}
+function bind(){
+  const v=($('#linv')?$('#linv').value:S.linv).trim().toUpperCase();S.linv=v;
+  const k=Object.keys(S.invites).find(x=>S.invites[x].code===v);
+  if(!k){S.lerr=v?'Код не підходить або вже використаний.':'Введи код запрошення.';render();return}
+  S.devices[k]=[{d:'Safari, iPad · Київ',since:TODAY+', '+clock()}];delete S.invites[k];S.lerr='';S.linv='';S.bound=k;
+  note('par',`Пристрій ${FAMILY[k].gen} прив’язано: Safari, iPad. Відкликати можна в розділі «Доступ до кабінетів».`,['access']);
+  S.v.kid='bound';render();toast('Пристрій прив’язано. Тато отримав сповіщення');
+}
+function searchModal(){
+  modal(`<div class="srch" style="padding:0"><h3>Пошук послуг</h3><div class="inp" style="margin-top:14px">${ic('search')}<input id="sq" placeholder="Наприклад: гурток, школа, паркування" autofocus></div><div class="res" id="sres" style="margin-top:10px"></div></div>`,1);
+  const run=()=>{const q=($('#sq').value||'').toLowerCase().trim();
+    const L=[...SVC.filter(s=>S.layer||!s.vx).map(s=>({t:s.t,k:s.tag,a:s.a||'toast',v:s.v,kw:(s.t+' '+s.tag+(s.vx?' діти дитина гурток ваучер гаманець':'')).toLowerCase()})),
+      ...(S.layer?CLUBS.map(c=>({t:c.name,k:'Гурток · '+c.sorg,a:'go',v:'club',s:c.id,kw:(c.name+' гурток секція діти '+c.org).toLowerCase()})):[])];
+    const R=q?L.filter(x=>q.split(/\s+/).every(w=>x.kw.includes(w.slice(0,5)))):L.slice(0,6);
+    $('#sres').innerHTML=R.map(x=>`<a data-a="${x.a}" ${x.v?`data-v="${x.v}"`:''} ${x.s?`data-s="${x.s}"`:''} data-t="Сторінку послуги в макеті не деталізовано">${x.t}<small>${x.k}</small></a>`).join('')||'<p>Нічого не знайдено</p>'};
+  $('#sq').addEventListener('input',run);run();setTimeout(()=>$('#sq')&&$('#sq').focus(),50);
+}
+
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-a]');
+  if(!t){if(S.dd&&!e.target.closest('.drop')){S.dd=null;renderDD()}return}
+  const a=t.dataset.a,d=t.dataset;
+  if(t.closest('.tour'))return;
+  if(a!=='dd'&&S.dd&&!t.closest('.drop')){S.dd=null}
+  switch(a){
+   case'go':mclose();S.chat=false;go(d.v,d.s);break;
+   case'home':go(S.role==='par'?'svc':S.kidIn?'home':'login');break;
+   case'toast':toast(d.t||'У макеті не деталізовано');renderDD();break;
+   case'dd':S.dd=S.dd===d.d?null:d.d;renderDD();break;
+   case'stf':S.stF=d.f;S.dd=null;S.more=false;render();break;
+   case'tab':S.tab=d.t;S.more=false;render();break;
+   case'more':S.more=!S.more;render();break;
+   case'cat':S.cat=d.c;render();break;
+   case'search':S.dd=null;renderDD();searchModal();break;
+   case'a11y':S.a11y=!S.a11y;document.body.style.zoom=S.a11y?'1.12':'';S.dd=null;renderDD();break;
+   case'chat':S.chat=!S.chat;renderChat();break;
+   case'cq':chatQ(d.q);break;
+   case'mclose':mclose();break;
+   case'note':{const n=S.notes[+d.i];n.u=0;if(n.go)go(n.go[0],n.go[1]);else render();break}
+   case'req':reqModal(+d.s);break;
+   /* діти, підтвердження */
+   case'addkid-start':if(!S.layer)break;mclose();S.wz={k:'addkid',step:0,kid:null,ok:false,acc:true,from:'kids'};S.v.par='addkid';render();break;
+   case'openkid':S.wz={k:'addkid',step:0,kid:d.k,ok:true,acc:true,from:'access'};S.v.par='addkid';render();break;
+   case'sign':{const w=S.wz;w.signing=true;render();setTimeout(()=>finishSign(w),1600);break}
+   case'req-ok':{const r=S.reqs.find(x=>x.id===+d.s);if(!r)break;const c=club(r.club);r.st='review';r.dec='ok';r.rl='Розгляд до';r.r='19.11.2026';r.ev=r.ev.filter(x=>x[0]!=='pend');r.ev.push(['ok','Підтверджено батьком',`${TODAY}, ${clock()} · Роман Кравець`],['ok','Передано до закладу',c.org]);
+     note('kid',`<b>Тато підтвердив твою заяву</b> на «${c.name}» — її передано до закладу.`,['kreq']);render();toast('Заяву передано до закладу. Рішення прийде за кілька секунд');decide(r.id);break}
+   case'req-no':{const r=S.reqs.find(x=>x.id===+d.s);if(!r)break;const c=club(r.club);r.st='rejected';r.dec='no';r.rl='Рішення';r.r='відхилено';r.ev=r.ev.filter(x=>x[0]!=='pend');r.ev.push(['bad','Відхилено батьком',`${TODAY}, ${clock()}`]);
+     note('kid',`Тато не підтвердив заяву на «${c.name}». Поговоріть разом, чому.`,['kreq']);render();toast('Заяву відхилено. Дитина отримала сповіщення');break}
+   case'buy-ok':decideBuy(+d.s,true);break;
+   case'buy-no':decideBuy(+d.s,false);break;
+   /* гаманець, оплати */
+   case'wkid':S.wkid=d.k;go('wallet');break;
+   case'wkid2':S.wkid=d.k;render();break;
+   case'lim':{const w=S.wal[S.wkid];w.lim=+d.n;note('kid',w.lim?`Тато дозволив купувати з гаманця самостійно до ${money(w.lim)} за раз.`:'Тепер кожну покупку з гаманця підтверджує тато.',['kwallet']);render();toast(w.lim?`${kn(S.wkid)} може купувати ${gv(S.wkid,'сам','сама')} до ${money(w.lim)}`:'Усі покупки — через вас');break}
+   case'pbuy':{const k=S.wkid,o=offer(d.s);if(S.wal[k].bal<o.price){toast('Недостатньо коштів у гаманці');break}spend(k,o,'оплатив батько');note('kid',`Тато купив тобі «${o.name}». Квиток уже в Activity Pass.`,['kpass']);render();toast(`Оплачено з гаманця ${FAMILY[k].gen}. Квиток у ${gv(k,'його','її')} Activity Pass`);break}
+   case'kbuy':kidBuy(d.s);break;
+   case'payw':payRow(+d.s,'wallet');break;
+   case'payc':payRow(+d.s,'card');break;
+   /* гуртки */
+   case'vpick':S.catKid=d.k;S.catF='voucher';go('catalog');break;
+   case'catf':S.catF=d.f;render();break;
+   case'catkid':S.catKid=d.k;render();break;
+   case'apply-start':S.wz={k:'apply',club:d.s,kid:curKid(),by:S.role,step:0,agree:false};S.v[S.role]='apply';render();break;
+   case'apply-submit':submitApply();break;
+   case'ntf':S.notify[d.k]=!S.notify[d.k];render();toast(S.notify[d.k]?'Сповіщення увімкнено':'Сповіщення вимкнено');break;
+   case'quests':S.questsOn=!S.questsOn;note('kid',S.questsOn?'Тато увімкнув квести міста.':'Тато вимкнув квести міста.');render();toast(S.questsOn?'Квести увімкнено':'Квести вимкнено');break;
+   /* майстри */
+   case'wz-set':S.wz[d.k]=d.k==='acc'?d.val==='1':d.val;render();break;
+   case'wz-tg':S.wz[d.k]=!S.wz[d.k];render();break;
+   case'wz-next':S.wz.step++;render();break;
+   case'wz-back':{const w=S.wz;if(w.step===0){if(w.k==='apply')go('club',w.club);else go(w.from==='access'?'access':'kids')}else{w.step--;render()}break}
+   /* доступ */
+   case'reinvite':{const v=inviteFor(d.k);render();toast(`Новий код для ${FAMILY[d.k].gen}: ${v.code}`);break}
+   case'revoke':{const k=d.k;S.devices[k].splice(+d.i,1);if(S.kidIn&&S.kid===k){S.kidIn=false}note('par',`Пристрій ${FAMILY[k].gen} відкликано вами.`,['access']);render();toast('Пристрій відкликано');break}
+   case'kill':{const k=S.kid;S.kidIn=false;S.sess=null;note('kid','Тато завершив твою сесію. Щоб увійти знову, попроси код.');note('par',`Сесію ${FAMILY[k].gen} завершено вами.`,['access']);render();toast(`Сесію ${FAMILY[k].gen} завершено`);break}
+   case'acc-tg':{const k=d.k,on=!S.access[k];S.access[k]=on;
+     if(!on){if(S.kidIn&&S.kid===k)S.kidIn=false;if(S.lkid===k)S.code=null;note('kid','Тато вимкнув доступ до твого кабінету.')}
+     render();toast(on?`Доступ ${FAMILY[k].gen} до кабінету увімкнено`:`Доступ ${FAMILY[k].gen} до кабінету вимкнено`);break}
+   case'blockcode':{const k=S.lkid;S.code=null;S.kstep=2;S.lerr='Код заблоковано батьком. Попроси тата, щоб він надіслав новий.';note('par',`Код входу для ${FAMILY[k].gen} заблоковано вами.`,['access']);render();toast('Код заблоковано');break}
+   /* вхід дитини */
+   case'getcode':getCode();break;
+   case'verify':verify();break;
+   case'kback':S.kstep=1;S.lerr='';S.code=null;render();break;
+   case'peek':S.peek=true;render();break;
+   case'bind':bind();break;
+   case'peekinv':S.peekInv=!S.peekInv;render();break;
+   case'enter':login(d.k,'Safari, iPad');break;
+   case'klogout':S.kidIn=false;S.dd=null;S.v.kid='login';S.kstep=1;render();toast('Ти вийшов з кабінету');break;
+  }
+});
+$$('.mock [data-role]').forEach(b=>b.onclick=()=>setRole(b.dataset.role));
+$('#layerSel').onchange=e=>{S.layer=e.target.value==='1';if(!S.layer){S.role='par';if(KIDV.includes(S.v.par))S.v.par='svc';S.wz=null;S.cat='all'}render()};
+$('#resetBtn').onclick=()=>{const l=S.layer;S=S0();S.layer=l;mclose();render();toast('Демо скинуто')};
+$('#ovl').addEventListener('click',e=>{if(e.target.id==='ovl')mclose()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){mclose();S.dd=null;renderDD()}});
+setInterval(()=>{
+  if(!S.code)return;
+  if(!codeLive()){S.code=null;render();return}
+  const a=$('#accT');if(a)a.textContent=left();
+  const k=$('#kT');if(k)k.innerHTML=`Код дійсний ще <b style="color:var(--ink)">${left()}</b>`;
+},1000);
+
+/* ================= ПУТІВНИК ================= */
+const TOUR={open:false,flow:null,step:0,done:[],hl:null,scrolled:-1,flash:false};
+try{TOUR.done=JSON.parse(localStorage.getItem('kidCabTourDone')||'[]')}catch(e){}
+const fresh=(role,v,o={})=>{S=S0();S.layer=true;S.role=role||'par';if(o.kidIn){S.kidIn=true;S.kid='marko';S.sess='12.12.2026';S.sessDev='Chrome, macOS'}if(v)S.v[S.role]=v;mclose();render()};
+const R=r=>({t:`Переключись на роль <b>«${{par:'Батько',kid:'Дитина'}[r]}»</b> у темній панелі зверху.`,sel:`.mock [data-role="${r}"]`,done:()=>S.role===r,act:()=>setRole(r)});
+const pyReq=()=>S.reqs.find(x=>x.club==='py'&&x.by==='kid');
+const FLOWS=[
+ {id:'kidapply',name:'Дитина просить гурток, тато підтверджує',ds:'Заява з кабінету дитини → рішення батька → заклад → розклад',min:3,start:()=>fresh('kid','home',{kidIn:1}),steps:[
+  {t:'Це кабінет Марка, 12 років, у дизайні нового кабінету Порталу. Зараз він ходить на шахи й робототехніку. У блоці <b>«Гуртки для тебе»</b> відкрий «Основи програмування Python».',sel:'.scard[data-s="py"]',done:()=>S.v.kid==='club'&&S.sub.kid==='py'},
+  {t:'Бюджетна група, накладок з розкладом немає. Натисни <b>«Записатись»</b>.',sel:'[data-a="apply-start"]',done:()=>S.wz&&S.wz.k==='apply'},
+  {t:'Дані підтягнулися з реєстрів, розклад перевірено. Натисни <b>«Далі»</b>.',sel:'[data-a="wz-next"]',done:()=>S.wz&&S.wz.step>=1},
+  {t:'Марко не дає згоду на обробку даних і нічого не оплачує — це робить тато. Натисни <b>«Надіслати татові»</b>.',sel:'[data-a="apply-submit"]',done:()=>!!pyReq()},
+  R('par'),
+  {t:'У «Моїх послугах» з’явилась картка «Потребує вашого рішення». Натисни <b>«Переглянути»</b>.',sel:'.alert [data-a="go"]',done:()=>S.v.par==='approve'},
+  {t:'Тато бачить розклад, оплату, накладки з іншими заняттями й дорогу від школи. Натисни <b>«Підтвердити»</b>.<span class="why">Можна й «Відхилити» — тоді Марко отримає сповіщення про відмову.</span>',sel:'[data-a="req-ok"]',done:()=>pyReq()&&pyReq().st!=='pend'},
+  {t:'Заяву передано в заклад. Рішення прийде за кілька секунд.',wait:'Заклад розглядає заяву…',done:()=>pyReq()&&!['pend','review'].includes(pyReq().st)},
+  R('kid'),
+  {t:'Python уже в тижні Марка (субота, 11:00), а сповіщення про зарахування отримали і він, і тато.',sel:'#week',manual:1}]},
+ {id:'login',name:'Вхід дитини з нового пристрою',ds:'ID дитини і одноразовий код, який приходить батькові',min:2,start:()=>fresh('kid','login'),steps:[
+  {t:'Марко відкрив Портал на новому комп’ютері. Пристрій не прив’язаний, тож потрібен код від тата. ID уже введено. Натисни <b>«Надіслати код татові»</b>.',sel:'[data-a="getcode"]',done:()=>S.kstep===2&&!!S.code},
+  R('par'),
+  {t:'Запит видно просто в «Моїх послугах». Відкрий у меню <b>«Доступ до кабінетів»</b>.',sel:'.sit[data-v="access"]',done:()=>S.v.par==='access'},
+  {t:'Хто, звідки й коли просить вхід, і сам код. Якщо це не Марко, код можна заблокувати. Запам’ятай 6 цифр.',sel:'#accreq',manual:1},
+  R('kid'),
+  {t:'Введи код, який бачив тато.<span class="why">Забув? «Зробити за мене» введе його.</span>',sel:'#codebox',done:()=>S.kidIn,act:()=>{if(!codeLive())getCode();const c=S.code.split('');$$('#codebox input').forEach((b,i)=>{b.value=c[i]});verify()}},
+  {t:'Марко у своєму кабінеті. Сесія діє 30 днів, і тато може завершити її будь-коли. Пройдися меню ліворуч.',sel:'#side',manual:1}]},
+ {id:'voucher',name:'Ваучер на платний гурток',ds:'Місто платить 500 ₴ на місяць, батьки доплачують решту',min:3,start:()=>fresh('par','pass'),steps:[
+  {t:'Це Activity Pass дітей. Ваучер Софії вже працює на вокалі, а ваучер Марка вільний. Натисни <b>«Обрати гурток»</b> у картці Марка.',sel:'[data-a="vpick"][data-k="marko"]',done:()=>S.v.par==='catalog'},
+  {t:'Каталог показує лише групи, які приймають ваучер. Відкрий <b>«Англійська через театр»</b>.',sel:'.scard[data-s="eng"]',done:()=>S.v.par==='club'&&S.sub.par==='eng'},
+  {t:'Ціну вже пораховано: 900 ₴ на місяць, з них 500 ₴ платить місто. Натисни <b>«Записати Марка»</b>.',sel:'[data-a="apply-start"]',done:()=>S.wz&&S.wz.k==='apply'},
+  {t:'Натисни <b>«Далі»</b>.',sel:'[data-a="wz-next"]',done:()=>S.wz&&S.wz.step>=1},
+  {t:'Згоду на обробку даних дитини дає батько. Постав позначку.',sel:'[data-a="wz-tg"][data-k="agree"]',done:()=>S.wz&&S.wz.agree},
+  {t:'Натисни <b>«Подати заяву»</b>. Заява батька йде в заклад одразу.',sel:'[data-a="apply-submit"]',done:()=>S.reqs.some(r=>r.club==='eng')},
+  {t:'Заява в закладі. Рішення прийде за кілька секунд.',wait:'Заклад розглядає заяву…',done:()=>{const r=S.reqs.find(x=>x.club==='eng');return r&&r.st!=='review'}},
+  {t:'Марка зараховано, ваучер закріпився за цим гуртком. Відкрий у меню <b>«Оплати»</b>.',sel:'.sit[data-v="pay"]',done:()=>S.v.par==='pay'},
+  {t:'Рахунок за грудень: 900 ₴ мінус ваучер 500 ₴, до сплати 400 ₴. Свою частину місто платить закладу за фактично відмічені заняття.',sel:'.prow',manual:1}]},
+ {id:'wallet',name:'Освітній гаманець',ds:'Ліміт для дитини, покупка квитка і запит на табір',min:3,start:()=>fresh('par','wallet',{kidIn:1}),steps:[
+  {t:'Гаманець Марка: 4 000 ₴ від міста на навчальний рік, 200 ₴ уже витрачено на театр. Дозволь Марку купувати самому до <b>200 ₴</b>.',sel:'[data-a="lim"][data-n="200"]',done:()=>S.wal.marko.lim===200},
+  R('kid'),
+  {t:'Відкрий у меню <b>«Освітній гаманець»</b>.',sel:'.sit[data-v="kwallet"]',done:()=>S.v.kid==='kwallet'},
+  {t:'Квиток до Планетарію коштує 150 ₴ — у межах ліміту. Натисни <b>«Купити»</b>.',sel:'[data-a="kbuy"][data-s="planet"]',done:()=>S.tickets.some(t=>t.t==='Київський планетарій')},
+  {t:'Табір коштує 2 400 ₴ — понад ліміт. Натисни <b>«Попросити тата»</b>.',sel:'[data-a="kbuy"][data-s="camp"]',done:()=>S.preqs.some(r=>r.offer==='camp')},
+  R('par'),
+  {t:'Відкрий у меню <b>«Підтвердження»</b>.',sel:'.sit[data-v="approve"]',done:()=>S.v.par==='approve'},
+  {t:'Тато бачить запит, ціну й залишок після оплати. Натисни <b>«Оплатити з гаманця»</b>.',sel:'[data-a="buy-ok"]',done:()=>S.preqs.some(r=>r.offer==='camp'&&r.st!=='pend')},
+  {t:'Табір оплачено з гаманця, квиток уже в Activity Pass Марка. Кошти цільові: готівки, переказів і покупок у магазинах немає, а залишок 31 серпня повертається до бюджету.',manual:1}]},
+ {id:'register',name:'Додати дитину і код запрошення',ds:'Батько додає дитину з реєстру, дитина прив’язує пристрій',min:3,start:()=>fresh('par','kids'),steps:[
+  {t:'Олена, 11 років, ще жодного разу не була на Порталі. Зареєструвати її може лише батько чи мати. Натисни <b>«Додати дитину»</b>.',sel:'.addk',done:()=>S.wz&&S.wz.k==='addkid'},
+  {t:'Портал сам знайшов дітей у Демографічному реєстрі. Обери <b>Олену</b>.',sel:'.opt[data-val="olena"]',done:()=>S.wz&&S.wz.kid==='olena'},
+  {t:'Натисни <b>«Далі»</b>.',sel:'[data-a="wz-next"]',done:()=>S.wz&&S.wz.step>=1},
+  {t:'Усі дані заповнено з реєстрів, біля кожного рядка — джерело. Постав позначку <b>«Дані правильні»</b>.',sel:'[data-a="wz-tg"][data-k="ok"]',done:()=>S.wz&&S.wz.ok},
+  {t:'Натисни <b>«Далі»</b>.',sel:'[data-a="wz-next"]',done:()=>S.wz&&S.wz.step>=2},
+  {t:'Залиш <b>«Відкрити кабінет»</b> і натисни <b>«Далі»</b>.',sel:'[data-a="wz-next"]',done:()=>S.wz&&S.wz.step>=3},
+  {t:'Підпис і є технічне підтвердження згоди. Натисни <b>«Підписати Дія.Підписом»</b>.',sel:'[data-a="sign"]',done:()=>S.wz&&S.wz.step>=4},
+  {t:'Портал видав одноразовий код запрошення і QR. Тато передає їх Олені.',sel:'#invcard',manual:1},
+  R('kid'),
+  {t:'У меню входу обери <b>«Перший вхід за кодом»</b>.',sel:'.sit[data-v="invite"]',done:()=>S.v.kid==='invite'},
+  {t:'Введи код і натисни <b>«Прив’язати пристрій»</b>.<span class="why">Забув код? «Зробити за мене» введе його.</span>',sel:'[data-a="bind"]',done:()=>(S.devices.olena||[]).length>0,act:()=>{const i=$('#linv');if(i&&S.invites.olena)i.value=S.invites.olena.code;bind()}},
+  {t:'Пристрій Олени прив’язано, код більше не діє. Тато отримав сповіщення з назвою пристрою і може його відкликати.',sel:'#main .wz',manual:1}]},
+ {id:'sofia',name:'Відкрити кабінет Софії',ds:'Дитина вже в профілі, але без власного кабінету',min:1,start:()=>fresh('par','access'),steps:[
+  {t:'Софія, 8 років, уже є в профілі тата, але власного кабінету в неї немає. Натисни <b>«Відкрити кабінет для Софії»</b>.',sel:'[data-a="openkid"][data-k="sofia"]',done:()=>S.wz&&S.wz.k==='addkid'},
+  {t:'Дані Софії вже підтверджені, тому одразу крок доступу. Натисни <b>«Далі»</b>.',sel:'[data-a="wz-next"]',done:()=>S.wz&&S.wz.step>=1},
+  {t:'Натисни <b>«Підписати Дія.Підписом»</b>.',sel:'[data-a="sign"]',done:()=>S.access.sofia},
+  {t:'Кабінет для Софії відкрито, і Портал одразу видав код запрошення. Далі все так само, як в Олени.',sel:'#invcard',manual:1}]},
+ {id:'control',name:'Батьківський контроль доступу',ds:'Завершити сесію, вимкнути й повернути доступ',min:2,start:()=>fresh('par','access',{kidIn:1}),steps:[
+  {t:'Марко зараз у своєму кабінеті: видно активну сесію і прив’язаний пристрій. Натисни <b>«Завершити»</b>, щоб розлогінити його.',sel:'[data-a="kill"]',done:()=>!S.kidIn},
+  {t:'Сесію завершено, але Марко може попросити новий код. Щоб заборонити вхід повністю, натисни <b>«Вимкнути доступ»</b>.',sel:'[data-a="acc-tg"][data-k="marko"]',done:()=>!S.access.marko},
+  R('kid'),
+  {t:'Перевіримо. Натисни <b>«Надіслати код татові»</b>.',sel:'[data-a="getcode"]',done:()=>/не відкрито/.test(S.lerr)},
+  {t:'Портал не надсилає код: доступ вимкнено.',manual:1},
+  R('par'),
+  {t:'Поверни доступ: натисни <b>«Увімкнути доступ»</b> у картці Марка.',sel:'[data-a="acc-tg"][data-k="marko"]',done:()=>S.access.marko},
+  {t:'Доступ повернуто. Кожен вхід, підтвердження, прив’язка пристрою і завершення сесії записуються в журнал із часом, пристроєм і IP.',sel:'#main>.info',manual:1}]},
+ {id:'pay',name:'Оплата абонемента',ds:'Ваучер зменшує рахунок, решта з гаманця',min:1,start:()=>fresh('par','notif'),steps:[
+  {t:'У сповіщеннях тата — нагадування про абонемент Софії. Відкрий його.',sel:'#main .row[data-a="note"]',done:()=>S.v.par==='pay'},
+  {t:'Рахунок за листопад уже зменшено ваучером: 640 − 500 = 140 ₴. Натисни <b>«З гаманця»</b>.',sel:'[data-a="payw"]',done:()=>S.pay.every(p=>p.paid)},
+  {t:'Оплату зараховано, а в гаманці Софії поменшало на 140 ₴. У кабінеті дитини оплат немає взагалі.',sel:'#main .list',manual:1}]}
+];
+function tourSave(){try{localStorage.setItem('kidCabTourDone',JSON.stringify(TOUR.done))}catch(e){}}
+const flowById=id=>FLOWS.find(f=>f.id===id);
+function tourTarget(){const f=flowById(TOUR.flow);if(!f)return null;const st=f.steps[TOUR.step];if(!st||!st.sel)return null;let el=null;try{el=document.querySelector(st.sel)}catch(e){}return el&&el.getClientRects().length?el:null}
+function tourHL(el){if(TOUR.hl===el)return;if(TOUR.hl)TOUR.hl.classList.remove('tour-hl');TOUR.hl=el;if(el)el.classList.add('tour-hl')}
+function tourRender(){
+  const box=$('#tour');box.hidden=!TOUR.open;document.body.classList.toggle('tour-open',TOUR.open);$('#tourbtn').classList.toggle('on',TOUR.open);
+  if(!TOUR.open){tourHL(null);return}
+  $('#tour-pr').textContent=TOUR.done.length+' з '+FLOWS.length+' пройдено';
+  const f=flowById(TOUR.flow);let h='';
+  if(!f){h='<p class="intro">Клікабельна копія кабінету «Мої послуги» з Figma і на ній — кабінет батька з розділом «Мої діти» та кабінет дитини з концепту «Мій Київ».<br><br>Обери сценарій. Путівник підсвічує, куди натиснути, і сам переходить далі. Кожен сценарій починається з чистого демо.</p>'+
+    FLOWS.map((x,i)=>{const ok=TOUR.done.includes(x.id);return `<button class="fl${ok?' ok':''}" data-tflow="${x.id}"><span class="no">${ok?'✓':i+1}</span><span><span class="nm">${x.name}</span><span class="ds">${x.ds}</span></span><span class="rl">${x.min} хв</span></button>`}).join('')}
+  else if(TOUR.step>=f.steps.length){const i=FLOWS.indexOf(f),nx=FLOWS[i+1];
+    h=`<div class="kick">Сценарій ${i+1} з ${FLOWS.length}</div><h4>${f.name}</h4><div class="ok-msg" style="margin-top:0">Сценарій пройдено ✓</div><div class="ta">${nx?`<button class="tbn" data-tflow="${nx.id}">Далі: ${nx.name}</button>`:''}<button class="tbn g" data-tlist="1">Усі сценарії</button></div>`}
+  else{const st=f.steps[TOUR.step],j=FLOWS.indexOf(f);
+    h=`<div class="kick">Сценарій ${j+1} · крок ${TOUR.step+1} із ${f.steps.length}</div><h4>${f.name}</h4><div class="bar">${f.steps.map((_,k)=>`<i class="${k<TOUR.step?'d':k===TOUR.step?'c':''}"></i>`).join('')}</div><div class="txt">${st.t}</div>${st.wait?`<div class="wt"><span class="spin"></span>${st.wait}</div>`:''}${TOUR.flash?'<div class="ok-msg">Готово ✓</div>':''}<div class="ta">${st.manual?`<button class="tbn" data-tnext="1">${TOUR.step===f.steps.length-1?'Завершити':'Далі'}</button>`:st.wait?'':`<button class="tbn g" data-tdo="1">Зробити за мене</button>`}</div><div class="tlinks"><button data-trestart="1">↺ Почати спочатку</button><button data-tlist="1">Усі сценарії</button></div>`}
+  $('#tour-body').innerHTML=h;
+}
+function tourStart(id){const f=flowById(id);if(!f)return;TOUR.flow=id;TOUR.step=0;TOUR.scrolled=-1;TOUR.flash=false;TOUR.open=true;tourHL(null);f.start();tourRender()}
+function tourAdvance(){const f=flowById(TOUR.flow);if(!f)return;TOUR.step++;TOUR.scrolled=-1;tourHL(null);
+  if(TOUR.step>=f.steps.length&&!TOUR.done.includes(f.id)){TOUR.done.push(f.id);tourSave()}
+  TOUR.flash=TOUR.step<f.steps.length;tourRender();clearTimeout(TOUR._f);TOUR._f=setTimeout(()=>{if(TOUR.flash){TOUR.flash=false;tourRender()}},1300)}
+function tourTick(){
+  if(!TOUR.open||!TOUR.flow)return;const f=flowById(TOUR.flow);if(!f||TOUR.step>=f.steps.length){tourHL(null);return}
+  const st=f.steps[TOUR.step];if(!st.manual&&st.done()){tourAdvance();return}
+  const el=tourTarget();tourHL(el);
+  if(el&&TOUR.scrolled!==TOUR.step){TOUR.scrolled=TOUR.step;const r=el.getBoundingClientRect(),inFix=el.closest('.mdl,.mock,.chat');if(!inFix&&(r.top<110||r.bottom>innerHeight-20))el.scrollIntoView({behavior:'smooth',block:'center'})}
+}
+function tourDo(){const f=flowById(TOUR.flow);if(!f)return;const st=f.steps[TOUR.step];if(!st)return;if(st.act){st.act();return}const el=tourTarget();if(el)el.click()}
+document.addEventListener('click',e=>{let t;
+  if(e.target.closest('#tourbtn')){TOUR.open=!TOUR.open;tourRender();return}
+  if(e.target.closest('#tour-x')){TOUR.open=false;tourRender();return}
+  if(t=e.target.closest('[data-tflow]')){tourStart(t.dataset.tflow);return}
+  if(e.target.closest('[data-tlist]')){TOUR.flow=null;tourHL(null);tourRender();return}
+  if(e.target.closest('[data-tnext]')){tourAdvance();return}
+  if(e.target.closest('[data-trestart]')){tourStart(TOUR.flow);return}
+  if(e.target.closest('[data-tdo]')){tourDo();return}
+});
+setInterval(tourTick,300);
+
+/* ================= СТАРТ ================= */
+(()=>{const h=decodeURIComponent(location.hash);
+  if(/clean/.test(h))document.body.classList.add('clean');
+  if(/base/.test(h))S.layer=false;
+  const m=h.match(/role=(\w+)/);if(m&&['par','kid'].includes(m[1]))S.role=m[1];
+  if(/[#&]in(&|$)/.test(h)){S.kidIn=true;S.sess='12.12.2026';S.sessDev='Chrome, macOS'}
+  const v=h.match(/v=(\w+)/);if(v)S.v[S.role]=v[1];
+  render();
+  const t=h.match(/tour=(\w+)/);if(t&&flowById(t[1]))tourStart(t[1]);else if(/tour/.test(h)){TOUR.open=true;tourRender()}else tourRender();
+})();
+</script>
+</body>
+</html>
